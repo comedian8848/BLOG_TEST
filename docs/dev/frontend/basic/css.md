@@ -1,5 +1,5 @@
 ---
-title: CSS 基础
+title: CSS
 date: 2021-10-21
 tags:
   - FrontEnd

@@ -5,8 +5,8 @@ module.exports = [
 		children: [
 			'./basic/html',
 			'./basic/css',
-			'./basic/js',
 			'./basic/markdown',
+			'./basic/js',
 			'./basic/cloud',
 		]
 	},

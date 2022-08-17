@@ -1,5 +1,5 @@
 ---
-title: JS 基础
+title: JS
 date: 2021-11-7
 tags:
   - FrontEnd
