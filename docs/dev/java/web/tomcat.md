@@ -65,7 +65,7 @@ web应用程序编写完毕后，若想提供给外界访问，需要一个服�
 - web页面可以动态更新
 - 它可以与数据库交互（JDBC）：通过java程序去连接数据库 ——>数据持久化：注册、商品信息、用户信息......
 
-<img src="../../../../.vuepress/public/img/image-20210519165515974.png">
+<img src="./../../../.vuepress/public/img/image-20210519165515974.png">
 
 ### Web服务器
 
@@ -145,7 +145,7 @@ tomcat官网：download
 
 #### tomcat 启动和配置
 
-<img src="../../../../.vuepress/public/img/image-20210519173203590.png">
+<img src="./../../../.vuepress/public/img/image-20210519173203590.png">
 
 bin：存放着运行脚本 ——> start.sh / shutdown.sh
 

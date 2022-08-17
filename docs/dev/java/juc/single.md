@@ -191,7 +191,7 @@ public final int getAndIncrement() {
 }
 ~~~
 
-<img src="../../../../.vuepress/public/img/image-20210801192553197.png">
+<img src="./../../../.vuepress/public/img/image-20210801192553197.png">
 
 原子类的底层都直接和操作系统挂钩，在内存中修改值！Unsafe类是一个很特殊的存在
 
@@ -482,7 +482,7 @@ cas是一种基于锁的操作，而且是乐观锁。在java中锁分为乐观�
 
 点开 Unsafe 类可以发现其方法都是些 native 方法
 
-<img src="../../../../.vuepress/public/img/image-20210801192926744.png">
+<img src="./../../../.vuepress/public/img/image-20210801192926744.png">
 
 **compareAndSet**
 
@@ -558,7 +558,7 @@ public final int getAndAddInt(Object var1, long var2, int var4) {
 
 在以下情形，线程1并不会知道变量A已经被线程2动过了，只会继续执行它的CAS操作，这样是不对的（狸猫换太子）
 
-<img src="../../../../.vuepress/public/img/image-20210801214045149.png">
+<img src="./../../../.vuepress/public/img/image-20210801214045149.png">
 
 ### 原子引用
 
@@ -568,13 +568,13 @@ public final int getAndAddInt(Object var1, long var2, int var4) {
 AtomicStampedReference<V>
 ~~~
 
-<img src="../../../../.vuepress/public/img/image-20210802152221674.png">
+<img src="./../../../.vuepress/public/img/image-20210802152221674.png">
 
 该类用版本号的方式防止ABA问题，即每次cas操作后手动令版本号（stamp）加一，若线程中事先获得的版本号与当前类版本号不符，则无法实现cas操作
 
 不符是指此处在线程 A 中事先记录的 stamp 与 atomicReference.getStamp() 不符，即版本号不符，无法进行 cas 操作
 
-<img src="../../../../.vuepress/public/img/image-20210802164810192.png">
+<img src="./../../../.vuepress/public/img/image-20210802164810192.png">
 
 ~~~java
 import java.util.concurrent.TimeUnit;

@@ -8,7 +8,7 @@ tags:
 
 ## 线程安全的集合类
 
-<img src="../../../../.vuepress/public/img/image-20210730232535767.png">
+<img src="./../../../.vuepress/public/img/image-20210730232535767.png">
 
 ### 集合类不安全
 
@@ -193,7 +193,7 @@ Thread 只能 start 继承了 Runnable（重写了run方法） 的类，怎么�
 
 阅读jdk文档可以发现 Runnable 有一个实现类：FutureTask
 
-<img src="../../../../.vuepress/public/img/image-20210730115727668.png">
+<img src="./../../../.vuepress/public/img/image-20210730115727668.png">
 
 它既是 Runnable 的实现类，又可以由 Callable 进行构造，如此便实现了 Callable 和 Thread 的连接
 
@@ -513,7 +513,7 @@ class MyCache{
 
 什么情况我们会用阻塞队列？ 多线程，线程池
 
-<img src="../../../../.vuepress/public/img/image-20210730230129466.png">
+<img src="./../../../.vuepress/public/img/image-20210730230129466.png">
 
 #### ArrayBlockingQueue
 

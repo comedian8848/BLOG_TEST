@@ -332,7 +332,7 @@ int main(int argc, char * argv[])
 
 启动shell后：一个命令启动一个进程，返回shell再启动其他进程
 
-<img src="../../../../.vuepress/public/img/image-20210510172035101.png">
+<img src="./../../../.vuepress/public/img/image-20210510172035101.png">
 
 #### 多进程如何组织
 
@@ -344,7 +344,7 @@ PCB + 状态 + 队列
 
 3、进程的状态：
 
-<img src="../../../../.vuepress/public/img/image-20210510173049546.png">
+<img src="./../../../.vuepress/public/img/image-20210510173049546.png">
 
 #### 多进程如何交替
 
@@ -375,7 +375,7 @@ CPU和PCB中的信息互相覆盖，扣住，实现进程的交替
 
 所有的进程都存放在内存中（CPU的取指执行均发生在内存中），所有的进程特权级均为3，即相互之间的访问不受限制，我们通过映射表实现多进程地址空间的分离，即其地址数值为键，真实地址为值储存于映射表中，当多进程地址重合时，重合的是其键，而非其值，这样实现多进程的共存
 
-<img src="../../../../.vuepress/public/img/image-20210513172743279.png">
+<img src="./../../../.vuepress/public/img/image-20210513172743279.png">
 
 #### 进程同步
 
@@ -438,7 +438,7 @@ PC通过映射表切换到不同指令
 | 一个线程从用来处理图片       |
 | 一个线程用来显示图片         |
 
-<img src="../../../../.vuepress/public/img/image-20210513174546123.png">
+<img src="./../../../.vuepress/public/img/image-20210513174546123.png">
 
 不同进程的运行速度不同，例如在加载大动画时文本已经加载好，提升用户的交互性
 

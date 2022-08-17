@@ -110,7 +110,7 @@ $$
 \Chi^2_{1-\frac{\alpha}{2}}\quad\quad\Chi^2_{\frac{\alpha}{2}}
 $$
 
-<img src="../../../../.vuepress/public/img/kafang.png">
+<img src="./../../../.vuepress/public/img/kafang.png">
 
 对于非标准正态分布的总体`X~N(u,a^2)`
 

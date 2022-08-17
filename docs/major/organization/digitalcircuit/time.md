@@ -98,7 +98,7 @@ tags:
 
 上述状态转换表其对应的状态转换图
 
-<img src="C:\File\blog\.vuepress\public\img\image-20220530145753498.png">
+<img src="../../../.vuepress/public/img/image-20220530145753498.png">
 
 - 圆圈表示电路的各个状态
 - 箭头表示状态的转换方向
@@ -110,7 +110,7 @@ tags:
 
 为`JK`触发器，在下降沿发生变化
 
-<img src="C:\File\blog\.vuepress\public\img\image-20220530150637656.png">
+<img src="../../../.vuepress/public/img/image-20220530150637656.png">
 
 每遇到一个下降沿，`CP`的顺序加一
 
@@ -147,7 +147,7 @@ tags:
 - 实现数据的串行并行的转换
 - 数值运算及数据处理
 
-<img src="C:\File\blog\.vuepress\public\img\image-20220530154826249.png">
+<img src="../../../.vuepress/public/img/image-20220530154826249.png">
 
 双向移位寄存器`74LS194A`？？？
 
@@ -221,7 +221,7 @@ T触发器组成的八位二进制计数器
 
 T触发器实现的同步计数器
 
-<img src="C:\File\blog\.vuepress\public\img\image-20220601140236494.png">
+<img src="../../../.vuepress/public/img/image-20220601140236494.png">
 
 | 计数顺序 | `Q3` | `Q2` | `Q1` | `Q0` | 对应十进制数 | 进位输出 |
 | -------- | ---- | ---- | ---- | ---- | ------------ | -------- |
@@ -246,7 +246,7 @@ T触发器实现的同步计数器
 - 利用第十六个计数脉冲（第十六个下降沿）到达C端的下降沿作为向更高位进位的输出信号
 - N位二进制计数器的容量位`2^N-1`
 
-<img src="C:\File\blog\.vuepress\public\img\image-20220601141131964.png">
+<img src="../../../.vuepress/public/img/image-20220601141131964.png">
 
 对于计数器，其各位翻转的频率以2为倍数递减，因此也被称作分频器
 
@@ -285,23 +285,23 @@ T触发器实现的同步计数器
 
 T触发器构成的同步十进制计数器
 
-<img src="C:\File\blog\.vuepress\public\img\image-20220601150853608.png">
+<img src="../../../.vuepress/public/img/image-20220601150853608.png">
 
 状态转换图
 
 - 储存情况下不存在但理论上存在的状态（`10,11,12,13,14,15`）也要计算出来
 
-<img src="C:\File\blog\.vuepress\public\img\image-20220601150920121.png">
+<img src="../../../.vuepress/public/img/image-20220601150920121.png">
 
 `JK`构成的同步十进制加法计数器`74160`
 
 十进制减法计数器：
 
-<img src="C:\File\blog\.vuepress\public\img\image-20220601151655497.png">
+<img src="../../../.vuepress/public/img/image-20220601151655497.png">
 
 十进制减法计数器状态转换图：
 
-<img src="C:\File\blog\.vuepress\public\img\image-20220601151542885.png">
+<img src="../../../.vuepress/public/img/image-20220601151542885.png">
 
 异步计数器略，和同步计数器基本一致
 
@@ -325,22 +325,17 @@ T触发器构成的同步十进制计数器
 
 使用置零法将十进制计数器74160接成6进制计数器
 
-<img src="../../../../.vuepress/public/img/image-20220623190956346.png">
+<img src="./../../../.vuepress/public/img/image-20220623190956346.png">
 
 能够自启动：当遇到干扰在无效状态，在有限步能够回到主循环中，则称为能够自启动的电路
 
 置零信号持续时间极短，容易导致电路误动作，如太短没有捕捉到，持续上升为`6`，我们常在G门输出端增加基本RS触发器（锁存器）增加指令信号作用时间
-
-<img src="../../../../.vuepress/public/img/image-20220623192528098.png">
 
 - 只要出现置零信号，就把这个信号存在RS触发器中直到下一个时钟信号到来
 
 置数法，将要跳过的状态输出接到$\overline{LD}$端
 
 - 置入一个数：置入0；置入最大值，如进入11时置入15
-
-<img src="../../../../.vuepress/public/img/image-20220623192553929.png">
-
 - 74160的置数是同步的，更可靠
 - 相应速度要慢一点
 
@@ -356,11 +351,7 @@ T触发器构成的同步十进制计数器
 
 将十进制计数器74160串为十六进制计数器
 
-<img src="../../../../.vuepress/public/img/image-20220623194856162.png">
-
 串行进位方式
-
-<img src="../../../../.vuepress/public/img/image-20220623201012388.png">
 
 ##### 整体置零、置数
 
@@ -369,11 +360,7 @@ T触发器构成的同步十进制计数器
 - 将十进制串成一百进制计数器
 - 再通过置零法将一百进制降为二十九进制计数器
 
-<img src="../../../../.vuepress/public/img/image-20220623201152376.png">
-
 整体置数法：与整体置零步骤差不多，只不过在降低进制时用的是置数法
-
-<img src="../../../../.vuepress/public/img/image-20220623201335461.png">
 
 #### 移位寄存器计数器
 
@@ -381,31 +368,21 @@ T触发器构成的同步十进制计数器
 
 环形计数器，记录时钟信号脉冲次数：
 
-<img src="../../../../.vuepress/public/img/20220623202437.png">
+<img src="./../../../.vuepress/public/img/20220623202437.png">
 
-其对应的状态转换图
-
-<img src="../../../../.vuepress/public/img/image-20220623202915453.png">
-
-能自启动的环形计数器：
-
-<img src="../../../../.vuepress/public/img/image-20220623203023682.png">
+能自启动的环形计数器
 
 状态转换图
-
-<img src="../../../../.vuepress/public/img/image-20220623203109101.png">
 
 ##### 扭环形计数器
 
 提高了环形计数器状态利用率
 
-<img src="../../../../.vuepress/public/img/image-20220623203554173.png">
-
 - 同样无法自启动，存在无效循环
 
 能自启动的扭环形计数器
 
-<img src="../../../../.vuepress/public/img/image-20220623203840767.png">
+<img src="./../../../.vuepress/public/img/image-20220623203840767.png">
 
 ### 顺序脉冲发生器
 
@@ -442,27 +419,17 @@ T触发器构成的同步十进制计数器
 
 设计一个带有进位输出的十三进制计数器
 
-<img src="../../../../.vuepress/public/img/image-20220623210458749.png">
-
 对应状态转换表
-
-<img src="../../../../.vuepress/public/img/image-20220623210518768.png">
 
 通过卡诺图化简逻辑式
 
-<img src="../../../../.vuepress/public/img/image-20220623212225895.png">
-
 得到化简状态、输出方程
-
-<img src="../../../../.vuepress/public/img/image-20220623212312287.png">
 
 将驱动方程代入触发器的驱动方程
 
-<img src="../../../../.vuepress/public/img/image-20220623212358457.png">
-
 最后画出电路图
 
-<img src="../../../../.vuepress/public/img/image-20220623212432584.png">
+<img src="./../../../.vuepress/public/img/image-20220623212432584.png">
 
 检查电路是否能够自启动，通过判断电路的状态转换表，若存在无效的循环，则无法自启动，需要进行改善
 

@@ -164,7 +164,7 @@ combine the tortoise and hare
 
 当`b`和`n`同时存在于`fringe`，`n`是`a`祖先，若`g(n)<g(b)、f(a)<=f(n)`，又必然`h(a)=h(b)`，在此时一定会选择`n`扩展，达到节点`a`，同理若`f(c)<f(n)`，一定也会往`c`扩展
 
-<img src="../../../../.vuepress/public/img/image-20220422175320990.png">
+<img src="./../../../.vuepress/public/img/image-20220422175320990.png">
 
 不可能发生先到达`b`再到达`a`的情况，因为他们总拥有公共祖先，于是具有可容启发式的A*搜索获得了最优性
 
@@ -306,7 +306,7 @@ The Waltz Algorithm
 - domain cloud
 - forward checking
 
-<img src="../../../../.vuepress/public/img/image-20220428201746597.png">
+<img src="./../../../.vuepress/public/img/image-20220428201746597.png">
 
 但注意他只会检查立即发生的错误，即只推演一步，而不是多步
 
@@ -318,7 +318,7 @@ The Waltz Algorithm
 
 - it's already doomed
 
-<img src="../../../../.vuepress/public/img/image-20220428201915626.png">
+<img src="./../../../.vuepress/public/img/image-20220428201915626.png">
 
 **Constraint Propagation**
 

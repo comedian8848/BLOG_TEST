@@ -239,7 +239,7 @@ Armstrong公理：
 
 函数依赖闭包：
 
-<img src="../../../../.vuepress/public/img/image-20220613113848759.png">
+<img src="./../../../.vuepress/public/img/image-20220613113848759.png">
 
 `X`关于函数依赖集`F`的闭包`X+`：
 

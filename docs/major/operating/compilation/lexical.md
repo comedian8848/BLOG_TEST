@@ -73,7 +73,7 @@ tags:
 
 ### 编译过程
 
-<img src="../../../../.vuepress/public/img/image-20210921225428808.png">
+<img src="./../../../.vuepress/public/img/image-20210921225428808.png">
 
 #### 词法分析
 
@@ -93,7 +93,7 @@ tags:
 
 【用一棵树表示一个赋值语句】
 
-<img src="../../../../.vuepress/public/img/image-20210923093357647.png">
+<img src="./../../../.vuepress/public/img/image-20210923093357647.png">
 
 #### 中间代码产生
 
@@ -273,7 +273,7 @@ for(int k = 1; k <= 100; k++){
   3. 接着，我们用A代码编译器编译这个用L语言写的编译器的源代码，得到A代码版本的P2’（可执行程序），P2‘实现了P2的功能，能将L语言翻译成B代码，从L代码实现变成了用A代码实现
   4. 最后，我们用P2’编译P2（将L语言翻译为B代码），终于把用L语言写的编译器P2源码编译为B代码实现的编译器P2‘’，同样实现了P2的功能，将L语言转换为B代码
 
-<img src="../../../../.vuepress/public/img/image-20210923165335119.png">
+<img src="./../../../.vuepress/public/img/image-20210923165335119.png">
 
 自编译方式
 
@@ -385,7 +385,7 @@ E ——> （E）：当算数表达式加上括号，仍为一个算数表达式
 
 - 程序的层次结构能够让人们从下至上理解
 
-<img src="../../../../.vuepress/public/img/image-20210923175452093.png">
+<img src="./../../../.vuepress/public/img/image-20210923175452093.png">
 
 程序语言成分的逻辑和实现意义
 

@@ -205,7 +205,7 @@ public enum State {
 
 ### Lock锁
 
-<img src="../../../../.vuepress/public/img/image-20210724011140984.png">
+<img src="./../../../.vuepress/public/img/image-20210724011140984.png">
 
 #### Synchronized锁
 

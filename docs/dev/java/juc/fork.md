@@ -356,7 +356,7 @@ public void test3(){
 
 异步和同步的区别，类似普通方法和同步方法的区别
 
-<img src="../../../../.vuepress/public/img/image-20210731192752437.png">
+<img src="./../../../.vuepress/public/img/image-20210731192752437.png">
 
 继承关系：Future ——> **CompletableFuture**
 

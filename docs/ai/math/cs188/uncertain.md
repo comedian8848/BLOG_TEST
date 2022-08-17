@@ -295,7 +295,7 @@ think about these domain
 
 这样我们能通过更少的变量主键确定一张联合概率表
 
-<img src="../../../../.vuepress/public/img/image-20220515143931060.png">
+<img src="./../../../.vuepress/public/img/image-20220515143931060.png">
 
 ## Bayes' Nets
 
@@ -544,7 +544,7 @@ R ——> T/D，T/D ——> S
 
 在逻辑上他们是等价的，但在特定情况我们应选择更合理的结构
 
-<img src="../../../../.vuepress/public/img/image-20220508231247.png">
+<img src="./../../../.vuepress/public/img/image-20220508231247.png">
 
 **Summary**
 
@@ -721,7 +721,7 @@ Evidence
 
 第一步的连接将条件转为结果，在第二步对这个无关的结果进行了塌陷（变量消除）
 
-<img src="../../../../.vuepress/public/img/image-20220515151102382.png">
+<img src="./../../../.vuepress/public/img/image-20220515151102382.png">
 
 变量排序
 

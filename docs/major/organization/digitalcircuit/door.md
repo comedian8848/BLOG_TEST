@@ -97,7 +97,7 @@ tags:
 | m12  | m13  | m15  | m14  |
 | m8   | m9   | m11  | m10  |
 
-<img src="../../../../.vuepress/public/img/image-20220427172409286.png">
+<img src="./../../../.vuepress/public/img/image-20220427172409286.png">
 
 将函数表示为最小项和的形式
 
@@ -121,7 +121,7 @@ tags:
 - 所有1都要被圈过
 - 每画一个新圈必须要有一个1是没被圈过的，不然这个圈就是多余的
 
-<img src="../../../../.vuepress/public/img/image-20220427175456511.png">
+<img src="./../../../.vuepress/public/img/image-20220427175456511.png">
 
 画俩大圈
 
@@ -155,7 +155,7 @@ tags:
 
 - 约束条件项，各项均为X
 
-<img src="../../../../.vuepress/public/img/image-20220427193034351.png">
+<img src="./../../../.vuepress/public/img/image-20220427193034351.png">
 
 X默认当作1，充当用于画圈的工具人
 
@@ -294,11 +294,11 @@ P、N极，截止从低到高的电压
 
 考量D和S（漏源）之间的关系，二者相当于一个背靠背的N、P、N极，之间一定是一个截止状态（就相当于两个背靠背的二极管串联）
 
-<img src="../../../../.vuepress/public/img/image-20220502133831179.png">
+<img src="./../../../.vuepress/public/img/image-20220502133831179.png">
 
 当GB通电，即增加垂直电场，少子上移，局部构成N型半导体，称为反型层
 
-<img src="../../../../.vuepress/public/img/image-20220502135900865.png">
+<img src="./../../../.vuepress/public/img/image-20220502135900865.png">
 
 此时N-P-N转变为N-N-N，加上横向电场，SD之间可以导通：导电沟道（N型区域、反型层）
 
