@@ -1,8 +1,8 @@
 //核心配置文件
 
 module.exports = {
-    title: 'Study Docs',
-    description: 'reco',
+    title: "NorthBoat's Study Room",
+    description: '见素抱朴，少私寡欲',
     dest: './dist/',
     base: '',
     port: '7777',
