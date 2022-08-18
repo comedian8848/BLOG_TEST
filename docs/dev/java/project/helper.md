@@ -8,7 +8,7 @@ categories:
   - WebApp
 ---
 
-<img src="../../../../.vuepress/public/img/tomcat.png">
+<img src="./../../../.vuepress/public/img/tomcat.png">
 
 ## 源码
 
@@ -2674,29 +2674,29 @@ docker exec -it -u root 24795ac94ae7 /bin/sh
 
 可以使用date -R 查看时间
 
-<img src="../../../../.vuepress/public/img/1301684-20201217164239479-2106515367.png">
+<img src="./../../../.vuepress/public/img/1301684-20201217164239479-2106515367.png">
 
 **在容器中创建文件**
 
 mkdir -p /usr/share/zoneinfo/Asia
 
-<img src="../../../../.vuepress/public/img/1301684-20201217164505021-1963467622.png">
+<img src="./../../../.vuepress/public/img/1301684-20201217164505021-1963467622.png">
 
 **回到宿主机，复制宿主机里的文件到容器中**
 
 docker cp /usr/share/zoneinfo/Asia/Shanghai 容器ID或容器名:/usr/share/zoneinfo/Asia
 
-<img src="../../../../.vuepress/public/img/1301684-20201217164456178-542310198.png">
+<img src="./../../../.vuepress/public/img/1301684-20201217164456178-542310198.png">
 
 **进入容器docker exec -it -u root 容器Id或容器名 bash**
 
 执行命令 cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
-<img src="../../../../.vuepress/public/img/1301684-20201217164442047-1076229095.png">
+<img src="./../../../.vuepress/public/img/1301684-20201217164442047-1076229095.png">
 
 **执行date -R 查看时区显示时间是否正确**
 
-<img src="../../../../.vuepress/public/img/1301684-20201217164530636-733019213.png">
+<img src="./../../../.vuepress/public/img/1301684-20201217164530636-733019213.png">
 
 搞定
 

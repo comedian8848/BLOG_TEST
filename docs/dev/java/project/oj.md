@@ -534,7 +534,7 @@ npm run build
 
 目录结构
 
-<img src="../../../../.vuepress/public/img/深度截图_选择区域_20220731173502.png">
+<img src="./../../../.vuepress/public/img/深度截图_选择区域_20220731173502.png">
 
 [github-link](https://github.com/NorthBoat/MyOJ/tree/master/My-OJ-Client)
 
