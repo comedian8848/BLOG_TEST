@@ -5,6 +5,7 @@ module.exports = [
 		collapsable: true,
 		children: [
 			'./server/centos',
+			'./server/manjaro',
 		]
 	},
 	
