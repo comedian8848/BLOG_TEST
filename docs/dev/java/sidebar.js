@@ -41,5 +41,19 @@ module.exports = [
 			'./frame/springboot',
 		]
 	},
+
+	{
+		title: 'Project',
+		collapsable: true,
+		children: [
+			'./project/helper',
+			'./project/shutdown',
+			'./project/performance',	
+			'./project/post',
+			'./project/controller',
+			'./project/oj',	
+			'./project/seckill',
+		]
+	},
 	
 ]
