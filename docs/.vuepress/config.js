@@ -8,7 +8,7 @@ module.exports = {
     port: '7777',
 	
     head: [
-        ['link', {rel: 'icon', href: '/favicon.ico'}]
+        ['link', {rel: 'icon', href: '/leaf.ico'}]
     ],
     markdown: {
         lineNumbers: true
