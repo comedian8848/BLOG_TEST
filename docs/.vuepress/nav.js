@@ -7,14 +7,15 @@ module.exports = [
     },	
 
     {
-	text: 'Artificial Intelligence', 
+        text: 'Developer',
 	items: [
-	    {text: 'Math', link: '/ai/math/'},
-	    {text: 'Python', link: '/ai/python/'},
-	    {text: 'ML', link: '/ai/ml/'},
-	]
-    },	
-	
+            {text: 'C/C++', link: '/dev/c/'},
+            {text: 'Java', link: '/dev/java/'},
+	    {text: 'Front End', link: '/dev/frontend/'},
+	    {text: 'DevOps', link: '/dev/devops/'},
+        ]
+    },
+
 	
     {
 	text: 'Major',
@@ -27,12 +28,13 @@ module.exports = [
     },
 	
     {
-        text: 'Developer',
+	text: 'Artificial Intelligence', 
 	items: [
-            {text: 'C/C++', link: '/dev/c/'},
-            {text: 'Java', link: '/dev/java/'},
-	    {text: 'Front End', link: '/dev/frontend/'},
-	    {text: 'DevOps', link: '/dev/devops/'},
-        ]
+	    {text: 'Math', link: '/ai/math/'},
+	    {text: 'Python', link: '/ai/python/'},
+	    {text: 'ML', link: '/ai/ml/'},
+	]
     }
+
+
 ]
