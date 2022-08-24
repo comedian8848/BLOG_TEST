@@ -611,9 +611,9 @@ int Tony::getNum()
 }
 ~~~
 
-## vipMember
+## VipMember
 
-### vipMember.h
+### VipMember.h
 
 ~~~c
 #pragma once
@@ -636,7 +636,7 @@ private:
 };
 ~~~
 
-### vipMember.cpp
+### VipMember.cpp
 
 ~~~c
 #include "vipMember.h"

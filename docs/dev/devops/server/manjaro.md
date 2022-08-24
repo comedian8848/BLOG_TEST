@@ -9,8 +9,6 @@ tags:
 
 ## 装机
 
-
-
 ### 双系统
 
 > 大一懵懵懂懂捏
@@ -166,7 +164,7 @@ pacman -S fcitx-googlepinyin
 添加配置
 
 ~~~
-vim ~/xprofile
+vim ~/.xprofile
 
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
