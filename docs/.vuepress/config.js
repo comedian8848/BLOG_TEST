@@ -2,7 +2,7 @@
 
 module.exports = {
     title: "NorthBoat's Study Room",
-    description: '片刻宁静',
+    description: '片刻寧靜',
     dest: './dist/',
     base: '',
     port: '7777',
