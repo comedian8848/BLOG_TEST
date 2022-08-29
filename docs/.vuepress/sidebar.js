@@ -8,10 +8,10 @@ module.exports = {
 	'/dev/devops/': require('../dev/devops/sidebar'),
 	
 
-	'/major/datastruct/': require('../major/datastruct/sidebar'),
-	'/major/network/': require('../major/network/sidebar'),
-	'/major/operating/': require('../major/operating/sidebar'),
-	'/major/organization/': require('../major/organization/sidebar'),
+	'/408/datastruct/': require('../408/datastruct/sidebar'),
+	'/408/network/': require('../408/network/sidebar'),
+	'/408/operating/': require('../408/operating/sidebar'),
+	'/408/organization/': require('../408/organization/sidebar'),
 			
 	
 	'/ai/math/': require('../ai/math/sidebar'),
