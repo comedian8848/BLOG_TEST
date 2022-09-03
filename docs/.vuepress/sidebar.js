@@ -5,7 +5,7 @@ module.exports = {
 	'/dev/c/': require('../dev/c/sidebar'),
 	'/dev/java/': require('../dev/java/sidebar'),
 	'/dev/frontend/': require('../dev/frontend/sidebar'),
-	'/dev/devops/': require('../dev/devops/sidebar'),
+	'/dev/ops/': require('../dev/ops/sidebar'),
 	
 
 	'/408/datastruct/': require('../408/datastruct/sidebar'),

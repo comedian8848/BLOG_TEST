@@ -10,9 +10,9 @@ module.exports = [
         text: 'Developer',
 	items: [
             {text: 'C/C++', link: '/dev/c/'},
-            {text: 'Java', link: '/dev/java/'},
+	    {text: 'Ops', link: '/dev/ops/'},
 	    {text: 'Front End', link: '/dev/frontend/'},
-	    {text: 'DevOps', link: '/dev/devops/'},
+	    {text: 'Java', link: '/dev/java/'},    
         ]
     },
 
@@ -30,9 +30,10 @@ module.exports = [
     {
 	text: 'Artificial Intelligence', 
 	items: [
-	    {text: 'Math', link: '/ai/math/'},
+	    {text: 'Mathematics', link: '/ai/math/'},
 	    {text: 'Python', link: '/ai/python/'},
-	    {text: 'ML', link: '/ai/ml/'},
+	    {text: 'Machine Learning', link: '/ai/ml/'},
+	    {text: 'Deep Learning', link: 'https://northboat-blog.netlify.app/album/'}
 	]
     }
 

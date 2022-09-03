@@ -1,5 +1,5 @@
 ---
-title: Docker II
+title: Docker 进阶
 date: 2021-5-17
 categories:
   - WebApp
@@ -7,7 +7,7 @@ tags:
   - Middleware
 ---
 
-## 更多命令
+## 进阶命令
 
 挂载数据卷
 
@@ -42,14 +42,16 @@ exec -it 容器名 /bin/bash
 
 将Web项目挂在tomcat容器内
 
-- 启动tomcat容器，将war包复制进容器 /usr/local/tomcat/webapps/ 目录即可
+- 启动 tomcat 容器，将 war 包复制进容器 /usr/local/tomcat/webapps/ 目录即可
 - 容器会自动解压war包，然后通过 ip:8080/NEUQHelper 即可访问项目
 
 ~~~bash
 docker cp /java/NEUQHelper.war de9dc1076633:/usr/local/tomcat/webapps/
 ~~~
 
-## MySQL
+## Docker+
+
+### MySQL
 
 1、拉取镜像
 
@@ -86,7 +88,7 @@ mysql -h localhost -u root -p
 - 输入密码，登录成功
 
 
-## Tomcat 部署 war 包
+### Tomcat 部署 war 包
 
 1、拉取镜像
 
@@ -135,7 +137,7 @@ mv webapps.dist webapps
 
 ctrl+p+q退出容器，重新访问8080端口
 
-## ProjectorDocker 远程开发
+### ProjectorDocker
 
 1、拉取镜像
 
