@@ -14,6 +14,7 @@ module.exports = [
 		collapsable: true,
 		children: [
 			'./basic/phy',
+			'./basic/datalink',
 		]
 	}
 	
