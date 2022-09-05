@@ -1,13 +1,6 @@
 
 module.exports = [
-	{
-		title: 'TCP/IP Socket in C',
-		collapsable: true,
-		children: [
-			'./socket/tcp',
-			'./socket/udp',
-		]
-	},
+
 	
 	{
 		title: '计网基础',
@@ -16,7 +9,14 @@ module.exports = [
 			'./basic/phy',
 			'./basic/datalink',
 		]
+	},
+	
+	{
+		title: 'TCP/IP Socket in C',
+		collapsable: true,
+		children: [
+			'./socket/tcp',
+			'./socket/udp',
+		]
 	}
-	
-	
 ]

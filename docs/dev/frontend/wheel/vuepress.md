@@ -369,3 +369,35 @@ $backgroundColor = #ffffff                  // 悬浮块背景色
 }
 ~~~
 
+### Math
+
+安装依赖
+
+~~~bash
+npm i markdown-it-texmath
+npm i katex
+~~~
+
+修改 config.js
+
+~~~js
+markdown: {
+  lineNumbers: true,
+  anchor: { permalink: false },
+  toc: {includeLevel: [1,2]},
+  extendMarkdown: md => {
+    md.use(require('markdown-it-texmath'))
+  }
+}
+~~~
+
+head 中添加样式
+
+~~~bash
+['link', {rel:'stylesheet', href:'https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css'}],
+//['link', {rel:'stylesheet', href:'https://gitcdn.xyz/cdn/goessner/markdown-it-texmath/master/texmath.css'}],
+//['script', {src: 'https://github.com/markdown-it/markdown-it/blob/master/bin/markdown-it.js'}],
+//['script', {src: 'https://gitcdn.xyz/cdn/goessner/markdown-it-texmath/master/texmath.js'}],
+['script', {src: 'https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js'}],
+~~~
+
