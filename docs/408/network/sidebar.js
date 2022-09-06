@@ -15,6 +15,7 @@ module.exports = [
 			    './basic/datalinkII',		
 			  ]
 		        },
+			'./basic/network',
 		]
 	},
 	
