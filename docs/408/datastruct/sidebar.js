@@ -4,19 +4,8 @@ module.exports = [
 		title: '算法',
 		collapsable: true,
 		children: [
-			'./algorithm/one',
-			'./algorithm/two',
-			'./algorithm/three',
-			{
-			  title: "Common Algorithm Summary",
-			  collapsable: true,
-			  children: [
-			    './algorithm/summaryI',
-			    './algorithm/summaryII',		
-			  ]
-		        },
-			
-			
+			'./algorithm/search',
+			'./algorithm/dp',
 		]
 	},
 	

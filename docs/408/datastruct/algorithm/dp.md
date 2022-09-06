@@ -1,5 +1,5 @@
 ---
-title: Summary II
+title: DP & Greedy
 date: 2021-6-22
 tags:
   - Algorithm
@@ -447,11 +447,11 @@ class Solution {
 
 最小操作次数使数组元素相等（453）
 
-## KMP算法
+## KMP
 
 Knuth-Morris-Pratt
 
-### 已知next数组匹配字符串
+已知next数组匹配字符串
 
 ~~~c
 #include <iostream>

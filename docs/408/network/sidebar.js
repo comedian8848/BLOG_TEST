@@ -7,7 +7,14 @@ module.exports = [
 		collapsable: true,
 		children: [
 			'./basic/phy',
-			'./basic/datalink',
+			{
+			  title: "数据链路层",
+			  collapsable: true,
+			  children: [
+			    './basic/datalinkI',
+			    './basic/datalinkII',		
+			  ]
+		        },
 		]
 	},
 	
