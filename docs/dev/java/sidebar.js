@@ -1,7 +1,7 @@
 //java的侧边栏
 module.exports = [
 	{
-		title: 'Java',
+		title: 'JavaSE',
 		collapsable: true,
 		children: [
 			'./basic/class',

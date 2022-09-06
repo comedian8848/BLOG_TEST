@@ -1,7 +1,7 @@
 
 module.exports = [
 	{
-		title: '汇编',
+		title: '汇编语言',
 		collapsable: true,
 		children: [
 			'./assembly/addressing',
@@ -11,7 +11,7 @@ module.exports = [
 	},
 	
 	{
-		title: '编译',
+		title: '编译原理',
 		collapsable: true,
 		children: [
 			'./compilation/lexical',

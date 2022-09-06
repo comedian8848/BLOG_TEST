@@ -1,7 +1,7 @@
 
 module.exports = [
 	{
-		title: '数电',
+		title: '电子技术基础',
 		collapsable: true,
 		children: [
 			'./digitalcircuit/door',

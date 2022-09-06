@@ -6,16 +6,25 @@ module.exports = [
 		children: [
 			'./algorithm/one',
 			'./algorithm/two',
-			'./algorithm/summary',
+			'./algorithm/three',
+			{
+			  title: "Common Algorithm Summary",
+			  collapsable: true,
+			  children: [
+			    './algorithm/summaryI',
+			    './algorithm/summaryII',		
+			  ]
+		        },
+			
+			
 		]
 	},
 	
 	{
-		title: '数据结构基础',
+		title: '数据结构',
 		collapsable: true,
 		children: [
 			'./basic/algorithm',
-			'./basic/leetcode',
 			'./basic/struct',
 		]
 	},

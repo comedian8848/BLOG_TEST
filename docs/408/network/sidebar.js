@@ -3,7 +3,7 @@ module.exports = [
 
 	
 	{
-		title: '计网基础',
+		title: '计算机网络',
 		collapsable: true,
 		children: [
 			'./basic/phy',
