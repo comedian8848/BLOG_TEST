@@ -11,5 +11,12 @@ module.exports = [
 		]
 	},
 	
+	{
+		title: '计算机组成原理',
+		collapsable: true,
+		children: [
+			'./basic/num',		
+		]
+	},
 	
 ]
