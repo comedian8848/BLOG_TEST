@@ -177,7 +177,7 @@ IP地址 = 网络前缀+主机号，在表示的时候使用斜线法
 
 重点在于，同一网络的前缀一定相同，这里的前缀指网络号（包括子网号）
 
-<img src="../../../.vuepress/public/img/moreprofix.png">
+<img src="../../../.vuepress/public/img/moreprefix.png">
 
 #### 路由聚合
 
