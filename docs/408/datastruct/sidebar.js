@@ -32,7 +32,7 @@ module.exports = [
 			]
 		    },
 		    {
-			title: "应用",
+			title: "实际应用",
 			collapsable: false,
 			children: [
 			    './database/mysql',
