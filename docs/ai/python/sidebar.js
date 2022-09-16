@@ -1,6 +1,6 @@
 module.exports = [
 	{
-		title: 'Python基础',
+		title: 'Python 基础',
 		collapsable: true,
 		children: [
 			'./basic/build',
@@ -22,7 +22,7 @@ module.exports = [
 	},
 
 	{
-		title: '算法',
+		title: 'AI 玩具',
 		collapsable: true,
 		children: [
 			'./toy/well',

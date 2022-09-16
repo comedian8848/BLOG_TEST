@@ -1,6 +1,6 @@
 module.exports = [
 	{
-		title: 'CS188',
+		title: '人工智能导论',
 		collapsable: true,
 		children: [
 			'./cs188/search',

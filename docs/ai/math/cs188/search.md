@@ -5,6 +5,8 @@ tags:
   - AI
 ---
 
+> 伯克利 CS188
+
 Intro to AI
 
 - think like humam
@@ -13,8 +15,6 @@ Intro to AI
 - act like human
 
 - act rationally
-
-> Search and Planning
 
 ## Search
 
