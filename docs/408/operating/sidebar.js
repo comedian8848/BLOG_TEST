@@ -5,8 +5,14 @@ module.exports = [
 		collapsable: true,
 		children: [
 			'./assembly/addressing',
-			'./assembly/branch',
-			'./assembly/loop',
+			{
+				title: '汇编语言实验',
+				collapsable: true,
+				children: [
+					'./assembly/branch',
+					'./assembly/loop',
+			]
+	},
 		]
 	},
 	

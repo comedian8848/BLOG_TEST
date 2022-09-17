@@ -1,5 +1,5 @@
 ---
-title: 汇编基础知识和调试工具
+title: 汇编概述和寻址方式
 date: 2022-5-27
 tags:
   - Assembly

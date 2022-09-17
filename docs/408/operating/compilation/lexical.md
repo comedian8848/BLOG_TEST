@@ -1,5 +1,5 @@
 ---
-title: 编译原理概述和词法语法分析
+title: 概述和词法语法分析
 date: 2021-9-12
 tags:
   - Compilation
