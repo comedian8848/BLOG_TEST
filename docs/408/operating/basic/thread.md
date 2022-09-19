@@ -1,5 +1,5 @@
 ---
-title: 操作系统引论和进程
+title: 引论和进程管理
 date: 2021-5-21
 tags:
   - OperatingSystem
