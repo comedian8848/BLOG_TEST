@@ -29,8 +29,13 @@ if(_map.count(9)){
 - 遍历：使用元素指针遍历
 
 ~~~c
+map<int, int>::iterator iter;
 for(iter = _map.begin(); iter != _map.end(); iter++) {
     cout << iter->first << " : " << iter->second << endl;
+}
+
+for(auto it: _map){
+    cout << it.first << " : " << it.second << endl;
 }
 ~~~
 
@@ -143,9 +148,16 @@ public:
 
 最大值、最小值函数
 
-```c
+~~~c
 res = max(prices[i]-pre, res);
-```
+~~~
 
+string
 
+遍历 string
 
+~~~c
+for(int i = 0; i < str.size(); i++){
+    cout << str[i] << endl;
+}
+~~~
