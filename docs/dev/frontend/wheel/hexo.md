@@ -18,7 +18,7 @@ arch linx / manjaro 中
 yay -S nodejs
 ~~~
 
-### cnpm和hexo
+### cnpm 和 hexo
 
 ~~~bash
 #查看版本号：检查node是否安装成功
@@ -52,6 +52,8 @@ deploy:
 将主题下载在themes文件夹，修改_config.yml文件themes为新主题文件夹名字(无后缀)
 ~~~
 
+git/github 操作请参照: [git手册](https://northboat-docs.netlify.app/dev/ops/tool/git.html)
+
 ## hexo使用
 
 ~~~bash
@@ -78,10 +80,8 @@ hexo d
 
 ## 更换主题
 
-### 安装主题
+> 查看各主题官方文档教程
 
-查看各主题官方文档教程
+[hexo butterfly](https://butterfly.js.org/)
 
-如 butterfly: [hexo butterfly](https://butterfly.js.org/)
-
-又如 fluid: [hexo fluid](https://fluid-dev.github.io/hexo-fluid-docs/start/)
+[hexo fluid](https://fluid-dev.github.io/hexo-fluid-docs/start/)

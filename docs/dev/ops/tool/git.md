@@ -22,12 +22,20 @@ yay -S git
 安装完成后，在开始菜单里找到 `Git` -> `Git Bash`，蹦出一个类似命令行窗口的东西，就说明Git安装成功！
 还需要最后一步设置，在命令行输入：
 
-```bash
+~~~bash
 git config --global user.name "Your Name"
 git config --global user.email "email@example.com"
-```
+~~~
 
 因为Git是分布式版本控制系统，所以，每个机器都必须自报家门：你的名字和Email地址。
+
+添加 ssh 密匙
+
+~~~bash
+ssh-keygen rsa -t -C "email@example.com"
+~~~
+
+将路径下的 id_rsa.pub 内容添加到 github 的 setting-ssh，本机获取读写权限
 
 ## 创建版本库（仓库）
 
