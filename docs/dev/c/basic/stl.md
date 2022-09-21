@@ -5,7 +5,7 @@ tags:
   - C/C++
 ---
 
-## 接口
+## STL 接口
 
 > 数组和指针这种东西真是太繁琐复杂了，个人愚见，在C++里就尽量使用STL，并且可以用模板的非类型形参来解决这种灵活处理不固定行列数矩阵的函数，Effective C++里面应该有介绍，并且有对这种模板的优化
 
@@ -67,7 +67,9 @@ vec.push_back(4);
 vec.push_back(7);
 ~~~
 
-## 示例
+## 一些示例
+
+### 关于 stl
 
 map 的错误用法
 
@@ -76,6 +78,8 @@ if(m[5] == NULL){
     m[5] = 1;
 }
 ~~~
+
+### vector 和数组
 
 使用`vector<int>`标记代替 bool 数组进行标记，使用`bool row[m], col[n]`在寻址时会报错，说你没初始化，在 c 中，bool 值就是用 int 值实现，所以二者之间可以相互赋值
 
@@ -138,13 +142,64 @@ public:
 };
 ~~~
 
-## 其他库
+### 结构体指针
 
-算术库
+升序合并链表
 
 ~~~c
-#include <algorithm>
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+
+ class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        ListNode* head = new ListNode(-1);
+        ListNode* p = head;
+        while(list1 != NULL && list2 != NULL){
+            if(list1->val <= list2->val){
+                p->next = new ListNode(list1->val);
+                list1 = list1->next;
+            } else {
+                p->next = new ListNode(list2->val);
+                list2 = list2->next;
+            }
+            p = p->next;
+        }
+        while(list1 != NULL){
+            p->next = new ListNode(list1->val);
+            p = p->next;
+            list1 = list1->next;
+        }
+        while(list2 != NULL){
+            p->next = new ListNode(list2->val);
+            p = p->next;
+            list2 = list2->next;
+        }
+
+        return head->next;
+    }
+};
 ~~~
+
+这里第一步初始化 head 是必须的，不可以这样，不知为何
+
+~~~c
+ListNode* head;
+~~~
+
+使用 new ListNode() 的方式构造指针
+
+## 其他库
+
+### algorithm
 
 最大值、最小值函数
 
@@ -152,7 +207,7 @@ public:
 res = max(prices[i]-pre, res);
 ~~~
 
-string
+### string
 
 遍历 string
 
