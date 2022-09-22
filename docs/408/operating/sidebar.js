@@ -24,13 +24,13 @@ module.exports = [
 		]
 	},
 	
-	{
-		title: '操作系统',
-		collapsable: true,
-		children: [
-			'./basic/thread',
-		]
-	},
+	//{
+		//title: '操作系统',
+		//collapsable: true,
+		//children: [
+			//'./basic/thread',
+		//]
+	//},
 	
 	
 ]
