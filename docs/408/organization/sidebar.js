@@ -16,7 +16,7 @@ module.exports = [
 		collapsable: true,
 		children: [
 			'./basic/num',	
-			'./basic/ram',
+			'./basic/memory',
 		]
 	},
 	
