@@ -47,9 +47,6 @@ deploy:
   type: git
   repo: https://github.com/NorthBoat/NorthBoat.github.io
   branch: master
-      
-//更换主题
-将主题下载在themes文件夹，修改_config.yml文件themes为新主题文件夹名字(无后缀)
 ~~~
 
 git/github 操作请参照: [git手册](https://northboat-docs.netlify.app/dev/ops/tool/git.html)
