@@ -284,21 +284,21 @@ ifconfig [网卡名] [要改的ip]
 
 下载mysql，即mariadb（mysql的archlinux封装）
 
-~~~
+~~~bash
 yay -S nodejs
 yay -S npm
 
 npm config set registry https://registry.taobao.org
 npm config get registry
 
-sudp npm install cnpm -g
+sudo npm install cnpm -g
 
-sudp npm install vue -g
+sudo npm install vue -g
 ~~~
 
 博客
 
-~~~
+~~~bash
 sudo npm install vuepress -g
 sudo npm install @vuepress-reco/theme-cli -g
 ~~~
