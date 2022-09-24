@@ -67,6 +67,24 @@ vec.push_back(4);
 vec.push_back(7);
 ~~~
 
+### stack
+
+- top()：返回一个栈顶元素的引用，类型为 T&。如果栈为空，返回值未定义
+- push(const T& obj)：可以将对象副本压入栈顶。这是通过调用底层容器的 push_back() 函数完成的
+- push(T&& obj)：以移动对象的方式将对象压入栈顶。这是通过调用底层容器的有右值引用参数的 push_back() 函数完成的
+- pop()：弹出栈顶元素，**无返回**
+- size()：返回栈中元素的个数
+- empty()：在栈中没有元素的情况下返回 true
+
+### deque
+
+> 在处理首部元素时效率远大于 vector
+
+- push_back(elem)：在容器尾部添加一个数据
+- push_front(elem)：在容器头部插入一个数据
+- pop_back()：删除容器最后一个数据
+- pop_front()：删除容器第一个数据
+
 ## 一些示例
 
 ### 关于 stl
