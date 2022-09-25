@@ -84,6 +84,8 @@ vec.push_back(7);
 - push_front(elem)：在容器头部插入一个数据
 - pop_back()：删除容器最后一个数据
 - pop_front()：删除容器第一个数据
+- front()：返回第一个元素
+- back()：返回末尾元素
 
 ## 一些示例
 
@@ -214,6 +216,46 @@ ListNode* head;
 ~~~
 
 使用 new ListNode() 的方式构造指针
+
+### 对称二叉树
+
+老是忘这个递归，记录一下
+
+~~~c
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        if(root == NULL){
+            return true;
+        }
+        return dfs(root->left, root->right);
+    }
+
+    bool dfs(TreeNode* left, TreeNode* right){
+        if(left == NULL && right == NULL){
+            return true;
+        }
+        if(left == NULL || right == NULL){
+            return false;
+        }
+        if(left->val != right->val){
+            return false;
+        }
+        return dfs(left->right, right->left) && dfs(left->left, right->right);
+    }
+};
+~~~
 
 ## 其他库
 
