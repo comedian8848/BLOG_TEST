@@ -217,22 +217,13 @@ ListNode* head;
 
 使用 new ListNode() 的方式构造指针
 
-### 对称二叉树
+### 递归程序设计
 
-老是忘这个递归，记录一下
+> 老是忘递归，记录一下
+
+对称二叉树，判断一个二叉树是否对称
 
 ~~~c
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
- */
 class Solution {
 public:
     bool isSymmetric(TreeNode* root) {
@@ -256,6 +247,48 @@ public:
     }
 };
 ~~~
+
+路径总和，判断数中是否存在和为 target 的路径，路径指从根节点到叶子节点（递归 dfs）
+
+~~~c
+class Solution {
+public:
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        if(root == NULL){
+            return false;
+        }
+        if(root->val == targetSum && root->left == NULL && root->right == NULL){
+            return true;
+        }
+        return hasPathSum(root->left, targetSum-root->val) || hasPathSum(root->right, targetSum-root->val);
+    }
+};
+~~~
+
+翻转二叉树，将二叉树左右翻转（后序遍历）
+
+~~~c
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        dfsInvert(root);
+        return root;
+    }
+
+    void dfsInvert(TreeNode* node){
+        if(node == NULL){
+            return;
+        }
+        dfsInvert(node->left);
+        dfsInvert(node->right);
+        TreeNode* temp = node->left;
+        node->left = node->right;
+        node->right = temp;
+    }
+};
+~~~
+
+
 
 ## 其他库
 
