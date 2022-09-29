@@ -89,7 +89,7 @@ vec.push_back(7);
 
 ## 一些示例
 
-### 关于 stl
+### stl 的错误用法
 
 map 的错误用法
 
@@ -219,7 +219,7 @@ ListNode* head;
 
 ### 递归程序设计
 
-> 老是忘递归，记录一下
+> 树相关
 
 对称二叉树，判断一个二叉树是否对称
 
@@ -288,7 +288,44 @@ public:
 };
 ~~~
 
+验证搜索二叉树，被折磨了，其实抓住了是边界问题，但没找准，另外这个 int 的溢出真几把恶心，也不说一声
 
+~~~c
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        return dfs(root, LONG_MIN, LONG_MAX);
+    }
+
+    bool dfs(TreeNode* node, long min, long max){
+        if(node == NULL){
+            return true;
+        }
+        long val = node->val;
+        if(val <= min || val >= max){
+            return false;
+        }
+        return dfs(node->left, min, val) && dfs(node->right, val, max);
+    }
+};
+~~~
+
+平衡二叉树的最近公共祖先，其实很简单，因为平衡，所以当目标值和当前节点之差异号时，说明在当前节点两侧
+
+~~~c
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(!root){
+            return NULL;
+        }
+        if((long)(root->val-p->val)*(long)(root->val-q->val) <= 0){
+            return root;
+        }
+        return p->val < root->val ? lowestCommonAncestor(root->left, p, q) : lowestCommonAncestor(root->right, p, q);
+    }
+};
+~~~
 
 ## 其他库
 
