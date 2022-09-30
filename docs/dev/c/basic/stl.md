@@ -327,6 +327,59 @@ public:
 };
 ~~~
 
+### 位运算
+
+出现一次的数字，使用异或操作，数字只会出现一次或两次
+
+- 0 ^ a = a
+- a ^ a = a
+- a ^ a ^ b = b
+
+~~~c
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        int res = 0;
+        for(int i = 0; i < nums.size(); i++){
+            res ^= nums[i];
+        }
+        return res;
+    }
+};
+~~~
+
+### 摩尔投票法
+
+找出数组中出现次数大于 n/2 的数
+
+- 每遇到相同的数，count+1，每遇到不同的数，count-1
+- 当 count = 0，切换选举人为当前元素并重置票数为 1
+- 将数视作两类，即数量为 n/2 的数（计做 x）和其他数，x 因为超过 n/2 个，总会被切换为候选人，且其 count 会被其他数不断 -1，但最终一定会 >= 1，即 card 最终会被保留为 x
+
+~~~c
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int count = 1, card = nums[0];
+        for(int i = 1; i < nums.size(); i++){
+            if(count == 0){
+                card = nums[i];
+                count = 1;
+                continue;
+            }
+            if(card == nums[i]){
+                count++;
+            } else {
+                count--;
+            }
+        }
+        return card;
+    }
+};
+~~~
+
+找出数组中数量大于 n/3 的数
+
 ## 其他库
 
 ### algorithm
