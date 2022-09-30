@@ -378,7 +378,49 @@ public:
 };
 ~~~
 
-找出数组中数量大于 n/3 的数
+229、找出数组中数量大于 n/3 的数
+
+### 排序和双指针
+
+三数之和，一年后又忘鸟
+
+- 解决重复问题，固定起始位，利用双指针缩小范围
+- 当碰到连续的相同元素直接跳过，避免重复
+
+~~~c
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        int n = nums.size();
+        vector<vector<int>> res;
+        for(int i = 0; i < n-2; i++){
+            if(nums[i] > 0){
+                break;
+            }
+            if(i>0 && nums[i]==nums[i-1]){
+                continue;
+            }
+            int l = i+1;
+            int r = n-1;
+            while(l < r){
+                int sum = nums[i]+nums[l]+nums[r];
+                if(sum < 0){
+                    while(l<r && nums[l]==nums[++l]);
+                } else if(sum > 0){
+                    while(l<r && nums[r]==nums[--r]);
+                } else{
+                    vector<int> row = {nums[i], nums[l], nums[r]};
+                    res.push_back(row);
+                    while(l<r && nums[l]==nums[++l]);
+                    while(l<r && nums[r]==nums[--r]);
+                }
+            }
+        }
+        return res;
+    }
+};
+~~~
 
 ## 其他库
 
@@ -388,6 +430,15 @@ public:
 
 ~~~c
 res = max(prices[i]-pre, res);
+~~~
+
+排序函数，排序一段连续的地址
+
+~~~c
+// vec 为 vector
+sort(vec.begin(), vec.end());
+// arr 为数组
+sort(arr, arr+10);
 ~~~
 
 ### string
