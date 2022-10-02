@@ -33,7 +33,7 @@ module.exports = [
 	    {text: 'Mathematics', link: '/ai/math/'},
 	    {text: 'Python', link: '/ai/python/'},
 	    {text: 'Machine Learning', link: '/ai/machinelearning/'},
-	    {text: 'Deep Learning', link: 'https://northboat-blog.netlify.app/album/'}
+	    {text: 'Deep Learning', link: 'https://northboat-blog.netlify.app/music/'}
 	]
     }
 
