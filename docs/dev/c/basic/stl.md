@@ -87,6 +87,16 @@ vec.push_back(7);
 - front()：返回第一个元素
 - back()：返回末尾元素
 
+### pair
+
+> 配合 map 或 vector 使用
+
+- pair<int,int> p (1,1)
+- make_pair('h', 9)
+- vector<pair<int,int>> map
+- map.insert(make_pair(1,2))
+- map.insert(pair<int,int>(1,2))
+
 ## 一些示例
 
 ### stl 的错误用法
@@ -420,6 +430,72 @@ public:
         return res;
     }
 };
+~~~
+
+### 设计哈希集合 & 映射
+
+设计哈希映射，即 map
+
+~~~c
+class MyHashMap {
+
+private:
+    const static int MAX_LEN = 1000;
+
+    vector<pair<int,int>> map[MAX_LEN];
+
+    int getIndex(int key){
+        return key%MAX_LEN;
+    }
+
+    int getPos(int key, int index){
+        for(int i = 0; i < map[index].size(); i++){
+            if(map[index][i].first == key){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+public:
+    MyHashMap() {
+    }
+    
+    void put(int key, int value) {
+        int index = getIndex(key);
+        int pos = getPos(key, index);
+        if(pos == -1){
+            map[index].push_back(make_pair(key, value));
+        } else {
+            map[index][pos].second = value;
+        }
+    }
+    
+    int get(int key) {
+        int index = getIndex(key);
+        int pos = getPos(key, index);
+        if(pos == -1){
+            return -1;
+        }
+        return map[index][pos].second;
+    }
+    
+    void remove(int key) {
+        int index = getIndex(key);
+        int pos = getPos(key, index);
+        if(pos >= 0){
+            map[index].erase(map[index].begin()+pos);
+        }
+    }
+};
+
+/**
+ * Your MyHashMap object will be instantiated and called as such:
+ * MyHashMap* obj = new MyHashMap();
+ * obj->put(key,value);
+ * int param_2 = obj->get(key);
+ * obj->remove(key);
+ */
 ~~~
 
 ## 其他库
