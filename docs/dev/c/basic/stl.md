@@ -67,6 +67,45 @@ vec.push_back(4);
 vec.push_back(7);
 ~~~
 
+- erase() 删除元素
+
+~~~c
+// 删除下标为 1 的元素
+vec.erase(vec.begin()+1);
+~~~
+
+- back() 返回末尾元素
+
+~~~c
+// 合并区间
+// sort() 排序的是每个 vector 的首地址元素，也就是 vec[0]
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        vector<vector<int>> res;
+        sort(intervals.begin(), intervals.end());
+        for(int i = 0; i < intervals.size(); i++){
+            vector<int> cur = intervals[i];
+            if(res.empty() || cur[0] > res.back()[1]){
+                res.push_back(cur);
+            }
+            if(cur[1] > res.back()[1]){
+                res.back()[1] = cur[1];
+            }
+        }
+        return res;
+    }
+};
+~~~
+
+- 初始化固定大小 vector
+
+~~~c
+vector<int> vec(n);
+
+vector<vector<int>> matrix(n, vector<int> (n));
+~~~
+
 ### stack
 
 - top()：返回一个栈顶元素的引用，类型为 T&。如果栈为空，返回值未定义
@@ -91,23 +130,29 @@ vec.push_back(7);
 
 > 配合 map 或 vector 使用
 
-- pair<int,int> p (1,1)
-- make_pair('h', 9)
-- vector<pair<int,int>> map
-- map.insert(make_pair(1,2))
-- map.insert(pair<int,int>(1,2))
-
-## 一些示例
-
-### stl 的错误用法
-
-map 的错误用法
+- 创建 pair
 
 ~~~c
-if(m[5] == NULL){
-    m[5] = 1;
-}
+pair<int,int> p (1,1);
+    
+pair p = make_pair('h', 9);
 ~~~
+
+- vector+pair 实现 map
+
+~~~c
+vector<pair<int,int>> map;
+~~~
+
+- map 插入键值对
+
+~~~c
+map.insert(pair<int,int>(1,2));
+
+map.insert(make_pair(1,2));
+~~~
+
+## 一些示例
 
 ### vector 和数组
 
@@ -172,64 +217,15 @@ public:
 };
 ~~~
 
-### 结构体指针
-
-升序合并链表
-
-~~~c
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) {}
- *     ListNode(int x) : val(x), next(nullptr) {}
- *     ListNode(int x, ListNode *next) : val(x), next(next) {}
- * };
- */
-
- class Solution {
-public:
-    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
-        ListNode* head = new ListNode(-1);
-        ListNode* p = head;
-        while(list1 != NULL && list2 != NULL){
-            if(list1->val <= list2->val){
-                p->next = new ListNode(list1->val);
-                list1 = list1->next;
-            } else {
-                p->next = new ListNode(list2->val);
-                list2 = list2->next;
-            }
-            p = p->next;
-        }
-        while(list1 != NULL){
-            p->next = new ListNode(list1->val);
-            p = p->next;
-            list1 = list1->next;
-        }
-        while(list2 != NULL){
-            p->next = new ListNode(list2->val);
-            p = p->next;
-            list2 = list2->next;
-        }
-
-        return head->next;
-    }
-};
-~~~
-
-这里第一步初始化 head 是必须的，不可以这样，不知为何
-
-~~~c
-ListNode* head;
-~~~
-
-使用 new ListNode() 的方式构造指针
-
 ### 递归程序设计
 
 > 树相关
+
+构造结构体/类指针
+
+~~~c
+ListNode* head = new ListNode(-1); // 必须这样初始化，不能直接 ListNode* head;
+~~~
 
 对称二叉树，判断一个二叉树是否对称
 
@@ -434,7 +430,7 @@ public:
 
 ### 设计哈希集合 & 映射
 
-设计哈希映射，即 map
+设计哈希映射，即 map，使用`vector<pair<int,int>> map[]`的结构，即二维数组进行储存，冲突解决使用简单的除余法，即通过`key%LEN`来确定数据所在的桶
 
 ~~~c
 class MyHashMap {
@@ -488,14 +484,119 @@ public:
         }
     }
 };
+~~~
 
-/**
- * Your MyHashMap object will be instantiated and called as such:
- * MyHashMap* obj = new MyHashMap();
- * obj->put(key,value);
- * int param_2 = obj->get(key);
- * obj->remove(key);
- */
+与上同理，更简单，使用`vector<int> set[]`进行储存
+
+~~~c
+class MyHashSet {
+private:
+    const static int LEN = 1000;
+
+    vector<int> set[LEN];
+
+    int getIndex(int key){
+        return key%LEN;
+    }
+
+    int getPos(int key, int index){
+        for(int i = 0; i < set[index].size(); i++){
+            if(set[index][i] == key){
+                return i;
+            }
+        }
+        return -1;
+    }
+public:
+    MyHashSet() {
+    }
+    
+    void add(int key) {
+        int index = getIndex(key);
+        int pos = getPos(key, index);
+        if(pos == -1){
+            set[index].push_back(key);
+        } else {
+            set[index][pos] = key;
+        }
+    }
+    
+    void remove(int key) {
+        int index = getIndex(key);
+        int pos = getPos(key, index);
+        if(pos >= 0){
+            set[index].erase(set[index].begin()+pos);
+        }        
+    }
+    
+    bool contains(int key) {
+        int index = getIndex(key);
+        int pos = getPos(key, index);
+        if(pos >= 0){
+            return true;
+        }   
+        return false;
+    }
+};
+~~~
+
+### 模拟
+
+杨辉三角也可以模拟，但我选择用数学全排列解
+$$
+C_m^n = \frac{m\times(m-1)\times......\times(m-n+1)}{n!}
+$$
+第 m 行实际上就是
+$$
+[C_m^1, C_m^2,...,C_m^{m-1}, C_m^m]
+$$
+为了避免计算超出边界，利用上一次的计算结果迭代计算，其实还可以改进，因为前后半部分一模一样，时间复杂度可以降低到 O(n/2)
+
+~~~c
+class Solution {
+public:
+    vector<int> getRow(int rowIndex) {
+        vector<int> res;
+        res.push_back(1);
+        for(int i = 0; i < rowIndex; i++){
+            res.push_back((long)res[i]*(rowIndex-i)/(i+1));  
+        }
+        return res;
+    }
+};
+~~~
+
+螺旋矩阵，哈卵题目，麻烦死了
+
+~~~c
+class Solution {
+public:
+    vector<vector<int>> generateMatrix(int n) {
+        vector<vector<int>> res(n, vector<int> (n));
+        int num = 1, tar = n*n;
+        //上下左右边界
+        int l = 0, t = 0, b = n-1, r = n-1;
+        while(num <= tar){
+            for(int i = l; i <= r; i++){
+                res[t][i] = num++;
+            }
+            t++;
+            for(int i = t; i <= b; i++){
+                res[i][r] = num++;
+            }
+            r--;
+            for(int i = r; i >= l; i--){
+                res[b][i] = num++;
+            }
+            b--;
+            for(int i = b; i >= t; i--){
+                res[i][l] = num++;
+            }
+            l++;
+        }
+        return res;
+    }
+};
 ~~~
 
 ## 其他库
