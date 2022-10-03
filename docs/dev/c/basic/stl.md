@@ -602,6 +602,60 @@ public:
 };
 ```
 
+### 贪心算法
+
+> 总是执行当前最佳，条件较苛刻，必须说明这样操作能够找到全局最佳
+
+无重叠区间
+
+```c
+class Solution {
+public:
+    int eraseOverlapIntervals(vector<vector<int>>& intervals) {
+        if(intervals.empty()){
+            return 0;
+        }
+        int n = intervals.size();
+        sort(intervals.begin(), intervals.end(), [](const auto& u, const auto& v){
+            return u[1]<v[1];
+        });
+        int ans = 1;
+        int right = intervals[0][1];
+        for(int i = 1; i < n; i++){
+            if(intervals[i][0] >= right){
+                ans++;
+                right = intervals[i][1];
+            }
+        }
+        return n-ans;
+    }
+};
+```
+
+递增的三元子序列
+
+```c
+class Solution {
+public:
+    bool increasingTriplet(vector<int>& nums) {
+        int n = nums.size();
+        int first = nums[0], second = INT_MAX;
+        for(int i = 1; i < n; i++){
+            if(nums[i] > second){
+                return true;
+            } else if(nums[i] > first){
+                second = nums[i];
+            } else if(nums[i] < first){
+                first = nums[i];
+            }
+        }
+        return false;
+    }
+};
+```
+
+
+
 ## 其他库
 
 ### algorithm
@@ -619,6 +673,21 @@ res = max(prices[i]-pre, res);
 sort(vec.begin(), vec.end());
 // arr 为数组
 sort(arr, arr+10);
+```
+
+排序函数 sort 搭配 lambda 表达式
+
+```c
+// 排序结构体
+sort(begin(vec), end(vec), [](const Student& lhs, const Student& rhs) {
+    return lhs.grade < rhs.grade 
+           || (lhs.grade == rhs.grade && lhs.name < rhs.name)
+});
+
+// 按迭代器的第二个元素从小到大排序
+sort(intervals.begin(), intervals.end(), [](const auto& u, const auto& v){
+    return u[1]<v[1];
+});
 ```
 
 迭代器的最大值，返回的是指向连续地址中最大值的指针，需要使用 * 号取值

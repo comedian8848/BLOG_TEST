@@ -469,7 +469,7 @@ Cache 由 Cache 存储体，地址映射变换机构和 Cache替换机构组成
 
 例题一：单元到块，块到字，字到位的转化
 
-![](../../../.vuepress/public/img/QQ截图20221003211538.png)
+<img src="../../../.vuepress/public/img/QQ截图20221003211538.png">
 
 例题二：每一块不命中一次
 
@@ -560,7 +560,7 @@ Cache 由 Cache 存储体，地址映射变换机构和 Cache替换机构组成
 
 举个栗子：计算地址格式
 
-<img title="" src="../../../.vuepress/public/img/QQ截图20221003145302.png" alt="">
+<img src="../../../.vuepress/public/img/QQ截图20221003145302.png">
 
 <img src="../../../.vuepress/public/img/QQ截图20221003145405.png">
 
