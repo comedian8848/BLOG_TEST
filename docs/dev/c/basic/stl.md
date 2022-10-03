@@ -13,22 +13,22 @@ tags:
 
 - 通过 m[i] = j 插入键值对
 
-~~~c
+```c
 map<int, int> _map;
 _map[9] = 10;
-~~~
+```
 
 - 通过 if(m.count(i)) 判断键 i 是否存，因为只有 1/0
 
-~~~c
+```c
 if(_map.count(9)){
     cout << "9 exist, the value is" << _map[9] << endl;
 }
-~~~
+```
 
 - 遍历：使用元素指针遍历
 
-~~~c
+```c
 map<int, int>::iterator iter;
 for(iter = _map.begin(); iter != _map.end(); iter++) {
     cout << iter->first << " : " << iter->second << endl;
@@ -37,46 +37,46 @@ for(iter = _map.begin(); iter != _map.end(); iter++) {
 for(auto it: _map){
     cout << it.first << " : " << it.second << endl;
 }
-~~~
+```
 
 ### set
 
 - 通过 insert() 函数插入值
 
-~~~c
+```c
 set <int> _set;
 set.insert(7)
-~~~
+```
 
 - 通过 count() 判断是否存在
 
-~~~c
+```c
 if(_set.count(4)){
     cout << "dead" << endl;
 }
-~~~
+```
 
 ### vector
 
 - push_back() 向后插入
 
-~~~c
+```c
 vector<int> vec;
 vec.push_back(1);
 vec.push_back(4);
 vec.push_back(7);
-~~~
+```
 
 - erase() 删除元素
 
-~~~c
+```c
 // 删除下标为 1 的元素
 vec.erase(vec.begin()+1);
-~~~
+```
 
 - back() 返回末尾元素
 
-~~~c
+```c
 // 合并区间
 // sort() 排序的是每个 vector 的首地址元素，也就是 vec[0]
 class Solution {
@@ -96,15 +96,18 @@ public:
         return res;
     }
 };
-~~~
+```
 
-- 初始化固定大小 vector
+- 初始化固定大小 vector，填充值
 
-~~~c
+```c
 vector<int> vec(n);
 
+// 创建长度为 n，值全为 1 的数组
+vector<int> vec(n,1);
+
 vector<vector<int>> matrix(n, vector<int> (n));
-~~~
+```
 
 ### stack
 
@@ -132,25 +135,25 @@ vector<vector<int>> matrix(n, vector<int> (n));
 
 - 创建 pair
 
-~~~c
+```c
 pair<int,int> p (1,1);
-    
+
 pair p = make_pair('h', 9);
-~~~
+```
 
 - vector+pair 实现 map
 
-~~~c
+```c
 vector<pair<int,int>> map;
-~~~
+```
 
 - map 插入键值对
 
-~~~c
+```c
 map.insert(pair<int,int>(1,2));
 
 map.insert(make_pair(1,2));
-~~~
+```
 
 ## 一些示例
 
@@ -160,7 +163,7 @@ map.insert(make_pair(1,2));
 
 - 以下是使用 stl 库避免繁琐的指针数组的一个成功案例：将二维矩阵中为 0 元素的所在行、列元素均置零
 
-~~~c
+```c
 class Solution {
 public:
     void setZeroes(vector<vector<int>>& matrix) {
@@ -184,13 +187,13 @@ public:
         }
     }
 };
-~~~
+```
 
 当然，在知道数组范围的时候，使用数组也是可以的，这里注意数组的初始化语句
 
 - 此为判断九宫格数独游戏是否有解的函数
 
-~~~c
+```c
 class Solution {
 public:
     bool isValidSudoku(vector<vector<char>>& board) {
@@ -215,7 +218,7 @@ public:
         return true;
     }
 };
-~~~
+```
 
 ### 递归程序设计
 
@@ -223,13 +226,13 @@ public:
 
 构造结构体/类指针
 
-~~~c
+```c
 ListNode* head = new ListNode(-1); // 必须这样初始化，不能直接 ListNode* head;
-~~~
+```
 
 对称二叉树，判断一个二叉树是否对称
 
-~~~c
+```c
 class Solution {
 public:
     bool isSymmetric(TreeNode* root) {
@@ -252,11 +255,11 @@ public:
         return dfs(left->right, right->left) && dfs(left->left, right->right);
     }
 };
-~~~
+```
 
 路径总和，判断数中是否存在和为 target 的路径，路径指从根节点到叶子节点（递归 dfs）
 
-~~~c
+```c
 class Solution {
 public:
     bool hasPathSum(TreeNode* root, int targetSum) {
@@ -269,11 +272,11 @@ public:
         return hasPathSum(root->left, targetSum-root->val) || hasPathSum(root->right, targetSum-root->val);
     }
 };
-~~~
+```
 
 翻转二叉树，将二叉树左右翻转（后序遍历）
 
-~~~c
+```c
 class Solution {
 public:
     TreeNode* invertTree(TreeNode* root) {
@@ -292,11 +295,11 @@ public:
         node->right = temp;
     }
 };
-~~~
+```
 
 验证搜索二叉树，被折磨了，其实抓住了是边界问题，但没找准，另外这个 int 的溢出真几把恶心，也不说一声
 
-~~~c
+```c
 class Solution {
 public:
     bool isValidBST(TreeNode* root) {
@@ -314,11 +317,11 @@ public:
         return dfs(node->left, min, val) && dfs(node->right, val, max);
     }
 };
-~~~
+```
 
 平衡二叉树的最近公共祖先，其实很简单，因为平衡，所以当目标值和当前节点之差异号时，说明在当前节点两侧
 
-~~~c
+```c
 class Solution {
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
@@ -331,7 +334,7 @@ public:
         return p->val < root->val ? lowestCommonAncestor(root->left, p, q) : lowestCommonAncestor(root->right, p, q);
     }
 };
-~~~
+```
 
 ### 位运算
 
@@ -341,7 +344,7 @@ public:
 - a ^ a = a
 - a ^ a ^ b = b
 
-~~~c
+```c
 class Solution {
 public:
     int singleNumber(vector<int>& nums) {
@@ -352,7 +355,7 @@ public:
         return res;
     }
 };
-~~~
+```
 
 ### 摩尔投票法
 
@@ -362,7 +365,7 @@ public:
 - 当 count = 0，切换选举人为当前元素并重置票数为 1
 - 将数视作两类，即数量为 n/2 的数（计做 x）和其他数，x 因为超过 n/2 个，总会被切换为候选人，且其 count 会被其他数不断 -1，但最终一定会 >= 1，即 card 最终会被保留为 x
 
-~~~c
+```c
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
@@ -382,7 +385,7 @@ public:
         return card;
     }
 };
-~~~
+```
 
 229、找出数组中数量大于 n/3 的数
 
@@ -393,7 +396,7 @@ public:
 - 解决重复问题，固定起始位，利用双指针缩小范围
 - 当碰到连续的相同元素直接跳过，避免重复
 
-~~~c
+```c
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
@@ -426,13 +429,13 @@ public:
         return res;
     }
 };
-~~~
+```
 
 ### 设计哈希集合 & 映射
 
 设计哈希映射，即 map，使用`vector<pair<int,int>> map[]`的结构，即二维数组进行储存，冲突解决使用简单的除余法，即通过`key%LEN`来确定数据所在的桶
 
-~~~c
+```c
 class MyHashMap {
 
 private:
@@ -456,7 +459,7 @@ private:
 public:
     MyHashMap() {
     }
-    
+
     void put(int key, int value) {
         int index = getIndex(key);
         int pos = getPos(key, index);
@@ -466,7 +469,7 @@ public:
             map[index][pos].second = value;
         }
     }
-    
+
     int get(int key) {
         int index = getIndex(key);
         int pos = getPos(key, index);
@@ -475,7 +478,7 @@ public:
         }
         return map[index][pos].second;
     }
-    
+
     void remove(int key) {
         int index = getIndex(key);
         int pos = getPos(key, index);
@@ -484,11 +487,11 @@ public:
         }
     }
 };
-~~~
+```
 
 与上同理，更简单，使用`vector<int> set[]`进行储存
 
-~~~c
+```c
 class MyHashSet {
 private:
     const static int LEN = 1000;
@@ -510,7 +513,7 @@ private:
 public:
     MyHashSet() {
     }
-    
+
     void add(int key) {
         int index = getIndex(key);
         int pos = getPos(key, index);
@@ -520,7 +523,7 @@ public:
             set[index][pos] = key;
         }
     }
-    
+
     void remove(int key) {
         int index = getIndex(key);
         int pos = getPos(key, index);
@@ -528,7 +531,7 @@ public:
             set[index].erase(set[index].begin()+pos);
         }        
     }
-    
+
     bool contains(int key) {
         int index = getIndex(key);
         int pos = getPos(key, index);
@@ -538,7 +541,7 @@ public:
         return false;
     }
 };
-~~~
+```
 
 ### 模拟
 
@@ -552,7 +555,7 @@ $$
 $$
 为了避免计算超出边界，利用上一次的计算结果迭代计算，其实还可以改进，因为前后半部分一模一样，时间复杂度可以降低到 O(n/2)
 
-~~~c
+```c
 class Solution {
 public:
     vector<int> getRow(int rowIndex) {
@@ -564,11 +567,11 @@ public:
         return res;
     }
 };
-~~~
+```
 
 螺旋矩阵，哈卵题目，麻烦死了
 
-~~~c
+```c
 class Solution {
 public:
     vector<vector<int>> generateMatrix(int n) {
@@ -597,7 +600,7 @@ public:
         return res;
     }
 };
-~~~
+```
 
 ## 其他库
 
@@ -605,25 +608,35 @@ public:
 
 最大值、最小值函数
 
-~~~c
+```c
 res = max(prices[i]-pre, res);
-~~~
+```
 
 排序函数，排序一段连续的地址
 
-~~~c
+```c
 // vec 为 vector
 sort(vec.begin(), vec.end());
 // arr 为数组
 sort(arr, arr+10);
-~~~
+```
+
+迭代器的最大值，返回的是指向连续地址中最大值的指针，需要使用 * 号取值
+
+```c
+vector<int> vec;
+vec.push_back(1);
+vec.push_back(4);
+vec.push_back(7);
+int max = *max_element(vec);
+```
 
 ### string
 
 遍历 string
 
-~~~c
+```c
 for(int i = 0; i < str.size(); i++){
     cout << str[i] << endl;
 }
-~~~
+```
