@@ -8,18 +8,18 @@ module.exports = [
 
     {
         text: 'Developer',
-	items: [
-            {text: 'C/C++', link: '/dev/c/'},
-	    {text: 'Ops', link: '/dev/ops/'},
-	    {text: 'Front End', link: '/dev/frontend/'},
-	    {text: 'Java', link: '/dev/java/'},    
+		items: [
+            {text: 'C/C++', link: '/dev/c++/'},
+			{text: 'Front End', link: '/dev/fe/'},
+			{text: 'Java', link: '/dev/java/'},
+			{text: 'Operations', link: '/dev/ops/'},
         ]
     },
 
 	
     {
-	text: '408',
-	items: [
+		text: '408',
+		items: [
 	    {text: 'Data Struct', link: '/408/datastruct/'},
 	    {text: 'Network', link: '/408/network/'},
 	    {text: 'Operating System', link: '/408/operating/'},
@@ -32,8 +32,8 @@ module.exports = [
 	items: [
 	    {text: 'Mathematics', link: '/ai/math/'},
 	    {text: 'Python', link: '/ai/python/'},
-	    {text: 'Machine Learning', link: '/ai/machinelearning/'},
-	    {text: 'Deep Learning', link: 'https://northboat-blog.netlify.app/music/'}
+	    {text: 'Machine Learning', link: '/ai/machine/'},
+	    //{text: 'Deep Learning', link: '/ai/deep/'}
 	]
     }
 

@@ -2,9 +2,9 @@
 module.exports = {
 	
 
-	'/dev/c/': require('../dev/c/sidebar'),
+	'/dev/c++/': require('../dev/c++/sidebar'),
 	'/dev/java/': require('../dev/java/sidebar'),
-	'/dev/frontend/': require('../dev/frontend/sidebar'),
+	'/dev/fe/': require('../dev/fe/sidebar'),
 	'/dev/ops/': require('../dev/ops/sidebar'),
 	
 
@@ -16,5 +16,5 @@ module.exports = {
 	
 	'/ai/math/': require('../ai/math/sidebar'),
 	'/ai/python/': require('../ai/python/sidebar'),
-	'/ai/machinelearning/': require('../ai/machinelearning/sidebar'),
+	'/ai/machine/': require('../ai/machine/sidebar'),
 }	

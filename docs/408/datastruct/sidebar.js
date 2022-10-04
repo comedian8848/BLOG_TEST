@@ -1,5 +1,17 @@
 
 module.exports = [
+
+
+	{
+		title: '数据结构',
+		collapsable: true,
+		children: [
+			'./basic/algorithm',
+			'./basic/struct',
+		]
+	},
+	
+	
 	{
 		title: '算法',
 		collapsable: true,
@@ -9,14 +21,7 @@ module.exports = [
 		]
 	},
 	
-	{
-		title: '数据结构',
-		collapsable: true,
-		children: [
-			'./basic/algorithm',
-			'./basic/struct',
-		]
-	},
+
 	
 	{
 		title: '数据库',

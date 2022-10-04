@@ -653,7 +653,34 @@ int max = *max_element(vec);
 遍历 string
 
 ```c
+// 也可以用 length()，一样的
 for(int i = 0; i < str.size(); i++){
     cout << str[i] << endl;
 }
+```
+
+初始化
+
+```c
+// 长度为 n，用空格填充
+string str(n, ' ');
+
+// 直接赋值
+string str1 = "nmsl";
+```
+
+字符串拼接以及整型转换
+
+```c
+string s1 = "hahaha ";
+string s2 = "nmsl";
+
+string s3 = s1+s2; // s3 = "hahaha nmsl"
+
+// 整型转换字符
+int i = 9;
+// 整型到字符减去字符 '0'
+char c = i-'0' // c=='9'
+// 字符到整型加上字符 '0'
+int j = c+'0'; // j == 9
 ```

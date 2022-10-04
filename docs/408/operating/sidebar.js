@@ -6,7 +6,7 @@ module.exports = [
 		children: [
 			'./assembly/addressing',
 			{
-				title: '汇编语言实验',
+				title: '汇编程序设计',
 				collapsable: true,
 				children: [
 					'./assembly/branch',

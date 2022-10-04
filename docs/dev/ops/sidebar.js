@@ -10,7 +10,7 @@ module.exports = [
 	},
 	
 	{
-		title: '工具和中间件',
+		title: '工具',
 		collapsable: true,
 		children: [
 		    './tool/git',
