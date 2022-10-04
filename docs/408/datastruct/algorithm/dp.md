@@ -13,9 +13,9 @@ dynamic programming
 
 力扣53
 
-~~~java
+```java
 public class MaxSumSubArray {
-	public int maxSubArray(int[] nums) {
+    public int maxSubArray(int[] nums) {
         int n = nums.length;
         int[] f = new int[n];
         f[0] = nums[0];
@@ -35,51 +35,51 @@ public class MaxSumSubArray {
         return f[n-1];
     }
 }
-~~~
+```
 
 ### 解码方法
 
 力扣91
 
-~~~java
+```java
 //动态规划：状态转移方程
 public class NumDecodings {
-	public int decodings(String s) {
-		
-		int n = s.length();
-		int f[] = new int[n+1];
-		f[0] = 1;
-		//该在for循环中++i和i++等价
-		for(int i = 1; i < n+1; i++) {
-			f[i] = 0;
-			//状态转移方程1
-			//其实在12行不初始化，f[i]也默认为0
-			if(s.charAt(i-1) != '0') {
-				f[i] += f[i-1];
-			}	
-			//状态转移方程2
-			//转换类型，判断两位数是否 <= 26
-			if(i > 1 && s.charAt(i-2) != '0' && (s.charAt(i-2)-'0')*10 + (s.charAt(i-1)-'0') <= 26) {
-				f[i] += f[i-2];
-			}			
-		}
-		return f[n];
-	}
-	
-	
-	public static void main(String[] args) {
-		NumDecodings nd = new NumDecodings();
-		String str = "226712";
-		System.out.println(nd.decodings(str));
-	}
+    public int decodings(String s) {
+
+        int n = s.length();
+        int f[] = new int[n+1];
+        f[0] = 1;
+        //该在for循环中++i和i++等价
+        for(int i = 1; i < n+1; i++) {
+            f[i] = 0;
+            //状态转移方程1
+            //其实在12行不初始化，f[i]也默认为0
+            if(s.charAt(i-1) != '0') {
+                f[i] += f[i-1];
+            }    
+            //状态转移方程2
+            //转换类型，判断两位数是否 <= 26
+            if(i > 1 && s.charAt(i-2) != '0' && (s.charAt(i-2)-'0')*10 + (s.charAt(i-1)-'0') <= 26) {
+                f[i] += f[i-2];
+            }            
+        }
+        return f[n];
+    }
+
+
+    public static void main(String[] args) {
+        NumDecodings nd = new NumDecodings();
+        String str = "226712";
+        System.out.println(nd.decodings(str));
+    }
 }
-~~~
+```
 
 ### 最长回文子串
 
 力扣5
 
-~~~java
+```java
 //当s[i]==s[j]，dp[i][j]是否回文取决于dp[i+1][j-1]是否回文
 //所以用boolean数组dp[i][j]记录回文子串s[i]到s[j]的状态
 //第一步初始化dp[i][i]=true，即单个字符均回文
@@ -121,13 +121,13 @@ class Solution {
         return s.substring(begin, begin+maxLength);
     }
 }
-~~~
+```
 
 ### 回文子串
 
 力扣647
 
-~~~java
+```java
 class Solution {
     public int countSubstrings(String s) {
         int n = s.length(), count = 0;
@@ -162,7 +162,7 @@ class Solution {
         return count;
     }
 }
-~~~
+```
 
 ### 最长递增子序列
 
@@ -170,7 +170,7 @@ class Solution {
 
 > 用 dp[i] 记录第 i 个元素能构成的递增子序列大小：初始化为 1，对小于 i 的元素遍历，若当前元素大于 nums[j]，则 dp[i] = dp[j]+1，此为状态转移方程
 
-~~~java
+```java
 class Solution {
     public int lengthOfLIS(int[] nums) {
         int n = nums.length;
@@ -192,36 +192,36 @@ class Solution {
         return maxLength;
     }
 }
-~~~
+```
 
 ### 消除游戏
 
 力扣390
 
 > `1 2 3 4 5 6 7 8 9`
->
+> 
 > 消除一轮:`2 4 6 8`（从头开始消除单数序号的数）
->
+> 
 > 消除二轮:`2 6`（从尾开始消除单数序号的数）
->
+> 
 > 消除三轮:`6 ——> 最终结果`（从头消除单数序号）
->
+> 
 > 先从最简单的情况入手：n=1时，答案为1。n=2时，答案为2。
->
+> 
 > 可以发现，答案一定不会是奇数，因为第一轮操作一定会将所有的奇数删除。这就提示出一个规律：
 > 如果n为奇数，那么以n结尾和以n-1结尾是完全一样的。
 > 例如1,2,3,4,5,6,7,8,9，操作一轮后剩2,4,6,8，下一轮从8开始；
 > 而1,2,3,4,5,6,7,8，操作一轮后也剩2,4,6,8，下一轮也从8开始。
 > 从而得到第一个递推公式：当n为奇数时，`dp[n] = dp[n-1]`;
->
+> 
 > 2.3 接下来就只剩n为偶数的情况了。
 > 仍以1,2,3,4,5,6,7,8为例，操作一轮后剩2,4,6,8， 下一轮从8开始。
 > 那么2,4,6,8从8开始，和2,4,6,8从2开始有什么区别呢？
 > 很明显就是轴对称的关系，前者剩6，后者就剩(8+2 - 6);
->
+> 
 > 那么2,4,6,8从2开始，和1,2,3,4从1开始有什么区别呢？
 > 这个关系更明显，就是2倍的关系。
->
+> 
 > 写到这里，大家应该明白了，1,2,3,4从1开始不就是`dp[4]`吗！
 > 也就是说，`dp[8] = 2*(1+4-dp[4])` 这里的`1+4-dp[4]`起的就是轴对称的作用。
 > 推而广之，n为偶数时，`dp[n] = 2*(1+n/2-dp[n/2])`
@@ -231,7 +231,7 @@ class Solution {
 
 由于`dp[1000000]`超出内存限制，采用递归的写法，思路一样，只是未构造dp数组
 
-~~~java
+```java
 class Solution {
 
     public int dp(int n){
@@ -249,24 +249,24 @@ class Solution {
         }
         return -1;
     }
-    
+
     public int lastRemaining(int n) {
         return dp(n);
     }
 }
-~~~
+```
 
 ### 猫和老鼠
 
 力扣913
 
 > 数据结构：无向图
->
+> 
 > 算法：动态规划、深度优先搜索、递归
->
+> 
 > 算尽从初始点穷尽努力的结果，没有变数
 
-~~~java
+```java
 package com.solution;
 
 import java.util.Arrays;
@@ -330,17 +330,17 @@ public class MouseCatGame {
         dp[mouse][cat][steps] = res;
     }
 }
-~~~
+```
 
 ### 最长递增子序列的个数
 
 力扣673
 
 > `dp[i]`记录下标`i`元素能构成的最长递增子序列的长度
->
+> 
 > `count[i]`记录下标`i`元素构成最长递增子序列的道路总数
 
-~~~java
+```java
 package com.solution;
 
 import java.util.Arrays;
@@ -395,7 +395,7 @@ public class FindNumberOfLIS {
         System.out.println(findNumberOfLIS.findNumberOfLIS(nums));
     }
 }
-~~~
+```
 
 ### 统计元音字母序列的数目
 
@@ -409,10 +409,10 @@ public class FindNumberOfLIS {
 每个元音`u`后面只能跟着`a`
 
 > 动态规划，`dp[i][j]`表示长度为`i`、以`j`结尾的元音字母序列的数目
->
+> 
 > 其中`j=0—>a, j=1->e, j=2->i, j=3->o, j=4->u`
 
-~~~java
+```java
 class Solution {
     public int countVowelPermutation(int n) {
         int mod = 1000000007;
@@ -439,7 +439,7 @@ class Solution {
         return (int)ans;
     }
 }
-~~~
+```
 
 数组总和Ⅳ（377）
 
@@ -451,9 +451,9 @@ class Solution {
 
 Knuth-Morris-Pratt
 
-已知next数组匹配字符串
+### 已知 next 数组匹配字符串
 
-~~~c
+```c
 #include <iostream>
 #include <string.h>
 #include <algorithm> 
@@ -461,49 +461,48 @@ using namespace std;
 
 
 int main(){
-	
-	char str[1000];
+
+    char str[1000];
     char dist[1000];
-	cin >> str >> dist;
-    
+    cin >> str >> dist;
+
     //cout << str << " " << dist << endl;
-	int count = 0, m = strlen(str), n = strlen(dist);
-	int pos[m];
-	
-	
+    int count = 0, m = strlen(str), n = strlen(dist);
+    int pos[m];
+
+
     int next[n];
     for(int i = 0; i < n; i++){
-    	cin >> next[i];
-	}
-	
+        cin >> next[i];
+    }
 
 
-	//cout << m << " " << n << endl;
-	int i = 0, j = 0;
-	while(i < m && j < n){
-		if(j == -1 || tolower(str[i])==tolower(dist[j])){
-			i++;
-			j++;
-		} else {
-			j = next[j];
-		}
-		if(j == n){
-			pos[count++] = i-j+1;
-			i = i-1-next[j-1];
-			j = 0;
-		}		
-	}
-	
-	
-	cout << count << endl;
-	for(i = 0; i < count; i++){
-		cout << pos[i] << endl;
-	}
 
-	return 0;
+    //cout << m << " " << n << endl;
+    int i = 0, j = 0;
+    while(i < m && j < n){
+        if(j == -1 || tolower(str[i])==tolower(dist[j])){
+            i++;
+            j++;
+        } else {
+            j = next[j];
+        }
+        if(j == n){
+            pos[count++] = i-j+1;
+            i = i-1-next[j-1];
+            j = 0;
+        }        
+    }
+
+
+    cout << count << endl;
+    for(i = 0; i < count; i++){
+        cout << pos[i] << endl;
+    }
+
+    return 0;
 }
-
-~~~
+```
 
 实现strStr()（28）
 
@@ -521,7 +520,7 @@ int main(){
 
 力扣303
 
-~~~java
+```java
 //优化解法：前缀和
 class NumArray {
 
@@ -535,7 +534,7 @@ class NumArray {
             this.nums[i+1] = this.nums[i] + nums[i];
         }
     }
-    
+
     public int sumRange(int left, int right) {
         int res = nums[right + 1] - nums[left]; 
         return res;
@@ -547,13 +546,13 @@ class NumArray {
  * NumArray obj = new NumArray(nums);
  * int param_1 = obj.sumRange(left,right);
  */
-~~~
+```
 
 ### 二维区域和检索-矩阵不可变
 
 力扣304
 
-~~~java
+```java
 //采用303的优化解法：一维前缀和
 class NumMatrix {
 
@@ -569,7 +568,7 @@ class NumMatrix {
             }
         }
     }
-    
+
     public int sumRegion(int row1, int col1, int row2, int col2) {
         int res = 0;
         for(int i = row1; i <= row2; i++){
@@ -584,7 +583,41 @@ class NumMatrix {
  * NumMatrix obj = new NumMatrix(matrix);
  * int param_1 = obj.sumRegion(row1,col1,row2,col2);
  */
-~~~
+```
+
+### 和为 k 的子数组
+
+力扣 560
+
+用`map<int,int>`记录前缀和及其出现次数
+
+- cur 为当前和，即 sum(0, i)
+
+- map 中记录了各个位置 j 的前缀和，即 sum(0, j)
+
+- sum(0, i) - sum(0, j) = sum(j, i)，若 sum(j, i) == target，则存在和为 target 的连续子数组（下标从 j 到 i）
+
+- 同时用 map->second 记录该前缀和出现次数，存在则直接加上 map[pre]
+
+```c
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        int n = nums.size();
+        map<int, int> m;
+        m[0] = 1;
+        int count = 0, cur = 0;
+        for(int i = 0; i < n; i++){
+            cur += nums[i];
+            if(m.count(cur-k)){
+                count += m[cur-k];
+            }
+            m[cur]++;
+        }
+        return count;
+    }
+};
+```
 
 环绕字符串中唯一的子字符串（467）
 
@@ -602,21 +635,52 @@ K个不同的整数的子数组（992）
 
 > 贪心算法
 
-### 文本左右对齐
+### 无重叠区间
 
-力扣68
+```c
+class Solution {
+public:
+    int eraseOverlapIntervals(vector<vector<int>>& intervals) {
+        if(intervals.empty()){
+            return 0;
+        }
+        int n = intervals.size();
+        sort(intervals.begin(), intervals.end(), [](const auto& u, const auto& v){
+            return u[1]<v[1];
+        });
+        int ans = 1;
+        int right = intervals[0][1];
+        for(int i = 1; i < n; i++){
+            if(intervals[i][0] >= right){
+                ans++;
+                right = intervals[i][1];
+            }
+        }
+        return n-ans;
+    }
+};
+```
 
+### 递增的三元子序列
 
+```c
+class Solution {
+public:
+    bool increasingTriplet(vector<int>& nums) {
+        int n = nums.size();
+        int first = nums[0], second = INT_MAX;
+        for(int i = 1; i < n; i++){
+            if(nums[i] > second){
+                return true;
+            } else if(nums[i] > first){
+                second = nums[i];
+            } else if(nums[i] < first){
+                first = nums[i];
+            }
+        }
+        return false;
+    }
+};
+```
 
-
-
-
-
-
-
-
-
-
-
-
-
+文本左右对齐（68）

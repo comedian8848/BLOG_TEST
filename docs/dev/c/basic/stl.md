@@ -2,7 +2,9 @@
 title: C++ STL
 date: 2022-9-17
 tags:
-  - C/C++
+
+- C/C++
+
 ---
 
 ## STL 接口
@@ -599,62 +601,8 @@ public:
         }
         return res;
     }
-};
+}; 
 ```
-
-### 贪心算法
-
-> 总是执行当前最佳，条件较苛刻，必须说明这样操作能够找到全局最佳
-
-无重叠区间
-
-```c
-class Solution {
-public:
-    int eraseOverlapIntervals(vector<vector<int>>& intervals) {
-        if(intervals.empty()){
-            return 0;
-        }
-        int n = intervals.size();
-        sort(intervals.begin(), intervals.end(), [](const auto& u, const auto& v){
-            return u[1]<v[1];
-        });
-        int ans = 1;
-        int right = intervals[0][1];
-        for(int i = 1; i < n; i++){
-            if(intervals[i][0] >= right){
-                ans++;
-                right = intervals[i][1];
-            }
-        }
-        return n-ans;
-    }
-};
-```
-
-递增的三元子序列
-
-```c
-class Solution {
-public:
-    bool increasingTriplet(vector<int>& nums) {
-        int n = nums.size();
-        int first = nums[0], second = INT_MAX;
-        for(int i = 1; i < n; i++){
-            if(nums[i] > second){
-                return true;
-            } else if(nums[i] > first){
-                second = nums[i];
-            } else if(nums[i] < first){
-                first = nums[i];
-            }
-        }
-        return false;
-    }
-};
-```
-
-
 
 ## 其他库
 
