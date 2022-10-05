@@ -1,5 +1,14 @@
 
 module.exports = [
+	
+	{
+		title: '操作系统',
+		collapsable: true,
+		children: [
+			'./basic/outline',
+		]
+	},
+
 	{
 		title: '汇编语言',
 		collapsable: true,
@@ -23,14 +32,5 @@ module.exports = [
 			'./compilation/lexical',
 		]
 	},
-	
-	//{
-		//title: '操作系统',
-		//collapsable: true,
-		//children: [
-			//'./basic/thread',
-		//]
-	//},
-	
 	
 ]
