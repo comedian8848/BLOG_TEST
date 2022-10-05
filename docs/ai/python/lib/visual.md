@@ -1,5 +1,5 @@
 ---
-title: Matplotlib & Seaborn
+title: Data Visualization
 date: 2022-7-11
 tags:
   - Python

@@ -1,5 +1,5 @@
 ---
-title: Python 100 III
+title: Day Seventeen to Twenty-Four 
 date: 2022-7-5
 tags:
   -	Python

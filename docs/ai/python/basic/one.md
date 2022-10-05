@@ -1,5 +1,5 @@
 ---
-title: Python 100 I
+title: Day One to Eight
 date: 2022-7-2
 tags:
   -	Python
