@@ -6,10 +6,12 @@ module.exports = [
 		title: '计算机网络',
 		collapsable: true,
 		children: [
+			'./basic/outline',
 			'./basic/physical',
 			'./basic/datalink',
 			'./basic/network',
 			'./basic/transport',
+			'./basic/application',
 		]
 	},
 	
