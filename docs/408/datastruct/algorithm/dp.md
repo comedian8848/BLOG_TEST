@@ -633,9 +633,35 @@ K个不同的整数的子数组（992）
 
 ## 贪婪算法
 
-> 贪心算法
+> 贪心算法，Greedy
+
+### 合并区间
+
+力扣 56：https://leetcode.cn/problems/merge-intervals/
+
+~~~c
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        vector<vector<int>> res;
+        sort(intervals.begin(), intervals.end());
+        for(int i = 0; i < intervals.size(); i++){
+            vector<int> cur = intervals[i];
+            if(res.empty() || cur[0] > res.back()[1]){
+                res.push_back(cur);
+            }
+            if(cur[1] > res.back()[1]){
+                res.back()[1] = cur[1];
+            }
+        }
+        return res;
+    }
+};
+~~~
 
 ### 无重叠区间
+
+力扣 435：https://leetcode.cn/problems/non-overlapping-intervals/
 
 ```c
 class Solution {
@@ -660,6 +686,47 @@ public:
     }
 };
 ```
+
+### 划分字母区间
+
+力扣 763：https://leetcode.cn/problems/partition-labels
+
+~~~c
+class Solution {
+public:
+    vector<int> partitionLabels(string s) {
+        map<char,vector<int>> m;
+        for(int i = 0; i < s.length(); i++){
+            char cur = s[i];
+            if(m.count(cur)){
+                m[cur][1] = i;
+            } else {
+                m[cur] = {i, i};
+            }
+        }
+        vector<vector<int>> vec;
+        for(auto v: m){
+            vec.push_back(v.second);
+        }
+        sort(vec.begin(), vec.end());
+        vector<vector<int>> merged;
+        for(int i = 0; i < vec.size(); i++){
+            vector<int> cur = vec[i];
+            if(merged.empty() || cur[0] > merged.back()[1]){
+                merged.push_back(cur);
+            }
+            if(cur[1] > merged.back()[1]){
+                merged.back()[1] = cur[1];
+            }
+        }
+        vector<int> res;
+        for(int i = 0; i < merged.size(); i++){
+            res.push_back(merged[i][1]-merged[i][0]+1);
+        }
+        return res;
+    }
+};
+~~~
 
 ### 递增的三元子序列
 

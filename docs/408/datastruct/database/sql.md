@@ -116,7 +116,7 @@ alter table `student` drop memo;
 drop table student, score, course;
 ~~~
 
-## CUD操作
+## CUD 操作
 
 > create、update、delete
 
@@ -219,7 +219,7 @@ delete from score where grade < 60 and
 student_id in (select student_id from student where department='computer');
 ~~~
 
-## R操作
+## R 操作
 
 > retrieve查询
 

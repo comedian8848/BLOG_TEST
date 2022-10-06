@@ -433,9 +433,9 @@ public:
 };
 ```
 
-### 设计哈希集合 & 映射
+### 哈希表
 
-设计哈希映射，即 map，使用`vector<pair<int,int>> map[]`的结构，即二维数组进行储存，冲突解决使用简单的除余法，即通过`key%LEN`来确定数据所在的桶
+设计哈希表，即 map，使用`vector<pair<int,int>> map[]`的结构，即二维数组进行储存，冲突解决使用简单的除余法，即通过`key%LEN`来确定数据所在的桶
 
 ```c
 class MyHashMap {
@@ -491,7 +491,7 @@ public:
 };
 ```
 
-与上同理，更简单，使用`vector<int> set[]`进行储存
+设计哈希集合，即 set，与上同理，更简单，使用`vector<int> set[]`进行储存
 
 ```c
 class MyHashSet {
@@ -544,6 +544,42 @@ public:
     }
 };
 ```
+
+使用 hashmap 双射实现一一对应，这里单词模式匹配必须是一个字母匹配一个字符串，二者一一对应，不能`[a, nmsl], [b, nmsl]`
+
+~~~c
+class Solution {
+public:
+    bool wordPattern(string pattern, string s) {
+        map<char, string> chToStr;
+        map<string, char> strToCh;
+        int n = s.length();
+        int index = 0;
+        for(int i = 0; i < n; i++){
+            int j = i+1;
+            char cur = pattern[index];
+            while(j < n && s[j] != ' '){
+                j++;
+            }
+            string temp = s.substr(i, j-i);
+            if(strToCh.count(temp) && strToCh[temp] != cur){
+                return false;
+            }
+            if(chToStr.count(cur) && chToStr[cur] != temp){
+                return false;
+            }
+            chToStr[cur] = temp;
+            strToCh[temp] = cur;
+            index++;
+            i = j;
+        }
+        if(index != pattern.length()){
+            return false;
+        }
+        return true;
+    }
+};
+~~~
 
 ### 模拟
 

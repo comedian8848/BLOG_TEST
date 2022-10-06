@@ -124,7 +124,7 @@ $("#begin").click(function(){
 
 ## 源码
 
-### HTML
+HTML
 
 ~~~html
 <!DOCTYPE html>
@@ -296,7 +296,7 @@ $("#begin").click(function(){
 </html>
 ~~~
 
-### CSS
+CSS
 
 ~~~css
 div{
