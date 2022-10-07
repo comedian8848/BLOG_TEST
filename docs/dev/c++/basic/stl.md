@@ -462,3 +462,13 @@ int i = 55;
 string str = to_string(i); // str == "55"
 ~~~
 
+substr()，截取字符串，第一个参数为起始下标，第二个参数为截取字符串的长度（包含尾部）
+
+~~~c
+string s = "AAAAAAAAAAAAA";
+int n = s.length();
+for(int i = 0; i <= n-10; i++){
+	string cur = s.substr(i, 10);
+}
+~~~
+
