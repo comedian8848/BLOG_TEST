@@ -17,7 +17,11 @@ module.exports = [
 		collapsable: true,
 		children: [
 			'./algorithm/search',
+			'./algorithm/sort',
 			'./algorithm/dp',
+			'./algorithm/greedy',
+			'./algorithm/hash',
+			'./algorithm/modeling',		
 		]
 	},
 	

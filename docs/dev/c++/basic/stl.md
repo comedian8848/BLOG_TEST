@@ -157,7 +157,7 @@ map.insert(pair<int,int>(1,2));
 map.insert(make_pair(1,2));
 ```
 
-## 一些示例
+## 一些栗子
 
 ### vector 和数组
 
@@ -338,7 +338,7 @@ public:
 };
 ```
 
-### 位运算
+### C++ 位运算
 
 出现一次的数字，使用异或操作，数字只会出现一次或两次
 
@@ -359,298 +359,17 @@ public:
 };
 ```
 
-### 摩尔投票法
-
-找出数组中出现次数大于 n/2 的数
-
-- 每遇到相同的数，count+1，每遇到不同的数，count-1
-- 当 count = 0，切换选举人为当前元素并重置票数为 1
-- 将数视作两类，即数量为 n/2 的数（计做 x）和其他数，x 因为超过 n/2 个，总会被切换为候选人，且其 count 会被其他数不断 -1，但最终一定会 >= 1，即 card 最终会被保留为 x
-
-```c
-class Solution {
-public:
-    int majorityElement(vector<int>& nums) {
-        int count = 1, card = nums[0];
-        for(int i = 1; i < nums.size(); i++){
-            if(count == 0){
-                card = nums[i];
-                count = 1;
-                continue;
-            }
-            if(card == nums[i]){
-                count++;
-            } else {
-                count--;
-            }
-        }
-        return card;
-    }
-};
-```
-
-229、找出数组中数量大于 n/3 的数
-
-### 排序和双指针
-
-三数之和，一年后又忘鸟
-
-- 解决重复问题，固定起始位，利用双指针缩小范围
-- 当碰到连续的相同元素直接跳过，避免重复
-
-```c
-class Solution {
-public:
-    vector<vector<int>> threeSum(vector<int>& nums) {
-        sort(nums.begin(), nums.end());
-        int n = nums.size();
-        vector<vector<int>> res;
-        for(int i = 0; i < n-2; i++){
-            if(nums[i] > 0){
-                break;
-            }
-            if(i>0 && nums[i]==nums[i-1]){
-                continue;
-            }
-            int l = i+1;
-            int r = n-1;
-            while(l < r){
-                int sum = nums[i]+nums[l]+nums[r];
-                if(sum < 0){
-                    while(l<r && nums[l]==nums[++l]);
-                } else if(sum > 0){
-                    while(l<r && nums[r]==nums[--r]);
-                } else{
-                    vector<int> row = {nums[i], nums[l], nums[r]};
-                    res.push_back(row);
-                    while(l<r && nums[l]==nums[++l]);
-                    while(l<r && nums[r]==nums[--r]);
-                }
-            }
-        }
-        return res;
-    }
-};
-```
-
-### 哈希表
-
-设计哈希表，即 map，使用`vector<pair<int,int>> map[]`的结构，即二维数组进行储存，冲突解决使用简单的除余法，即通过`key%LEN`来确定数据所在的桶
-
-```c
-class MyHashMap {
-
-private:
-    const static int MAX_LEN = 1000;
-
-    vector<pair<int,int>> map[MAX_LEN];
-
-    int getIndex(int key){
-        return key%MAX_LEN;
-    }
-
-    int getPos(int key, int index){
-        for(int i = 0; i < map[index].size(); i++){
-            if(map[index][i].first == key){
-                return i;
-            }
-        }
-        return -1;
-    }
-
-public:
-    MyHashMap() {
-    }
-
-    void put(int key, int value) {
-        int index = getIndex(key);
-        int pos = getPos(key, index);
-        if(pos == -1){
-            map[index].push_back(make_pair(key, value));
-        } else {
-            map[index][pos].second = value;
-        }
-    }
-
-    int get(int key) {
-        int index = getIndex(key);
-        int pos = getPos(key, index);
-        if(pos == -1){
-            return -1;
-        }
-        return map[index][pos].second;
-    }
-
-    void remove(int key) {
-        int index = getIndex(key);
-        int pos = getPos(key, index);
-        if(pos >= 0){
-            map[index].erase(map[index].begin()+pos);
-        }
-    }
-};
-```
-
-设计哈希集合，即 set，与上同理，更简单，使用`vector<int> set[]`进行储存
-
-```c
-class MyHashSet {
-private:
-    const static int LEN = 1000;
-
-    vector<int> set[LEN];
-
-    int getIndex(int key){
-        return key%LEN;
-    }
-
-    int getPos(int key, int index){
-        for(int i = 0; i < set[index].size(); i++){
-            if(set[index][i] == key){
-                return i;
-            }
-        }
-        return -1;
-    }
-public:
-    MyHashSet() {
-    }
-
-    void add(int key) {
-        int index = getIndex(key);
-        int pos = getPos(key, index);
-        if(pos == -1){
-            set[index].push_back(key);
-        } else {
-            set[index][pos] = key;
-        }
-    }
-
-    void remove(int key) {
-        int index = getIndex(key);
-        int pos = getPos(key, index);
-        if(pos >= 0){
-            set[index].erase(set[index].begin()+pos);
-        }        
-    }
-
-    bool contains(int key) {
-        int index = getIndex(key);
-        int pos = getPos(key, index);
-        if(pos >= 0){
-            return true;
-        }   
-        return false;
-    }
-};
-```
-
-使用 hashmap 双射实现一一对应，这里单词模式匹配必须是一个字母匹配一个字符串，二者一一对应，不能`[a, nmsl], [b, nmsl]`
-
-~~~c
-class Solution {
-public:
-    bool wordPattern(string pattern, string s) {
-        map<char, string> chToStr;
-        map<string, char> strToCh;
-        int n = s.length();
-        int index = 0;
-        for(int i = 0; i < n; i++){
-            int j = i+1;
-            char cur = pattern[index];
-            while(j < n && s[j] != ' '){
-                j++;
-            }
-            string temp = s.substr(i, j-i);
-            if(strToCh.count(temp) && strToCh[temp] != cur){
-                return false;
-            }
-            if(chToStr.count(cur) && chToStr[cur] != temp){
-                return false;
-            }
-            chToStr[cur] = temp;
-            strToCh[temp] = cur;
-            index++;
-            i = j;
-        }
-        if(index != pattern.length()){
-            return false;
-        }
-        return true;
-    }
-};
-~~~
-
-### 模拟
-
-杨辉三角也可以模拟，但我选择用数学全排列解
-$$
-C_m^n = \frac{m\times(m-1)\times......\times(m-n+1)}{n!}
-$$
-第 m 行实际上就是
-$$
-[C_m^1, C_m^2,...,C_m^{m-1}, C_m^m]
-$$
-为了避免计算超出边界，利用上一次的计算结果迭代计算，其实还可以改进，因为前后半部分一模一样，时间复杂度可以降低到 O(n/2)
-
-```c
-class Solution {
-public:
-    vector<int> getRow(int rowIndex) {
-        vector<int> res;
-        res.push_back(1);
-        for(int i = 0; i < rowIndex; i++){
-            res.push_back((long)res[i]*(rowIndex-i)/(i+1));  
-        }
-        return res;
-    }
-};
-```
-
-螺旋矩阵，哈卵题目，麻烦死了
-
-```c
-class Solution {
-public:
-    vector<vector<int>> generateMatrix(int n) {
-        vector<vector<int>> res(n, vector<int> (n));
-        int num = 1, tar = n*n;
-        //上下左右边界
-        int l = 0, t = 0, b = n-1, r = n-1;
-        while(num <= tar){
-            for(int i = l; i <= r; i++){
-                res[t][i] = num++;
-            }
-            t++;
-            for(int i = t; i <= b; i++){
-                res[i][r] = num++;
-            }
-            r--;
-            for(int i = r; i >= l; i--){
-                res[b][i] = num++;
-            }
-            b--;
-            for(int i = b; i >= t; i--){
-                res[i][l] = num++;
-            }
-            l++;
-        }
-        return res;
-    }
-}; 
-```
-
 ## 其他库
 
 ### algorithm
 
-最大值、最小值函数
+max()/min()，最大值、最小值函数
 
 ```c
 res = max(prices[i]-pre, res);
 ```
 
-排序函数，排序一段连续的地址
+sort()，排序函数，排序一段连续的地址
 
 ```c
 // vec 为 vector
@@ -659,7 +378,7 @@ sort(vec.begin(), vec.end());
 sort(arr, arr+10);
 ```
 
-排序函数 sort 搭配 lambda 表达式
+sort()，排序函数 sort 搭配 lambda 表达式
 
 ```c
 // 排序结构体
@@ -674,7 +393,15 @@ sort(intervals.begin(), intervals.end(), [](const auto& u, const auto& v){
 });
 ```
 
-迭代器的最大值，返回的是指向连续地址中最大值的指针，需要使用 * 号取值
+sort() 排序字符串，将把字符串原地按字典序排序，返回值为空
+
+~~~c
+string str = "dcba";
+sort(str.begin(), str.end());
+// str == "abcd"
+~~~
+
+max_element()，返回迭代器的最大值，返回的是指向连续地址中最大值的指针，需要使用 * 号取值
 
 ```c
 vector<int> vec;
@@ -683,6 +410,13 @@ vec.push_back(4);
 vec.push_back(7);
 int max = *max_element(vec);
 ```
+
+reverse()，翻转字符串
+
+~~~c
+string str = "nmsl";
+reverse(str); // str == "lsmn"
+~~~
 
 ### string
 
@@ -695,7 +429,7 @@ for(int i = 0; i < str.size(); i++){
 }
 ```
 
-初始化
+string 初始化
 
 ```c
 // 长度为 n，用空格填充
@@ -716,7 +450,15 @@ string s3 = s1+s2; // s3 = "hahaha nmsl"
 // 整型转换字符
 int i = 9;
 // 整型到字符减去字符 '0'
-char c = i-'0' // c=='9'
+char c = i+'0' // c=='9'
 // 字符到整型加上字符 '0'
-int j = c+'0'; // j == 9
+int j = c-'0'; // j == 9
 ```
+
+to_string()，将数字（整型和浮点）转化为字符串
+
+~~~c
+int i = 55;
+string str = to_string(i); // str == "55"
+~~~
+

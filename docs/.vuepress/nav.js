@@ -8,22 +8,23 @@ module.exports = [
 
     {
         text: 'Developer',
-		items: [
+	items: [
             {text: 'C/C++', link: '/dev/c++/'},
-			{text: 'Front End', link: '/dev/fe/'},
-			{text: 'Java', link: '/dev/java/'},
-			{text: 'Operations', link: '/dev/ops/'},
+	    {text: 'Front End', link: '/dev/fe/'},
+            {text: 'Java', link: '/dev/java/'},
+	    {text: 'Operations', link: '/dev/ops/'},
         ]
     },
 
 	
     {
-		text: '408',
-		items: [
+	text: '408',
+	items: [
 	    {text: 'Data Struct', link: '/408/datastruct/'},
-	    {text: 'Network', link: '/408/network/'},
-	    {text: 'Operating System', link: '/408/operating/'},
-	    {text: 'Organization', link: '/408/organization/'},
+	    {text: 'Computer Network', link: '/408/network/'},
+	    {text: 'Operating System', link: '/408/operating/'}, 
+	    {text: 'Computer Organization', link: '/408/organization/'},
+   
 	]
     },
 	
