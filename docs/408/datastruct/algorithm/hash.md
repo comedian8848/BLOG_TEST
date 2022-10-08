@@ -9,7 +9,7 @@ tags:
 
 ### 设计哈希集合
 
-力扣 705：https://leetcode.cn/problems/design-hashset/
+力扣 705：[设计哈希集合](https://leetcode.cn/problems/design-hashset/)
 
 设计哈希集合，即 set，与上同理，更简单，使用`vector<int> set[]`进行储存
 
@@ -67,7 +67,7 @@ public:
 
 ### 设计哈希映射
 
-力扣 706：https://leetcode.cn/problems/design-hashmap/
+力扣 706：[设计哈希映射](https://leetcode.cn/problems/design-hashmap/)
 
 设计哈希表，即 map，使用`vector<pair<int,int>> map[]`的结构，即二维数组进行储存，冲突解决使用简单的除余法，即通过`key%LEN`来确定数据所在的桶
 
@@ -129,7 +129,7 @@ public:
 
 ### 单词规律
 
-力扣 290：https://leetcode.cn/problems/word-pattern/?envType=study-plan&id=shu-ju-jie-gou-ji-chu
+力扣 290：[单词规律](https://leetcode.cn/problems/word-pattern/?envType=study-plan&id=shu-ju-jie-gou-ji-chu)
 
 使用 hashmap 双射实现一一对应，这里单词模式匹配必须是一个字母匹配一个字符串，二者一一对应，不能`[a, nmsl], [b, nmsl]`
 
@@ -166,3 +166,35 @@ public:
     }
 };
 ~~~
+
+### 环形链表 II
+
+力扣 142：[环形链表 II](https://leetcode.cn/problems/linked-list-cycle-ii/)
+
+返回链表中产生环的首个节点
+
+~~~c
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+       set<ListNode*> s;
+       while(head){
+           if(s.count(head)){
+               return head;
+           }
+           s.insert(head);
+           head = head->next;
+       } 
+       return NULL;
+    }
+};
+~~~
+

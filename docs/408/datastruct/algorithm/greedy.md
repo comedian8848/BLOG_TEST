@@ -11,7 +11,7 @@ tags:
 
 ### 合并区间
 
-力扣 56：https://leetcode.cn/problems/merge-intervals/
+力扣 56：[合并区间](https://leetcode.cn/problems/merge-intervals/)
 
 ~~~c
 class Solution {
@@ -35,7 +35,7 @@ public:
 
 ### 无重叠区间
 
-力扣 435：https://leetcode.cn/problems/non-overlapping-intervals/
+力扣 435：[无重叠区间](https://leetcode.cn/problems/non-overlapping-intervals/)
 
 ```c
 class Solution {
@@ -63,7 +63,7 @@ public:
 
 ### 划分字母区间
 
-力扣 763：https://leetcode.cn/problems/partition-labels
+力扣 763：[划分字母区间](https://leetcode.cn/problems/partition-labels)
 
 ~~~c
 class Solution {
@@ -106,7 +106,7 @@ public:
 
 ### 买卖股票的最佳时机
 
-力扣 121：https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/
+力扣 121：[买卖股票的最佳时机](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/)
 
 ~~~c
 class Solution {
@@ -129,7 +129,7 @@ public:
 
 ### 递增的三元子序列
 
-力扣 334：https://leetcode.cn/problems/increasing-triplet-subsequence/
+力扣 334：[递增的三元子序列](https://leetcode.cn/problems/increasing-triplet-subsequence/)
 
 ```c
 class Solution {

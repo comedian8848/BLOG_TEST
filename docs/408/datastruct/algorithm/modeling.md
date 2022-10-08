@@ -9,7 +9,7 @@ tags:
 
 ### 杨辉三角
 
-力扣 119：https://leetcode.cn/problems/pascals-triangle-ii/
+力扣 119：[杨辉三角 II](https://leetcode.cn/problems/pascals-triangle-ii/)
 
 杨辉三角正常来说模拟更简单，但我选择用数学全排列解
 $$
@@ -37,7 +37,7 @@ public:
 
 ### 螺旋矩阵
 
-力扣 54：https://leetcode.cn/problems/spiral-matrix/
+力扣 54：[螺旋矩阵](https://leetcode.cn/problems/spiral-matrix/)
 
 哈卵题目，麻烦死了，边界规定好
 
@@ -74,9 +74,9 @@ public:
 
 ### 字符串相加 & 乘
 
-力扣 415：https://leetcode.cn/problems/add-strings/?envType=study-plan&id=shu-ju-jie-gou-ji-chu
+力扣 415：[字符串相加](https://leetcode.cn/problems/add-strings/?envType=study-plan&id=shu-ju-jie-gou-ji-chu)
 
-力扣 43：https://leetcode.cn/problems/multiply-strings/?envType=study-plan&id=shu-ju-jie-gou-ji-chu
+力扣 43：[字符串相乘](https://leetcode.cn/problems/multiply-strings/?envType=study-plan&id=shu-ju-jie-gou-ji-chu)
 
 模拟加法、乘法，逐位计算，涉及到很多字符、字符串到数字的相互转换
 
@@ -183,11 +183,76 @@ public:
 };
 ~~~
 
+### 两数相加
+
+力扣 2：[两数相加](https://leetcode.cn/problems/add-two-numbers/)
+
+用链表模拟加法过程
+
+~~~c
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        int flag = 0;
+        ListNode *head = new ListNode(-1);
+        ListNode *p = head, *p1 = l1, *p2 = l2;
+        while(p1 && p2){
+            int cur = p1->val + p2->val + flag;
+            if(cur >= 10){
+                flag = 1;
+            } else {
+                flag = 0;
+            }
+            p->next = new ListNode(cur%10);
+            p = p->next;
+            p1 = p1->next;
+            p2 = p2->next;
+        }
+        while(p1){
+            int cur = p1->val + flag;
+            if(cur >= 10){
+                flag = 1;
+            } else {
+                flag = 0;
+            }
+            p->next = new ListNode(cur%10);
+            p = p->next;
+            p1 = p1->next;
+        }
+        while(p2){
+            int cur = p2->val + flag;
+            if(cur >= 10){
+                flag = 1;
+            } else {
+                flag = 0;
+            }
+            p->next = new ListNode(cur%10);
+            p = p->next;
+            p2 = p2->next;
+        }
+        if(flag){
+            p->next = new ListNode(1);
+        }
+        return head->next;
+    }
+};
+~~~
+
 ## 摩尔投票法
 
 ### 多数元素
 
-力扣 169：https://leetcode.cn/problems/majority-element/
+力扣 169：[多数元素](https://leetcode.cn/problems/majority-element/)
 
 找出数组中出现次数大于 n/2 的数
 

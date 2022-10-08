@@ -41,6 +41,39 @@ for(auto it: _map){
 }
 ```
 
+- map 重载 operator() 函数以实现自定义类/结构体的插入
+
+当键为 ListNode* 时，必须要重载 operator() 函数，以明确如何判定 ListNode* 的独特性
+
+~~~c
+struct ListNode {
+	int val;
+	ListNode *next;
+	ListNode(int x) : val(x), next(NULL) {}
+};
+
+class Solution {
+public:
+
+    bool operator()(const ListNode* s1, const ListNode* s2 ) const{
+        return s1->val != s2->val;
+    }
+
+    ListNode *detectCycle(ListNode *head) {
+       map<ListNode*, int> m;
+       int index = 0;
+       while(head){
+           if(m.count(head)){
+               return head;
+           }
+           m[head] = index++;
+           head = head->next;
+       } 
+       return NULL;
+    }
+};
+~~~
+
 ### set
 
 - 通过 insert() 函数插入值
