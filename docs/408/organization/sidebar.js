@@ -9,6 +9,7 @@ module.exports = [
 			'./basic/num',	
 			'./basic/memory',
 			'./basic/command',
+			'./basic/cpu',
 		]
 	},
 
