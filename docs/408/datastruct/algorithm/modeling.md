@@ -80,7 +80,7 @@ public:
 
 模拟加法、乘法，逐位计算，涉及到很多字符、字符串到数字的相互转换
 
-~~~c
+```c
 class Solution {
 public:
     string multiply(string num1, string num2) {
@@ -127,7 +127,7 @@ public:
         }
         return res;
     }
-    
+
     string addStrings(string num1, string num2) {
         int m = num1.size(), n = num2.size();
         int index = 1, flag = 0;
@@ -181,7 +181,7 @@ public:
         return ans;
     }
 };
-~~~
+```
 
 ### 两数相加
 
@@ -189,7 +189,7 @@ public:
 
 用链表模拟加法过程
 
-~~~c
+```c
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -246,7 +246,7 @@ public:
         return head->next;
     }
 };
-~~~
+```
 
 ## 摩尔投票法
 

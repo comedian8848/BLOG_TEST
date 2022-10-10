@@ -133,7 +133,7 @@ public:
 
 使用 hashmap 双射实现一一对应，这里单词模式匹配必须是一个字母匹配一个字符串，二者一一对应，不能`[a, nmsl], [b, nmsl]`
 
-~~~c
+```c
 class Solution {
 public:
     bool wordPattern(string pattern, string s) {
@@ -165,7 +165,7 @@ public:
         return true;
     }
 };
-~~~
+```
 
 ### 环形链表 II
 
@@ -173,7 +173,7 @@ public:
 
 返回链表中产生环的首个节点
 
-~~~c
+```c
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -196,5 +196,4 @@ public:
        return NULL;
     }
 };
-~~~
-
+```

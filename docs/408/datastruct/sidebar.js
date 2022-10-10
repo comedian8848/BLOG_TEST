@@ -16,6 +16,7 @@ module.exports = [
 		title: '算法',
 		collapsable: true,
 		children: [
+			'./algorithm/recursion',
 			'./algorithm/search',
 			'./algorithm/sort',
 			'./algorithm/dp',

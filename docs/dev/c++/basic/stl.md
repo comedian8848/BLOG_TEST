@@ -45,11 +45,11 @@ for(auto it: _map){
 
 当键为 ListNode* 时，必须要重载 operator() 函数，以明确如何判定 ListNode* 的独特性
 
-~~~c
+```c
 struct ListNode {
-	int val;
-	ListNode *next;
-	ListNode(int x) : val(x), next(NULL) {}
+    int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
 };
 
 class Solution {
@@ -72,7 +72,7 @@ public:
        return NULL;
     }
 };
-~~~
+```
 
 ### set
 
@@ -255,122 +255,6 @@ public:
 };
 ```
 
-### 递归程序设计
-
-> 树相关
-
-构造结构体/类指针
-
-```c
-ListNode* head = new ListNode(-1); // 必须这样初始化，不能直接 ListNode* head;
-```
-
-对称二叉树，判断一个二叉树是否对称
-
-```c
-class Solution {
-public:
-    bool isSymmetric(TreeNode* root) {
-        if(root == NULL){
-            return true;
-        }
-        return dfs(root->left, root->right);
-    }
-
-    bool dfs(TreeNode* left, TreeNode* right){
-        if(left == NULL && right == NULL){
-            return true;
-        }
-        if(left == NULL || right == NULL){
-            return false;
-        }
-        if(left->val != right->val){
-            return false;
-        }
-        return dfs(left->right, right->left) && dfs(left->left, right->right);
-    }
-};
-```
-
-路径总和，判断数中是否存在和为 target 的路径，路径指从根节点到叶子节点（递归 dfs）
-
-```c
-class Solution {
-public:
-    bool hasPathSum(TreeNode* root, int targetSum) {
-        if(root == NULL){
-            return false;
-        }
-        if(root->val == targetSum && root->left == NULL && root->right == NULL){
-            return true;
-        }
-        return hasPathSum(root->left, targetSum-root->val) || hasPathSum(root->right, targetSum-root->val);
-    }
-};
-```
-
-翻转二叉树，将二叉树左右翻转（后序遍历）
-
-```c
-class Solution {
-public:
-    TreeNode* invertTree(TreeNode* root) {
-        dfsInvert(root);
-        return root;
-    }
-
-    void dfsInvert(TreeNode* node){
-        if(node == NULL){
-            return;
-        }
-        dfsInvert(node->left);
-        dfsInvert(node->right);
-        TreeNode* temp = node->left;
-        node->left = node->right;
-        node->right = temp;
-    }
-};
-```
-
-验证搜索二叉树，被折磨了，其实抓住了是边界问题，但没找准，另外这个 int 的溢出真几把恶心，也不说一声
-
-```c
-class Solution {
-public:
-    bool isValidBST(TreeNode* root) {
-        return dfs(root, LONG_MIN, LONG_MAX);
-    }
-
-    bool dfs(TreeNode* node, long min, long max){
-        if(node == NULL){
-            return true;
-        }
-        long val = node->val;
-        if(val <= min || val >= max){
-            return false;
-        }
-        return dfs(node->left, min, val) && dfs(node->right, val, max);
-    }
-};
-```
-
-平衡二叉树的最近公共祖先，其实很简单，因为平衡，所以当目标值和当前节点之差异号时，说明在当前节点两侧
-
-```c
-class Solution {
-public:
-    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        if(!root){
-            return NULL;
-        }
-        if((long)(root->val-p->val)*(long)(root->val-q->val) <= 0){
-            return root;
-        }
-        return p->val < root->val ? lowestCommonAncestor(root->left, p, q) : lowestCommonAncestor(root->right, p, q);
-    }
-};
-```
-
 ### C++ 位运算
 
 出现一次的数字，使用异或操作，数字只会出现一次或两次
@@ -428,11 +312,11 @@ sort(intervals.begin(), intervals.end(), [](const auto& u, const auto& v){
 
 sort() 排序字符串，将把字符串原地按字典序排序，返回值为空
 
-~~~c
+```c
 string str = "dcba";
 sort(str.begin(), str.end());
 // str == "abcd"
-~~~
+```
 
 max_element()，返回迭代器的最大值，返回的是指向连续地址中最大值的指针，需要使用 * 号取值
 
@@ -446,10 +330,10 @@ int max = *max_element(vec);
 
 reverse()，翻转字符串
 
-~~~c
+```c
 string str = "nmsl";
 reverse(str); // str == "lsmn"
-~~~
+```
 
 ### string
 
@@ -490,18 +374,17 @@ int j = c-'0'; // j == 9
 
 to_string()，将数字（整型和浮点）转化为字符串
 
-~~~c
+```c
 int i = 55;
 string str = to_string(i); // str == "55"
-~~~
+```
 
 substr()，截取字符串，第一个参数为起始下标，第二个参数为截取字符串的长度（包含尾部）
 
-~~~c
+```c
 string s = "AAAAAAAAAAAAA";
 int n = s.length();
 for(int i = 0; i <= n-10; i++){
-	string cur = s.substr(i, 10);
+    string cur = s.substr(i, 10);
 }
-~~~
-
+```

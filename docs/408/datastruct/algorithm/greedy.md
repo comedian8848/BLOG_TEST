@@ -13,7 +13,7 @@ tags:
 
 力扣 56：[合并区间](https://leetcode.cn/problems/merge-intervals/)
 
-~~~c
+```c
 class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
@@ -31,7 +31,7 @@ public:
         return res;
     }
 };
-~~~
+```
 
 ### 无重叠区间
 
@@ -65,7 +65,7 @@ public:
 
 力扣 763：[划分字母区间](https://leetcode.cn/problems/partition-labels)
 
-~~~c
+```c
 class Solution {
 public:
     vector<int> partitionLabels(string s) {
@@ -100,7 +100,7 @@ public:
         return res;
     }
 };
-~~~
+```
 
 ## 硬贪
 
@@ -108,7 +108,7 @@ public:
 
 力扣 121：[买卖股票的最佳时机](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/)
 
-~~~c
+```c
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
@@ -125,7 +125,7 @@ public:
         return res;
     }
 };
-~~~
+```
 
 ### 递增的三元子序列
 

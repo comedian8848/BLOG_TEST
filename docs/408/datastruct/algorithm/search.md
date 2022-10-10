@@ -11,11 +11,11 @@ Breadth First Search
 
 ### 二叉树的层序遍历
 
-力扣102
+力扣 102
 
 > 借助队列这一数据结构辅助实现
 
-~~~java
+```java
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -60,13 +60,13 @@ class Solution {
         return list;
     }
 }
-~~~
+```
 
 ### 路径总和
 
-力扣112
+力扣 112
 
-~~~java
+```java
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -120,13 +120,13 @@ class Solution {
         return flag;
     }
 }
-~~~
+```
 
 ### 奇偶树
 
-力扣1609
+力扣 1609
 
-~~~java
+```java
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -187,7 +187,7 @@ class Solution {
         return true;
     }
 }
-~~~
+```
 
 ## 深度优先搜索
 
@@ -195,9 +195,9 @@ Deep First Search
 
 ### 递增顺序搜索树
 
-力扣897
+力扣 897
 
-~~~c
+```c
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -250,13 +250,13 @@ public:
         return head;
     }
 };
-~~~
+```
 
 ### 二叉搜索树的范围和
 
-力扣938
+力扣 938
 
-~~~c
+```c
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -294,13 +294,13 @@ public:
         return res;
     }
 };
-~~~
+```
 
 ### 二叉树的中序遍历
 
-力扣94
+力扣 94
 
-~~~java
+```java
  /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -330,19 +330,19 @@ class Solution {
         return list;
     }
 }
-~~~
+```
 
 ### 二叉树的最近祖先
 
-力扣236
+力扣 236
 
 > 递归，深度优先搜索
->
+> 
 > 明确 root “是 q 和 p 公共祖先” 的条件：(l&&r) || ((root==p||root==q)&&(l||r)
->
+> 
 > l：指左子树为 p 或 q 的祖先；r：指右子树为 p 或 q 的祖先
 
-~~~java
+```java
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -376,13 +376,13 @@ class Solution {
         return res;
     }
 }
-~~~
+```
 
 ### 路径总和
 
-力扣112
+力扣 112
 
-~~~java
+```java
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -419,13 +419,13 @@ class Solution {
         return flag;
     }
 }
-~~~
+```
 
 ### 连接词
 
-力扣472
+力扣 472
 
-~~~java
+```java
 public class Solution {
     static class Trie{
         public Trie[] children;
@@ -436,9 +436,9 @@ public class Solution {
             isEnd = false;
         }
     }
-	//字典树
+    //字典树
     private Trie trie = new Trie();
-	//将单词插入字典树
+    //将单词插入字典树
     public void insert(String word){
         Trie p = trie;
         int n = word.length();
@@ -494,15 +494,15 @@ public class Solution {
         return res;
     }
 }
-~~~
+```
 
 ### 猫和老鼠
 
-力扣913
+力扣 913
 
 > 在一场信息公开的游戏中，总有一方有一种方法使之不会输
 
-~~~java
+```java
 package com.solution;
 
 import java.util.Arrays;
@@ -566,17 +566,17 @@ public class MouseCatGame {
         dp[mouse][cat][steps] = res;
     }
 }
-~~~
+```
 
 ### 最长递增子序列的个数
 
-力扣673
+力扣 673
 
 > `dp[i]`记录当前位置能构成的最长递增子序列的长度
->
+> 
 > 对`dp[i]==maxLength`的位置进行深度优先搜索，找到能构成其最长递增子序列的道路总数，返回条件为`dp[j]==1 && nums[j]<pre`，其中`pre`为上一层的数大小
 
-~~~java
+```java
 class Solution {
     private int[] dp;
     private int res;
@@ -629,23 +629,23 @@ class Solution {
     }
 
 }
-~~~
+```
 
 ### 累加数
 
-力扣306
+力扣 306
 
 > 外两层循环枚举第一、第二结束点控制变量（`第一结束点+1==第二起始点`）
->
+> 
 > 内一层循环枚举第三结束点（`第二结束点+1==第三起始点`）
->
+> 
 > 若`pre+cur==next`，向后搜索下一组数，直到`index==n-1`，即第三结束点为串末尾，返回`true`
->
+> 
 > 若`pre+cur<next`，跳出本次循环，因为在第三结束点向后移动的过程中，`next`越来越大
->
+> 
 > 若`pre+cur>next`，向后循环遍历第三结束点，增大`next`
 
-~~~java
+```java
 package com.solution;
 
 public class IsAdditiveNumber {
@@ -688,6 +688,4 @@ public class IsAdditiveNumber {
         System.out.println(ian.isAdditiveNumber("112358"));
     }
 }
-
-~~~
-
+```
