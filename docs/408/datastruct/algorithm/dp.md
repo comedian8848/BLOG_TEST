@@ -9,9 +9,9 @@ tags:
 
 dynamic programming
 
-### 最大子序和
+### 最大子数组和
 
-力扣 53
+力扣 53：[最大子数组和](https://leetcode.cn/problems/maximum-subarray/)
 
 ```java
 public class MaxSumSubArray {
@@ -39,7 +39,7 @@ public class MaxSumSubArray {
 
 ### 解码方法
 
-力扣 91
+力扣 91：[解码方法](https://leetcode.cn/problems/decode-ways/)
 
 ```java
 //动态规划：状态转移方程
@@ -77,7 +77,7 @@ public class NumDecodings {
 
 ### 最长回文子串
 
-力扣 5
+力扣 5：[最长回文子串](https://leetcode.cn/problems/longest-palindromic-substring/)
 
 ```java
 //当s[i]==s[j]，dp[i][j]是否回文取决于dp[i+1][j-1]是否回文
@@ -125,7 +125,7 @@ class Solution {
 
 ### 回文子串
 
-力扣 647
+力扣 647：[回文子串](https://leetcode.cn/problems/palindromic-substrings/)
 
 ```java
 class Solution {
@@ -166,7 +166,7 @@ class Solution {
 
 ### 最长递增子序列
 
-力扣 300
+力扣 300：[最长递增子序列](https://leetcode.cn/problems/longest-increasing-subsequence/)
 
 > 用 dp[i] 记录第 i 个元素能构成的递增子序列大小：初始化为 1，对小于 i 的元素遍历，若当前元素大于 nums[j]，则 dp[i] = dp[j]+1，此为状态转移方程
 
@@ -196,7 +196,7 @@ class Solution {
 
 ### 消除游戏
 
-力扣 390
+力扣 390：[消除游戏](https://leetcode.cn/problems/elimination-game/)
 
 > `1 2 3 4 5 6 7 8 9`
 > 
@@ -258,7 +258,7 @@ class Solution {
 
 ### 猫和老鼠
 
-力扣 913
+力扣 913：[猫和老鼠](https://leetcode.cn/problems/cat-and-mouse/)
 
 > 数据结构：无向图
 > 
@@ -334,7 +334,7 @@ public class MouseCatGame {
 
 ### 最长递增子序列的个数
 
-力扣 673
+力扣 673：[最长递增子序列的个数](https://leetcode.cn/problems/number-of-longest-increasing-subsequence/)
 
 > `dp[i]`记录下标`i`元素能构成的最长递增子序列的长度
 > 
@@ -399,7 +399,7 @@ public class FindNumberOfLIS {
 
 ### 统计元音字母序列的数目
 
-力扣 1220
+力扣 1220：[统计元音字母序列的数目](https://leetcode.cn/problems/count-vowels-permutation/)
 
 字符串中的每个字符都应当是小写元音字母（`a, e, i, o, u`）
 每个元音`a`后面都只能跟着`e`
@@ -518,7 +518,7 @@ int main(){
 
 ### 区域和检索-数组不可变
 
-力扣 303
+力扣 303：[区域和检索 - 数组不可变](https://leetcode.cn/problems/range-sum-query-immutable/)
 
 ```java
 //优化解法：前缀和
@@ -550,7 +550,7 @@ class NumArray {
 
 ### 二维区域和检索-矩阵不可变
 
-力扣 304
+力扣 304：[二维区域和检索 - 矩阵不可变](https://leetcode.cn/problems/range-sum-query-2d-immutable/)
 
 ```java
 //采用303的优化解法：一维前缀和
@@ -587,7 +587,7 @@ class NumMatrix {
 
 ### 和为 k 的子数组
 
-力扣 560
+力扣 560：[和为 K 的子数组](https://leetcode.cn/problems/subarray-sum-equals-k/)
 
 用`map<int,int>`记录前缀和及其出现次数
 
