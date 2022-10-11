@@ -5,13 +5,73 @@ tags:
 - C/C++
 ---
 
-## 递归程序设计
+## 链表
 
 构造结构体/类指针
 
 ```c
 ListNode* head = new ListNode(-1); // 必须这样初始化，不能直接 ListNode* head;
 ```
+
+### 两两交换链表中的节点
+
+力扣 24：[两两交换链表中的节点](https://leetcode.cn/problems/swap-nodes-in-pairs/)
+
+```c
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        if(!head || !head->next){
+            return head;
+        }
+        ListNode* next = head->next;
+        head->next = swapPairs(next->next);
+        next->next = head;
+        return next;
+    }
+};
+```
+
+### 反转链表
+
+力扣 206：[反转链表](https://leetcode.cn/problems/reverse-linked-list/)
+
+```c
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if(!head || !head->next){
+            return head;
+        }
+        ListNode* rtn = reverseList(head->next);
+        head->next->next = head;
+        head->next = NULL;
+        return rtn;
+    }
+};
+```
+
+## 树
 
 ### 对称二叉树
 
@@ -136,34 +196,5 @@ public:
         }
         return p->val < root->val ? lowestCommonAncestor(root->left, p, q) : lowestCommonAncestor(root->right, p, q);
     }
-};
-```
-
-### 两两交换链表中的节点
-
-力扣 24：[两两交换链表中的节点](https://leetcode.cn/problems/swap-nodes-in-pairs/)
-
-```c
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) {}
- *     ListNode(int x) : val(x), next(nullptr) {}
- *     ListNode(int x, ListNode *next) : val(x), next(next) {}
- * };
- */
-class Solution {
-public:
-    ListNode* swapPairs(ListNode* head) {
-        if(!head || !head->next){
-            return head;
-        }
-        ListNode* next = head->next;
-        head->next = swapPairs(next->next);
-        next->next = head;
-        return next;
-    }
-};
+}; 
 ```

@@ -22,7 +22,8 @@ module.exports = [
 			'./algorithm/dp',
 			'./algorithm/greedy',
 			'./algorithm/hash',
-			'./algorithm/modeling',		
+			'./algorithm/modeling',
+			'./algorithm/pointer',	
 		]
 	},
 	
