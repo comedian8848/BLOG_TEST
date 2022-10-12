@@ -11,6 +11,7 @@ module.exports = [
 			'./basic/command',
 			'./basic/cpu',
 			'./basic/bus',
+			'./basic/io',
 		]
 	},
 
