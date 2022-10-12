@@ -173,7 +173,7 @@ VPN：
 - n 是数据组数
 - t 是每发送一段数据所需时间（发送时延+传播时延）
 
-<img src="/home/northboat/Desktop/Blog & Docs/Docs/docs/.vuepress/public/img/2022-8-29-1.png">
+<img src="../../../.vuepress/public/img/2022-8-29-1.png">
 
 分组是一组一组发送的，即上一组到达后，下一组才发出，这里的总时延要求的是第一组开始发送到最后一组数据到达末端经历的时间
 
