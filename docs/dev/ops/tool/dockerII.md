@@ -593,82 +593,9 @@ finished!
 Process finished with exit code 0
 ~~~
 
-2ã€Solution
-
-`Solution.java â€”â€”> comandLine3`
-
-~~~java
-package test;
-
-import java.util.ArrayList;
-
-class Solution{
-    public String start() {
-        Part1 p1 = new Part1();
-        Part2 p2 = new Part2();
-        p1.output();
-        p2.fun();
-        System.out.println("ohhhhhhhhhhh!");
-        return "finised";
-    }
-
-    public static void main(String[] args) {
-        long start = System.currentTimeMillis();
-
-        ArrayList<String> list = new ArrayList<>();
-        Solution s = new Solution();
-        list.add(s.start());
-        System.out.println(list.get(0));
-        long end = System.currentTimeMillis();
-        long time = end - start;
-        System.out.print("_" + time);
-    }
-}
-
-class Part1 {
-    public void output(){
-        System.out.println("hello,i am part 1");
-    }
-}
-
-class Part2 {
-   public void fun() {
-        System.out.println("hello,i am part 2");
-    }
-}
-~~~
-
- ç»“æœ
-
-~~~shell
-å¼€å§‹åˆå§‹åŒ–docker
-å¼€å§‹åˆå§‹åŒ–
-01:12:48.956 [main] DEBUG com.spotify.docker.client.DockerCertificates - Generated private key from spec using the 'RSA' algorithm
-01:12:50.368 [main] DEBUG com.spotify.docker.client.DockerConfigReader - Using configfile: C:\Users\NorthBoat\.docker\config.json
-docker_clientåˆå§‹åŒ–æˆåŠŸ
-å¼€å§‹åˆ›å»ºdockerå®¹å™¨
-å®¹å™¨åˆ›å»ºå®Œæ¯•
-è¿æ¥å®¹å™¨
-01:12:53.205 [main] INFO com.spotify.docker.client.DefaultDockerClient - Starting container with Id: 36a71148a6c65c825f21c1ee27bf32b587ddc078dbe92196b011f90e2c5b11bb
-å¼€å§‹ç¼–è¯‘...
-ç¼–è¯‘æˆåŠŸ
-æ­£åœ¨è¿è¡Œç¨‹åº..
-è¿è¡Œç»“æŸ
-åœæ­¢å®¹å™¨æˆåŠŸ
-å·²ç§»é™¤å®¹å™¨
-dockerä»£ç†å·²å…³é—­
-æœ¬æ¬¡åˆ¤é¢˜ç»“æŸï¼Œæ­£åœ¨è¿”å›ç»“æœ...
-
-è¶…æ—¶:false    è¶…å‡ºå†…å­˜é™åˆ¶:false    åˆ›å»ºå®¹å™¨æ—¶é—´:5108ms    å†…å­˜ä½¿ç”¨:0MiB    è¿è¡Œæ—¶é—´:1ms    åœæ­¢å®¹å™¨æ—¶é—´:625ms    
-è¿è¡Œç»“æœï¼š
-hello,i am part 1
-hello,i am part 2
-ohhhhhhhhhhh!
-finised
-
-
-finished!
-
-Process finished with exit code 0
-~~~
-
+2‡m>oíeÌÑE½ü£:K…I+÷N	^x$œ¥xEÙ÷”_Æ¢ÿ hßi>ñjÍáÛÓwáÀntÛÙ.àºšŞXYìdhÁ Å 9q„”‘ıÒçÖ¾¸¸•`E|¯Ú¹-–f9 `Š¬÷é4aî­¶ÖIÑÈµ¶b'–ŸÄ08áK36W''¿•ä!t4…O)v$„©bXs€>l€°äVPŒ©%îÌ§É9]luĞ]OåœÏ42Éö©,ïâiÍÄÅTK+»qµñqó(¥t3K1s;ÀQ@JˆŠ‘ ?)P8#4ß‡zÍ¥—‰´[«‹{]FÚ=F5•öÇ²ºTdV†@ØÜ˜c»i ã®+é]ROøâ$z¯†ãGğµ½»]ßhÓêOs$Ó\È²ı™dpJÆ€ù¡A·tc-¸ åZkg©0„$ìp_¼^–zÅ¼ú¤r‹]6ú;‡ŒÎË,–³0‚epd1
+ÀFÀ.yëÓxçNŠÔÍ¤»Ü:ëyv–‘É,0Û<ls¾v«Jèê£ ‘òçÊu[5´ñÅ”W7š:ÎÆ+ù‘$}F9dVInÖ+òü£95Şx“Qû}‡ü$3¬RÌ-mì5)&Û3Èe!€ÛTË ¤|Ã#8¯')Ê´]´ê}\¢¨JÔğ—¸>{Èêñ>Cmm¾ljàpHã «Ôõª|‹ŒÌD» #<‡ œš¥}vÿ l®¼³º<Hû¥º.íÆ%]Ù”ŠØ\`u“qt·F%:7`’¾K†Q¸³Ù\ [###¢³VØÁÉBm=Ë:ˆhİ–>FòÎ‘,d¹>„’  ‚N:æ©¸‹ìÈ0ÄhCNïæ]aV7vv$±;N{1Û$²¬ò4Šcã´eäYV+½1ÎA+$U£YÆ«æÜHÄE|µ@Ä Ä“€¿1$ó÷O+µ'd’Ôçöœ³vÜÕûD8ò¥Œ¾÷P…?Ö…CT°*W9<géú|wIuvÆ%ŠÖhìäi%HæL®ÈQŞUÚCH»‚°PHÈÎAˆO³5Áµ¶IŒW7ˆ„2Çà>ô›=Jõ†'°bºŠİÚ,ğ5 	 kØ%••£`™Ú§#O 3ræùe{„Z^ôˆoBC"I³0F†hü¸ü”b¡q…;É†Ç8¬õ¾F7	öyehG–X<íÄ®ãøp8 uã¾5…›Ç-Ü26^;¥·¤ÁÁ0;2ÉŒdW-Á!°B“Âñ²¤sC¸¦ÍÆ&Wl…E!”`äœüt57orZ¨ß<_È©lëur2Àˆ¤Ü›@\åw|ä`t>Â’K.àKk—<>cÃ-Ú“q˜ÅK¬AÙ¸àä’ Œv5^|jè?Õ¼E”Dù_— Œ`àpI,Aiæ<LvDÓ,’ªÇ‰ä˜Æ‹ºF`€8àM+§Ôws­¨ÛvKaäÈ&FÚÒOİ1†P¹ãÈéĞ²w!¤¸-ÂåÎ›c€±w@ÀÜÌø€	ïœÕ“LÉ…Èø¸ ¸†–'Ï wâ‘¬Ib"†!'—»¬—R1RÙH²N9#wäU'fµ3÷¢í{¢hmDóÇ˜–É¸¹’@Z+‚PA2á¤Ş.	å€æ©Øß8·RŞcA,B_‘ÁÜTƒÏ.ƒ–;3V£b¥d•š4M*£lŒ©BØ ùğ:ŒåŠ±ÉI¥³E£Eæûs1«HNAØµp‹NMTœ]»•ïA&¶*´ñÜ¬­çˆã—”´'Ìy
+â6_âU_¼Tı;t:†–s¯öuúÜÀ®f¶\y¬ÑâP‰$¸g`FqÒ®h¶¶6–òÍ|mË[,67ÍwÙá3Ç)’ØL®S‰8ûÀŠÓÀ×2•ÓáX¢·Œ¢Åg¶UEPIxƒ´“Œ€Iä‘~¤FnHë¸Ã`–è±ìÈT¤Æá€rq€8#¥N–Ê|Ë¹M¤…_t2•˜öŒˆÉf1ƒ_í[%‚ñfŠ	@ŠXï s$¶ÛIÈˆ§åf à±ç<Œ\ÅokºFÖğd¤..â@bCd±\ç ”äwœ“rM”½A÷A|«wo;ÈşŒÓËçy’V ° 0Ïğ ÇN:&•mãW%u®Wx»RÌ¤£´)È'®09âBÑ\ËnÏ-
+±šg•y $#ªòğøÈ |§ÔâÄÖ÷1 „›s¾UG‰TT "XØK+p28Ú-r»îbâ¹Ÿ+!Œ	cLQ±x–[»Q´la¹î%I @Häf¤¶í	OG¶–bçÏiVER¡X•·É ãæn³ S]v·¼‚Úç"'¹ãÎc‘CL
+);ò„¡ ¤‘‘šè4Fñ²Ñ[<±Ê$‘•äŠ8á]ÑG?<‡1üÀ(Ü	àn1M7mKönIw9It,Ê³èñ]­ˆAk-½ª(˜«VHØ·Ê·À†
+ONŞ¬zM½´LÉoozÍ$öQ[‹…†üµ1B¥·0Ñ‰v$–ÇpÕè6ÚE®™
