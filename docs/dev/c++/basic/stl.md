@@ -107,6 +107,8 @@ vec.push_back(7);
 ```c
 // 删除下标为 1 的元素
 vec.erase(vec.begin()+1);
+
+// 删除下标从 
 ```
 
 - back() 返回末尾元素
@@ -335,6 +337,14 @@ string str = "nmsl";
 reverse(str); // str == "lsmn"
 ```
 
+find()，寻找迭代器元素下标
+
+```c
+vector<int> nums = {1,2,3,4,5};
+cout << find(nums.begin(), nums.end(), 3) - nums.begin();
+// 输出 2，表示值 3 所在下标为 2
+```
+
 ### string
 
 遍历 string
@@ -387,4 +397,44 @@ int n = s.length();
 for(int i = 0; i <= n-10; i++){
     string cur = s.substr(i, 10);
 }
+```
+
+erase()，删除元素
+
+- 第一个参数为起始下标，第二个参数为删除长度
+
+- 或传入一个迭代器，删除单个元素
+
+- 注意删除元素后，该元素之后的元素下标均会 -1，在实际操作时要注意不要 i++
+
+```c
+class Solution {
+public:
+    string minRemoveToMakeValid(string s) {
+        stack<char> stc;
+        stack<int> sti;
+        for(int i = 0; i < s.length();){
+            if(s[i] == '('){
+                stc.push(s[i]);
+                sti.push(i);
+                i++;
+            } else if(s[i] == ')'){
+                if(stc.empty()){
+                    s.erase(i, 1);
+                } else {
+                    stc.pop();
+                    sti.pop();
+                    i++;
+                }
+            } else {
+                i++;
+            }
+        }
+        while(!sti.empty()){
+            s.erase(s.begin()+sti.top());
+            sti.pop();
+        }
+        return s;
+    }
+};
 ```
