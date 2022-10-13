@@ -6,185 +6,129 @@ tags:
   - C/C++
 ---
 
-## Node
+> 是手撸的哦
+
+## 链表
+
+### 单向链表
+
+力扣 707：[设计链表](https://leetcode.cn/problems/design-linked-list/)
 
 ```c
-#pragma once
+struct Node{
+    int val;
+    Node* next;
+    Node() : val(0), next(nullptr) {}
+    Node(int x) : val(x), next(nullptr) {}
+    Node(int x, Node *next) : val(x), next(next) {}
+};
+
+class MyLinkedList {
+public:
+
+    Node* head;
+    
+    int length;
+
+    MyLinkedList() {
+        head = new Node(-1);
+        length = 0;
+    }
+
+    Node* getNode(int index){
+        Node* p = head->next;
+        while(index > 0){
+            p = p->next;
+            index--;
+        }
+        return p;
+    }
+    
+    int get(int index) {
+        if(index >= length || index < 0){
+            return -1;
+        }
+        return getNode(index)->val;
+    }
+    
+    void addAtHead(int val) {
+        Node* node = new Node(val, head->next);
+        head->next = node;
+        length++;
+    }
+    
+    void addAtTail(int val) {
+        Node* p = head;
+        while(p->next){
+        	p = p->next;
+		}
+        p->next = new Node(val);
+        length++;
+    }
+    
+    void addAtIndex(int index, int val) {
+        if(index > length){
+            return;
+        } else if(index <= 0){
+            addAtHead(val);
+        } else if(index == length){
+            addAtTail(val);
+        } else {
+            Node* node = getNode(index-1);
+            Node* newNode = new Node(val, node->next);
+            node->next = newNode;
+            length++;
+        }
+    }
+    
+    void deleteAtIndex(int index) {
+        if(index >= length || index < 0){
+            return;
+        }
+        if(index == 0){
+        	head->next = head->next->next;
+        	length--;
+        	return;
+		}
+        Node* pre = getNode(index-1);
+        Node* cur = pre->next;
+        Node* next = pre->next->next;
+        pre->next = next;
+        delete(cur);
+        length--;
+    }
+};
+
+/**
+ * Your MyLinkedList object will be instantiated and called as such:
+ * MyLinkedList* obj = new MyLinkedList();
+ * int param_1 = obj->get(index);
+ * obj->addAtHead(val);
+ * obj->addAtTail(val);
+ * obj->addAtIndex(index,val);
+ * obj->deleteAtIndex(index);
+ */
+```
+
+## 栈
+
+### 链表实现
+
+```c
 #include <iostream>
-using namespace std;
+using namespace;
 
 struct LinkedNode {
     int val = 0;
     LinkedNode* next = nullptr;
     LinkedNode() {};
-    LinkedNode(int val);
-    int getVal();
+    LinkedNode(int val){
+        this->val = val;
+    }
+    int getVal(){
+        return val;
+    }
 };
-
-struct DLinkedNode {
-    int val = 0;
-    DLinkedNode* next = nullptr;
-    DLinkedNode* prev = nullptr;
-    DLinkedNode() {};
-    DLinkedNode(int val);
-    int getVal();
-};
-
-struct TreeNode {
-    int val = 0;
-    TreeNode* left = nullptr;
-    TreeNode* right = nullptr;
-    TreeNode() {};
-    TreeNode(int val);
-    int getVal();
-
-};
-```
-
-构造函数和get/set函数
-
-```c
-#include "Node.h"
-
-LinkedNode::LinkedNode(int val) {
-    this->val = val;
-}
-
-int LinkedNode::getVal() {
-    return val;
-}
-
-DLinkedNode::DLinkedNode(int val) {
-    this->val = val;
-}
-
-int DLinkedNode::getVal() {
-    return val;
-}
-
-TreeNode::TreeNode(int val) {
-    this->val = val;
-}
-
-int TreeNode::getVal() {
-    return val;
-}
-```
-
-## LinkedList
-
-```c
-#pragma once
-#include "Node.h";
-
-class LinkedList{
-
-private:
-    int length = 0;
-    LinkedNode* head = new LinkedNode();
-    LinkedNode* tail;
-    LinkedNode* locate(int index);
-
-public:
-    void add(int val);
-    int get(int index);
-    int size();
-    bool remove(int index);
-    bool empty();
-    void clear();
-    void print();
-};
-```
-
-```c
-#include "LinkedList.h";
-
-
-void LinkedList::add(int val) {
-    LinkedNode* node = new LinkedNode(val);
-    if (this->length == 0) {
-        head->next = node;
-        tail = node;
-        length++;
-        return;
-    }
-    tail->next = node;
-    tail = node;
-    length++;
-}
-
-LinkedNode* LinkedList::locate(int index) {
-    if (index + 1 > length || index < 0) {
-        return nullptr;
-    }
-    int count = 0;
-    LinkedNode* p = head;
-    while (p != nullptr && count < index + 1) {
-        p = p->next;
-        count++;
-    }
-    return p;
-}
-
-int LinkedList::get(int index) {
-    LinkedNode* target = locate(index);
-    if (target == nullptr) {
-        cout << "Out Of Broudary" << endl;
-        return -1;
-    }
-    return target->getVal();
-}
-
-bool LinkedList::remove(int index) {
-    if (index + 1 > length || index < 0) {
-        cout << "Out Of Broudary" << endl;
-        return false;
-    }
-    LinkedNode* prev = locate(index - 1);
-    LinkedNode* curr = prev->next;
-    prev->next = curr->next;
-    free(curr);    
-    if (index + 1 == length) {
-        tail = prev;
-    }
-    length--;
-    return true;
-}
-
-bool LinkedList::empty() {
-    if (length == 0) {
-        return true;
-    }
-    return false;
-}
-
-void LinkedList::print() {
-    LinkedNode* p = head->next;
-    while (p != nullptr) {
-        cout << p->getVal() << " ";
-        p = p->next;
-    }
-    cout << endl;
-}
-
-int LinkedList::size() {
-    return length;
-}
-
-void LinkedList::clear() {
-    head = new LinkedNode();
-    tail = nullptr;
-    length = 0;
-}
-```
-
-## Stack
-
-### 链表实现
-
-```c
-#pragma once
-#include "Node.h"
 
 class Stack{
 
@@ -305,13 +249,26 @@ public:
  */
 ```
 
-## Deque
+## 队列
 
 ### 链表实现
 
 ```c
-#pragma once
-#include "Node.h";
+#include <iostream>
+using namespace;
+
+struct DLinkedNode {
+    int val = 0;
+    DLinkedNode* next = nullptr;
+    DLinkedNode* prev = nullptr;
+    DLinkedNode() {};
+    DLinkedNode(int val){
+        this->val = val;
+    }
+    int getVal() {
+        return val;
+    }
+};
 
 class Deque{
 
@@ -424,7 +381,9 @@ bool Deque::empty() {
 }
 ```
 
-## Tree
+## 树
+
+### 二叉树
 
 ```c
 #include <stdio.h>
@@ -542,9 +501,11 @@ int leaf(node* root){
 }
 ```
 
-## Trie
+### 字典树
 
-字典树
+> 也叫前缀树
+
+力扣 208：[实现 Trie (前缀树)](https://leetcode.cn/problems/implement-trie-prefix-tree/)
 
 ```java
 class Trie {
@@ -600,7 +561,9 @@ class Trie {
 }
 ```
 
-## Map
+## 图
+
+### 无向图
 
 自己乱写的无向图
 

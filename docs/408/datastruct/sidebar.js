@@ -6,8 +6,8 @@ module.exports = [
 		title: '数据结构',
 		collapsable: true,
 		children: [
-			'./basic/algorithm',
 			'./basic/struct',
+			'./basic/algorithm',			
 		]
 	},
 	
