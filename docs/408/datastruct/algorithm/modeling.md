@@ -248,6 +248,84 @@ public:
 };
 ```
 
+### 找出游戏的获胜者
+
+力扣 1823：[找出游戏的获胜者](https://leetcode.cn/problems/find-the-winner-of-the-circular-game/)
+
+- 模拟游戏过程，count 记录全局遍历次数
+
+~~~c
+class Solution {
+public:
+    int findTheWinner(int n, int k) {
+        vector<int> vec;
+        for(int i = 1; i <= n; i++){
+            vec.push_back(i);
+        }
+        int count = 1;
+        while(vec.size() > 1){
+            for(int i = 0; i < vec.size(); count++){
+                if(count % k == 0){
+                    vec.erase(vec.begin()+i);
+                } else {
+                    i++;
+                }
+            }
+        }
+        return vec[0];
+    }
+};
+~~~
+
+### 二叉树的锯齿形层序遍历
+
+力扣 103：[二叉树的锯齿形层序遍历](https://leetcode.cn/problems/binary-tree-zigzag-level-order-traversal/)
+
+- 模拟遍历过程
+- 记录行数奇偶，偶数正序，奇数 reverse()
+
+~~~c
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        vector<vector<int>> res;
+        if(!root){ return res; }
+        vector<TreeNode*> nodes;
+        nodes.push_back(root);
+        int count = 0;
+        while(!nodes.empty()){
+            int n = nodes.size();
+            cout << nodes[0]->val << " ";
+            vector<int> row;
+            for(int i = 0; i < n; i++){
+                TreeNode* cur = nodes[i];
+                if(cur->left) { nodes.push_back(cur->left); }
+                if(cur->right) { nodes.push_back(cur->right); }
+                row.push_back(cur->val);
+            }
+            nodes.erase(nodes.begin(), nodes.begin()+n);
+            if(count % 2 == 0) { res.push_back(row); }
+            else { reverse(row.begin(), row.end()); res.push_back(row); }
+            count++;
+        }
+        return res;
+    }
+};
+~~~
+
+
+
 ## 摩尔投票法
 
 ### 多数元素

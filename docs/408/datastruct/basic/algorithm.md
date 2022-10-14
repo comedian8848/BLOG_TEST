@@ -356,6 +356,52 @@ int main() {
 }
 ```
 
+### 移除无效括号
+
+力扣 1249：[移除无效的括号](https://leetcode.cn/problems/minimum-remove-to-make-valid-parentheses/)
+
+- 不仅要删除多余的 ')'，还要删除多余的 '('
+
+- 遍历一次字符串，用一个栈通过不断弹出压入 '('，将字符串中多余的 ')' 移除，这一步和有效括号一样
+
+  同时用另一个栈记录各个 '(' 的下标，**因为取出时是从后往前取，所以删除 '(' 时不会影响前面的下标**
+
+- 遍历之后，若栈中有多余 '('，不断弹出第二个栈的下标，erase() 删除之，获得结果
+
+```c
+class Solution {
+public:
+    string minRemoveToMakeValid(string s) {
+        stack<char> stc;
+        stack<int> sti;
+        for(int i = 0; i < s.length();){
+            if(s[i] == '('){
+                stc.push(s[i]);
+                sti.push(i);
+                i++;
+            } else if(s[i] == ')'){
+                if(stc.empty()){
+                    s.erase(i, 1);
+                } else {
+                    stc.pop();
+                    sti.pop();
+                    i++;
+                }
+            } else {
+                i++;
+            }
+        }
+        while(!sti.empty()){
+            s.erase(s.begin()+sti.top());
+            sti.pop();
+        }
+        return s;
+    }
+};
+```
+
+
+
 ### 进制转换
 
 ```c

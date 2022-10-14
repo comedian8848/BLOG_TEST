@@ -383,3 +383,85 @@ public:
     }
 }; 
 ```
+
+### 将有序数组转换为二叉搜索树
+
+力扣 108：[将有序数组转换为二叉搜索树](https://leetcode.cn/problems/convert-sorted-array-to-binary-search-tree/)
+
+- 因为数组有序，且要构造二叉搜索树，数组中间元素一定是根节点
+- 据此递归
+
+~~~c
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+        return build(nums, 0, nums.size());
+    }
+
+    TreeNode* build(vector<int>& nums, int left, int right){
+        if(left >= right){
+            return NULL;
+        }
+        int mid = (left+right) / 2;
+        TreeNode* node = new TreeNode(nums[mid]);
+        node->left = build(nums, left, mid);
+        node->right = build(nums, mid+1, right);
+        return node;
+    }
+};
+~~~
+
+### 从前序和中序遍历序列构造二叉树
+
+力扣 106：[从前序与中序遍历序列构造二叉树](https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
+
+- 首先要明确前序、中序遍历序列的结构
+  - 前序：根节点 [左子树] [右子树]
+  - 中序：[左子树] 根节点 [右子树]
+- 在中序遍历中找到根节点，根节点左侧是他的左子树，右侧是他的右子树，可以轻易获得左子树的长度 length
+- 定位前序遍历的序列的根节点，我们已知 preorder[0] 是整个树的根节点，此时令 index = 0，很容易得知**根节点的左子树的根节点**就是 preorder[index+1]，在根据根节点在 inorder 中位置 pos，**根节点的右子树的根节点**就是 preorder[index+pos+1] = preorder[index+length]
+- 据此递归获取整颗二叉树
+
+```c
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        return build(preorder, 0, inorder, 0, preorder.size());
+    }
+
+    TreeNode* build(vector<int>& preorder, int index, vector<int> inorder, int left, int right){
+        if(left >= right){
+            return NULL;
+        }
+        TreeNode* root = new TreeNode(preorder[index]);
+        int pos = find(inorder.begin(), inorder.end(), root->val) - inorder.begin();
+        int length = pos-left;
+        root->left = build(preorder, index+1, inorder, left, pos);
+        root->right = build(preorder, index+length+1, inorder, pos+1, right);
+        return root;
+    }
+};
+```
+
