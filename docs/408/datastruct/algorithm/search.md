@@ -189,9 +189,57 @@ class Solution {
 }
 ```
 
+### 二叉树的右视图
+
+力扣 199：[二叉树的右视图](https://leetcode.cn/problems/binary-tree-right-side-view/)
+
+```c
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+
+    vector<int> res;
+
+    vector<int> rightSideView(TreeNode* root) {
+        bfs(root);
+        return res;
+    }
+
+    void bfs(TreeNode* node){
+        if(!node){
+            return;
+        }
+        deque<TreeNode*> queue;
+        queue.push_back(node);
+        while(!queue.empty()){
+            res.push_back(queue.back()->val);
+            int n = queue.size();
+            for(int i = 0; i < n; i++){
+                TreeNode* cur = queue.front();
+                if(cur->left) { queue.push_back(cur->left); }
+                if(cur->right) { queue.push_back(cur->right); }
+                queue.pop_front();
+            }
+        }        
+    }
+};
+```
+
 ## 深度优先搜索
 
-Deep First Search
+> Deep First Search
+> 
+> 深度优先搜索一定是递归捏
 
 ### 递增顺序搜索树
 
@@ -688,4 +736,58 @@ public class IsAdditiveNumber {
         System.out.println(ian.isAdditiveNumber("112358"));
     }
 }
+```
+
+### 路径总和 II
+
+力扣 113：[路径总和 II](https://leetcode.cn/problems/path-sum-ii/)
+
+- 深度搜索，递归过程
+
+```c
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+
+    vector<vector<int>> res;
+
+    vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
+        if(!root){
+            return res;
+        }
+        vector<int> vec;
+        dfs(root, targetSum, vec);
+        return res;
+    }
+
+    void dfs(TreeNode* node, int targetSum, vector<int>& fact){
+        if(!node->left && !node->right){
+            if(node->val == targetSum){
+                fact.push_back(node->val);
+                res.push_back(fact);
+            }
+            fact.clear();
+        }
+        fact.push_back(node->val);
+        if(node->left){
+            vector<int> left(fact);
+            dfs(node->left, targetSum-node->val, left);
+        }
+        if(node->right){
+            vector<int> right(fact);
+            dfs(node->right, targetSum-node->val, right);
+        }
+        fact.clear();
+    }
+};
 ```

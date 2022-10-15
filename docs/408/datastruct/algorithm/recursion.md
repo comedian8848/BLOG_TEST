@@ -391,7 +391,7 @@ public:
 - 因为数组有序，且要构造二叉搜索树，数组中间元素一定是根节点
 - 据此递归
 
-~~~c
+```c
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -420,7 +420,7 @@ public:
         return node;
     }
 };
-~~~
+```
 
 ### 从前序和中序遍历序列构造二叉树
 
@@ -464,4 +464,23 @@ public:
     }
 };
 ```
+
+### 删除二叉搜索树中的节点
+
+力扣 450：[删除二叉搜索树中的节点](https://leetcode.cn/problems/delete-node-in-a-bst/)
+
+好难，基本抄的，基本思路是
+
+- 找到将要删除的节点 node
+
+- 将 node->right 的最左叶子 leaf 作为新的 node 接在树上，即用 leaf 替换 node
+  
+  - 这意味着：leaf->left = node->left, leaf->right = node->right
+  
+  - 且 node->right 中不含 leaf，即要在 node->right 中删除 leaf
+
+```c
+
+```
+
 
