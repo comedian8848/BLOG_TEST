@@ -21,9 +21,9 @@ module.exports = [
 	text: '408',
 	items: [
 	    {text: 'Data Struct', link: '/408/datastruct/'},
-	    {text: 'Computer Network', link: '/408/network/'},
+	    {text: 'Network', link: '/408/network/'},
 	    {text: 'Operating System', link: '/408/operating/'}, 
-	    {text: 'Computer Organization', link: '/408/organization/'},
+	    {text: 'Organization', link: '/408/organization/'},
    
 	]
     },
