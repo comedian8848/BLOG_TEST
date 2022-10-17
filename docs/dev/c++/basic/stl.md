@@ -438,3 +438,26 @@ public:
     }
 };
 ```
+
+将字符串根据特定字符分割成一个字符串数组
+
+```c
+list<string> strs;
+
+void split(string data, char c) {
+    string str;
+    for(auto& ch: data){
+        if(ch == c){
+            strs.push_back(str);
+            str.clear();
+        } else {
+            str.push_back(ch);
+        }
+    }
+    if(!str.empty()){
+        strs.push_back(str);
+        str.clear();
+    }
+    return build();
+}
+```

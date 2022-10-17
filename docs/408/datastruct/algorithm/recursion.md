@@ -480,7 +480,171 @@ public:
   - 且 node->right 中不含 leaf，即要在 node->right 中删除 leaf
 
 ```c
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        if(!root){
+            return NULL;
+        }
+        if(root->val == key){
+            if(!root->left && !root->right){ //如果为叶子节点
+                return NULL;
+            }
+            if(!root->left){     // 如果没有左子树
+                return root->right;
+            }
+            if(!root->right){    // 如果没有右子树
+                return root->left;
+            }
+            TreeNode* new_root = root->right;
+            while(new_root->left){
+                new_root = new_root->left;
+            }
+            int val = new_root->val;
+            root->right = deleteNode(root->right, val);
+            new_root->left = root->left;
+            new_root->right = root->right;
+            return new_root;
+        }
 
+        if(root->val < key){
+            root->right = deleteNode(root->right, key);
+        }
+        if(root->val > key){
+            root->left = deleteNode(root->left, key);
+        }
+        return root;
+    }
+};
 ```
 
+### 二叉树的最近公共祖先
 
+力扣 236：[二叉树的最近公共祖先](https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/)
+
+不同于二叉搜索树，这里需要对节点的左右子节点均遍历，不能通过值大小进行选择，也不能通过差值乘积是否同号判断是否节点位于根的同一边
+
+```c
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        find(root, p, q);
+        return res;
+    }
+
+    TreeNode* res;
+
+    bool find(TreeNode* root, TreeNode* p, TreeNode* q){
+        if(!root){
+            return false;
+        }
+        int cur = root->val;
+        int left = find(root->left, p, q);
+        int right = find(root->right, p, q);
+        if((left && right) || ((left || right)&&(cur==p->val || cur==q->val))){
+            res = root;
+        }
+        return root->val == p->val || root->val == q->val || left || right;
+    }
+};
+```
+
+### 二叉树的序列化和反序列化
+
+力扣 297：[二叉树的序列化与反序列化](https://leetcode.cn/problems/serialize-and-deserialize-binary-tree/)
+
+- 随便遍历一次，要标记 null
+
+- 再按照遍历顺序进行构造，麻烦
+
+```c
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+
+class Codec {
+public:
+
+    list<string> strs;
+
+    void dfs(TreeNode* root, string& s){
+        if(!root){
+            s += "none,";
+            return;
+        }
+        s += to_string(root->val)+",";
+        dfs(root->left, s);
+        dfs(root->right, s);
+    }
+
+    TreeNode* build(){
+        if(strs.front() == "none"){
+            strs.erase(strs.begin());
+            return NULL;
+        }
+        TreeNode* root = new TreeNode(stoi(strs.front()));
+        strs.erase(strs.begin());
+        root->left = build();
+        root->right = build();
+        return root;
+    }
+
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) {
+        string s;
+        dfs(root, s);
+        cout << s;
+        return s;
+    }
+
+    // Decodes your encoded data to tree.
+    TreeNode* deserialize(string data) {
+        string str;
+        for(auto& ch: data){
+            if(ch == ','){
+                strs.push_back(str);
+                str.clear();
+            } else {
+                str.push_back(ch);
+            }
+        }
+        if(!str.empty()){
+            strs.push_back(str);
+            str.clear();
+        }
+        return build();
+    }
+};
+
+
+
+// Your Codec object will be instantiated and called as such:
+// Codec ser, deser;
+// TreeNode* ans = deser.deserialize(ser.serialize(root));
+```
