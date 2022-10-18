@@ -14,10 +14,6 @@ module.exports = {
 	//['script', {src: 'https://github.com/markdown-it/markdown-it/blob/master/bin/markdown-it.js'}],
 	//['script', {src: 'https://gitcdn.xyz/cdn/goessner/markdown-it-texmath/master/texmath.js'}],
 	['script', {src: 'https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js'}],
-	['link', {rel: 'stylesheet', href: 'http://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css'}],
-  	['script', {src: "https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"}],
-  	['script', {src: "https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"}],
-
     ],
 
     markdown: {
