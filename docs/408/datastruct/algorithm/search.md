@@ -791,3 +791,71 @@ public:
     }
 };
 ```
+
+### 钥匙和房间
+
+力扣 841：[钥匙和房间](https://leetcode.cn/problems/keys-and-rooms/)
+
+- 遍历房间中的钥匙，用 flags[i] 表示第 i 个房间是否被访问过
+- 再次访问到直接跳过，未访问到则访问并遍历该房间中的钥匙
+- 如果 flags 中存在 false，则说明未遍历完
+- 因为整个图只有一个入口，即 rooms[0]，如果从磁入口深度遍历不完，则说明该图无法通过 rooms[0] 到达所有节点
+
+```c
+Solution {
+public:
+
+    bool canVisitAllRooms(vector<vector<int>>& rooms) {
+        vector<int> flags(rooms.size(), 0);
+        dfs(rooms, flags, 0);
+        for(auto& flag: flags){
+            if(!flag){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    void dfs(vector<vector<int>>& rooms, vector<int>& flags, int index){
+        if(flags[index]){
+            return;
+        }
+        vector<int> keys = rooms[index];
+        flags[index] = 1;
+        for(auto& key: keys){
+            dfs(rooms, flags, key);
+        }     
+    }
+};
+```
+
+## 二分搜索
+
+### 二分查找
+
+力扣 704：[二分查找](https://leetcode.cn/problems/binary-search/)
+
+```c
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        return binarySearch(nums, target, 0, nums.size()-1);
+    }
+
+    int binarySearch(vector<int>& nums, int target, int left, int right){
+        if(left > right){
+            return -1;
+        }
+        int mid = (left+right) / 2;
+        if(nums[mid] == target){
+            return mid;
+        }
+        if(nums[mid] > target){
+            return binarySearch(nums, target, left, mid-1);
+        } else {
+            return binarySearch(nums, target, mid+1, right);
+        }
+    }
+};
+```
+

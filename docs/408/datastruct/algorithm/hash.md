@@ -125,7 +125,7 @@ public:
 };
 ```
 
-## 应用哈希
+## 字符串哈希
 
 ### 单词规律
 
@@ -167,6 +167,8 @@ public:
 };
 ```
 
+## 链表哈希
+
 ### 环形链表 II
 
 力扣 142：[环形链表 II](https://leetcode.cn/problems/linked-list-cycle-ii/)
@@ -198,6 +200,8 @@ public:
 };
 ```
 
+## 图哈希
+
 ### 找到小镇的法官
 
 力扣 997：[找到小镇的法官](https://leetcode.cn/problems/find-the-town-judge/)
@@ -225,4 +229,30 @@ public:
     }
 };
 ~~~
+
+### 可以到达所有点的最少点数目
+
+力扣 1557：[以到达所有点的最少点数目](https://leetcode.cn/problems/minimum-number-of-vertices-to-reach-all-nodes/)
+
+- 返回最小的点集，通过该点集可以遍历图中所有节点
+- 即找入度为 0 的节点的集合
+
+```c
+class Solution {
+public:
+    vector<int> findSmallestSetOfVertices(int n, vector<vector<int>>& edges) {
+        set<int> s;
+        for(auto& edge: edges){
+            s.insert(edge[1]);
+        }
+        vector<int> res;
+        for(int i = 0; i < n; i++){
+            if(!s.count(i)){
+                res.push_back(i);
+            }
+        }
+        return res;
+    }
+};
+```
 
