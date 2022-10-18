@@ -18,7 +18,7 @@ module.exports = [
 
 	
     {
-	text: '408',
+	text: 'Major',
 	items: [
 	    {text: 'Data Struct', link: '/408/datastruct/'},
 	    {text: 'Network', link: '/408/network/'},
