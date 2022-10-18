@@ -197,3 +197,32 @@ public:
     }
 };
 ```
+
+### 找到小镇的法官
+
+力扣 997：[找到小镇的法官](https://leetcode.cn/problems/find-the-town-judge/)
+
+- 使用哈希集合、哈希表统计有向图信息
+
+~~~c
+class Solution {
+public:
+    int findJudge(int n, vector<vector<int>>& trust) {
+        set<int> s;
+        map<int, int> m;
+        for(int i = 0; i < trust.size(); i++){
+            if(!s.count(trust[i][0])) { s.insert(trust[i][0]); }
+            m[trust[i][1]]++;
+        }
+        for(int i = 1; i <= n; i++){
+            if(!s.count(i)){
+                if(m[i]==n-1){
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+};
+~~~
+
