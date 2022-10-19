@@ -6,6 +6,7 @@ module.exports = [
 		collapsable: true,
 		children: [
 			'./basic/outline',
+			'./basic/thread',
 		]
 	},
 
