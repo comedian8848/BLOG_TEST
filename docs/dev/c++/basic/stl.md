@@ -301,12 +301,16 @@ sort()，排序函数 sort 搭配 lambda 表达式
 
 ```c
 // 排序结构体
-sort(begin(vec), end(vec), [](const Student& lhs, const Student& rhs) {
+bool cmp(Student lhs, Student rhs){
     return lhs.grade < rhs.grade 
            || (lhs.grade == rhs.grade && lhs.name < rhs.name)
-});
+}
+
+// 将函数 cmp 作为参数传入，制定 sort 规则
+sort(begin(vec), end(vec), cmp);
 
 // 按迭代器的第二个元素从小到大排序
+// 使用 lambda 函数作为第三个参数
 sort(intervals.begin(), intervals.end(), [](const auto& u, const auto& v){
     return u[1]<v[1];
 });
@@ -461,3 +465,61 @@ void split(string data, char c) {
     return build();
 }
 ```
+
+## Lambda 表达式
+
+在之前 sort 函数中小用了一下，其实这里和 java 的 lambda 函数是差不多的，以`[]`作为匿名函数的开头，接`()`传参，`{}`书写函数内容及返回值
+
+如力扣 451：[根据字符出现频率排序](https://leetcode.cn/problems/sort-characters-by-frequency/)
+
+用 hash 统计字符数量，再用 sort 从大到小排序`pair<char,int>` 
+
+```c
+class Solution {
+public:
+    string frequencySort(string s) {
+        map<char, int> m;
+        for(int i = 0; i < s.size(); i++){
+            m[s[i]]++;
+        }
+        vector<pair<char,int>> v;
+        for(auto& it: m){
+            v.push_back(pair<char, int> (it.first, it.second));
+        }
+        
+        // lambda 函数作为参数传入
+        sort(v.begin(), v.end(), [](pair<char,int> p1, pair<char,int> p2){
+            return p1.second > p2.second;
+        });
+        
+        string res = "";
+        for(int i = 0; i < v.size(); i++){
+            for(int j = 0; j < v[i].second; j++){
+                res += v[i].first;
+            }
+        }
+        return res;
+    }
+};
+```
+
+又如力扣 973：[最接近原点的 K 个点](https://leetcode.cn/problems/k-closest-points-to-origin/)
+
+用 sort 函数排序`vector<int>`数组，排序点到原点距离大小
+
+```c
+class Solution {
+public:
+    vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
+        sort(points.begin(), points.end(), [](vector<int> u, vector<int> v){
+            return u[0]*u[0]+u[1]*u[1] < v[0]*v[0]+v[1]*v[1];
+        });
+        vector<vector<int>> res;
+        for(int i = 0; i < k; i++){
+            res.push_back(points[i]);
+        }
+        return res;
+    }
+};
+```
+

@@ -167,6 +167,43 @@ public:
 };
 ```
 
+### 根据字符出现频率排序
+
+力扣 451：[根据字符出现频率排序](https://leetcode.cn/problems/sort-characters-by-frequency/)
+
+- 排序 pair 数组，使用 lambda 表达式
+
+```c
+class Solution {
+public:
+    string frequencySort(string s) {
+        map<char, int> m;
+        for(int i = 0; i < s.size(); i++){
+            m[s[i]]++;
+        }
+        vector<pair<char,int>> v;
+        for(auto& it: m){
+            v.push_back(pair<char, int> (it.first, it.second));
+        }
+        
+        // lambda 函数作为参数传入
+        sort(v.begin(), v.end(), [](pair<char,int> p1, pair<char,int> p2){
+            return p1.second > p2.second;
+        });
+        
+        string res = "";
+        for(int i = 0; i < v.size(); i++){
+            for(int j = 0; j < v[i].second; j++){
+                res += v[i].first;
+            }
+        }
+        return res;
+    }
+};
+```
+
+
+
 ## 链表哈希
 
 ### 环形链表 II
