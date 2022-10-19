@@ -360,7 +360,7 @@ CPU 管理：以进程为单位进行 CPU 的分配，将对 CPU 的管理转化
 
 分为内核和外核，内核负责资源分配，外核负责资源管理
 
-## 操作系统引导
+## 操作系统引导和虚拟机
 
 操作系统安装在外存，开机后自动加载到内存运行，其启动流程如下
 
@@ -380,6 +380,4 @@ CPU 管理：以进程为单位进行 CPU 的分配，将对 CPU 的管理转化
 
 - 操作系统初始化：初始化处理器、中断、各管理模块；创建主进程并死循环执行；启动控制台
 
-## 虚拟机
-
-使用软件模拟的、运行在隔离环境中的、完整的操作系统，如 KVM(Kernel-based Virtual Machine)：[KVM - ArchWiki (archlinux.org)](https://wiki.archlinux.org/title/KVM)
+虚拟机：使用软件模拟的、运行在隔离环境中的、完整的操作系统，如 [KVM(Kernel-based Virtual Machine) - ArchWiki (archlinux.org)](https://wiki.archlinux.org/title/KVM)
