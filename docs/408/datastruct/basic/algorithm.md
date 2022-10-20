@@ -1816,7 +1816,7 @@ int main(){
 
 ## 排序
 
-### 堆排
+### 堆排序
 
 ```c
 #include <iostream>
@@ -1892,7 +1892,7 @@ int main(){
 }
 ```
 
-### 快排
+### 快速排序
 
 ```c
 #include <iostream>
@@ -1943,105 +1943,3 @@ int main(){
 }
 ```
 
-### 选排
-
-```c
-#include <iostream>
-using namespace std;
-
-void swap(int* nums, int i, int j){
-    int temp = nums[i];
-    nums[i] = nums[j];
-    nums[j] = temp;
-}
-
-void println(int* nums, int length, int step){
-    cout << "step " << step << ": "; 
-    for(int i = 0; i < length; i++){
-        cout << nums[i] << " ";
-    }
-    cout << endl;
-}
-
-void selectSort(int* nums, int length){
-    for(int i = 0; i < length-1; i++){
-        int minIndex = i;
-        for(int j = i+1; j < length; j++){
-            if(nums[j] < nums[minIndex]){
-                minIndex = j;
-            }
-        }
-        swap(nums, i, minIndex);
-        println(nums, length, i+1);
-    }
-    cout << "sorted array: ";
-    for(int i = 0; i < length; i++){
-        cout << nums[i] << " ";
-    }
-}
-
-int main(){
-
-    int length;
-    cin >> length;
-    int* nums = new int[length];
-    for(int i = 0; i < length; i++){
-        cin >> nums[i];
-    }
-    selectSort(nums, length);
-    return 0;
-}
-```
-
-### 插排
-
-```c
-#include <iostream>
-using namespace std;
-
-void print(int* nums, int length){
-    for(int i = 0; i < length; i++){
-        cout << nums[i] << " ";
-    }
-}
-
-void println(int* nums, int length){
-    print(nums, length);
-    cout << endl;
-}
-
-void insertSort(int* nums, int length){
-    for(int i = 1; i < length; i++){
-        int cur = nums[i];
-        int j;
-        for(j = i-1; j >= 0; j--){
-            if(nums[j] > cur){
-                nums[j+1] = nums[j];
-            } else{
-                break;
-            }
-        }
-        nums[j+1] = cur;
-        if(i < length-1){
-            println(nums, length);
-        }        
-    }
-    print(nums, length);
-}
-
-
-int main(){
-
-    int* nums;
-    int length;
-    cin >> length;
-    nums = new int[length];
-    for(int i = 0; i < length; i++){
-        cin >> nums[i];
-    }
-
-    insertSort(nums, length);
-
-    return 0;
-}
-```
