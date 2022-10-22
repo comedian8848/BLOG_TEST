@@ -6,7 +6,14 @@ module.exports = [
 		collapsable: true,
 		children: [
 			'./basic/outline',
-			'./basic/thread',
+			{
+			    title: '进程管理',
+			    collapsable: true,
+			    children: [
+			    	'./basic/thread',
+				'./basic/scheduling',
+			    ]
+			},
 		]
 	},
 
@@ -16,13 +23,13 @@ module.exports = [
 		children: [
 			'./assembly/addressing',
 			{
-				title: '汇编程序设计',
-				collapsable: true,
-				children: [
-					'./assembly/branch',
-					'./assembly/loop',
-			]
-	},
+			    title: '汇编程序设计',
+			    collapsable: true,
+			    children: [
+				'./assembly/branch',
+				'./assembly/loop',
+			    ]
+			},
 		]
 	},
 	
