@@ -6,11 +6,11 @@ tags:
   - Java
 ---
 
-## 线程安全的集合类
+## 线程安全的集合
 
 <img src="./../../../.vuepress/public/img/image-20210730232535767.png">
 
-### 集合类不安全
+### 集合类
 
 > 初识函数式接口
 
@@ -23,7 +23,7 @@ public class ListTest {
 }
 ~~~
 
-#### List不安全
+#### List
 
 数据结构：顺序表或链表
 
@@ -101,7 +101,7 @@ COW：计算机程序设计领域的一种优化策略
 
 在写入时避免覆盖造成数据问题 ——> 读写分离
 
-#### Set不安全
+#### Set
 
 Iterable ——> Collection ——> List + Set + BlockingQueue（阻塞队列）
 
@@ -157,7 +157,7 @@ public boolean add(E e) {
 private static final Object PRESENT = new Object();
 ~~~
 
-#### Map不安全
+#### Map
 
 数据结构：哈希表（散列表）
 
@@ -231,7 +231,7 @@ String res = futuretask.get();
 - FutureTask 的 get 方法是阻塞的，也就是说，只有 call() 方法跑完之后，才会 get 到值，若 get 在 start 前，则程序死锁
 - call() 方法是有缓存的，开两条线程跑同一个 call 函数，只会有一个结果，如上述代码若开两条线程只会输出一句 wdnmd
 
-### 常用辅助类
+### 帮助线程安全的辅助类
 
 #### CountDwonLatch
 
@@ -503,7 +503,7 @@ class MyCache{
 
 我的代码和kuangshen一模吊样，但就是先读后写，我很烦
 
-## Java线程池
+## Java 线程池
 
 ### 阻塞队列
 
@@ -687,19 +687,12 @@ Process finished with exit code 0
 
 池化技术：事先准备好一些资源，需要使用则从池中取，用完后还回
 
-
-
 线程池的优点：
 
-1、降低资源的消耗
-
-2、提高响应的速度
-
-3、方便管理
-
-4、线程复用、可以控制最大并发
-
-
+- 降低资源的消耗
+- 提高响应的速度
+- 方便管理
+- 线程复用、可以控制最大并发
 
 #### 三大方法
 
@@ -749,8 +742,6 @@ public class Test1 {
     }
 }
 ~~~
-
-
 
 #### 七大参数
 

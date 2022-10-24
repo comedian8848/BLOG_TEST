@@ -7,7 +7,7 @@ module.exports = [
 		children: [
 			'./basic/outline',
 			{
-			    title: '进程管理',
+			    title: 'CPU 管理',
 			    collapsable: true,
 			    children: [
 			    	'./basic/thread',

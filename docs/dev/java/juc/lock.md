@@ -8,7 +8,7 @@ tags:
 
 ## 线程与进程
 
-### 什么是JUC
+### JUC
 
 jdk中三个包
 
@@ -22,8 +22,6 @@ Runnable：没有返回值，效率低于Callable（）
 Lock：Reentrantlock、ReentrantReadWriteLock...
 
 ### 线程和进程
-
-#### 线程和进程
 
 - 进程：一个程序，程序的集合；一个进程往往包含多个线程，至少一个，Java默认有两个线程（main、gc）
 - 线程：如一个进程typora.exe，同时包含写字和自动保存的两个功能（线程）
@@ -68,7 +66,7 @@ public synchronized void start() {
 private native void start0();
 ~~~
 
-#### 并发和并行
+### 并发和并行
 
 并发编程：并发、并行
 
@@ -90,7 +88,7 @@ public class Test {
 
 并发编程的本质：充分利用CPU的资源
 
-#### 线程的六个状态
+### 线程的六个状态
 
 ~~~java
 public enum State {
@@ -165,7 +163,7 @@ public enum State {
 }
 ~~~
 
-#### wait和sleep的区别
+### wait 和 sleep 的区别
 
 1. 来自不同的类
 
@@ -201,13 +199,9 @@ public enum State {
    - wait 不需要捕获异常
    - sleep 必须要捕获异常，会发生超时等待的情况
 
-## 锁
+## JAVA 锁
 
-### Lock锁
-
-<img src="./../../../.vuepress/public/img/image-20210724011140984.png">
-
-#### Synchronized锁
+### Synchronized锁
 
 > OOP：Object Oriented Programming（面向对象程序设计，一种编程架构）
 >
@@ -253,7 +247,9 @@ class Tickets1{
 }
 ~~~
 
-#### Lock接口
+### Lock 接口
+
+<img src="./../../../.vuepress/public/img/image-20210724011140984.png">
 
 三个实现类
 

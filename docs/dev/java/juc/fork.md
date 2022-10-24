@@ -1,14 +1,12 @@
 ---
-title: lambda & stream & fork/join
+title: Lambda & Stream & Fork/Join
 date: 2021-8-2
 tags: 
   - JUC
   - Java
 ---
 
-## 函数式接口和流式计算
-
-### 四大函数式接口
+## 函数式接口
 
 新时代的程序员：lambda表达式、链式编程、函数式接口、Stream流式计算
 
@@ -25,7 +23,7 @@ public interface Runnable {
 //forEach(消费者类的函数式接口)
 ~~~
 
-#### Function函数型接口
+### Function 函数型接口
 
 ~~~java
 @FunctionalInterface
@@ -63,7 +61,7 @@ public class FunctionTest {
 }
 ~~~
 
-#### Predicate断定型接口
+### Predicate 断定型接口
 
 ~~~java
 @FunctionalInterface
@@ -102,7 +100,7 @@ public class PredicateTest {
 }
 ~~~
 
-#### Consumer消费型接口
+### Consumer 消费型接口
 
 ~~~java
 @FunctionalInterface
@@ -130,7 +128,7 @@ public class ConsumerTest {
 }
 ~~~
 
-#### Supplier供给型接口
+### Supplier 供给型接口
 
 ~~~java
 @FunctionalInterface
@@ -173,7 +171,7 @@ public class SupplierTest {
 }
 ~~~
 
-### Stream流式计算
+## Stream流式计算
 
 > 什么是Stream流式计算
 
@@ -243,9 +241,9 @@ public class StreamTest {
 
 ## 异步回调
 
-### ForkJoin
+### Fork / Join
 
-> 什么是ForkJoin？分支 合并
+> 分支 / 合并
 
 再jdk1.7中出现，并发执行任务，在大数据量时提高效率
 
@@ -350,7 +348,7 @@ public void test3(){
 }
 ~~~
 
-### 异步回调
+### Future 异步回调
 
 > Future设计的初衷：对将来的某个事件的结果进行建模
 
