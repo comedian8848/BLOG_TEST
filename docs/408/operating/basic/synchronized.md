@@ -430,6 +430,8 @@ void main(){
 
 ### 生产者 - 消费者问题
 
+> 资源有限，对资源生产消耗的同步互斥
+
 生产者和消费者
 
 - 输入时：输入进程是生产者，计算进程是消费者
@@ -449,7 +451,7 @@ void main(){
 
 实现方法
 
-1、记录型信号量：信号量 + 链表的记录形式
+1、记录型信号量：结构体的记录形式（最常用）
 
 ```c
 int in = 0, out = 0; // 公共变量，生产和消费 下一个 产品的存放的下标
@@ -528,6 +530,8 @@ void main(){
 
 就是把 wait(full/empty )和 wait(mutex) 访权封装了一下，同理封装了 signal(full/empty) 和 signal(mutex)
 
+- 但注意这里封装之后，是先判断再阻塞，即先判断 full/empty 以及 mutex 之后，选择性进入 while 循环等待
+
 3、管程：建立名为 PC 的管程，包含 put 和 get 两个进程用于存取产品，用 count 记录缓冲池中产品数量，用条件变量 condition 记录当前缓冲池的状态（满、空），当调用 Cwait() 阻塞后，进入 condition 的阻塞队列，Csignal() 可唤醒由 Cwait() 阻塞的进程（阻塞队列为空则不用唤醒）
 
 ```c++
@@ -557,12 +561,271 @@ public:
         Csignal(notFull); // 消费了一个产品，缓冲池不满，唤醒 Cwait(notFull)
     }
 };
+
+void producer(){
+    message inM;
+    do{
+        inM = produce_message();
+        PC.put(inM);
+    }while(1);
+}
+
+void consumer(){
+    message outM;
+    do{
+        PC.get(outM);
+        // 消费产品 outM
+    }while(1);
+}
+
+void main(){
+    producer();
+    consumer();
+}
 ```
 
+### 哲学家进餐问题
 
+> 资源固定，对资源使用权的同步互斥
+
+五个哲学家共用一张**圆桌**，左右手各一只筷子，吃饭时需要左右手各拿一只筷子，思考时放下筷子
+
+- 筷子的数量是有限的，共 5 根，不能满足所有哲学家共同进餐，需要互斥限制
+
+信号量设置
+
+```c
+semaphore chopStick[5] = {1,1,1,1,1};
+void philosopher_i(){
+    do{
+        wait(chopStick[i]); // 等待左手边筷子并获取使用权，chopStick[i] 由 1变为 0
+        wait(chopStick[(i+1)%5]); // 右手边筷子
+        // eat
+        signal(chopStick[i]); // 归还筷子
+        signal(chopStick[(i+1)%5]);
+        // think
+    }while(1);
+}
+
+void main(){
+    philosopher_1();
+    philosopher_2();
+    philosopher_3();
+    philosopher_4();
+    philosopher_5();
+}
+```
+
+思考这样一个情况，当五个进程并发（五个哲学家同时在餐桌上），按顺序执行五条命令，均为占用左手边筷子，均会成功，但都会卡在占用右手边筷子的语句，产生死锁
+
+解决办法一：最多只允许 4 位哲学家同时拿左边筷子，对“左手边筷子数量”设置互斥
+
+```c
+semaphore chopStick[5] = {1,1,1,1,1}, maxNum = 4;
+void philosopher_i(){
+    do{
+        wait(maxNum); // 检查是否有 4 位哲学家拿起了左手筷子
+        wait(chopStick[i]); // 等待左手边筷子并获取使用权，chopStick[i] 由 1变为 0
+        wait(chopStick[(i+1)%5]); // 右手边筷子
+        // eat
+        signal(chopStick[i]); // 归还筷子
+        signal(chopStick[(i+1)%5]);
+        signal(maxNum);
+        // think
+    }while(1);
+}
+
+void main(){
+    philosopher_1();
+    philosopher_2();
+    philosopher_3();
+    philosopher_4();
+    philosopher_5();
+}
+```
+
+解决办法二：奇数个哲学家拿左手边筷子，偶数个哲学家拿右手边筷子
+
+```c
+semaphore chopStick[5] = {1,1,1,1,1};
+void philosopher_i(){
+    do{
+        if(i % 2 == 0){
+            wait(chopStick[(i+1)%5]); // 先拿右手筷子
+        	wait(chopStick[i]); // 再拿左手筷子
+        } else {
+        	wait(chopStick[i]); // 先拿左手筷子
+        	wait(chopStick[(i+1)%5]); // 再拿右手筷子
+        }
+
+        // eat
+        signal(chopStick[i]); // 归还筷子
+        signal(chopStick[(i+1)%5]);
+        // think
+    }while(1);
+}
+
+void main(){
+    philosopher_1();
+    philosopher_2();
+    philosopher_3();
+    philosopher_4();
+    philosopher_5();
+}
+```
 
 ### 读者 - 写者问题
 
+> 共用存储区资源，对内容读写的同步互斥
 
+用信号量实现对共用存储区读写的同步互斥
 
-### 哲学家进餐问题
+- 写时不能再写，且不能读
+- 读时不能写，但可再读
+
+```c
+int readCount = 0; // 记录当前读者数量
+semaphore rMutex = 1, wMutex = 1; // 读写信号量
+
+// 读者
+void reader(){
+    do{
+        wait(rMutex); // 拿取进入权限，避免 readCount 的加一操作混乱
+        // 如果是第一个读者，要剥夺写权限，若剥夺不了，就等待
+        // 如果不是第一个读者，说明有读者在进行读操作，自然不用判断是否有人在写（肯定有人在读）
+        if(readCount == 0){
+            wait(wMutex);
+        }
+        readCount++;
+        signal(rMutex); // 归还进入权限，允许其他读者进入
+        // ... read ... //
+        wait(rMutex); // 拿取退出权限
+        readCount--;
+        signal(rMutex); // 归还退出权限
+        // 当 readCount == 0，说明没有读者，唤醒写进程，若无请求则不操作
+        if(readCount == 0){
+            signal(wMutex);
+        }
+    }while(1);
+}
+
+void writer(){
+    do{
+        wait(wMutex); // 拿取写权限
+        // ... write ... //
+        signal(wMutex); // 归还写权限
+    }while(1);
+}
+
+void main(){
+    reader();
+    writer();
+}
+```
+
+为什么明明可以多个进程同时“读”，reader 在最开始和最后还得判断一次 rMutex？因为“读”和“进出”不是一个概念，同一时刻（并行）只允许一个进程“进出”读区域，进入之后立马将“进入”权限返回，开始“读”，此时另一个读进程就可以拿取进入权限也开始“读”，rMutex 实际上是”进出“读临界区的信号量
+
+为什么要这么做？因为在进出时要对 readCount 进行 +1 / -1 操作，这一操作并没有原子性，必须要加一层锁，防止 readCount 因为多进程并发产生混乱
+
+这样会有一个问题，就是这种模式下，读优先，写操作处于绝对的弱势 —— 即使当前读操作完毕，写也不一定能执行，因为这里必须完成一批读操作，直到 readCount == 0 时才会归还写权限
+
+解决办法：增加一个公共信号量 mutex，真有区别吗但是？
+
+```c
+int readCount = 0;
+semaphore rMutex = 1, wMutex = 1, mutex = 1;
+
+// 读者
+void reader(){
+    do{
+        wait(mutex); // 拿取公共权限
+        wait(rMutex); // 拿取读进入权限
+        if(readCount == 0){
+            wait(wMutex); // 剥夺写权限
+        }
+        readCount++;
+        signal(rMutex); // 归还读进入权限
+        signal(mutex); // 归还公共权限
+        // ... read ... //
+        wait(rMutex); // 拿取读退出权限
+        readCount--;
+        signal(rMutex); // 归还读退出权限
+        if(readCount == 0){
+            signal(wMutex); // 唤醒写权限
+        }
+    }while(1);
+}
+
+void writer(){
+    do{
+        wait(mutex); // 拿取公共权限
+        wait(wMutex); // 拿取写权限
+        // ... write ... //
+        signal(wMutex); // 归还写权限
+        signal(mutex); // 归还公共权限
+    }while(1);
+}
+
+void main(){
+    reader();
+    writer();
+}
+```
+
+栗题：一个生产者，两个消费者，生产者负责生产整数，消费者一消费奇数，消费者二消费偶数，利用信号量机制实现 3 个进程的同步与互斥，并用 countOdd() 和 countEven() 函数记录消费的奇偶数个数
+
+- odd：奇数个数
+- even：偶数个数
+- empty：空缓冲区个数
+- mutex：访问权限信号量
+
+```c
+semaphore mutex = 1, empty = n, odd = 0, even = 0; // 缓冲区最大值为 n
+
+void P1(){
+    do{
+        wait(empty); // 检查是否有空缓冲区
+        wait(mutex); // 拿取访问权限
+        int x = produce();
+        put(x); // 将 x 放入缓冲区
+        // 增加奇偶数信号量
+        if(x % 2 == 0){
+            signal(even);
+        } else {
+            signal(odd);
+        }
+        signal(mutex);
+    }while(1);
+}
+
+void P2(){
+    do{
+        wait(odd);
+        wait(mutex);
+        getOdd(); // 从缓冲区拿取奇数
+        signal(empty); // 空缓冲 +1
+        signal(mutex); // 归还控制权
+        countOdd();
+    }while(1);
+}
+
+void P3(){
+    do{
+        wait(even);
+        wait(mutex);
+        getEven(); // 从缓冲区拿取奇数
+        signal(empty); // 空缓冲 +1
+        signal(mutex); // 归还控制权
+        countEven();
+    }while(1);
+}
+```
+
+这里的缓冲区可以设计为一个二维数组，其中`buffer[i][0]`存储数据，`buffer[i][1]`标记该位是否有数据（是否为空，1 表示非空），缓冲区大小为 n
+
+```c
+vector<vector<int>> buffer(n, vector<int>(2));
+```
+
+## 死锁
+
