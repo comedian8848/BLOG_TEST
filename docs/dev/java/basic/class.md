@@ -99,13 +99,10 @@ public class TestScanner {
 
 常用方法：
 
-1、getClass:返回当前类型的Class类
-
-2、hashCode:返回当前对象的哈希值
-
-3、toString:返回当前类的字符串描述(多重写)
-
-4、equals:
+- getClass:返回当前类型的Class类
+- hashCode:返回当前对象的哈希值
+- toString:返回当前类的字符串描述(多重写)
+- equals
 
 ~~~java
 equals改写：判断类中各属性相同即相等
@@ -168,28 +165,26 @@ int num4 = 10;
 1、常用方法
 
 ```java
-1、length():返回字符串长度
-2、charAt(int index):返回某个位置的字符
-3、contains(String str):判断是否包含某个子字符串
+length(); //返回字符串长度
+charAt(int index); //返回某个位置的字符
+contains(String str); //判断是否包含某个子字符串
 
-4、toCharArray():将字符串转换为字符数组
-5、indexOf(String str):查找str首次出现的下标索引 (index:索引)
-6、lastIndexOf(String str):查找str最后一次出现的下表索引
+toCharArray(); //将字符串转换为字符数组
+indexOf(String str); //查找str首次出现的下标索引 (index:索引)
+lastIndexOf(String str); //查找str最后一次出现的下表索引
 
-7、trim():去掉字符串前后的空格 (trim:修剪)
-8、toUpperCase():将小写转成大写 (upper:上面的、上部的、较高的)
-9、endWith(String str):判断字符串是否以str结尾
+trim(); //去掉字符串前后的空格 (trim:修剪)
+toUpperCase(); //将小写转成大写 (upper:上面的、上部的、较高的)
+endWith(String str); //判断字符串是否以str结尾
 
-10、replace(char oldChar, char newChar):将旧字符(串)替换为新字符(串)
-11、String[] split(String str):根据str做拆分
+replace(char oldChar, char newChar); //将旧字符(串)替换为新字符(串)
+String[] split(String str); //根据str做拆分
 
-12、equals(String str):比较两个字符串值是否相等
-13、equalsIgnoreCase(String str):忽略大小写比较两个字符串值是否相等
-14、compareTo(String str):优先返回首个ASCII码不同的字符的ASCII码大小的差，若原字符串是str从前向后的子串，则返回两个字符串长度的差(前减后)
-15、substring(int begin, int end)/substring(int begin):截取字符串，从第begin个字符截取到第end个字符或从begin截取到最后
+equals(String str); //比较两个字符串值是否相等
+equalsIgnoreCase(String str); //忽略大小写比较两个字符串值是否相等
+compareTo(String str); //优先返回首个ASCII码不同的字符的ASCII码大小的差，若原字符串是str从前向后的子串，则返回两个字符串长度的差(前减后)
+substring(int begin, int end)/substring(int begin); //截取字符串，从第begin个字符截取到第end个字符或从begin截取到最后
 ```
-
-
 
 2、可变字符串(较于重新在池中储存字符串更节省内存、更高效)
 
@@ -211,21 +206,12 @@ replace(int start, int end, String str);	//替换
 
 方法:
 
-1、add(BigDecimal bd):加法 
+- add(BigDecimal bd):加法 
+- substract(BigDecimal bd):减法(前减后)
+- multiply(BigDecimal bd):乘法
+- divide(BigDecimal bd):除法(前除以后)
 
-2、substract(BigDecimal bd):减法(前减后)
-
-3、multiply(BigDecimal bd):乘法
-
-4、divide(BigDecimal bd):除法(前除以后)
-
-
-
-注:
-
-当除法碰到除不尽的情况，使用其重载 divide (BigDecimal bd, int scal, RoundingMode mode)。其中，scal为精确位数，RoundingMode为取舍模式 (一般为四舍五入: ROUND_HALF_UP)
-
-
+注意：当除法碰到除不尽的情况，使用其重载 divide (BigDecimal bd, int scal, RoundingMode mode)。其中，scal为精确位数，RoundingMode为取舍模式 (一般为四舍五入: ROUND_HALF_UP)
 
 ### 时间类型
 
@@ -233,35 +219,22 @@ replace(int start, int end, String str);	//替换
 
 常用方法:
 
-0、Date() / Date(long date):构造方法，前者获取当前时间，后者获取输入时间(以毫秒为单位)
-
-1、void toString():打印字符串时间
-
-2、void toLocalString():以中文习惯打印(已过时)
-
-3、int getTime():返回当前Date对象的时间
-
-4、int compareTo(Date d):返回前后天数之差
-
-5、boolean equals(Date d):判断两个时间是否相等
-
-6、boolean before/after(Date d):判断当前Date是否在d之前(后)
-
-
+- Date() / Date(long date):构造方法，前者获取当前时间，后者获取输入时间(以毫秒为单位)
+- void toString():打印字符串时间
+- void toLocalString():以中文习惯打印(已过时)
+- int getTime():返回当前Date对象的时间
+- int compareTo(Date d):返回前后天数之差
+- boolean equals(Date d):判断两个时间是否相等
+- boolean before/after(Date d):判断当前Date是否在d之前(后)
 
 #### Calendar类
 
-1、Calendar.instance():构造方法被保护，使用该静态方法构造Calendar对象
-
-2、Date getTime():返回一个Date对象，与原时间相同
-
-3、int get(field f):获取诸如年、月、日、小时、分钟、秒等时间
-
-4、void add():在原对象上添加或减少时间
-
-5、void set(field f, int d):设置时间，field设置时间类型(年月日时分秒)，d设置时间长度
-
-6、int getActualMaximum(field f) / int getActualMinimum(field f):返回f类型在该时间的最大值，如三月的最大天数为31
+- Calendar.instance():构造方法被保护，使用该静态方法构造Calendar对象
+- Date getTime():返回一个Date对象，与原时间相同
+- int get(field f):获取诸如年、月、日、小时、分钟、秒等时间
+- void add():在原对象上添加或减少时间
+- void set(field f, int d):设置时间，field设置时间类型(年月日时分秒)，d设置时间长度
+- int getActualMaximum(field f) / int getActualMinimum(field f):返回f类型在该时间的最大值，如三月的最大天数为31
 
 #### SimpleDateFormat
 
@@ -299,15 +272,11 @@ public class TestSimpleDateFormat {
 
 常用方法：
 
-0、构造方法私有
-
-1、static void arraycopy():复制数组
-
-2、static long currentTimeMillis():获取当前系统时间
-
-3、static void gc():建议jvm启动垃圾回收器回收垃圾
-
-4、static void exit(int status):手动退出jvm，如果参数是0表示正常退出jvm，非0则异常退出jvm
+- 构造方法私有
+- static void arraycopy()：复制数组
+- static long currentTimeMillis()：获取当前系统时间
+- static void gc()：建议jvm启动垃圾回收器回收垃圾
+- static void exit(int status)：手动退出jvm，如果参数是0表示正常退出jvm，非0则异常退出jvm
 
 ## JavaDoc
 
@@ -412,10 +381,6 @@ class Test
 }
 ~~~
 
-
-
-
-
 ## Gui编程
 
 ### awt
@@ -482,9 +447,8 @@ public class Layout {
 
 遍历方法：
 
-1、用增强版的for循环(Collection无下标：不能用for) : for(Object obj: arraylist){}
-
-2、用迭代器遍历(专门用来遍历集合的一种方式):
+- 用增强版的for循环(Collection无下标：不能用for) : for(Object obj: arraylist){}
+- 用迭代器遍历(专门用来遍历集合的一种方式):
 
 ~~~java
 Iterator it = collection.iterator();//创建迭代器
@@ -496,25 +460,20 @@ while(it.hasNext){
 
 Iterator方法：
 
-1、hasNext():判断容器中是否有下一个元素
-
-2、next(): 返回容器中下一个元素
-
-3、remove(): 把当前元素删除
+- hasNext():判断容器中是否有下一个元素
+- next(): 返回容器中下一个元素
+- remove(): 把当前元素删除
 
 **List(interface)**
 
-1、ArrayList(class)
-
-2、LinkedList(class)
-
-3、Vector(class)
+- ArrayList(class)
+- LinkedList(class)
+- Vector(class)
 
 **Set(interface)**
 
-1、HashSet(class)
-
-2、SortedSet(interface) ——>TreeSet(class)
+- HashSet(class)
+- SortedSet(interface) ——>TreeSet(class)
 
 
 

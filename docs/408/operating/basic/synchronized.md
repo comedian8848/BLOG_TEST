@@ -426,3 +426,143 @@ void main(){
 
 ## 经典同步问题
 
+多道程序环境下，进程同步引起的一些列问题，常考大题
+
+### 生产者 - 消费者问题
+
+生产者和消费者
+
+- 输入时：输入进程是生产者，计算进程是消费者
+- 输出时：计算进程是生产者，输出进程是消费者
+
+假设和信号量设置
+
+- 假设：生产者 - 消费者共享有 n 个缓冲区的公共缓冲池
+- 信号量设置
+  - 互斥信号量：设置 mutex 信号量用于公共缓冲池的互斥使用
+  - 同步信号量：设置 empty 表示空缓冲区个数；full 表示已占用缓冲区个数
+
+规则
+
+- 公共缓冲池不满，生产者可将消息放入缓冲池
+- 缓冲池不空，消费者就可从缓冲池取出消息
+
+实现方法
+
+1、记录型信号量：信号量 + 链表的记录形式
+
+```c
+int in = 0, out = 0; // 公共变量，生产和消费 下一个 产品的存放的下标
+message buffer[n], inM, outM; // 产品缓冲池、生产出的产品、使用掉的产品
+semaphore mutex = 1, empty = n, full = 0; // 控制信息：互斥信号量和同步信号量
+
+// 生产者
+void procedurer(){
+    do{
+        inM = produce_message(); // 生产一个产品并赋值给 inM
+        wait(empty); // empty>0 表示有空池
+        wait(mutex); // mutex>0 表示有访权
+        buffer[in] = inM; // 往缓冲池下标为 in 的位置加入产品 inM
+        in = (in+1) % n; // 更新下标位置
+        signal(mutex); // 释放控制权
+        signal(full); // 令已占用缓冲区 +1
+    }while(1);
+}
+
+void consumer(){
+    do{
+        wait(full); // full > 0 才可以取消息
+        wait(mutex); // 检查访问权
+        outM = buffer[out];
+        out = (out+1) % n; // n 为缓冲池大小
+        signal(mutex); // 释放访问权
+        signal(empty); // 空缓冲 +1
+        consume_message(outM); // 消费产品 outM
+    }while(1);
+}
+
+void main(){
+    procedurer();
+    consumer();
+}
+```
+
+注意：wait() 的顺序不能颠倒，即必须先同步，再互斥，先检查是否有资源，再占用访问权。如果先占用了访问权，如果没有资源，就会忙等，白白占用访问权，不管其余进程是否有资源，都无法消费，有可能导致死锁
+
+2、信号量集：使用 AND 信号量解决问题 —— AND 信号量可以一次处理多个并发进程共享多个临界资源的情况
+
+- Swait(empty, mutex) 代替 wait(empty) 和 wait(mutex)，Swait(full, mutex) 代替 wait(full) 和 wait(mutex)
+- Ssignal(empty, mutex) 代替  signal(empty) 和 signal(mutex)，Ssignal(full, mutex) 代替 signal(full) 和 signal(mutex)
+
+```c
+int in = 0, out = 0; // 公共变量，生产和消费 下一个 产品的存放的下标
+message buffer[n], inM, outM; // 产品缓冲池、生产出的产品、使用掉的产品
+semaphore mutex = 1, empty = n, full = 0; // 控制信息：互斥信号量和同步信号量
+
+// 生产者
+void procedurer(){
+    do{
+        inM = produce_message(); // 生产一个产品并赋值给 inM
+        Swait(full, mutex) // 检查缓冲池是否满，是否有访权
+        buffer[in] = inM; // 往缓冲池下标为 in 的位置加入产品 inM
+        in = (in+1) % n; // 更新下标位置
+        Ssignal(full, mutex) // 已占有+1，释放访权
+    }while(1);
+}
+
+void consumer(){
+    do{
+        Swait(empty, mutex) // 检查缓冲池是否空，是否有访权
+        outM = buffer[out];
+        out = (out+1) % n; // n 为缓冲池大小
+        Swait(empty, mutex) // 消费一个产品-1，释放访权
+        consume_message(outM); // 消费产品 outM
+    }while(1);
+}
+
+void main(){
+    procedurer();
+    consumer();
+}
+```
+
+就是把 wait(full/empty )和 wait(mutex) 访权封装了一下，同理封装了 signal(full/empty) 和 signal(mutex)
+
+3、管程：建立名为 PC 的管程，包含 put 和 get 两个进程用于存取产品，用 count 记录缓冲池中产品数量，用条件变量 condition 记录当前缓冲池的状态（满、空），当调用 Cwait() 阻塞后，进入 condition 的阻塞队列，Csignal() 可唤醒由 Cwait() 阻塞的进程（阻塞队列为空则不用唤醒）
+
+```c++
+class PC{
+private:
+    int in = 0, out = 0, count = 0;
+    message buffer[n], inM, outM;
+    condition notFull, notEmpty;
+	semaphore mutex = 1, empty = n, full = 0;
+public:
+    void put(message m){
+        if(count >= n){ // 当缓冲池已占用已满，n 为缓冲池大小
+            Cwait(notFull); // 等待不满
+        }
+        buffer[in] = M;
+        in = (in+1) % n;
+        count++;
+        Csignal(notEmpty); // 放入了一个产品，缓冲池不为空，主动唤醒 Cwait(notEmpty)
+    }
+    void get(message m){
+        if(count <= 0){
+            Cwait(notEmpty);
+        }
+        m = buffer[out];
+        out = (out+1) % n;
+        count--;
+        Csignal(notFull); // 消费了一个产品，缓冲池不满，唤醒 Cwait(notFull)
+    }
+};
+```
+
+
+
+### 读者 - 写者问题
+
+
+
+### 哲学家进餐问题
