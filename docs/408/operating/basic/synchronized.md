@@ -827,5 +827,3 @@ void P3(){
 vector<vector<int>> buffer(n, vector<int>(2));
 ```
 
-## 死锁
-

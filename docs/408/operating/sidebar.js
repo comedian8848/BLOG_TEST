@@ -12,7 +12,8 @@ module.exports = [
 			    children: [
 			    	'./basic/thread',
 				'./basic/scheduling',
-					'./basic/synchronized',
+				'./basic/synchronized',
+				'./basic/deadlock',
 			    ]
 			},
 		]
