@@ -113,15 +113,15 @@ tags:
 
 栗子
 
-<img src="/home/northboat/Desktop/reco/Docs/docs/.vuepress/public/img/截图_2022-10-26_14-03-31.png">
+<img src="../../../.vuepress/public/img/截图_2022-10-26_14-03-31.png">
 
-<img src="/home/northboat/Desktop/reco/Docs/docs/.vuepress/public/img/截图_2022-10-26_14-03-51.png">
+<img src="../../../.vuepress/public/img/截图_2022-10-26_14-03-51.png">
 
-<img src="/home/northboat/Desktop/reco/Docs/docs/.vuepress/public/img/截图_2022-10-26_14-04-16.png">
+<img src="../../../.vuepress/public/img/截图_2022-10-26_14-04-16.png">
 
-<img src="/home/northboat/Desktop/reco/Docs/docs/.vuepress/public/img/截图_2022-10-26_14-04-51.png">
+<img src="../../../.vuepress/public/img/截图_2022-10-26_14-04-51.png">
 
-<img src="/home/northboat/Desktop/reco/Docs/docs/.vuepress/public/img/截图_2022-10-26_14-05-13.png">
+<img src="../../../.vuepress/public/img/截图_2022-10-26_14-05-13.png">
 
 在例题中，我们称 P0、P2、P4 打头不存在安全序列，安全序列只有可能由 P1、P3 打头，且 P1 存在安全序列
 
@@ -143,7 +143,7 @@ tags:
 
 如
 
-<img src="/home/northboat/Desktop/reco/Docs/docs/.vuepress/public/img/截图_2022-10-26_14-44-39.png">
+<img src="../../../.vuepress/public/img/截图_2022-10-26_14-44-39.png">
 
 顶点集`N = {P1, P2, R1, R2}`
 
