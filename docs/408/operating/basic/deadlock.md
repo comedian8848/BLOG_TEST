@@ -158,3 +158,94 @@ tags:
 
 ### 死锁检测中的数据结构
 
+`Available[] / Work[]`记录每类资源当前可用量，`Allocation[]`记录每类资源分配出去的量，`Request[]`表示某一进程对某类资源的请求量，表 L 记录孤立的进程节点
+
+在死锁检测中
+
+- 寻找`Request[i] <= Work[i], 0<=i<=n`的进程
+- 将其资源分配图简化，释放资源，`Work[i] += Allocation[i]`
+- 将该进程记入 L 表，重复以上过程
+
+若不能将所有进程记入 L，说明当前系统可能发生死锁
+
+### 死锁解除
+
+死锁接触是与死锁检测相配套的一种措施，在发生死锁时将系统从死锁状态中解脱出来。实施方法为回收部分资源，再将这些资源分配给阻塞态进程使之继续运行
+
+回收资源的方法
+
+- 抢占资源
+- 撤销 / 挂起 / 终止进程
+  - 终止所有死锁的进程
+  - 逐个终止进程，直到能打破循环停止
+
+付出代价最小的死锁解除算法：原始算法和改进算法
+
+原始算法：就是穷举所有终止情况，暴搜，每轮一个个尝试终止各个进程直到不死锁
+
+```c
+vector<vector<process>> drop;
+
+void dfs(condition s, vector<process>& path){
+    if(deadlock(s)){
+        // 若死锁，穷举所有当前进程，一个个排除
+        for(int i = 0; i < s.process.size(); i++){
+            // 将当前要排除的进程添加到路径中
+            process cur = s.process[i];
+            path.push_back(cur);
+            // 获取排除当前进程后的新环境
+            condition c = s.exclude(i);
+            // 判断新环境死否死锁
+            if(locked(c)){ // 若死锁，继续在新环境下排除更多进程，复制当前路径展开新分支
+                vector<process> branch(path);
+                dfs(c, branch);
+            } else { // 若不死锁，将当前路径添加到全局变量 drop 中作为记录，并退出当前情况
+                drop.push_back(path);
+            }
+        }
+    }
+}
+
+vector<process> unlock(condition s){
+    if(locked(s)){
+        // 传入第一轮的死锁环境和原始路径，开始暴搜
+        for(int i = 0; i < s.process.size(); i++){
+            vector<process> path;
+            dfs(s.exclude(i), path);
+        }
+    }
+    if(drop.size() == 0){ // 说明没有找到一条解除死锁的路径
+        return NULL;
+    }
+    // 选取一条最短的解除死锁的路径，作为答案返回
+    vector<process> unlock_path;
+    int length = INT_MAX;
+    for(auto& p: drop){
+        if(p.size() < length){
+            unlock_path = p;
+        }
+    }
+    return unlock_path;
+}
+```
+
+改进算法：根据接触进程的代价将各个进程升序排列，每次解除代价最小的进程，直到解除死锁
+
+| 死锁处理方法   | 系统开销 | 资源利用率 |
+| -------------- | -------- | ---------- |
+| 死锁预防       | 低       | 低         |
+| 死锁避免       | 中       | 中         |
+| 死锁检测和解除 | 高       | 高         |
+
+一般来说，在不加限定条件的情况下，为保证系统安全性，把每个进程对资源的最大需求量 -1 处理再求和并 +1，记为 n，要求资源总量大于等于 n
+
+栗子一：如 6 个进程共享 18 个某类资源，每个进程最多申请 3 个该类资源
+$$
+6\times(x-1) + 1 \leq 18 \Rightarrow x \leq \frac{17}{6} + 1 = 3.83
+$$
+故 x 最大值为 3，每个进程最多申请不能超过 3
+
+栗子二：三个并发进程互斥使用某一资源，其需求量分别为 3、4、5，问至少要多少个该类资源，才不会发生死锁
+$$
+n \geq (3-1)+(2-1)+(5-1)+1 = 10
+$$

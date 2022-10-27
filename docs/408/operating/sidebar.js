@@ -16,6 +16,7 @@ module.exports = [
 				'./basic/deadlock',
 			    ]
 			},
+			'./basic/memory',
 		]
 	},
 
