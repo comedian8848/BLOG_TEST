@@ -5,6 +5,8 @@ tags:
   - MachineLearning
 ---
 
+> 优化训练模式，并且处理非数字数据
+
 ## Optimization
 
 > 微调管道内部，超参数优化
@@ -123,7 +125,7 @@ plt.show()
 
 <img src="../../../.vuepress/public/img/Figure_16.png">
 
-### 调优训练 `breast_cancer`
+### 调优训练 breast_cancer
 
 在乳腺癌数据集上对管道进行调优并训练测试
 
@@ -185,9 +187,9 @@ the accuracy is 0.9440559440559441
 
 <img src="./../../../.vuepress/public/img/Figure_17.png">
 
-## Summary
+### 管道使用总结
 
-使用`scikit-learn`十行以内训练并测试一个管道
+使用`scikit-learn`十行以内训练并测试一个管道，包括数据预处理、参数调优、交叉验证
 
 ~~~python
 import pandas as pd
@@ -443,7 +445,7 @@ plt.show()
 
 <img src="./../../../.vuepress/public/img/Figure_19.png">
 
-### `adult_openml.csv`
+### adult_openml.csv
 
 使用同样的方法处理`adult_openml`数据集
 

@@ -5,13 +5,11 @@ tags:
   - Linux
 ---
 
-> 基于Arch
+## Install
 
-## 装机
+> 安装双系统
 
-### 双系统
-
-> 大一懵懵懂懂捏
+### Ubuntu
 
 #### 准备
 
@@ -75,9 +73,9 @@ sudo apt-get update
 sudo apt-get upgrade
 ~~~
 
-### 移动系统
+### Manjaro
 
-> [Manjaro安装教程](https://blog.csdn.net/qq_27525611/article/details/109269569)
+> 基于Arch：[安装教程](https://blog.csdn.net/qq_27525611/article/details/109269569)
 
 #### 准备
 
@@ -314,7 +312,7 @@ timedatectl set-local-rtc 1 --adjust-system-clock
 timedatectl set-ntp 0
 ~~~
 
-1.显示系统的当前时间和日期
+显示系统的当前时间和日期
 
 ~~~bash
 timedatectl status
@@ -322,19 +320,19 @@ timedatectl status
 
 - 结果中RTC time就是硬件时钟的时间
 
-2.Linux系统上的time总是通过系统的timezone设置的，查看当前时区：
+Linux系统上的time总是通过系统的timezone设置的，查看当前时区：
 
 ~~~bash
 timedatectl | grep Time
 ~~~
 
-3.查看所有可用的时区：
+查看所有可用的时区：
 
 ~~~bash
 timedatectl list-timezones
 ~~~
 
-4.根据地理位置找到本地的时区：
+根据地理位置找到本地的时区：
 
 ~~~bash
 timedatectl list-timezones | egrep -o “Asia/B.*”
@@ -342,7 +340,7 @@ timedatectl list-timezones | egrep -o “Europe/L.*”
 timedatectl list-timezones | egrep -o “America/N.*”
 ~~~
 
-5.在Linux中设置本地时区，使用set-timezone开关：
+在Linux中设置本地时区，使用set-timezone开关：
 
 ~~~bash
 timedatectl set-timezone “Asia/shagnhai”
@@ -368,17 +366,6 @@ Categories=Development;
 ### Timeshift 快照
 
 使用 timeshift 创建 rsync 快照，将在第一次储存的基础上不断更新，一个快照大概7-9G
-
-### Shell 脚本
-
-~~~shell
-npm run build
-cd public
-git init
-git add .
-git commit -m "reco"
-git push -f git@github.com:NorthBoat/NorthBoat.github.io.git master
-~~~
 
 ### 添加环境变量
 
@@ -426,5 +413,51 @@ sudo update-grub
 
 让linux系统自动生成合适的grub.cfg文件
 
-## 
+## Shell
+
+部署 vuepress-reco 博客
+
+```bash
+npm run build
+cd public
+git init
+git add .
+git commit -m "reco"
+git push -f git@github.com:NorthBoat/NorthBoat.github.io.git master
+```
+
+修改 manjaro-kde 亮度
+
+```bash
+echo "------start."
+
+read -p "Enter the max_bright: " bright
+
+sudo su << EOF # 后续为子进程或子 shell 的输入
+
+cd /sys/class/backlight/intel_backlight/
+
+echo $bright > brightness
+
+EOF
+
+echo "--------end."
+```
+
+拉取更新 Blog&Docs
+
+```bash
+echo "-------start"
+cd /home/northboat/File/reco/Blog
+git pull
+echo -e "blog pull ok!\n" # -e 启用转义字符
+cd ..
+cd Docs
+git pull
+echo -e "docs pull ok!\n"
+
+echo "---------end"
+```
+
+
 

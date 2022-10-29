@@ -7,4 +7,12 @@ module.exports = [
 			'./sklearn/optimize',
 		]
 	},
+
+	{
+		title: '机器学习核心算法',
+		collapsable: true,
+		children: [
+			'./algorithm/linear',
+		]
+	},
 ]

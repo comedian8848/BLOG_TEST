@@ -1,15 +1,17 @@
 ---
-title: Classifier & Validation
+title: Train Classifier & Validation
 date: 2022-7-12
 tags: 
   - MachineLearning
 ---
 
 > Scikit-learn（以前称为scikits.learn，也称为sklearn）是针对Python 编程语言的免费软件机器学习库。它具有各种分类，回归和聚类算法，包括支持向量机，随机森林，梯度提升，k均值和DBSCAN
+>
+> 分类器的训练以及测试（交叉验证）
 
 ## Train & Test
 
-### `load_digits`
+### load_digits
 
 `scikit-learn`中自带了很多的数据集在`sklearn.datasets`模块中，`load_digits`是其中一个用于识别手写数字的数据集
 
@@ -95,7 +97,7 @@ print('Accuracy score of the {} is {:.2f}'.format(clf2.__class__.__name__, accur
 Accuracy score of the RandomForestClassifier is 0.99
 ~~~
 
-### `load_breast_cancer`
+### load_breast_cancer
 
 用同样的方法训练和测试`load_breast_cancer`乳腺癌数据集
 
@@ -261,7 +263,7 @@ accuracy = pipe.score(X_test, y_test)
 print('Accuracy score of the {} is {:.2f}'.format(pipe.__class__.__name__, accuracy))
 ~~~
 
-### 使用管道处理 `breast_cancer`
+### 使用管道处理 breast_cancer
 
 为什么要用管道训练，因为管道可以在`fit`的同时进行多个操作，如预处理和分类器学习
 
@@ -359,7 +361,7 @@ print(df_scores)
 
 <img src="../../../.vuepress/public/img/Figure_14.png">
 
-### `load_breast_cancer`
+### load_breast_cancer
 
 使用交叉验证在乳腺癌数据集上测试管道
 
