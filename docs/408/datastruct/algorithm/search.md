@@ -915,3 +915,53 @@ public:
 };
 ~~~
 
+### 搜索旋转排列数组
+
+力扣 33：[搜索旋转排序数组](https://leetcode.cn/problems/search-in-rotated-sorted-array/)
+
+对于两段递增数组，寻找目标元素，且前一段最小值大于第二段最大值，如`[4,5,7,1,2,3]`
+
+- 通过比较 target / nums[mid] 和 nums[0] 判断 target / nums[mid] 在第一段还是第二段
+- 若 target 和 mid 在同一段，则正常二分查找
+- 若不在同一段，则缩小左/右边界，使之在同一段
+
+```c
+class Solution {
+public:
+
+    int left, right;
+
+    bool shrink(int cur, int index, int target){
+        if(cur == target){
+            return true;
+        }
+        if(cur < target){ left = index+1; }
+        else { right = index-1; }
+        return false;
+    }
+
+    int search(vector<int>& nums, int target) {
+        left = 0, right = nums.size()-1;
+        int first = nums[0];
+        if(first == target){ return 0; }
+        while(left <= right){
+            int mid = (left+right) / 2;
+            if(target > first){
+                if(nums[mid] < first){
+                    right = mid-1;
+                    continue;
+                }
+                if(shrink(nums[mid], mid, target)){ return mid; }
+            } else {
+                if(nums[mid] >= first){
+                    left = mid+1;
+                    continue;
+                }
+                if(shrink(nums[mid], mid, target)){ return mid; }
+            }
+        }
+        return -1;
+    }
+};
+```
+
