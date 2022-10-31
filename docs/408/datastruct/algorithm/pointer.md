@@ -1,5 +1,5 @@
 ---
-title: Pointer
+title: 多指针
 date: 2021-6-22
 tags:
   - Algorithm

@@ -1,5 +1,5 @@
 ---
-title: Search
+title: 搜索算法
 date: 2021-6-22
 tags:
   - Algorithm

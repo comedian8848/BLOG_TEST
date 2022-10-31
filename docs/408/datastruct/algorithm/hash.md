@@ -1,5 +1,5 @@
 ---
-title: Hash
+title: 哈希散列
 date: 2021-6-22
 tags:
   - Algorithm

@@ -1,5 +1,5 @@
 ---
-title: Greedy
+title: 贪婪算法
 date: 2021-6-22
 tags:
   - Algorithm

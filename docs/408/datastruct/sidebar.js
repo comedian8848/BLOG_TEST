@@ -19,11 +19,11 @@ module.exports = [
 			'./algorithm/recursion',
 			'./algorithm/search',
 			'./algorithm/sort',
+			'./algorithm/pointer',
 			'./algorithm/dp',
 			'./algorithm/greedy',
 			'./algorithm/hash',
 			'./algorithm/modeling',
-			'./algorithm/pointer',	
 		]
 	},
 	

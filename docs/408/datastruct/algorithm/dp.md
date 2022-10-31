@@ -1,13 +1,13 @@
 ---
-title: DP
+title: 动态规划
 date: 2021-6-22
 tags:
   - Algorithm
 ---
 
-## 动态规划
+## 一般动态规划
 
-dynamic programming
+> dynamic programming
 
 ### 最大子数组和
 

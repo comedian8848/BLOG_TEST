@@ -1,5 +1,5 @@
 ---
-title: Sort
+title: 排序算法
 date: 2021-6-22
 tags:
   - Algorithm
