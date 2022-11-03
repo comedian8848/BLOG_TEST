@@ -16,7 +16,15 @@ module.exports = [
 				'./basic/deadlock',
 			    ]
 			},
-			'./basic/memory',
+			{
+			    title: '存储管理',
+			    collapsable: true,
+			    children: [
+			    	'./basic/memory',
+					'./basic/virtual',
+			    ]
+			},
+			
 		]
 	},
 
