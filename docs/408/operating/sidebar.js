@@ -32,7 +32,7 @@ module.exports = [
 		title: '汇编语言',
 		collapsable: true,
 		children: [
-			'./assembly/addressing',
+			'./assembly/basic',
 			{
 			    title: '汇编程序设计',
 			    collapsable: true,
@@ -48,7 +48,7 @@ module.exports = [
 		title: '编译原理',
 		collapsable: true,
 		children: [
-			'./compilation/lexical',
+			'./compilation/basic',
 		]
 	},
 	
