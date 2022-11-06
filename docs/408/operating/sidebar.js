@@ -24,6 +24,7 @@ module.exports = [
 					'./basic/virtual',
 			    ]
 			},
+			'./basic/file',
 			
 		]
 	},
