@@ -235,6 +235,62 @@ public:
 };
 ```
 
+和这道题解题方式很像，[117. 填充每个节点的下一个右侧节点指针 II - 力扣（Leetcode）](https://leetcode.cn/problems/populating-next-right-pointers-in-each-node-ii/?envType=study-plan&id=suan-fa-ji-chu&plan=algorithms&plan_progress=4g9kt0m)
+
+都是层序遍历，特殊处理每层的最后一个节点
+
+### 二进制矩阵中的最短路径
+
+力扣 1091：[二进制矩阵中的最短路径 - 力扣（Leetcode）](https://leetcode.cn/problems/shortest-path-in-binary-matrix/description/)
+
+- 层层推进寻找解
+- 若用 dfs 很有可能漏掉最优解，因为在遍历到次解时标记了优解被访问
+
+```c
+class Solution {
+public:
+    int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
+        if(grid[0][0] == 1){
+            return -1;
+        }
+        int m = grid.size();
+        if(m == 1){
+            return 1;
+        }
+        deque<pair<int,int>> queue;
+        queue.push_back(make_pair(0, 0));
+        grid[0][0] = 1;
+        int res = 1;
+        while(!queue.empty()){
+            int n = queue.size();
+            for(int k = 0; k < n; k++){
+                pair<int,int> cur = queue.front();
+                queue.pop_front();
+                int i = cur.first, j = cur.second;
+                for(int l = i-1; l <= i+1; l++){
+                    for(int r = j-1; r <= j+1; r++){
+                        if(l < 0 || l >= m || r < 0 || r >= m){
+                            continue;
+                        }
+                        if(l == m-1 && r == m-1 && !grid[l][r]){
+                            return res+1;
+                        }
+                        if(!grid[l][r]){
+                            queue.push_back(make_pair(l, r));
+                            grid[l][r] = 1;
+                        }
+                    }
+                }
+            }
+            res++;
+        }
+        return -1;
+    }
+};
+```
+
+
+
 ## 深度优先搜索
 
 > Deep First Search
@@ -828,6 +884,142 @@ public:
     }
 };
 ```
+
+### 岛屿数量
+
+[200. 岛屿数量 - 力扣（Leetcode）](https://leetcode.cn/problems/number-of-islands/?envType=study-plan&id=suan-fa-ji-chu&plan=algorithms&plan_progress=4g9kt0m)
+
+- 找到为 '1' 的节点，深度搜索附近为 '1' 的节点
+- 被访问过的 '1' 节点需要被标记为 '2'，和海洋('0')、未被访问的岛屿('1')做区分
+
+```c
+class Solution {
+public:
+
+    int numIslands(vector<vector<char>>& grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+        int res = 0;
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                if(grid[i][j] == '1'){
+                    res++;
+                    dfs(grid, i, j);
+                }
+            }
+        }
+        return res;
+    }
+
+    void dfs(vector<vector<char>>& grid, int x, int y){
+        if(x < 0 || x >= grid.size() || y < 0 || y >= grid[0].size()){
+            return;
+        }
+        if(grid[x][y] != '1'){
+            return;
+        }
+        grid[x][y] = '2';
+        dfs(grid, x-1, y);
+        dfs(grid, x+1, y);
+        dfs(grid, x, y-1);
+        dfs(grid, x, y+1);
+    }
+};
+```
+
+和 [547. 省份数量 - 力扣（Leetcode）](https://leetcode.cn/problems/number-of-provinces/?envType=study-plan&id=suan-fa-ji-chu&plan=algorithms&plan_progress=4g9kt0m) 思路差不太多，主要考虑如何标记已访问节点和遍历的边界
+
+### 所有可能的路径
+
+[797. 所有可能的路径 - 力扣（Leetcode）](https://leetcode.cn/problems/all-paths-from-source-to-target/description/)
+
+- 给你一个有 `n` 个节点的 **有向无环图（DAG）**，请你找出所有从节点 `0` 到节点 `n-1` 的路径并输出
+
+利用栈弹出使用过的节点，而非不断构造新的空间压入
+
+```c
+class Solution {
+public:
+
+    vector<int> stk;
+    vector<vector<int>> res;
+
+    vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
+        stk.push_back(0);
+        dfs(graph, 0, graph.size()-1);
+        return res;
+    }
+
+    void dfs(vector<vector<int>>& graph, int cur, int target){
+        if(cur == target){
+            res.push_back(stk);
+            return;
+        }
+        for(auto& next: graph[cur]){
+            stk.push_back(next);
+            dfs(graph, next, target);
+            stk.pop_back();
+        }
+    }
+};
+```
+
+### 被围绕的区域
+
+首先判断是否被包围，若被包围，一次性修改所有相连的 'O'，否则不做修改
+
+要注意边界上的 'O' 要求始终返回不被包围的信息，于是不被标记为**已访问**，以免直接跳过返回 true
+
+```c
+class Solution {
+public:
+    void solve(vector<vector<char>>& board) {
+        int m = board.size(), n = board[0].size();
+        vector<vector<int>> visited(m, vector<int>(n));
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                if(board[i][j] == 'O' && !visited[i][j]){
+                    if(encircled(board, i, j, visited)){
+                        cout << i << " " << j << endl;
+                        tag(board, i, j);
+                    }
+                }
+            }
+        }
+    }
+
+    void tag(vector<vector<char>>& board, int i, int j){
+        if(i < 0 || i >= board.size() || j < 0 || j >= board[0].size()-1){
+            return;
+        }
+        if(board[i][j] == 'X'){
+            return;
+        }
+        board[i][j] = 'X';
+        tag(board, i-1, j);
+        tag(board, i+1, j);
+        tag(board, i, j-1);
+        tag(board, i, j+1);
+    }
+
+    bool encircled(vector<vector<char>>& board, int i, int j, vector<vector<int>>& visited){
+        if(board[i][j] == 'X' || visited[i][j]){
+            return true;
+        }  
+        if(i == 0 || i == board.size()-1 || j == 0 || j == board[0].size()-1){
+            return false;
+        }
+        visited[i][j] = true;
+        bool left = encircled(board, i, j-1, visited);
+        bool right = encircled(board, i, j+1, visited);
+        bool up = encircled(board, i-1, j, visited);
+        bool down = encircled(board, i+1, j, visited);
+        return left && right && up && down;
+    }
+};
+```
+
+
 
 ## 二分搜索
 

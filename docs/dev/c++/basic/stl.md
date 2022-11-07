@@ -146,6 +146,40 @@ vector<int> vec(n,1);
 vector<vector<int>> matrix(n, vector<int> (n));
 ```
 
+拷贝 vector
+
+```c
+vector<int> pre;
+
+// 创建时拷贝
+vector<int> first(pre);
+
+// 创建后复制
+vector<int> second;
+second.assign(pre.begin(), pre.end());
+
+// 复制时删除原数组 pre
+vector<int> third;
+third.swap(pre);
+
+// 在指定下标处插入原有数组的一段
+vector<int> four;
+four.insert(four.begin(), pre.begin(), pre.end());
+```
+
+清理 vector
+
+```c
+vector<int> vec;
+
+// 清空但不回收内存（全置零）
+vec.clear();
+// 清空且回收内存
+vector<int>().swap(vec);
+```
+
+
+
 ### stack
 
 - top()：返回一个栈顶元素的引用，类型为 T&。如果栈为空，返回值未定义
