@@ -14,8 +14,6 @@ tags:
 `linux`安装
 
 ~~~bash
-sudo apt-get install git
-
 yay -S git
 ~~~
 
@@ -37,7 +35,7 @@ ssh-keygen rsa -t -C "email@example.com"
 
 将路径下的 id_rsa.pub 内容添加到 github 的 setting-ssh，本机获取读写权限
 
-## 创建版本库（仓库）
+## 创建版本库
 
 ```bash
 # 创建仓库
@@ -108,8 +106,6 @@ git log   # 显示版本号、提交时间等信息
 > 也可使用可视化工具查看Git版本历史：
 > 在仓库目录右键 > `Git BUI Here`
 
-
-
 #### 回退版本
 
 首先，Git必须知道当前版本是哪个版本，在Git中，用`HEAD`表示当前版本，也就是最新的提交1094adb...（注意我的提交ID和你的肯定不一样），上一个版本就是`HEAD^`，上上一个版本就是`HEAD^^`，当然往上100个版本写100个^比较容易数不过来，所以写成`HEAD~100`。
@@ -134,13 +130,11 @@ git reflog
 
 #### 撤销修改
 
-<https://www.liaoxuefeng.com/wiki/896043488029600/897889638509536>
+[廖雪峰 - 撤销修改](https://www.liaoxuefeng.com/wiki/896043488029600/897889638509536)
 
 #### 删除文件
 
-https://www.liaoxuefeng.com/wiki/896043488029600/900002180232448
-
-
+[廖雪峰 - 删除文件](https://www.liaoxuefeng.com/wiki/896043488029600/900002180232448)
 
 ## 远程仓库
 
@@ -195,14 +189,10 @@ git push -u origin master
 >
 > 可关联多个远程仓库，注意给不同的远程仓库取不一样的名称，提交是分别按名称提交到不一样的远程仓库。
 
-
-
 ```bash
 # 简化的推送命令
 git push
 ```
-
-
 
 #### 查看远程仓库
 
@@ -211,16 +201,12 @@ git push
 git remote -v
 ```
 
-
-
 #### 删除远程仓库
 
 ```bash
 # 删除远程仓库
 git remote rm <仓库名>
 ```
-
-
 
 #### 从远程库克隆项目
 
@@ -236,8 +222,6 @@ git clone <仓库地址>
 git clone -b <分支名> <仓库地址>
 ```
 
-
-
 ## 分支管理
 
 #### 创建分支
@@ -246,8 +230,6 @@ git clone -b <分支名> <仓库地址>
 # 创建分支
 git checkout -b <分支名>
 ```
-
-
 
 #### 查看分支
 
@@ -258,16 +240,12 @@ git branch
 
 查看分支时，在分支前带 * 号的表示当前的分支
 
-
-
 #### 切换分支
 
 ```bash
 # 切换分支
 git checkout <分支名>
 ```
-
-
 
 #### 合并分支
 
@@ -283,12 +261,6 @@ git merge <远程仓库名>/<分支名>
 
 一般情况下是把当前分支切换到**主分支**，然后把**子分支**合并到**主分支**。
 
-
-
-
-
-
-
 #### 删除分支
 
 ```bash
@@ -296,18 +268,12 @@ git merge <远程仓库名>/<分支名>
 git branch -d <分支名>
 ```
 
-
-
 #### 修改分支名
 
 ```bash
 # 修改分支名
 git branch -m <原分支名> <新分支名>
 ```
-
-
-
-
 
 ## 帮助命令
 
@@ -318,57 +284,7 @@ git branch -m <原分支名> <新分支名>
 git help
 ```
 
-
-
-```bash
-$ git help
-usage: git [--version] [--help] [-C <path>] [-c <name>=<value>]
-           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
-           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare]
-           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
-           <command> [<args>]
-
-These are common Git commands used in various situations:
-
-start a working area (see also: git help tutorial)
-   clone      Clone a repository into a new directory
-   init       Create an empty Git repository or reinitialize an existing one
-
-work on the current change (see also: git help everyday)
-   add        Add file contents to the index
-   mv         Move or rename a file, a directory, or a symlink
-   reset      Reset current HEAD to the specified state
-   rm         Remove files from the working tree and from the index
-
-examine the history and state (see also: git help revisions)
-   bisect     Use binary search to find the commit that introduced a bug
-   grep       Print lines matching a pattern
-   log        Show commit logs
-   show       Show various types of objects
-   status     Show the working tree status
-
-grow, mark and tweak your common history
-   branch     List, create, or delete branches
-   checkout   Switch branches or restore working tree files
-   commit     Record changes to the repository
-   diff       Show changes between commits, commit and working tree, etc
-   merge      Join two or more development histories together
-   rebase     Reapply commits on top of another base tip
-   tag        Create, list, delete or verify a tag object signed with GPG
-
-collaborate (see also: git help workflows)
-   fetch      Download objects and refs from another repository
-   pull       Fetch from and integrate with another repository or a local branch
-   push       Update remote refs along with associated objects
-
-'git help -a' and 'git help -g' list available subcommands and some
-concept guides. See 'git help <command>' or 'git help <concept>'
-to read about a specific subcommand or concept.
-```
-
-
-
-翻译工具翻译中文
+中文
 
 ```bash
 $ git help
@@ -415,49 +331,33 @@ collaborate (参见命令: git help workflows)
 命令'git help <command>' 或 'git help <concept>' 查看特定子命令或概念.
 ```
 
-## 参考文档
+## 我的使用
 
-<https://www.liaoxuefeng.com/wiki/896043488029600>
+### 一些问题
 
-## 一些问题
+10056
 
-#### 10056
+- 产生原因：一般是这是因为服务器的SSL证书没有经过第三方机构的签署，所以才报错
 
-报错：Git报错解决：fatal: unable to access ‘http:...’ OpenSSL SSL_read: Connection was reset
+- 使用以下命令接触ssl验证后再次git即可解决
 
-产生原因：一般是这是因为服务器的SSL证书没有经过第三方机构的签署，所以才报错
+  ```bash
+  git config --global http.sslVerify "false"
+  ```
 
-使用以下命令接触ssl验证后再次git即可解决
+port 443 timed out：就是卡了
 
-~~~bash
-git config --global http.sslVerify "false"
-~~~
+broken pipe：文件过大导致
 
-#### port 443 timed out
+- git默认文件大小小于等于100MB
 
-网络问题
+- 可修改缓存大小为500MB强行上传
 
-连接超时：port443 timed out，并且ping不通github.com
+  ```bash
+  git config http.postBuffer 52428800 
+  ```
 
-解决办法：去网站搜github.com和github.global.ssl.Fastly.net的ip地址，添加到windows/system32/drivers/etc/hosts中
-
-#### broken pipe
-
-~~~bash
-fatal: sha1 file '<stdout>' write error: Broken pipeB/s fatal: the remote end hung up unexpectedly
-~~~
-
-文件过大导致
-
-git默认文件大小小于等于100MB
-
-可修改缓存大小为500MB强行上传
-
-~~~bash
-git config http.postBuffer 52428800 
-~~~
-
-#### Token
+Token
 
 在21年8月后`github`放弃使用密码进行push认证
 
@@ -477,3 +377,69 @@ git config --system --unset credential.helper
 ~~~
 
 当然，`ssh`验证之后无需使用这种方式验证
+
+### 日常命令
+
+推送
+
+```bash
+git add docs
+git commit -m "update"
+git push
+```
+
+拉取
+
+```bash
+git pull
+```
+
+更新
+
+```bash
+git checkout main
+git pull
+git checkout NorthBoat
+git merge
+git push
+```
+
+回退到上一个版本并保存当前版本
+
+```bash
+git stash
+
+# 查看保存的版本
+git stash list
+# 恢复到上个版本并删除上个版本保存
+git stash pop
+# 恢复到某个保存的某个版本
+git stash apply stash@{版本id}
+```
+
+撤销本地提交
+
+```bash
+# 撤销上次commit，但不撤销add
+git reset --soft head~1
+git reset --soft head~ # 二者等价
+
+# 撤销上次commit和add
+git reset head~
+```
+
+本地版本回退
+
+```bash
+# 查看 commit_id
+git log
+
+# 回到到前两个版本
+git reset --hard head~2
+# 回到到指定版本
+git reset --hard commit_id
+```
+
+### 文档
+
+<https://www.liaoxuefeng.com/wiki/896043488029600>
