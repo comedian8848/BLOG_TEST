@@ -378,7 +378,7 @@ git config --system --unset credential.helper
 
 当然，`ssh`验证之后无需使用这种方式验证
 
-### 日常命令
+### 日常使用
 
 推送
 
@@ -394,14 +394,23 @@ git push
 git pull
 ```
 
-更新
+拉取主分支更新
 
 ```bash
 git checkout main
 git pull
 git checkout NorthBoat
-git merge
-git push
+git merge main # 把 main 合并到当前 NorthBoat 分支，main 可省略，默认为主分支
+git push # 更新当前分支
+```
+
+更新主分支
+
+```bash
+git checkout main
+git merge NorthBoat # 主分支合并 NorthBoat 分支
+git push # 更新主分支
+git checkout NorthBoat # 返回原分支
 ```
 
 回退到上一个版本并保存当前版本
@@ -440,6 +449,6 @@ git reset --hard head~2
 git reset --hard commit_id
 ```
 
-### 文档
+### 廖雪峰的文档
 
-<https://www.liaoxuefeng.com/wiki/896043488029600>
+https://www.liaoxuefeng.com/wiki/896043488029600
