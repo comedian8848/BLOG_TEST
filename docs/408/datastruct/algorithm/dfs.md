@@ -1,4 +1,9 @@
-数据结构与算法
+---
+title: 回溯算法
+date: 2022-11-8
+tags:
+  - Algorithm
+---
 
 ## 深度优先搜索
 
@@ -693,7 +698,7 @@ public:
 };
 ```
 
-## 回溯算法
+## 回溯问题
 
 > 在 dfs 的基础上，增加回退和剪枝的功能，本质上还是一个 dfs
 
@@ -732,7 +737,7 @@ public:
 };
 ```
 
-## 子集
+### 子集
 
 [78. 子集 - 力扣（Leetcode）](https://leetcode.cn/problems/subsets/submissions/)
 
