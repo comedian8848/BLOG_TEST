@@ -24,6 +24,7 @@ module.exports = [
 			'./algorithm/greedy',
 			'./algorithm/hash',
 			'./algorithm/modeling',
+			'./algorithm/dfs',
 		]
 	},
 	

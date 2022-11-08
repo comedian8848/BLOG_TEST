@@ -1,5 +1,5 @@
 ---
-title: 回溯算法
+title: 递归算法
 date: 2022-9-17
 tags:
 - C/C++
