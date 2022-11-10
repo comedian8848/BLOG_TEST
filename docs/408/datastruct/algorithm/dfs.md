@@ -773,3 +773,130 @@ public:
 
 - 先排序，使重复元素相邻
 - 再在遍历时，跳过重复元素（因为在同一层已经选中了该元素，再选，其子树均重复记录）
+
+### 全排列
+
+[46. 全排列 - 力扣（Leetcode）](https://leetcode.cn/problems/permutations/description/)
+
+- 不断从头到尾进行遍历，暴搜
+- 用数组动态标记访问过的元素
+
+```c
+class Solution {
+public:
+
+    vector<int> visited;
+    vector<vector<int>> res;    
+
+    vector<vector<int>> permute(vector<int>& nums) {
+        visited = vector<int>(nums.size(), 0);
+        vector<int> stk;
+        backtrack(nums, stk);
+        return res;
+    }
+
+    void backtrack(vector<int>& nums, vector<int>& stk){
+        int n = nums.size();
+        if(stk.size() == n){
+            res.push_back(stk);
+            return;
+        }
+        for(int i = 0; i < n; i++){
+            if(visited[i]){
+                continue;
+            }
+            stk.push_back(nums[i]);
+            visited[i] = true;
+            backtrack(nums, stk);
+            stk.pop_back();
+            visited[i] = false;
+        }
+    }
+};
+```
+
+进阶版本：[47. 全排列 II - 力扣（Leetcode）](https://leetcode.cn/problems/permutations-ii/description/)
+
+需要考虑去重（剪枝）问题，关键在于
+
+```c
+sort(nums.begin(), nums.end());
+
+if(i > 0 && nums[i] == nums[i-1] && !visited[i-1]){
+	continue;
+}
+```
+
+### 组合总和
+
+[39. Combination Sum - 力扣（Leetcode）](https://leetcode.cn/problems/combination-sum/description/)
+
+在数组中找到所有和为 target 的不重复的组合
+
+<img src="../../../.vuepress/public/img/combine_sum.png">
+
+关键在于：同一层不能遍历相同的元素，如果能够遍历将出现很多重复组合，如`[1,2,4], [1,4,2], [4,1,2]`，这个问题将退化为上一题全排列
+
+```c
+class Solution {
+public:
+
+    vector<vector<int>> res;
+
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        int n = candidates.size();
+        vector<int> stk;
+        backtrack(candidates, target, stk, 0);
+        return res;
+    }
+
+    void backtrack(vector<int>& candidates, int target, vector<int>& stk, int start){
+        if(target <= 0){
+            if(target == 0) { res.push_back(stk); }
+            return;
+        }
+        for(int i = start; i < candidates.size(); i++){
+            int cur = candidates[i];
+            stk.push_back(cur);
+            backtrack(candidates, target-cur, stk, i);
+            stk.pop_back();
+        }
+    }
+};
+```
+
+进阶版：[40. 组合总和 II - 力扣（Leetcode）](https://leetcode.cn/problems/combination-sum-ii/)
+
+- 每个数字每个组合只能出现一次，需要去重
+- 同样每层不能重复选取同一元素
+
+回溯函数
+
+- 排序数组，相邻的相同元素，若前者未被访问，则直接跳过
+  - 因为是从左往右便利的，若后者当前访问，前者未访问，这一过程在上一轮肯定发生过，于是跳过
+  - 这一过程是指：两个相同元素占用树相同的两层
+- 用`visited`数组标记被访问过的元素，进入下一轮之前取消标记
+
+```c
+void backtrack(vector<int>& candidates, int target, vector<int>& stk, int start){
+	if(target <= 0){
+		if(target == 0) { res.push_back(stk); }
+		return;
+    }
+    for(int i = start; i < candidates.size(); i++){
+        if(visited[i]){
+            continue;
+        }
+        if(i > 0 && candidates[i] == candidates[i-1] && !visited[i-1]){
+            continue;
+        }
+        int cur = candidates[i];
+        stk.push_back(cur);
+        visited[i] = true;
+        backtrack(candidates, target-cur, stk, i+1);
+        stk.pop_back();
+        visited[i] = false;
+    }
+}
+```
+
