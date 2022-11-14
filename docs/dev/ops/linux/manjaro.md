@@ -303,6 +303,26 @@ sudo npm install @vuepress-reco/theme-cli -g
 
 ## 杂项
 
+### 解压缩
+
+压缩成 zip
+
+```bash
+zip -q -r [压缩文件名如:lexer.zip] [要压缩的文件]
+```
+
+tar 压缩
+
+```bash
+tar -czvf lexer.tar.gz lexer # lexer 是文件夹
+```
+
+tar 解压
+
+```bash
+tar -xzvf lexer.tar.gz # 解压到当前目录
+```
+
 ### 调整时间
 
 [Manjaro配置准确时间](https://www.jianshu.com/p/92a2de6d9862)
@@ -441,6 +461,28 @@ echo $bright > brightness
 
 EOF
 
+echo "--------end."
+```
+
+更自动化，一键更改，使用 case 语句条件选择和 let 语句赋值
+
+```bash
+echo "------start."
+read -p "Enter the bright_lever: " lever
+
+case $lever in
+  1) let bright=9000;;
+  2) let bright=15000;;
+  3) let bright=20000;;
+  4) let bright=25000;;
+esac
+
+sudo su << EOF # 后续为子进程或子 shell 的输入
+
+cd /sys/class/backlight/intel_backlight/
+echo $bright > brightness
+
+EOF
 echo "--------end."
 ```
 
