@@ -49,7 +49,15 @@ module.exports = [
 		title: '编译原理',
 		collapsable: true,
 		children: [
-			'./compilation/basic',
+			'./compile/basic',
+			{
+			    title: '编译前端设计',
+			    collapsable: true,
+			    children: [
+				'./compile/lexer',
+				'./compile/parser',
+			    ]
+			},
 		]
 	},
 	
