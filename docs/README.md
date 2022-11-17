@@ -1,8 +1,8 @@
 ---
 home: true
 heroImage: /used.jpg
-actionText: My Blog →
-actionLink: https://northboat-blog.netlify.app
+actionText: Repositories →
+actionLink: https://northboat.github.io/
 features:
 - title: Python JAVA C艹 Line Line So Easy
   details: 啊哈
