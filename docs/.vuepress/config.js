@@ -47,6 +47,12 @@ module.exports = {
         '@vuepress-reco/vuepress-plugin-bgm-player',
         {
           "audios": [
+	    {
+	      name: '白羊',
+	      artist: 'NorthBoat',
+	      url: '/song/aries.aac',
+	      cover: '/error.jpg'
+	    },
             {
               name: '我',
               artist: '张国荣',
@@ -81,12 +87,6 @@ module.exports = {
 	      name: '让一切随风',
 	      artist: '钟镇涛',
 	      url: 'http://www.ytmp3.cn/down/74929.mp3',
-	      cover: '/error.jpg'
-	    },
-	    {
-	      name: '唯一',
-	      artist: '告五人',
-	      url: 'http://www.ytmp3.cn/down/75603.mp3',
 	      cover: '/error.jpg'
 	    },
 	    {
