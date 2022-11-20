@@ -52,7 +52,7 @@ module.exports = [
 			'./project/post',
 			'./project/controller',
 			'./project/oj',	
-			'./project/seckill',
+			//'./project/seckill',
 		]
 	},
 	
