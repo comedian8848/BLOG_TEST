@@ -500,6 +500,28 @@ void split(string data, char c) {
 }
 ```
 
+### cstdlib
+
+rand() 函数生成随机数：rand() 会返回一随机数值，范围在 0 至 RAND_MAX 间，RAND_MAX定义在 stdlib.h，其值为 2147483647
+
+- 通过 rand() % n 的方式产生`(0, n]`的随机数
+
+```c
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+
+int main()
+{
+    for (int i = 0; i < 10; i++)
+    {
+        cout << rand()%100<< " ";
+    }
+    return 0;
+}
+//83 86 77 15 93 35 86 92 49 21   在100中产生随机数， 但是因为没有随机种子所以，下一次运行也是这个数，因此就要引出srand
+```
+
 ## Lambda 表达式
 
 在之前 sort 函数中小用了一下，其实这里和 java 的 lambda 函数是差不多的，以`[]`作为匿名函数的开头，接`()`传参，`{}`书写函数内容及返回值
