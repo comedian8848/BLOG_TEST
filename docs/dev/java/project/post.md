@@ -1,5 +1,5 @@
 ---
-title: 基于POP3、Mybatis的邮件系统
+title: 基于线程管理的邮件系统
 date: 2022-1-15
 tags:
   - Web

@@ -1,7 +1,7 @@
 ---
 home: true
 heroImage: /used.jpg
-actionText: Project →
+actionText: Product →
 actionLink: https://northboat.github.io/
 features:
 - title: Python JAVA C艹 Line Line So Easy

@@ -1,5 +1,5 @@
 ---
-title: 基于Redis的远程控制器
+title: 基于 Redis 的远程控制器
 date: 2022-2-24
 tags:
   - Web

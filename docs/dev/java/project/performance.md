@@ -1,5 +1,5 @@
 ---
-title: 基于SpringBoot的成绩分析系统
+title: 基于 SpringBoot 的成绩分析系统
 date: 2021-11-15
 tags:
   - Web
