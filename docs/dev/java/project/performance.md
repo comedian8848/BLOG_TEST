@@ -12,9 +12,9 @@ categories:
 
 功能：登录注销，班级成绩基础信息展示，分科目的成绩排名展示，CRUD单个学生信息，分科目的排名文件生成，界面美观实用
 
-## 登录实现
+## 登录
 
-### pojo
+### Pojo
 
 ~~~java
 package com.PerformanceAnalysisSystem.pojo;
@@ -32,7 +32,7 @@ public class Teacher {
 }
 ~~~
 
-### dao
+### Dao
 
 ~~~java
 package com.PerformanceAnalysisSystem.dao;
@@ -57,7 +57,7 @@ public class TeacherDao {
 }
 ~~~
 
-### controller
+### Controller
 
 登录和注销，session的设置和删除
 
@@ -157,7 +157,11 @@ public class MyMvcConfig implements WebMvcConfigurer {
 
 ### 前端
 
-图方便写在一个html中，jquery和md5并未用上
+图方便写在一个html中，jquery和md5并未用上，省略了 css 文件，主要考虑交互问题
+
+- 通过 th:text 的形式传出后端值
+- 在 form 中通过 th:action 调用函数，同时将 form 里的参数传入后端
+- `th:href="@{/save/all}`也可以调用函数，通常一个按钮调用，无需传参
 
 ~~~html
 <!DOCTYPE html>
@@ -170,72 +174,6 @@ public class MyMvcConfig implements WebMvcConfigurer {
     <link rel="stylesheet" th:href="@{css/login.css}">
     <script th:src="@{js/jquery-3.6.0.min.js}"></script>
     <script th:src="@{js/md5.js}"></script>
-
-    <style>
-        body {
-            overflow: hidden;
-            width: 100%;
-            height: 130%;
-            background-size: 100% 100%;
-            background: url("img/bg.jpg") no-repeat fixed;
-        }
-
-        #login_box {
-            width: 30%;
-            height: 100%;
-            background-color: #00000060;
-            margin: 10% auto auto;
-            text-align: center;
-            border-radius: 10px;
-            padding: 50px 50px;
-        }
-
-
-        h2 {
-            font-size: 44px;
-            color: black;
-            margin-top: 5%;
-        }
-
-        #input-box {
-            margin-top: 5%;
-        }
-
-        span {
-            color: #fff;
-        }
-
-        input {
-            border: 0;
-            width: 60%;
-            font-size: 15px;
-            color: #fff;
-            background: transparent;
-            border-bottom: 2px solid #fff;
-            padding: 5px 10px;
-            outline: none;
-            margin-top: 10px;
-        }
-
-        button {
-            margin-top: 50px;
-            width: 60%;
-            height: 30px;
-            border-radius: 10px;
-            border: 0;
-            color: black;
-            text-align: center;
-            line-height: 30px;
-            background-color: #D9AFD9;
-            background-image: linear-gradient(191deg, #D9AFD9 0%, #97D9E1 100%);
-            font-weight: 900;
-            font-size: 17px;
-        }
-
-        input::-webkit-input-placeholder{
-            color: white;
-        }
-    </style>
 </head>
 
 <body>
@@ -265,9 +203,13 @@ public class MyMvcConfig implements WebMvcConfigurer {
 </html>
 ~~~
 
-## 主页实现
+## 其他功能实现
 
-### pojo
+主要就是调用dao取出学生数据，service处理，再展示到前端
+
+### 主页
+
+#### Pojo
 
 Student
 
@@ -530,7 +472,7 @@ public class TopInfo {
 }
 ~~~
 
-### dao
+#### Dao
 
 StudentDao，操作学生数据
 
@@ -612,7 +554,7 @@ public class StudentDao {
 }
 ~~~
 
-### service
+#### Service
 
 StudentService，集合了所有的业务需求
 
@@ -894,7 +836,7 @@ public class StudentService {
 }
 ~~~
 
-### utils
+#### Utils
 
 SortUtils，各种排序
 
@@ -1094,7 +1036,7 @@ public class SortUtils {
 }
 ~~~
 
-### controller
+#### Controller
 
 ~~~java
 @RequestMapping("/main")
@@ -1115,227 +1057,7 @@ public String main(Model model, HttpSession session){
 }
 ~~~
 
-### 前端
-
-使用bootstrap框架，js、css、fonts代码就不贴了
-
-~~~html
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-<head>
-	<meta charset="utf-8">
-	<meta name="NorthBoat" content="Performance Analysis System">
-
-	<title>NorthBoat's Performance Analysis System</title>
-
-	<link th:href="@{css/app.css}" rel="stylesheet">
-</head>
-
-<body>
-<div class="wrapper">
-	<!-- 侧边栏 -->
-	<div th:replace="~{commons/commons::sidebar(active='main.html')}"></div>
-
-	<!--网页右侧-->
-	<div class="main">
-		<!-- 头部搜索框 -->
-		<div th:replace="~{commons/commons::topbar}"></div>
-
-
-		<!-- 内容 -->
-		<main class="content">
-			<div class="container-fluid p-0">
-
-				<!-- 标题 -->
-				<div class="row mb-2 mb-xl-3">
-					<div class="col-auto d-none d-sm-block">
-						<h3><strong>Analytics</strong> Dashboard</h3>
-					</div>
-				</div>
-
-
-				<div class="row">
-					<!-- 参数 -->
-					<div class="col-xl-6 col-xxl-5 d-flex" style="width: 60%;">
-						<div class="w-100">
-							<div class="row">
-
-								<div class="col-sm-6">
-									<div class="card">
-										<div class="card-body">
-											<h5 class="card-title mb-4" >参考人数</h5>
-											<h1 class="mt-1 mb-3" th:text="${mainInfo.getJoin_num()}"></h1>
-										</div>
-									</div>
-									<div class="card">
-										<div class="card-body">
-											<h5 class="card-title mb-4">挂科人数</h5>
-											<h1 class="mt-1 mb-3" th:text="${mainInfo.getFailed_num()}"></h1>
-											<div class="mb-1">
-												<span class="text-muted">某一科不及格即为挂科</span>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-sm-6">
-									<div class="card">
-										<div class="card-body">
-											<h5 class="card-title mb-4">平均分</h5>
-											<h1 class="mt-1 mb-3" th:text="${mainInfo.getAverage()}"></h1>
-										</div>
-									</div>
-									<div class="card">
-										<div class="card-body">
-											<h5 class="card-title mb-4">及格率</h5>
-											<h1 class="mt-1 mb-3" th:text="${mainInfo.getNot_failed_percent()}"> %</h1>
-											<div class="mb-1">
-												<span class="text-muted">
-													以满分x0.6为标准
-												</span>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-sm-6">
-									<div class="card">
-										<div class="card-body">
-											<h5 class="card-title mb-4">最高总分</h5>
-											<h1 class="mt-1 mb-3" th:text="${mainInfo.getTop_grade()}"></h1>
-										</div>
-									</div>
-									<div class="card">
-										<div class="card-body">
-											<h5 class="card-title mb-4">理综最高分</h5>
-											<h1 class="mt-1 mb-3" th:text="${mainInfo.getTop_science_grade()}"></h1>
-										</div>
-									</div>
-
-								</div>
-
-								<div class="col-sm-6">
-									<div class="card">
-										<div class="card-body">
-											<h5 class="card-title mb-4">三科最高分</h5>
-											<h1 class="mt-1 mb-3" th:text="${mainInfo.getTop_main_grade()}"></h1>
-										</div>
-									</div>
-									<div class="card">
-										<div class="card-body">
-											<h5 class="card-title mb-4">文综最高分</h5>
-											<h1 class="mt-1 mb-3" th:text="${mainInfo.getTop_liberal_grade()}"></h1>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-sm-6">
-									<div class="card">
-										<div class="card-body">
-											<h5 class="card-title mb-4">优秀人数（>=满分x0.8）</h5>
-											<h1 class="mt-1 mb-3" th:text="${mainInfo.getGood_num()}"></h1>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-sm-6">
-									<div class="card">
-										<div class="card-body">
-											<h5 class="card-title mb-4">优秀率</h5>
-											<h1 class="mt-1 mb-3" th:text="${mainInfo.getGood_percent()}"></h1>
-										</div>
-									</div>
-								</div>
-
-							</div>
-						</div>
-					</div>
-
-					<!-- 右侧图表 -->
-					<div class="col-12 col-md-6 col-xxl-3 d-flex order-2 order-xxl-3" style="width: 40%;">
-						<div class="card flex-fill w-100">
-							<div class="card-header">
-								<h5 class="card-title mb-0" style="font-size: 19px">成绩分布</h5>
-							</div>
-							<div class="card-body d-flex">
-								<div class="align-self-center w-100">
-									<div class="py-3">
-										<div class="chart chart-xs">
-											<canvas id="chartjs-dashboard-pie" style="height: 300px; margin-bottom: 180px;"></canvas>
-										</div>
-									</div>
-
-									<table class="table mb-0">
-										<tbody>
-										<tr>
-											<td>良好</td>
-											<td class="text-right" th:text="${mainInfo.getJoin_num()}-${mainInfo.getGood_num()}-${mainInfo.getFailed_num()}"></td>
-										</tr>
-										<tr>
-											<td>优秀</td>
-											<td class="text-right" th:text="${mainInfo.getGood_num()}"></td>
-										</tr>
-										<tr>
-											<td>不及格</td>
-											<td class="text-right" th:text="${mainInfo.getFailed_num()}"></td>
-										</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
-
-				</div>
-
-			</div>
-		</main>
-
-		<!-- 页脚 -->
-		<div th:replace="~{commons/commons::footer}"></div>
-	</div>
-</div>
-
-<script th:src="@{js/app.js}"></script>
-
-<script>
-	document.addEventListener("DOMContentLoaded", function() {
-		// Pie chart
-		new Chart(document.getElementById("chartjs-dashboard-pie"), {
-			type: "pie",
-			data: {
-				labels: ["良好", "优秀", "不及格"],
-				datasets: [{
-					data: [7,1,1],
-					backgroundColor: [
-						window.theme.primary,
-						window.theme.success,
-						window.theme.danger
-					],
-					borderWidth: 5
-				}]
-			},
-			options: {
-				responsive: !window.MSInputMethodContext,
-				maintainAspectRatio: false,
-				legend: {
-					display: false
-				},
-				cutoutPercentage: 75
-			}
-		});
-	});
-</script>
-</body>
-</html>
-~~~
-
-## 展示页面实现
-
-主要就是调用dao取出学生数据，service处理，再展示到前端
-
-### 搜索实现
+### 搜索
 
 #### 后端
 
@@ -1677,9 +1399,7 @@ commons.html
 </html>
 ~~~
 
-### 修改实现
-
-#### 后端
+### 修改
 
 Update
 
@@ -1737,150 +1457,7 @@ public String update(HttpSession session, @RequestParam("chi") String chi,
 }
 ~~~
 
-#### 前端
-
-update.html
-
-~~~html
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <title>Info Update</title>
-
-        <link th:href="@{css/app.css}" rel="stylesheet">
-    </head>
-    <body>
-        <div class="wrapper">
-            <!-- 侧边栏：导入过程给active赋值，通过active判断高亮显示 -->
-            <div th:replace="~{commons/commons::sidebar}"></div>
-
-            <!--网页右侧-->
-            <div class="main">
-                <!-- 头部搜索框 -->
-                <div th:replace="~{commons/commons::topbar}"></div>
-
-                <!--信息展示内容-->
-                <!--信息展示-->
-                <main class="content">
-                    <div class="container-fluid p-0">
-                        <h1 class="h3 mb-3">Form</h1>
-
-                        <div class="row">
-                            <!--录入单个学生信息-->
-                            <div class="col-12 col-xl-6" style="width: 100%;">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h5 class="card-title">修改学生信息</h5><br>
-                                    </div>
-
-                                    <div class="card-body">
-                                        <form th:action="@{/updateInfo}" method="post">
-                                            <!--基本信息-->
-                                            <div class="mb-3 row">
-                                                <label class="col-form-label col-sm-2 text-sm-center">学号</label>
-                                                <div class="col-sm-2" th:text="${student.getId()}"></div>
-                                            </div>
-                                            <div class="mb-3 row">
-                                                <label class="col-form-label col-sm-2 text-sm-center">姓名</label>
-                                                <div class="col-sm-2" th:text="${student.getName()}"></div>
-                                            </div>
-                                            <div class="mb-3 row">
-                                                <label class="col-form-label col-sm-2 text-sm-center">性别</label>
-                                                <div class="col-sm-2" th:text="${student.getGender()}==1?'男':'女'"></div>
-                                            </div>
-
-
-                                            <!--三科-->
-                                            <div class="mb-3 row">
-                                                <label class="col-form-label col-sm-2 text-sm-center">语文</label>
-                                                <div class="col-sm-2">
-                                                    <input type="number" name="chi" class="form-control" th:value="${student.getGrade().getChinese()}">
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row">
-                                                <label class="col-form-label col-sm-2 text-sm-center">数学</label>
-                                                <div class="col-sm-2">
-                                                    <input type="number" name="math" class="form-control" th:value="${student.getGrade().getMath()}">
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row">
-                                                <label class="col-form-label col-sm-2 text-sm-center">英语</label>
-                                                <div class="col-sm-2">
-                                                    <input type="number" name="en" class="form-control" th:value="${student.getGrade().getEnglish()}">
-                                                </div>
-                                            </div>
-
-                                            <!--各科成绩-->
-                                            <div class="grades" style="width: 50%; position: absolute; left: 50%; top: 110px;">
-                                                <div class="mb-3 row">
-                                                    <label class="col-form-label col-sm-3 text-sm-center">物理</label>
-                                                    <div class="col-sm-3">
-                                                        <input type="number" name="phy" class="form-control" th:value="${student.getGrade().getPhysics()}">
-                                                    </div>
-                                                </div>
-
-                                                <div class="mb-3 row">
-                                                    <label class="col-form-label col-sm-3 text-sm-center">化学</label>
-                                                    <div class="col-sm-3">
-                                                        <input type="number" name="chem" class="form-control" th:value="${student.getGrade().getChemistry()}">
-                                                    </div>
-                                                </div>
-
-                                                <div class="mb-3 row">
-                                                    <label class="col-form-label col-sm-3 text-sm-center">生物</label>
-                                                    <div class="col-sm-3">
-                                                        <input type="number" name="bio" class="form-control" th:value="${student.getGrade().getBiology()}">
-                                                    </div>
-                                                </div>
-
-                                                <div class="mb-3 row">
-                                                    <label class="col-form-label col-sm-3 text-sm-center">政治</label>
-                                                    <div class="col-sm-3">
-                                                        <input type="number" name="pol" class="form-control" th:value="${student.getGrade().getPolitics()}">
-                                                    </div>
-                                                </div>
-
-                                                <div class="mb-3 row">
-                                                    <label class="col-form-label col-sm-3 text-sm-center">历史</label>
-                                                    <div class="col-sm-3">
-                                                        <input type="number" name="his" class="form-control" th:value="${student.getGrade().getHistory()}">
-                                                    </div>
-                                                </div>
-
-                                                <div class="mb-3 row">
-                                                    <label class="col-form-label col-sm-3 text-sm-center">地理</label>
-                                                    <div class="col-sm-3">
-                                                        <input type="number" name="geo" class="form-control" th:value="${student.getGrade().getGeography()}">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <br>
-                                            <div class="mb-3 row">
-                                                <div style="position: absolute; left: 100px; bottom: 25px;" class="col-sm-10 ml-sm-auto">
-                                                    <!--这个按钮很重要，用于添加学生信息-->
-                                                    <button type="submit" class="btn btn-primary">改变，就是好事~</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </main>
-
-                <!-- 页脚 -->
-                <div th:replace="~{commons/commons::footer}"></div>
-            </div>
-        </div>
-        <script th:src="@{js/app.js}"></script>
-    </body>
-</html>
-~~~
-
-### 删除实现
+### 删除
 
 #### 后端
 
@@ -1916,7 +1493,7 @@ public String drop(@PathVariable("id") Integer id,
 </td>
 ~~~
 
-### 生成文件实现
+### 生成文件
 
 #### 后端
 
@@ -2025,9 +1602,7 @@ public String save(@PathVariable("subject")String subject,
 </div>
 ~~~
 
-## 管理页面实现
-
-#### 后端
+### 管理页面
 
 controller，通过model传递msg到前端页面给予用户反馈
 
@@ -2094,203 +1669,6 @@ public static void add(Student stu){
     students.put(stu.getId(), stu);
 }
 ~~~
-
-#### 前端
-
-~~~html
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-<head>
-	<meta charset="utf-8">
-	<title>Info Manage</title>
-
-	<script th:src="@{js/jquery-3.6.0.min.js}"></script>
-	<link th:href="@{css/app.css}" rel="stylesheet">
-</head>
-
-<body>
-<div class="wrapper">
-	<div th:replace="~{commons/commons::sidebar(active='form.html')}"></div>
-
-	<div class="main">
-		<div th:replace="~{commons/commons::topbar}"></div>
-
-		<main class="content">
-			<div class="container-fluid p-0">
-				<h1 class="h3 mb-3">Form</h1>
-
-				<div class="row">
-					<!--录入单个学生信息-->
-					<div class="col-12 col-xl-6">
-						<div class="card">
-							<div class="card-header">
-								<h5 class="card-title">Student Form</h5><br>
-								<h6 class="card-subtitle text-muted">录入单个学生信息</h6>
-							</div>
-
-							<div class="card-body">
-								<form th:action="@{/add}" method="post">
-									<!--基本信息-->
-									<div class="mb-3 row">
-										<label class="col-form-label col-sm-2 text-sm-center">学号</label>
-										<div class="col-sm-2">
-											<input type="text" name="id" class="form-control" placeholder="ID">
-										</div>
-									</div>
-									<div class="mb-3 row">
-										<label class="col-form-label col-sm-2 text-sm-center">姓名</label>
-										<div class="col-sm-2">
-											<input type="text" name="name" class="form-control" placeholder="Name">
-										</div>
-									</div>
-									<fieldset class="mb-3">
-										<div class="row">
-											<label class="col-form-label col-sm-2 text-sm-center pt-sm-0">性别</label>
-											<div class="col-sm-10">
-												<label class="form-check">
-													<input name="gender" value="1" type="radio" class="form-check-input" checked>
-													<span class="form-check-label">男</span>
-												</label>
-												<label class="form-check">
-													<input name="gender" value="0" type="radio" class="form-check-input">
-													<span class="form-check-label">女</span>
-												</label>
-											</div>
-										</div>
-									</fieldset>
-
-
-									<!--三科-->
-									<div class="mb-3 row">
-										<label class="col-form-label col-sm-2 text-sm-center">语文</label>
-										<div class="col-sm-2">
-											<input type="number" name="chi" class="form-control" placeholder="grade">
-										</div>
-									</div>
-									<div class="mb-3 row">
-										<label class="col-form-label col-sm-2 text-sm-center">数学</label>
-										<div class="col-sm-2">
-											<input type="number" name="math" class="form-control" placeholder="grade">
-										</div>
-									</div>
-									<div class="mb-3 row">
-										<label class="col-form-label col-sm-2 text-sm-center">英语</label>
-										<div class="col-sm-2">
-											<input type="number" name="en" class="form-control" placeholder="grade">
-										</div>
-									</div>
-
-									<!--各科成绩-->
-									<div class="grades" style="width: 50%; position: absolute; left: 50%; top: 110px;">
-										<div class="mb-3 row">
-											<label class="col-form-label col-sm-3 text-sm-center">物理</label>
-											<div class="col-sm-3">
-												<input type="number" name="phy" class="form-control">
-											</div>
-										</div>
-
-										<div class="mb-3 row">
-											<label class="col-form-label col-sm-3 text-sm-center">化学</label>
-											<div class="col-sm-3">
-												<input type="number" name="chem" class="form-control">
-											</div>
-										</div>
-
-										<div class="mb-3 row">
-											<label class="col-form-label col-sm-3 text-sm-center">生物</label>
-											<div class="col-sm-3">
-												<input type="number" name="bio" class="form-control">
-											</div>
-										</div>
-
-										<div class="mb-3 row">
-											<label class="col-form-label col-sm-3 text-sm-center">政治</label>
-											<div class="col-sm-3">
-												<input type="number" name="pol" class="form-control">
-											</div>
-										</div>
-
-										<div class="mb-3 row">
-											<label class="col-form-label col-sm-3 text-sm-center">历史</label>
-											<div class="col-sm-3">
-												<input type="number" name="his" class="form-control">
-											</div>
-										</div>
-
-										<div class="mb-3 row">
-											<label class="col-form-label col-sm-3 text-sm-center">地理</label>
-											<div class="col-sm-3">
-												<input type="number" name="geo" class="form-control">
-											</div>
-										</div>
-									</div>
-
-									<br>
-									<div class="mb-3 row">
-										<div style="position: absolute; left: 40px; bottom: 25px;" class="col-sm-10 ml-sm-auto">
-											<!--这个按钮很重要，用于添加学生信息-->
-											<button type="submit" class="btn btn-primary">加入光荣的进化吧</button>
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-
-					<!--合并班级信息-->
-					<div class="col-12 col-xl-6">
-						<div class="card">
-							<div class="card-header">
-								<h5 class="card-title">Class Form</h5><br>
-								<h6 class="card-subtitle text-muted">从你的主机上选择文件与当前数据合并</h6>
-							</div>
-							<div class="card-body">
-								<form th:action="@{/merge}" method="post">
-									<div class="mb-3">
-										<label class="form-label">账号</label>
-										<input type="text" name="account" class="form-control" placeholder="Account">
-									</div>
-									<div class="mb-3">
-										<label class="form-label">密码</label>
-										<input type="password" name="password" class="form-control" placeholder="Password">
-									</div>
-									<div class="mb-3">
-										<label class="form-label">描述</label>
-										<textarea class="form-control" name="description" placeholder="Description" rows="1"></textarea>
-									</div>
-									<div class="mb-3">
-										<label class="form-label w-100">File input</label>
-										<input type="file" name="file" id="file">
-									</div>
-
-									<button type="submit" class="btn btn-primary">果宝机甲，合体！</button>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!--如果msg值不为空为，才显示错误-->
-				<p th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
-			</div>
-		</main>
-
-
-		<div th:replace="~{commons/commons::footer}"></div>
-	</div>
-</div>
-
-<script th:src="@{js/app.js}"></script>
-</body>
-
-</html>
-~~~
-
-
-
-
-
-
 
 ## 一些细节
 

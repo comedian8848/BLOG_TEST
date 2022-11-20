@@ -13,9 +13,9 @@ module.exports = [
 		title: 'C/C++ 应用',
 		collapsable: true,
 		children: [
-			'./project/barber',
-			'./project/fencing',
-			'./project/lisp',
+			'./application/barber',
+			'./application/matchman',
+			'./application/lisp',
 		]
 	},
 

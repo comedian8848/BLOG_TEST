@@ -7,7 +7,7 @@ module.exports = [
 			'./basic/css',
 			'./basic/markdown',
 			'./basic/js',
-			'./basic/cloud',
+			'./basic/toys',
 		]
 	},
 

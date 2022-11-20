@@ -8,16 +8,14 @@ categories:
   - WebApp
 ---
 
-## 设计思路
+设计思路
 
 - Socket网络通信
 - Runtime类
 
 将Socket服务端部署在云服务器上；控制客户端部署在网页，负责给服务端发送命令指示；被控制客户端部署在本地，时刻监听服务端给自己传达的信息
 
-## 源码
-
-### 服务端
+## 通信中转服务
 
 SocketThread类，通信主要功能实现
 
@@ -139,9 +137,9 @@ public class Server {
 }
 ~~~
 
-### 控制端
+## 网页服务端
 
-#### Servlet
+### Servlet
 
 ~~~java
 import javax.servlet.ServletException;
@@ -180,7 +178,7 @@ public class Controller extends HttpServlet{
 }
 ~~~
 
-#### JSP
+### JSP
 
 index.jsp
 
@@ -221,7 +219,7 @@ ShutdownSuccessfully.jsp
 </html>
 ~~~
 
-#### xml
+### Xml
 
 web.xml
 
@@ -328,7 +326,7 @@ pom.xml
 </project>
 ~~~
 
-### 客户端
+## 客户端
 
 执行代码
 
@@ -397,33 +395,21 @@ public class exec {
 
 ## 一些问题
 
-1、网页的部署：同样使用docker部署
+### 部署
+
+网页的部署：同样使用docker部署
 
 ~~~bash
 docker run -it -d --name controller -p 8082:8080 tomcat
 ~~~
 
-其中-p指令，第一个是宿主机端口，第二个是容器端口，该命令将二者映射
+- 其中-p指令，第一个是宿主机端口，第二个是容器端口，该命令将二者映射
 
-2、jar包打包：使用idea集成的功能对代码进行打包
-
-~~~
-File ——> Project Structure ——> Artifacts
-~~~
-
-注意配置Main函数入口
-
-3、jar包转exe文件
-
-4、Linux后台运行jar包
+Linux后台运行jar包：后台运行jar包并把控制台消息输出到log.txt文件中
 
 ~~~bash
 nohup java -jar Server.jar & > log.txt 
 ~~~
-
-后台运行jar包并把控制台消息输出到log.txt文件中
-
-5、关闭后台运行的jar包
 
 查找后台运行的jar包
 
@@ -437,3 +423,14 @@ jps -l
 kill pid
 ~~~
 
+### jar 打包
+
+jar包打包：使用idea集成的功能对代码进行打包
+
+~~~
+File ——> Project Structure ——> Artifacts
+~~~
+
+注意配置Main函数入口
+
+jar 到 exe：exe4j & innosetup 打包 jar 为 exe 文件

@@ -7,9 +7,11 @@ categories:
   - Toy
 ---
 
-> 基于EasyX的GUI程序
+> 基于EasyX的GUI程序：击剑火柴人
 
-## 击剑火柴人
+## 定义
+
+### 头文件引入
 
 ~~~c
 #include <iostream>
@@ -21,9 +23,13 @@ categories:
 #pragma comment(lib, "winmm.lib")//加载静态库
 //#include <setjmp.h>
 using namespace std;
+~~~
 
+### 障碍物定义
 
+分别对应四个地图
 
+```c
 struct cube
 {
 	double a, b, c, d;
@@ -33,8 +39,13 @@ static cube formation2[] = { {50, 408, 482, 415}, {532, 408, 974, 415}, {50, 318
 							 {532, 318, 974, 325}, {50, 228, 482, 235}, {532, 228, 974, 235} };
 static cube formation3[] = { {275, 408, 760, 415}, {50, 168, 310, 175}, {725, 168, 975, 175} };
 static cube formation4[] = { {0, 408, 422, 415}, {602, 408, 1024, 415}, {700, 318, 935, 325}, {90, 318, 330, 325}, {422, 228, 602, 235} };
+```
 
+### 火柴人定义
 
+以及 get/set 函数
+
+```c
 class Matchman
 {
 private:
@@ -103,6 +114,15 @@ void Matchman::getLocation()
 {
 	cout << x << " " << y << "\t" << _x << " " << _y << endl;
 }
+```
+
+## 主逻辑实现
+
+### 坐标设置
+
+就是定义坐标，然后设置颜色、线条将火柴人显示出来，在实际运行时，无限循环这个函数就能达到移动的效果
+
+```c
 //P1出生
 void Matchman::paint1()
 {
@@ -138,6 +158,16 @@ void Matchman::paint2()
 	setfillcolor(BLUE);
 	fillroundrect(1040 - _MP * 4, 30, 1050, 50, 10, 10);
 }
+```
+
+### 移动
+
+火柴人移动
+
+- 通过`GetAsyncKeyState`获取键盘读入
+- 改变 x / y 值，不断 paint，实现移动
+
+```c
 //P1移动 不同地形移动
 void Matchman::move1(int a)
 {
@@ -592,6 +622,11 @@ void Matchman::move2(int a)
 		break;
 	}
 }
+```
+
+### 攻击
+
+```c
 //P1攻击
 void Matchman::fight1()
 {
@@ -781,6 +816,11 @@ void Matchman::fight2()
 	else
 		line(c - 9, d + 14, c - 18 - t, d - 1 + z);
 }
+```
+
+### 状态判断
+
+```c
 //角色空血
 void Matchman::death()
 {
@@ -811,8 +851,13 @@ void Matchman::death()
 		_y = 100;
 	}
 }
+```
 
+## 界面实现
 
+### 句柄弹窗
+
+```c
 //句柄弹窗
 void change()
 {
@@ -830,6 +875,11 @@ void change()
 		cout << "你点击了取消\n";
 	}*/
 }
+```
+
+### BGM
+
+```c
 //背景音乐
 void BGM()//播放音乐
 {
@@ -855,6 +905,11 @@ void BGM()//播放音乐
 	//播放音乐
 	mciSendString("play BGM", 0, 0, 0);
 }
+```
+
+### 登陆界面
+
+```c
 //登陆界面 游戏说明
 int loadIn()
 {
@@ -977,6 +1032,11 @@ int loadIn()
 		FlushBatchDraw();
 	}
 }
+```
+
+### 地图显示
+
+```c
 //背景图像
 void BackImag(int a)
 {
@@ -1035,7 +1095,11 @@ void Formation(int a)
 		break;
 	}
 }
-//胜利显示
+```
+
+### 胜利显示
+
+```c
 bool Winning(int a, int b, int c)
 {
 	if (a == 0 || b == 0)
@@ -1086,7 +1150,13 @@ bool Winning(int a, int b, int c)
 	}
 	return false;
 }
+```
 
+## 主函数
+
+main.c
+
+```c
 //程序运行
 int main()
 {
@@ -1123,7 +1193,11 @@ int main()
 	closegraph();
 	return 0;
 }
+```
 
+笔记
+
+```c
 /*	笔记
 	setfillcolor(BLUE);
 	fillcircle(50, 50, 50);
@@ -1142,5 +1216,5 @@ int main()
 	int width = 200 + (300 - textwidth(str)) / 2;
 	int height = 350 + (50 - textheight(str)) / 2;
 	outtextxy(width, height, str);*/
-~~~
+```
 

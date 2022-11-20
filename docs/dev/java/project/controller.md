@@ -14,7 +14,7 @@ categories:
 
 > 基于Jedis实现消息共享
 
-### 导入依赖
+### 依赖
 
 ~~~xml
 <dependencies>
@@ -36,7 +36,7 @@ categories:
 </dependencies>
 ~~~
 
-### listener.java
+### listener
 
 > 与远端`Redis`通信，设置每4s循环一次
 
@@ -187,7 +187,7 @@ public class Listener {
 }
 ~~~
 
-### Executor.java
+### Executor
 
 > 执行类，处理`Listener`返回的不同状态
 
@@ -313,7 +313,7 @@ public class Executor {
 }
 ~~~
 
-### Checker.java
+### Checker
 
 > 这个类很简单，就是根据set函数的返回值判断一些设置是否成功并作出相应提示，若为成功返回`false`并退出程序
 
@@ -339,7 +339,7 @@ public class Checker {
 }
 ~~~
 
-### Main.java
+### Main
 
 - tip()：打印一些提示信息
 - buffer()：线程休眠几秒，main函数中是一层while循环，listening函数中也是一层while循环，当listening收到指令退出循环后，main调用exec函数处理返回状态，这个时候要令外层循环等待一下，因为重置状态的操作在服务端执行，若直接继续执行，很有可能状态没有复原，重复执行上一条指令，这个地方设计有问题
@@ -404,7 +404,7 @@ public class Main {
 
 > SpringBoot集成Redis
 
-### 导入依赖
+### 依赖
 
 ~~~xml
 <dependencies>
@@ -442,7 +442,7 @@ public class Main {
 </dependencies>
 ~~~
 
-### config
+### Config
 
 配置自定义`RedisTemplate`，定义序列化规则，注入`Bean`
 
@@ -498,7 +498,7 @@ public class RedisConfig {
 }
 ~~~
 
-### utils
+### Utils
 
 注入自定义的`RedisTemplate`，封装`Redis`的一些基本功能，有待完善
 
@@ -667,7 +667,7 @@ public class RedisUtil {
 }
 ~~~
 
-### service
+### Service
 
 注入`RedisUtil`，使用`Redis`的一些基本api实现用户功能
 
@@ -824,7 +824,7 @@ public class CommandServiceImpl implements CommandService {
 }
 ~~~
 
-### controller
+### Controller
 
 注入`CommandServiceImpl`，直接调用方法，返回对应字符串即可
 
@@ -877,21 +877,24 @@ public class CommandController {
 }
 ~~~
 
-### 前端
+### Front End
 
 > 前端套用的该网站模板，我只能说确实是好人
 >
 > [HTML5 UP! Responsive HTML5 and CSS3 Site Templates](https://html5up.net/)
 
-只有一个表单需要提交，即用户`Token`，用`thymeleaf`提交到相应接口即可`th:action="@{/exec/shutdown}"`
+单页面应用，交互很少
 
-只有一个信息需要展示，即命令执行结果`result`，通过`@Controller`返回到`"index"`即可
+- 只有一个表单需要提交，即用户`Token`，用`thymeleaf`提交 post 请求到相应接口即可，如`th:action="@{/exec/shutdown}"`和`th:action="@{/exec/ipconfig}"`
+- 只有一个信息需要展示，即命令执行结果`result`，通过`@Controller`返回到`"index"`即可
 
 另外附上`listener.jar`的下载链接，jar包放在`static`目录下即可
 
 ~~~html
 <a href="/program/remote-controller-listener.jar" download="listener.jar">listener</a>
 ~~~
+
+main.html
 
 ~~~html
 <!DOCTYPE html>
@@ -1016,9 +1019,17 @@ public class CommandController {
 
 ### 打包
 
+- 打包 jar
+
 对于`listener`，`File - Project Structure - Artifacts`，点击`+`号选择`jar-from mudoles with dependencies `包，选择`main`函数入口点击`OK`，然后与`File`同级，点击`Build-build artifacts`即可
 
+- maven 打包
+
 对于`Server`，使用`Maven`插件打包即可，若前后多次打包，要先`clean`再`package`
+
+- jar 转 exe
+
+使用工具`exe4j`和`inno setup`将`listener.jar`转成一个直接可执行的`windows`安装包`listener setup.exe`，安装后无需`jdk`环境可直接运行`listener.exe`
 
 ### 运行
 
@@ -1027,7 +1038,7 @@ nohup java -jar Remote-Controller-Ⅱ.jar --server.port=8085 > log/remoteControl
 nohup java -jar Remote-Controller-Ⅱ.jar --server.port=8086 > log/remoteController2.log &
 ~~~
 
-### 配置nginx
+### nginx
 
 ~~~bash
 cd /usr/local/nginx/conf
@@ -1066,10 +1077,6 @@ server {
 ~~~
 
 开放端口`8084`
-
-### jar转exe
-
-使用工具`exe4j`和`inno setup`将`listener.jar`转成一个直接可执行的`windows`安装包`listener setup.exe`，安装后无需`jdk`环境可直接运行`listener.exe`
 
 
 

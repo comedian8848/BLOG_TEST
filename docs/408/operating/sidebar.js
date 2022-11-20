@@ -25,6 +25,7 @@ module.exports = [
 			    ]
 			},
 			'./basic/file',
+			'./basic/experiment',
 			
 		]
 	},
