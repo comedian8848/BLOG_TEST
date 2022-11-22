@@ -1,5 +1,5 @@
 ---
-title: 基于EasyX的击剑小游戏
+title: 基于 EasyX 的击剑小游戏
 date: 2021-1-14
 tags:
   - C/C++

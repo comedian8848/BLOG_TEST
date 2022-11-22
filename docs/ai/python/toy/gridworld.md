@@ -1,5 +1,5 @@
 ---
-title: 网格世界的值迭代和Q-Learning
+title: 网格世界的值迭代和 Q-Learning
 date: 2022-5-17
 tags:
   - AI

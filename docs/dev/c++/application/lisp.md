@@ -1,5 +1,5 @@
 ---
-title: 基于C的简易编译器
+title: 基于 C 的 Lisp 编译器
 date: 2021-10-14
 tags:
   - C/C++
