@@ -12,7 +12,7 @@ tags:
 
 注意我们尽量不要用context存东西，服务器很容器炸掉，session同理，但储存用户信息足以
 
-<img src="./../../../.vuepress/public/img/image-20210615220918603.png">
+<img src="./assets/image-20210615220918603.png">
 
 每次打开浏览器，会自动创建一个session（由服务器端创建），sessionID储存在cookie中（JSESSIONID）
 

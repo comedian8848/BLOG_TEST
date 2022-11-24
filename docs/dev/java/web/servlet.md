@@ -637,7 +637,7 @@ int SC_HTTP_VERSION_NOT_SUPPORTED = 505;
 - 向FileOutputStream流写入buffer缓冲区
 - 将缓存区中的数据输出到客户端
 
-<img src="./../../../.vuepress/public/img/image-20210608181901641.png">
+<img src="./assets/image-20210608181901641.png">
 
 3、以图片形式生成验证码
 
@@ -658,7 +658,7 @@ private String makeNUm(){
 
 编辑图片并映射到网页上
 
-<img src="./../../../.vuepress/public/img/image-20210608190700525.png">
+<img src="./assets/image-20210608190700525.png">
 
 4、重定向
 

@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: /used.jpg
+heroImage: /img/used.jpg
 actionText: Product →
 actionLink: https://northboat.github.io/
 features:

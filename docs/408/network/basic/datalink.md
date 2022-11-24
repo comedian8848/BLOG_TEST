@@ -101,7 +101,7 @@ CRC 技术：在原始数据，k 位数据位后添加 n 位冗余码，一起�
 
 #### 滑动窗口机制
 
-<img src="../../../.vuepress/public/img/window.png">
+<img src="./assets/window.png">
 
 按照窗口大小，流量控制可以分为三种
 
@@ -557,9 +557,9 @@ MAC 帧格式有两种常用标准
 
 例题：
 
-<img src="../../../.vuepress/public/img/trans1.png">
+<img src="./assets/trans1.png">
 
-<img src="../../../.vuepress/public/img/trans2.png">
+<img src="./assets/trans2.png">
 
 ## 广域网的数据链路层
 
@@ -749,7 +749,7 @@ CHAP 挑战握手身份验证协议
 
 转发和学习是一个整体，收到帧便开始学习，建立/更新站表，同时查表进行转发
 
-<img src="../../../.vuepress/public/img/wangqiao.png">
+<img src="./assets/wangqiao.png">
 
 #### 存在的问题：回路
 

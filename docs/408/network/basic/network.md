@@ -173,11 +173,11 @@ IP地址 = 网络前缀+主机号，在表示的时候使用斜线法
 - 将所有 ip 二进制展开，逐位对比
 - 将网络地址的范围写出，判断每 8 位是否在范围内（因为存在子网号借位）
 
-<img src="../../../.vuepress/public/img/inonesubnet.png">
+<img src="./assets/inonesubnet.png">
 
 重点在于，同一网络的前缀一定相同，这里的前缀指网络号（包括子网号）
 
-<img src="../../../.vuepress/public/img/moreprefix.png">
+<img src="./assets/moreprefix.png">
 
 #### 路由聚合
 
@@ -196,7 +196,7 @@ IP地址 = 网络前缀+主机号，在表示的时候使用斜线法
 
 主机优先：适用于每个子网中主机数不同
 
-<img src="../../../.vuepress/public/img/hostfirst.png">
+<img src="./assets/hostfirst.png">
 
 - 从地址要求多的网络开始划分主机位数
 - 每向后划分一位，都会将原网络一分为二；划分两位（等分四份），即一分为四
@@ -210,7 +210,7 @@ IP地址 = 网络前缀+主机号，在表示的时候使用斜线法
 
 - 为什么是第 24 位而不是更前面呢，因为我们在主机优先分配时，先从主机需求大的网络进行分配，即继续分配时不会超过上一次的阀值
 
-<img src="../../../.vuepress/public/img/step.png">
+<img src="./assets/step.png">
 
 尽可能提高 ip 地址利用率：使用主机优先，首先去分大号主机，再向下延伸
 
@@ -520,9 +520,9 @@ RIP 允许一条路径最多只能包含 15 个路由器，即距离最大为 16
   - else 不满足上述三条，啥也不做
 - 若 3 分种没收到相邻路由器更新路由表，认为不可达，记距离为 16
 
-<img src="../../../.vuepress/public/img/router-table-update1.png">
+<img src="./assets/router-table-update1.png">
 
-<img src="../../../.vuepress/public/img/router-table-update2.png">
+<img src="./assets/router-table-update2.png">
 
 有这样有一个问题：好消息传播的快，坏消息传播的慢
 

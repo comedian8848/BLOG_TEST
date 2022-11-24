@@ -17,11 +17,11 @@ TCP 像是打电话，在通信前需要连接（三次握手 connect），通�
 - TCP/IP 四层模型
 - TCP/IP 五层模型
 
-<img src="./../../../.vuepress/public/img/netmodel.png">
+<img src="./assets/netmodel.png">
 
 OSI 模型与 TCP/IP 模型对照
 
-<img src="./../../../.vuepress/public/img/osimodel.png">
+<img src="./assets/osimodel.png">
 
 点到点、端到端服务：在TCP/IP协议中，数据网络层（网际网层/IP层）及以下提供点到点服务，传输层提供端到端服务。端到端与点到点是针对网络中传输的两端设备间的关系而言的
 

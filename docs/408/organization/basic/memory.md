@@ -58,7 +58,7 @@ RAM(random access memory)，随机存取存储器，储存单元内容可按需�
 
 存储器离 CPU 越近，容量越小，速度越快
 
-<img src="../../../.vuepress/public/img/截图_2022-09-22_19-50-02.png">
+<img src="./assets/截图_2022-09-22_19-50-02.png">
 
 Cache-主存层次：通过硬件实现，解决内存速度和 CPU 速度的不匹配问题
 
@@ -236,7 +236,7 @@ $$
 
 在上述又 2Kx4 位芯片组成的 8Kx8 位存储器中，地址 0B1FH 所在芯片的最小地址为：0800H
 
-<img src="../../../.vuepress/public/img/截图_2022-09-25_14-13-27.png">
+<img src="./assets/截图_2022-09-25_14-13-27.png">
 
 对于 NxM 的存储器（log 底数为 2）
 
@@ -258,7 +258,7 @@ $$
 
 请用第一道例题的解法解第(3)题
 
-<img src="../../../.vuepress/public/img/截图_2022-09-25_14-41-03.png">
+<img src="./assets/截图_2022-09-25_14-41-03.png">
 
 对于芯片本身：如一个 4Mx8 位的 DRAM 芯片，其数据线为 log8 = 3 根，地址线为 1/2 log 4M = 22/2 = 11 根
 
@@ -360,7 +360,7 @@ $$
 
 读取 m 个字需要 r+(m-1)T+r 的时间
 
-<img src="../../../.vuepress/public/img/QQ截图20220929154205.png">
+<img src="./assets/QQ截图20220929154205.png">
 
 #### 多体低位交叉
 
@@ -385,13 +385,13 @@ $$
 
 - 和分组交换的原理、计算方法一模吊样
 
-<img src="../../../.vuepress/public/img/QQ截图20220929154728.png">
+<img src="./assets/QQ截图20220929154728.png">
 
 但在实际过程中，会发生冲突，就是说在同一轮流水线中访问同一存储体是冲突的，不可以的
 
 - 一道例题
 
-<img src="../../../.vuepress/public/img/QQ截图20220929155029.png">
+<img src="./assets/QQ截图20220929155029.png">
 
 带宽 = 数据量 / 传输数据
 
@@ -446,7 +446,7 @@ Cache 由 Cache 存储体，地址映射变换机构和 Cache替换机构组成
 
 即读写操作，其流程如下
 
-<img src="../../../.vuepress/public/img/QQ截图20221002193948.png">
+<img src="./assets/QQ截图20221002193948.png">
 
 - Cache 和主存的计算单位：块
 - CPU 和主存交换的计算单位：字
@@ -461,7 +461,7 @@ Cache 由 Cache 存储体，地址映射变换机构和 Cache替换机构组成
 
 整个系统效率：e = Tc / Ta
 
-<img src="../../../.vuepress/public/img/QQ截图20221003204548.png">
+<img src="./assets/QQ截图20221003204548.png">
 
 - 先算 Ta 再算 e 一样的
 
@@ -550,9 +550,9 @@ Cache 由 Cache 存储体，地址映射变换机构和 Cache替换机构组成
 
 举个栗子：计算地址格式
 
-<img src="../../../.vuepress/public/img/QQ截图20221003145302.png">
+<img src="./assets/QQ截图20221003145302.png">
 
-<img src="../../../.vuepress/public/img/QQ截图20221003145405.png">
+<img src="./assets/QQ截图20221003145405.png">
 
 - 直接映射：主存标记 + cache 块位 + 块内地址
 
@@ -562,7 +562,7 @@ Cache 由 Cache 存储体，地址映射变换机构和 Cache替换机构组成
 
 再举个栗子：组相联主存单元应装入的 cache 组号
 
-<img src="../../../.vuepress/public/img/QQ截图20221003151115.png">
+<img src="./assets/QQ截图20221003151115.png">
 
 - 组号 = 主存块号 % 组数，4 % 8 = 4，选 C
 
@@ -582,7 +582,7 @@ Cache 组织结构：Cache 标记 + Cache 块内地址
 
 直接映射的访问过程：
 
-<img src="../../../.vuepress/public/img/QQ截图20221003161837.png">
+<img src="./assets/QQ截图20221003161837.png">
 
 - 这个东西也叫地址变换表，一个缓冲块对应一行，即包含缓冲块个数个存储单元
 
@@ -608,17 +608,17 @@ $$
   
   - 全相联映射：log2(M)，M 为 cache 块数
 
-<img src="../../../.vuepress/public/img/QQ截图20221003161430.png">
+<img src="./assets/QQ截图20221003161430.png">
 
 组相联映射的访问过程：
 
-<img src="../../../.vuepress/public/img/QQ截图20221003163027.png">
+<img src="./assets/QQ截图20221003163027.png">
 
 CPU 通过主存地址中的组号确定 cache 组，在该组中遍历比较主机标记，若相同且有效位为 1，则命中，直接读取该 cache；若未命中，则将主存中对应内容写入该 cache，再读取；若 cache 已满，则使用 LRU 算法写入
 
 全相联的访问过程：
 
-<img src="../../../.vuepress/public/img/QQ截图20221003163759.png">
+<img src="./assets/QQ截图20221003163759.png">
 
 将主存地址解析为主存标记和块内地址，让主存标记和所有的 cache 的主机标记进行比较，这种方式叫做按照内容进行查找，主机标记相同则命中
 
@@ -633,31 +633,31 @@ CPU 通过主存地址中的组号确定 cache 组，在该组中遍历比较主
 - 加上块内地址（和主存块内地址保持一致）
 - 乘上需要 cache 的块数，即总数据量除以单个块数据量
 
-<img src="../../../.vuepress/public/img/截图_2022-10-05_14-04-02.png">
+<img src="./assets/截图_2022-10-05_14-04-02.png">
 
 #### 一些栗题
 
 例题一：单元到块，块到字，字到位的转化
 
-<img src="../../../.vuepress/public/img/QQ截图20221003211538.png">
+<img src="./assets/QQ截图20221003211538.png">
 
 例题二：每一块不命中一次
 
 注意 a[k] = a[k] +32 这一过程访问了两次地址 a[k]，第二次一定命中
 
-<img src="../../../.vuepress/public/img/QQ截图20221003211401.png">
+<img src="./assets/QQ截图20221003211401.png">
 
 例题三：容量到块、字的转换
 
-<img src="../../../.vuepress/public/img/QQ截图20221003212850.png">
+<img src="./assets/QQ截图20221003212850.png">
 
 例题四：全相联映射的访问
 
-<img src="../../../.vuepress/public/img/截图_2022-10-04_11-46-42.png">
+<img src="./assets/截图_2022-10-04_11-46-42.png">
 
 例题五：根据主存地址结构进行组相联映射访问
 
-<img src="../../../.vuepress/public/img/截图_2022-10-04_12-01-14.png">
+<img src="./assets/截图_2022-10-04_12-01-14.png">
 
 例题五：时间、空间局部性在代码上的表现
 
@@ -665,7 +665,7 @@ CPU 通过主存地址中的组号确定 cache 组，在该组中遍历比较主
 - 而按列访问将降低读取效率
 - sum 具有好的空间局部性，因为只有一个变量不断访问
 
-<img src="../../../.vuepress/public/img/截图_2022-10-04_12-06-58.png">
+<img src="./assets/截图_2022-10-04_12-06-58.png">
 
 ### Cache 替换策略和更新策略
 
@@ -775,13 +775,13 @@ CPU 会优先查找快表，如果找不到再找页表（慢表），访问数�
 
 - 找到实地址后，再通过主存-Cache系统找到所需要的数据，这一过程需要使用到 cache 的组相联映射、直接相连或全相联
 
-<img src="../../../.vuepress/public/img/QQ截图20221004171356.png">
+<img src="./assets/QQ截图20221004171356.png">
 
 一个完整的映射过程：先从虚地址映射到物理地址，再根据物理地址映射 cache 地址
 
 - 寻找虚地址为 0008 C040H 的数据，并判断是否命中 cache
 
-<img src="../../../.vuepress/public/img/QQ截图20221004173520.png">
+<img src="./assets/QQ截图20221004173520.png">
 
 确实在 cache 中找到了对应数据，但因为有效位为 0，故未命中
 

@@ -8,7 +8,7 @@ module.exports = {
     port: '7777',
 	
     head: [
-        ['link', {rel: 'icon', href: '/leaf.ico'}],
+        ['link', {rel: 'icon', href: '/img/leaf.ico'}],
 	['link', {rel:'stylesheet', href:'https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css'}],
 	//['link', {rel:'stylesheet', href:'https://gitcdn.xyz/cdn/goessner/markdown-it-texmath/master/texmath.css'}],
 	//['script', {src: 'https://github.com/markdown-it/markdown-it/blob/master/bin/markdown-it.js'}],
@@ -26,7 +26,7 @@ module.exports = {
     },
 
     themeConfig: {
-		logo: '/logo.png',
+		logo: '/img/logo.png',
         nav: require("./nav.js"),
         sidebar: require("./sidebar.js"),
         sidebarDepth: 2,
@@ -51,49 +51,49 @@ module.exports = {
 	      name: '白羊',
 	      artist: 'NorthBoat',
 	      url: '/song/aries.aac',
-	      cover: '/error.jpg'
+	      cover: '/img/error.jpg'
 	    },
             {
               name: '我',
               artist: '张国荣',
               url: 'http://www.ytmp3.cn/down/46480.mp3',
-              cover: '/error.jpg'
+              cover: '/img/error.jpg'
             },
 	    {
 	      name: 'You Are Beautiful',
               artist: 'James Blunt',
 	      url: 'http://www.ytmp3.cn/down/77296.mp3',
-	      cover: '/error.jpg'
+	      cover: '/img/error.jpg'
 	    },
 	    {
 	      name: '遥远的他',
 	      artist: '陈奕迅',
 	      url: 'http://www.ytmp3.cn/down/64842.mp3',
-	      cover: '/error.jpg'
+	      cover: '/img/error.jpg'
 	    },
 	    {
 	      name: '最冷一天',
 	      artist: '陈奕迅',
 	      url: 'http://www.ytmp3.cn/down/64370.mp3',
-	      cover: '/error.jpg'
+	      cover: '/img/error.jpg'
 	    },
 	    {
 	      name: '倾城',
 	      artist: '陈奕迅',
 	      url: 'http://www.ytmp3.cn/down/64402.mp3',
-	      cover: '/error.jpg'
+	      cover: '/img/error.jpg'
 	    },
 	    {
 	      name: '让一切随风',
 	      artist: '钟镇涛',
 	      url: 'http://www.ytmp3.cn/down/74929.mp3',
-	      cover: '/error.jpg'
+	      cover: '/img/error.jpg'
 	    },
 	    {
 	      name: '失忆蝴蝶',
 	      artist: '陈奕迅',
 	      url: 'http://www.ytmp3.cn/down/52174.mp3',
-	      cover: '/error.jpg'
+	      cover: '/img/error.jpg'
 	    },
           ],
           // 是否默认缩小

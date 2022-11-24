@@ -102,7 +102,7 @@ new project ——> maven项目 ——> 勾选模板、勾选maven-javaweb-app �
 
 Maven功能栏（Plugins可删除）
 
-<img src="./../../../.vuepress/public/img/image-20210523134415647.png">
+<img src="./assets/image-20210523134415647.png">
 
 #### 在idea中配置tomcat
 
@@ -110,7 +110,7 @@ Maven功能栏（Plugins可删除）
 
 点击该处处，配置tomcat
 
-<img src="./../../../.vuepress/public/img/image-20210601115107335.png">
+<img src="./assets/image-20210601115107335.png">
 
 注意：
 

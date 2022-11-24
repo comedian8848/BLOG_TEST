@@ -83,9 +83,9 @@ tags:
 
 地址格式：虚页号 + 页内地址
 
-<img src="../../../.vuepress/public/img/QQ截图20221103211005.png">
+<img src="./assets/QQ截图20221103211005.png">
 
-<img src="../../../.vuepress/public/img/QQ截图20221103211138.png">
+<img src="./assets/QQ截图20221103211138.png">
 
 当快表或页表查询成功，该页的访问次数将加 1
 
@@ -147,7 +147,7 @@ tags:
 
 已知页面访问序列，每次访问后需要实时更新内存中页面之后的访问次数，并以此排序
 
-<img src="../../../.vuepress/public/img/QQ截图20221104211054.png">
+<img src="./assets/QQ截图20221104211054.png">
 
 ### FIFO
 
@@ -157,7 +157,7 @@ tags:
 
 最后进入内存的页面被保留的优先级最高
 
-<img src="../../../.vuepress/public/img/QQ截图20221104211013.png">
+<img src="./assets/QQ截图20221104211013.png">
 
 ### LRU
 
@@ -169,7 +169,7 @@ tags:
 
 已知访问顺序，模拟访问/置换过程
 
-<img src="../../../.vuepress/public/img/QQ截图20221104205851.png">
+<img src="./assets/QQ截图20221104205851.png">
 
 ### CLOCK
 
@@ -183,7 +183,7 @@ CLOCK 置换算法：最近未使用算法（Not Recently Used, NRU）：**LRU �
 
 已知访问顺序，模拟 CLOCK 工作过程，共四个内存块，运行七个页面
 
-<img src="../../../.vuepress/public/img/QQ截图20221104210321.png">
+<img src="./assets/QQ截图20221104210321.png">
 
 灰色部分表示循环链表的指针所指位置
 

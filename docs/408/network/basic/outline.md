@@ -175,7 +175,7 @@ VPN
 - n 数据组数
 - t 每发送一段数据所需时间（发送时延+传播时延）
 
-<img src="../../../.vuepress/public/img/2022-8-29-1.png">
+<img src="./assets/2022-8-29-1.png">
 
 ### 吞吐量
 
