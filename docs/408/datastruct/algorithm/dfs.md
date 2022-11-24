@@ -833,7 +833,7 @@ if(i > 0 && nums[i] == nums[i-1] && !visited[i-1]){
 
 在数组中找到所有和为 target 的不重复的组合
 
-<img src="../../../.vuepress/public/img/combine_sum.png">
+<img src="./assets/combine_sum.png">
 
 关键在于：同一层不能遍历相同的元素，如果能够遍历将出现很多重复组合，如`[1,2,4], [1,4,2], [4,1,2]`，这个问题将退化为上一题全排列
 

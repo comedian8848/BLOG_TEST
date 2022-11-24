@@ -123,7 +123,7 @@ plt.show()
 2  23.103306    0.000675    0.924875     0.993322
 ~~~
 
-<img src="../../../.vuepress/public/img/Figure_16.png">
+<img src="./assets/Figure_16.png">
 
 ### 调优训练 breast_cancer
 
@@ -185,7 +185,7 @@ print("the accuracy is ", accuracy)
 the accuracy is 0.9440559440559441
 ~~~
 
-<img src="./../../../.vuepress/public/img/Figure_17.png">
+<img src="./assets/Figure_17.png">
 
 ### 管道使用总结
 
@@ -214,7 +214,7 @@ scores[['train_score', 'test_score']].boxplot()
 plt.show()
 ~~~
 
-<img src="./../../../.vuepress/public/img/Figure_18.png">
+<img src="./assets/Figure_18.png">
 
 ## Heterogeneous Data
 
@@ -443,7 +443,7 @@ df_scores[['train_score', 'test_score']].boxplot()
 plt.show()
 ~~~
 
-<img src="./../../../.vuepress/public/img/Figure_19.png">
+<img src="./assets/Figure_19.png">
 
 ### adult_openml.csv
 
@@ -574,4 +574,4 @@ accuracy of the GridSearchCV is 0.83
 2  12.042301    0.078128    0.723290     0.725647
 ~~~
 
-<img src="./../../../.vuepress/public/img/Figure_20.png">
+<img src="./assets/Figure_20.png">

@@ -1153,7 +1153,7 @@ onclick：与onsubmit同理，在点击提交时，设置一个js动作
 
 前端加密展示效果
 
-<img src="./../../../.vuepress/public/img/image-20211124125426069.png">
+<img src="./assets/image-20211124125426069.png">
 
 ## jQury
 
@@ -1288,7 +1288,7 @@ $("#text-ul li[name=java]").html("<span>123</span>");//设置值
 
 css操作
 
-<img src="./../../../.vuepress/public/img/image-20211124210527473.png">
+<img src="./assets/image-20211124210527473.png">
 
 使消失，本质 display: none
 

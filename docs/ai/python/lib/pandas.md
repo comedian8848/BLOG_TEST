@@ -780,7 +780,7 @@ data.plot()
 plt.show()
 ~~~
 
-<img src="./../../../.vuepress/public/img/Figure_1.png">
+<img src="./assets/Figure_1.png">
 
 绘制`DataFrame`四个列属性的坐标图，横轴为行索引，纵轴为数据值，每个列属性代表一条曲线
 
@@ -791,7 +791,7 @@ data1.plot()
 plt.show()
 ~~~
 
-<img src="./../../../.vuepress/public/img/Figure_2.png">
+<img src="./assets/Figure_2.png">
 
 绘制`data1`的`x-y`坐标图
 
@@ -802,7 +802,7 @@ data1.plot.scatter(x='A',y='C',color='LightGreen',label='Class2',ax=ax)
 plt.show()
 ~~~
 
-<img src="./../../../.vuepress/public/img/Figure_3.png">
+<img src="./assets/Figure_3.png">
 
 ## Pandas 50
 

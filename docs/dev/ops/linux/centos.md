@@ -126,7 +126,7 @@ systemctl stop .service
 
 每个文件的权限由三部分组成
 
-<img src="./../../../.vuepress/public/img/20181230195451513.jpg">
+<img src="./assets/20181230195451513.jpg">
 
 - owner 属主，缩写u
 - group 属组，缩写g

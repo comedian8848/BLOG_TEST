@@ -60,7 +60,7 @@ tags:
 
 联合两个或非门，单个或非门的输出为另一个或非门的输入之一
 
-<img src="./../../../.vuepress/public/img/image-20220517200346849.png">
+<img src="./assets/image-20220517200346849.png">
 
 VI1一开始为1，使得VO1为0，VO2为1
 
@@ -116,7 +116,7 @@ Q为第一个或非门的输出端，Q'为第二个或非门的输出端：
 
 由与非门组成的基本RS触发器，更常用
 
-<img src="./../../../.vuepress/public/img/image-20220517203842874.png">
+<img src="./assets/image-20220517203842874.png">
 
 低电平有效，其他与或非门基本无区别
 
@@ -169,7 +169,7 @@ Q为第一个或非门的输出端，Q'为第二个或非门的输出端：
 - 有时CP也叫CLK（CLOCK）
 - 同步RS触发器
 
-<img src="./../../../.vuepress/public/img/image-20220520142408967.png">
+<img src="./assets/image-20220520142408967.png">
 
 电平触发器特性表
 
@@ -246,7 +246,7 @@ S/R输入端通过一个D输入，S=D，R=D'
 - 当CLK上升时，TG1断，TG2通；TG3通，TG4断。此时反馈不通，输出Q=G1（第一个CMOS管的输出）
 - 当CLK下降时，TG1通，TG2断；TG3断，TG4通。此时反馈接通，输出Q保持
 
-<img src="./../../../.vuepress/public/img/image-20220520154817887.png">
+<img src="./assets/image-20220520154817887.png">
 
 真值表
 
@@ -291,11 +291,11 @@ Q*仅取决于上升沿到达时输入的状态，与前后D状态无关
 
 整个轮回中，只有在CP的下降沿，整个边沿触发器的输出Q才会发生变化，此之谓边沿触发器，即在边沿触发
 
-<img src="./../../../.vuepress/public/img/image-20220525151801481.png">
+<img src="./assets/image-20220525151801481.png">
 
 真值表
 
-<img src="./../../../.vuepress/public/img/image-20220525152525229.png">
+<img src="./assets/image-20220525152525229.png">
 
 在除下降沿之外，总输出电平在其余时间均保持不变
 
@@ -316,7 +316,7 @@ Q*仅取决于上升沿到达时输入的状态，与前后D状态无关
 
 典型的边沿触发器
 
-<img src="./../../../.vuepress/public/img/image-20220525154919487.png">
+<img src="./assets/image-20220525154919487.png">
 
 输入从R/S变为J/K：
 
@@ -331,7 +331,7 @@ Q*仅取决于上升沿到达时输入的状态，与前后D状态无关
 - 不为不定，而为上个状态的反状态，即`1->0, 0->1`
 - 这个操作叫做翻转
 
-<img src="./../../../.vuepress/public/img/image-20220525181501454.png">
+<img src="./assets/image-20220525181501454.png">
 
 具有多输入端的主从`JK`触发器
 
@@ -373,7 +373,7 @@ Q*仅取决于上升沿到达时输入的状态，与前后D状态无关
 
 ##### RS触发器
 
-<img src="./../../../.vuepress/public/img/image-20220525185945030.png">
+<img src="./assets/image-20220525185945030.png">
 
 化简约束得：
 
@@ -382,7 +382,7 @@ Q*仅取决于上升沿到达时输入的状态，与前后D状态无关
 
 RS触发器的状态图
 
-<img src="./../../../.vuepress/public/img/image-20220525190359474.png">
+<img src="./assets/image-20220525190359474.png">
 
 ##### JK触发器
 
@@ -409,7 +409,7 @@ J/K触发器的两种情况：`J+K=0, JK=1`
 
 特性表：
 
-<img src="./../../../.vuepress/public/img/image-20220525191855563.png">
+<img src="./assets/image-20220525191855563.png">
 
 特性方程：`Q(n+1) = TQ(n)' + T'Q(n)`
 
@@ -511,7 +511,7 @@ D触发器输出永远等同于输入
 
 六管N沟道增强型MOS管组成的一个`SRAM`存储单元
 
-<img src="./../../../.vuepress/public/img/image-20220525202008843.png">
+<img src="./assets/image-20220525202008843.png">
 
 ##### 动态随机存储器
 
@@ -547,7 +547,7 @@ D触发器输出永远等同于输入
 
 例子：二极管门阵列组成的ROM单元
 
-<img src="./../../../.vuepress/public/img/image-20220525202856398.png">
+<img src="./assets/image-20220525202856398.png">
 
 出厂时已经固定，不能更改，适合大量生产，简单便宜，非易失性
 
@@ -598,7 +598,7 @@ D触发器输出永远等同于输入
 
 可以由4位输入地址，8位输出数据的ROM来实现译码电路
 
-<img src="./../../../.vuepress/public/img/image-20220526205611768.png">
+<img src="./assets/image-20220526205611768.png">
 
 实现过程与38译码器、数据选择器基本一致，拿到一组多输出逻辑函数后，化成最小项和形式，根据最小项和写出输出的真值表
 

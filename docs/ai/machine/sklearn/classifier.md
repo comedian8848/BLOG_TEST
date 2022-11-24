@@ -35,7 +35,7 @@ plt.show()
 print("\nthe digit in the image is: ", y[0])
 ~~~
 
-<img src="../../../.vuepress/public/img/Figure_13.png">
+<img src="./assets/Figure_13.png">
 
 ~~~bash
 the digit in the image is:  0
@@ -359,7 +359,7 @@ print(df_scores)
 2  0.098848    0.000470    0.924875     0.993322
 ~~~
 
-<img src="../../../.vuepress/public/img/Figure_14.png">
+<img src="./assets/Figure_14.png">
 
 ### load_breast_cancer
 
@@ -401,5 +401,5 @@ print(df_scores)
   - 学习模型使用`SGDClassifier`
   - 预处理模式使用`StandardScaler`
 
-<img src="../../../.vuepress/public/img/Figure_15.png">
+<img src="./assets/Figure_15.png">
 

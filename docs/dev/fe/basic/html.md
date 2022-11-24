@@ -35,7 +35,7 @@ W3C标准（World Wide Web Consortium：万维网联盟）：
 
 **HTML网页结构**：非编程语言，而是标记语言（markdown）
 
-<img src="./../../../.vuepress/public/img/image-20210511094319976.png">
+<img src="./assets/image-20210511094319976.png">
 
 只有body部分才会在浏览器中显示
 
@@ -326,7 +326,7 @@ target：表示窗口在哪里打开
 
 自定义列表常用于：
 
-<img src="./../../../.vuepress/public/img/image-20210511201710005.png">
+<img src="./assets/image-20210511201710005.png">
 
 ### 表格标签
 
@@ -334,7 +334,7 @@ why table：简单同意，结构稳定
 
 基本结构：单元格、行、列、跨行、跨列
 
-<img src="./../../../.vuepress/public/img/image-20210511202212604.png">
+<img src="./assets/image-20210511202212604.png">
 
 ~~~html
 <!DOCTYPE html>
@@ -402,7 +402,7 @@ autoplay：打开网页自动开始播放
 
 与vuepress博客类似
 
-<img src="./../../../.vuepress/public/img/image-20210511205856655.png">
+<img src="./assets/image-20210511205856655.png">
 
 样例：
 
@@ -492,13 +492,13 @@ autoplay：打开网页自动开始播放
 
 post传输方式：
 
-<img src="./../../../.vuepress/public/img/image-20210511213041445.png">
+<img src="./assets/image-20210511213041445.png">
 
 #### 文本框和单选框
 
 表单单元格（input）元素：
 
-<img src="./../../../.vuepress/public/img/image-20210511213303006.png">
+<img src="./assets/image-20210511213303006.png">
 
 文本框和单选框：
 

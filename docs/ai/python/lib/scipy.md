@@ -85,7 +85,7 @@ axes[1, 1].legend(["$m={:g}$".format(m_) for m_ in m], loc="best", ncol=2);
 plt.show()
 ~~~
 
-<img src="./../../../.vuepress/public/img/Figure_4.png">
+<img src="./assets/Figure_4.png">
 
 ## Optimize
 

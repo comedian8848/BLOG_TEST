@@ -33,7 +33,7 @@ plt.show()
 - `np.linspace`从`start`和`end`之间均分为`n`个元素组成一个向量
 - 先设置画布`figure`，再布局`plot`，最后展示`show`
 
-<img src='./../../../.vuepress/public/img/Figure_5.png'>
+<img src='./assets/Figure_5.png'>
 
 ### Spines 坐标轴
 
@@ -60,11 +60,11 @@ plt.show()
 - `xlabel/ylabel`定义坐标意义
 - `xticks/yticks`定义坐标轴刻度，两种重载，可以给某个坐标定义特殊含义，传入两个向量，第一个向量为坐标，第二个为其含义，一一对应
 
-<img src='./../../../.vuepress/public/img/Figure_6.png'>
+<img src='./assets/Figure_6.png'>
 
 如上图，整个图的框架是四条线段，若想呈现以下效果，则只保留`x/y`轴，并设置原点
 
-<img src='./../../../.vuepress/public/img/Figure_7.png'>
+<img src='./assets/Figure_7.png'>
 
 首先去掉`右,上`两条框架，即设置其颜色为`none`
 
@@ -143,7 +143,7 @@ plt.show()
 
 - `labels=[]`用以绑定`handles`向量中的值，按顺序赋值
 
-<img src='./../../../.vuepress/public/img/Figure_8.png'>
+<img src='./assets/Figure_8.png'>
 
 - 右下角即为图例
 
@@ -179,7 +179,7 @@ plt.show()
 - `lw`即为`linewidth`
 - `c`即为`color`，`b`为`blue`简写，`r`为`red`简写
 
-<img src='./../../../.vuepress/public/img/Figure_9.png'>
+<img src='./assets/Figure_9.png'>
 
 添加注释和文字
 
@@ -204,7 +204,7 @@ plt.show()
 - `annotate`第一个参数为注释内容（字符串）；`xy=()`为标注点的坐标；`xycoords`设置坐标的含义，如此处为数据值`data`的坐标；`fontsize`设置字体大小，接收浮点型数据 ；`arrowprops`接收一个字典，设置箭头的样式，连接方式
 - `text`函数添加文字，第一、二个参数为文字坐标（左下角坐标）；第三个参数为文字内容（字符串）；`fontdict`接收一个字典，用于设置字的样式、大小等
 
-<img src='./../../../.vuepress/public/img/Figure_10.png'>
+<img src='./assets/Figure_10.png'>
 
 ### Tick 能见度
 
@@ -247,11 +247,11 @@ plt.show()
 
 调整前
 
-<img src='./../../../.vuepress/public/img/Figure_11.png'>
+<img src='./assets/Figure_11.png'>
 
 调整后
 
-<img src='./../../../.vuepress/public/img/Figure_12.png'>
+<img src='./assets/Figure_12.png'>
 
 ## Seaborn
 

@@ -122,7 +122,7 @@ $$
 $$
 p(x)=\frac{1}{\sqrt{2\pi}v}e^{\frac{(x-u)^2}{2v^2}}
 $$
-<img src="./../../../.vuepress/public/img/image-20220606164846353.png">
+<img src="./assets/image-20220606164846353.png">
 
 正态分布的几何特征：
 
@@ -164,7 +164,7 @@ $$
 
 标准正态分布和正态分布的关系：
 
-<img src="./../../../.vuepress/public/img/image-20220606175912711.png">
+<img src="./assets/image-20220606175912711.png">
 
 若有正态分布`x ~ N(u,v^2)`，则`(x-u)/v`满足标准正态分布
 
@@ -219,7 +219,7 @@ $$
 
 举个栗子：
 
-<img src="./../../../.vuepress/public/img/image-20220607141818567.png">
+<img src="./assets/image-20220607141818567.png">
 
 ### 边际分布函数
 
@@ -241,7 +241,7 @@ $$
 
 举个栗子：
 
-<img src="./../../../.vuepress/public/img/image-20220607141838199.png">
+<img src="./assets/image-20220607141838199.png">
 
 总结下来就是：
 
@@ -264,7 +264,7 @@ $$
 
 ### 二维正态分布
 
-<img src="./../../../.vuepress/public/img/image-20220607143119546.png">
+<img src="./assets/image-20220607143119546.png">
 
 二维正态分布的边际分布均为一维的正态分布，这里边际分布同样推不出对应的联合分布，因为存在参数`p`
 
@@ -307,7 +307,7 @@ $$
 
 举个例子：
 
-<img src="./../../../.vuepress/public/img/image-20220607172405118.png">
+<img src="./assets/image-20220607172405118.png">
 
 需要注意的是，用反函数对原自变量进行替换时，其取值范围也要相应变换
 
@@ -322,7 +322,7 @@ $$
 
 举个栗子：
 
-<img src="./../../../.vuepress/public/img/image-20220607173838439.png">
+<img src="./assets/image-20220607173838439.png">
 
 这个例题也得到一个关于正态分布的结论：
 
@@ -342,11 +342,11 @@ $$
 
 推导过程如下：
 
-<img src="./../../../.vuepress/public/img/image-20220607190216689.png">
+<img src="./assets/image-20220607190216689.png">
 
 举个栗子：
 
-<img src="./../../../.vuepress/public/img/image-20220607190235118.png">
+<img src="./assets/image-20220607190235118.png">
 
 上述栗子也证明了正态分布的可加性：即正态分布相加，仍为一个正态分布，新的正态分布的参数为原正态分布参数之和
 
@@ -357,7 +357,7 @@ $$
 
 难死爹了
 
-<img src="./../../../.vuepress/public/img/image-20220607193742173.png">
+<img src="./assets/image-20220607193742173.png">
 
 求解两个二维函数（其自变量为同一组二维连续型随机变量）的联合密度函数
 
@@ -400,7 +400,7 @@ $$
 
 二维连续型随机变量函数的数学期望：
 
-<img src="./../../../.vuepress/public/img/image-20220609144700533.png">
+<img src="./assets/image-20220609144700533.png">
 
 性质：基本与离散型随机变量期望性质一致
 
