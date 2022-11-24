@@ -249,7 +249,7 @@ class Tickets1{
 
 ### Lock 接口
 
-<img src="./../../../.vuepress/public/img/image-20210724011140984.png">
+<img src="./assets/image-20210724011140984.png">
 
 三个实现类
 
