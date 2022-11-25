@@ -630,3 +630,10 @@ K个不同的整数的子数组（992）
 航班预订统计（1109）
 
 连续数组（525）
+
+[零钱兑换](https://leetcode.cn/problems/coin-change/)
+
+[整数拆分](https://leetcode.cn/problems/integer-break/)
+
+[编辑距离](https://leetcode.cn/problems/edit-distance/)
+
