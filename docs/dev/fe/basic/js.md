@@ -1155,6 +1155,17 @@ onclick：与onsubmit同理，在点击提交时，设置一个js动作
 
 <img src="./assets/image-20211124125426069.png">
 
+### 东秦教评
+
+全部好评，建议为无
+
+```javascript
+let inputs = document.querySelectorAll("input"); 
+for (i in inputs) if (inputs[i].value == 0) inputs[i].checked = true; 
+document.querySelector("textarea").value = "无"; 
+document.querySelector("#sub").click();
+```
+
 ## jQury
 
 ### 获取和使用
