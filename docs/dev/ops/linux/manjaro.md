@@ -413,6 +413,10 @@ sudo update-grub
 
 让linux系统自动生成合适的grub.cfg文件
 
+### 虚拟控制台
+
+`ctrl alt f2-f6`可以开启虚拟控制台，即黑框框的 linux，f7 为图形界面
+
 ## Shell
 
 ### 解压缩
