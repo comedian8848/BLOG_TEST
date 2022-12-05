@@ -122,7 +122,7 @@ drop database + 库名;
 
 drop table + 表名;
 
-### 使用图形界面管理MySQL
+### 图形界面管理
 
 下载解压 SQLyog
 
@@ -150,109 +150,20 @@ drop table + 表名;
  mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
 ~~~
 
-### wget安装
-
-#### 下载MySql源安装包
+### Manjaro
 
 ~~~bash
-wget http://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
-~~~
+yay -S mysql
 
-#### 安装mysql源
+mysqld --initialize --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+# 设置开机启动MySQL服务
+systemctl enable mysqld.service
+systemctl daemon-reload
+systemctl start mysqld.service
 
-~~~bash
-yum -y install mysql57-community-release-el7-11.noarch.rpm
-~~~
-
-#### 安装mysql服务器
-
-~~~bash
-yum install mysql-community-server
-~~~
-
-在这一步，如果之前安装过mysql安装包，将报错：
-
-错误：软件包：mysql-community-server-5.7.27-1.el7.x86_64 (mysql57-community) 需要：mysql-community-c
-
-此时只需把之前的安装包删掉即可
-
-~~~bash
-//用yum搜索已安装软件
-yum list installed
-//删除掉已安装的
-yum remove mysql-community-common.x86_64
-~~~
-
-再安装即可
-
-#### 启动mysql服务
-
-~~~bash
-systemctl start  mysqld.service
-
-systemctl status mysqld.service
-~~~
-
-#### 初始化数据库密码
-
-1、查看初始密码
-
-~~~bash
-grep "password" /var/log/mysqld.log
-~~~
-
-2、登录
-
-~~~bash
 mysql -u root -p
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '新密码';
 ~~~
-
-3、修改密码
-
-~~~bash
-ALTER USER 'root'@'localhost' IDENTIFIED BY '*******';
-~~~
-
-4、此时修改密码一般报错不符合密码规范：
-
-~~~bash
-ERROR 1819 (HY000): Your password does not satisfy the current policy requirements
-~~~
-
-5、重新修改密码长度以及安全等级
-
-~~~sql
-//设置长度为4
-set global validate_password_length=4;
-//设置安全等级为low
-set global validate_password_policy=0;
-~~~
-
-6、再重新修改密码即可
-
-数据库授权
-
-数据库没有授权，只支持localhost本地访问
-
-~~~SQL
-mysql>GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '123456' WITH GRANT OPTION;
-~~~
-
-远程连接数据库的时候需要输入用户名和密码
-
-用户名：root
-
-密码:123456
-
-指点ip:%代表所有Ip,此处也可以输入Ip来指定Ip
-
-输入后使修改生效还需要下面的语句
-
-~~~sql
-mysql>FLUSH PRIVILEGES;
-~~~
-
-
 
 ## 操作数据库
 

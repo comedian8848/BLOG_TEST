@@ -31,26 +31,12 @@ module.exports = [
 
 	
 	{
-		title: '数据库',
+		title: '数据库系统概论',
 		collapsable: true,
 		children: [
-		    {
-			title: "系统概论",
-			collapsable: false,
-			children: [
-			    './database/relation',
-			    './database/sql',
-			    './database/design',			
-			]
-		    },
-		    {
-			title: "实际应用",
-			collapsable: false,
-			children: [
-			    './database/mysql',
-			    './database/redis',			
-			]			
-		    }
+		    './database/relation',
+		    './database/sql',
+		    './database/design',
 		]
 	},
 	

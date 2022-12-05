@@ -1,5 +1,6 @@
 
 module.exports = [
+
 	{
 		title: 'Linux',
 		collapsable: true,
@@ -8,31 +9,32 @@ module.exports = [
 		    './linux/manjaro',
 		]
 	},
-	
+
+
 	{
-		title: '工具',
+		title: '数据库',
 		collapsable: true,
 		children: [
-		    './tool/git',
-		    {
-			title: "Docker",
-			collapsable: true,
-			children: [
-			    './tool/dockerI',
-			    './tool/dockerII',			
-			]
-		    },
-			
+		    './database/mysql',
+		    './database/redis',
 		]
 	},
+
 	
 	{
 		title: '杂项',
 		collapsable: true,
 		children: [
 		    './misc/wechall',
+		    './misc/git',
+		    {
+			title: "Docker",
+			collapsable: true,
+			children: [
+			    './misc/dockerI',
+			    './misc/dockerII',			
+			]
+		    },
 		]
 	},
-	
-	
 ]

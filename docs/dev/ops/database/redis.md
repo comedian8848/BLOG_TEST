@@ -33,6 +33,8 @@ cd redis-6.2.6.tar.gz
 编译下载
 
 ~~~bash
+yay -S make
+
 make && make install
 ~~~
 
