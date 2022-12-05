@@ -12,6 +12,8 @@ categories:
 
 ## 部署
 
+### 安装
+
 上传安装包并放在/opt目录下
 
 ~~~java
@@ -34,6 +36,7 @@ cd redis-6.2.6.tar.gz
 
 ~~~bash
 yay -S make
+yay -S pkg-config
 
 make && make install
 ~~~
@@ -48,7 +51,7 @@ make && make install
 
 ~~~bash
 mkdir config
-cp /opt/redis-6.2.6/redis.conf config
+cp /home/northboat/redis-6.2.6/redis.conf config
 ~~~
 
 修改默认启动方式
@@ -114,6 +117,10 @@ auth "123456"
 #或在启动时验证，这样并不安全，因为密码可见
 redis-cli -p 6379 -a 123456
 ~~~
+
+### 可视化工具
+
+[Another Redis Desktop Manager](https://gitee.com/qishibo/AnotherRedisDesktopManager)
 
 ## 基本使用
 

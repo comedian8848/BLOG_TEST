@@ -303,26 +303,6 @@ sudo npm install @vuepress-reco/theme-cli -g
 
 ## 杂项
 
-### 解压缩
-
-压缩成 zip
-
-```bash
-zip -q -r [压缩文件名如:lexer.zip] [要压缩的文件]
-```
-
-tar 压缩
-
-```bash
-tar -czvf lexer.tar.gz lexer # lexer 是文件夹
-```
-
-tar 解压
-
-```bash
-tar -xzvf lexer.tar.gz # 解压到当前目录
-```
-
 ### 调整时间
 
 [Manjaro配置准确时间](https://www.jianshu.com/p/92a2de6d9862)
@@ -395,7 +375,7 @@ Categories=Development;
 export PATH=/opt/anaconda/bin:$PATH
 ~~~
 
-### 更改多余启动项
+### 更改启动项
 
 查看启动项
 
@@ -435,6 +415,28 @@ sudo update-grub
 
 ## Shell
 
+### 解压缩
+
+压缩成 zip
+
+```bash
+zip -q -r [压缩文件名如:lexer.zip] [要压缩的文件]
+```
+
+tar 压缩
+
+```bash
+tar -czvf lexer.tar.gz lexer # lexer 是文件夹
+```
+
+tar 解压
+
+```bash
+tar -xzvf lexer.tar.gz # 解压到当前目录
+```
+
+### 博客部署
+
 部署 vuepress-reco 博客
 
 ```bash
@@ -445,6 +447,23 @@ git add .
 git commit -m "reco"
 git push -f git@github.com:NorthBoat/NorthBoat.github.io.git master
 ```
+
+拉取更新 Blog&Docs
+
+```bash
+echo "-------start"
+cd /home/northboat/File/reco/Blog
+git pull
+echo -e "blog pull ok!\n" # -e 启用转义字符
+cd ..
+cd Docs
+git pull
+echo -e "docs pull ok!\n"
+
+echo "---------end"
+```
+
+### 亮度
 
 修改 manjaro-kde 亮度
 
@@ -486,20 +505,13 @@ EOF
 echo "--------end."
 ```
 
-拉取更新 Blog&Docs
+### 软连接
+
+`ln -s a b`，将 a 软连接到 b，相当于创建快捷方式
 
 ```bash
-echo "-------start"
-cd /home/northboat/File/reco/Blog
-git pull
-echo -e "blog pull ok!\n" # -e 启用转义字符
-cd ..
-cd Docs
-git pull
-echo -e "docs pull ok!\n"
+sudo ln -s /usr/local/bin/redis-server /home/northboat/Desktop/redis-server
 
-echo "---------end"
+sudo ln -s /usr/local/bin/redis-cli /home/northboat/Desktop/redis-cli
 ```
-
-
 

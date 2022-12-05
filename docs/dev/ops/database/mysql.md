@@ -152,6 +152,8 @@ drop table + 表名;
 
 ### Manjaro
 
+安装并配置
+
 ~~~bash
 yay -S mysql
 
@@ -164,6 +166,12 @@ systemctl start mysqld.service
 mysql -u root -p
 mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '新密码';
 ~~~
+
+可视化工具
+
+```bash
+yay -S mysql-workbench
+```
 
 ## 操作数据库
 
