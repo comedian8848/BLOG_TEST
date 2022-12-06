@@ -15,7 +15,14 @@ module.exports = [
 		title: '数据库',
 		collapsable: true,
 		children: [
-		    './database/mysql',
+		    {
+			title: "SQL",
+			collapsable: true,
+			children: [
+			    './database/mysql',
+		    	    './database/mybatis',		
+			]
+		    },
 		    './database/redis',
 		]
 	},
