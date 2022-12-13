@@ -1,8 +1,8 @@
 ---
 home: true
 heroImage: /img/used.jpg
-actionText: Product →
-actionLink: https://northboat.github.io/
+actionText: Blog →
+actionLink: https://northboat-blog.netlify.app/music
 features:
 - title: Python JAVA C艹 Line Line So Easy
   details: 啊哈
@@ -10,3 +10,4 @@ features:
   details: 哦豁
 footer: Created by NorthBoat 2021/5/3
 ---
+
