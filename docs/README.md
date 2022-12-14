@@ -8,6 +8,6 @@ features:
   details: 啊哈
 - title: Years Month Week Day Day No Bug
   details: 哦豁
-footer: Created by NorthBoat 2021/5/3
+footer: Created by Northboat 2021/5/3
 ---
 
