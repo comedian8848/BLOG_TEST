@@ -1,7 +1,7 @@
 //核心配置文件
 
 module.exports = {
-    title: "Northboat's Docs",
+    title: "Northboat Docs",
     description: '片刻寧靜',
     dest: './dist/',
     base: '',
