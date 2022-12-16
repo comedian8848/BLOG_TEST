@@ -2,7 +2,7 @@
 home: true
 heroImage: /img/used.jpg
 actionText: Blog →
-actionLink: https://northboat-blog.netlify.app/music
+actionLink: https://ursaminor.netlify.app/music
 features:
 - title: Python JAVA C艹 Line Line So Easy
   details: 啊哈
