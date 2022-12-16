@@ -17,7 +17,7 @@ module.exports = [
 		collapsable: true,
 		children: [
 			'./algorithm/recursion',
-			'./algorithm/search',
+			'./algorithm/bfs',
 			'./algorithm/sort',
 			'./algorithm/pointer',
 			'./algorithm/dp',
