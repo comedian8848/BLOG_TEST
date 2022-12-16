@@ -16,15 +16,21 @@ module.exports = [
 		title: '算法',
 		collapsable: true,
 		children: [
-			'./algorithm/recursion',
-			'./algorithm/bfs',
-			'./algorithm/sort',
-			'./algorithm/pointer',
-			'./algorithm/dp',
-			'./algorithm/greedy',
-			'./algorithm/hash',
 			'./algorithm/modeling',
-			'./algorithm/dfs',
+			'./algorithm/hash',
+			'./algorithm/recursion',
+			'./algorithm/binary',
+			{
+			    title: "搜索和排序",
+			    collapsable: true,
+			    children: [
+			        './algorithm/bfs',
+		    	        './algorithm/dfs',
+			        './algorithm/sort',
+			    ]
+		   	 },
+			'./algorithm/greedy',
+			'./algorithm/dp',	
 		]
 	},
 	

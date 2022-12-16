@@ -1,5 +1,5 @@
 ---
-title: 搜索算法
+title: 宽度优先
 date: 2021-6-22
 tags:
   - Algorithm

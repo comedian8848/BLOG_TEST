@@ -1,5 +1,5 @@
 ---
-title: 多指针
+title: 二分算法
 date: 2021-6-22
 tags:
   - Algorithm
@@ -359,8 +359,4 @@ public:
     }
 };
 ```
-
-## 位运算
-
-[数字范围按位与](https://leetcode.cn/problems/bitwise-and-of-numbers-range/)
 
