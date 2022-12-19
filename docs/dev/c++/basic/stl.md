@@ -13,14 +13,14 @@ tags:
 
 ### map
 
-- 通过 m[i] = j 插入键值对
+通过 m[i] = j 插入键值对
 
 ```c
 map<int, int> _map;
 _map[9] = 10;
 ```
 
-- 通过 if(m.count(i)) 判断键 i 是否存，因为只有 1/0
+通过 if(m.count(i)) 判断键 i 是否存，因为只有 1/0
 
 ```c
 if(_map.count(9)){
@@ -28,7 +28,7 @@ if(_map.count(9)){
 }
 ```
 
-- 遍历：使用元素指针遍历
+遍历：使用元素指针遍历
 
 ```c
 map<int, int>::iterator iter;
@@ -41,7 +41,7 @@ for(auto it: _map){
 }
 ```
 
-- map 重载 operator() 函数以实现自定义类/结构体的插入
+map 重载 operator() 函数以实现自定义类/结构体的插入
 
 当键为 ListNode* 时，必须要重载 operator() 函数，以明确如何判定 ListNode* 的独特性
 
@@ -76,14 +76,14 @@ public:
 
 ### set
 
-- 通过 insert() 函数插入值
+通过 insert() 函数插入值
 
 ```c
 set <int> _set;
 set.insert(7)
 ```
 
-- 通过 count() 判断是否存在
+通过 count() 判断是否存在
 
 ```c
 if(_set.count(4)){
@@ -93,7 +93,7 @@ if(_set.count(4)){
 
 ### vector
 
-- push_back() 向后插入
+push_back() 向后插入
 
 ```c
 vector<int> vec;
@@ -102,7 +102,7 @@ vec.push_back(4);
 vec.push_back(7);
 ```
 
-- erase() 删除元素
+erase() 删除元素
 
 ```c
 // 删除下标为 1 的元素
@@ -111,7 +111,7 @@ vec.erase(vec.begin()+1);
 // 删除下标从 
 ```
 
-- back() 返回末尾元素
+back() 返回末尾元素
 
 ```c
 // 合并区间
@@ -135,7 +135,7 @@ public:
 };
 ```
 
-- 初始化固定大小 vector，填充值
+初始化固定大小 vector，填充值
 
 ```c
 vector<int> vec(n);
@@ -204,7 +204,7 @@ vector<int>().swap(vec);
 
 > 配合 map 或 vector 使用
 
-- 创建 pair
+创建 pair
 
 ```c
 pair<int,int> p (1,1);
@@ -212,18 +212,35 @@ pair<int,int> p (1,1);
 pair p = make_pair('h', 9);
 ```
 
-- vector+pair 实现 map
+vector+pair 实现 map
 
 ```c
 vector<pair<int,int>> map;
 ```
 
-- map 插入键值对
+map 插入键值对
 
 ```c
 map.insert(pair<int,int>(1,2));
 
 map.insert(make_pair(1,2));
+```
+
+### priority_queue
+
+自定义 lambda 表达式，作为模板传入 priority_queue 的构造式
+
+- 这里是按数组第三位元素从小到大排序
+
+```c
+auto cmp = [](const vector<int>& a, const vector<int>& b){
+    return a[2] > b[2];
+};
+priority_queue<vector<int>, vector<vector<int>>, decltype(cmp)> queue(cmp);
+queue.push({0,0,0});
+queue.emplace({1,1,1});
+queue.top();
+queue.pop();
 ```
 
 ## 一些栗子

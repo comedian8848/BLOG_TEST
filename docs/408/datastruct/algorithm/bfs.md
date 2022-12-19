@@ -306,6 +306,8 @@ BFS 算法的扩展，在广度优先搜索的基础上，加上了一个访问�
 
 [743. 网络延迟时间 - 力扣（Leetcode）](https://leetcode.cn/problems/network-delay-time/)
 
+求图中距离起点**加权路径**最长的距离
+
 - 这里为了使脑子想的舒服，`graph[i][j]`即为节点 i 到节点 j 的距离，而节点编号是从 1 开始的，`graph[0]`和`visited[0]`都被浪费
 
 ```c
@@ -346,6 +348,104 @@ public:
         }
         int res = *max_element(dist.begin()+1, dist.end());
         return res == INT_MAX/2 ? -1 : res;
+    }
+};
+```
+
+### 最小体力消耗路径
+
+[1631. 最小体力消耗路径 - 力扣（Leetcode）](https://leetcode.cn/problems/path-with-minimum-effort/description/)
+
+图中，起点到终点的路径中，记录每个相邻点的距离差（每个点均可以上下左右相邻移动），路径中最大的距离差记为该路径的消耗，找到从起点到终点消耗最小的一条路径并且返回其消耗值大小
+
+很朴素的解法：严格遵守 Dijkstra 算法
+
+- 维护一个数组`dist[m*n]`，记录每个节点的最小的消耗值，初始化所有值为`INT_MAX/2, dist[0] = 0`
+- 每一轮找到**消耗值最小且未被访问的节点**，记为当前节点，标记为已访问，进行扩展
+- 向四方扩展，扩展规则如下
+  - 首先取扩展节点的消耗值和相邻差的较小值，记为扩展结点值
+  - 再取当前节点值和扩展结点值的较大值，赋予扩展结点
+- 直到终点被访问，退出循环，返回`dist.back()`
+
+```c
+class Solution {
+private:
+    static constexpr int dirs[4][2] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+public:
+    int minimumEffortPath(vector<vector<int>>& heights) {
+        int m = heights.size(), n = heights[0].size();   
+        int lim = INT_MAX / 2;
+        vector<int> visited(m*n, false);
+        vector<int> dist(m*n, lim);
+        dist[0] = 0;
+        while(!visited[m*n-1]){
+            int x = -1, y = -1;
+            int shortest = lim;
+            for(int i = 0; i < m*n; i++){
+                if(visited[i]){
+                    continue;
+                }
+                if(dist[i] < shortest){
+                    x = i/n; y = i%n;
+                    shortest = dist[i];
+                }
+            }
+            if(x == -1 || y == -1){
+                break;
+            }
+            visited[x*n+y] = true;
+            for(int i = 0; i < 4; i++){
+                int nx = x + dirs[i][0];
+                int ny = y + dirs[i][1];
+                if(nx >= 0 && nx < m && ny >= 0 && ny < n && !visited[nx*n+ny]){
+                    dist[nx*n+ny] = max(dist[x*n+y],
+                                    min(dist[nx*n+ny], abs(heights[nx][ny]-heights[x][y])));
+                }
+            }
+        }
+        return dist.back();
+    }
+};
+```
+
+但是这样朴素的 Dijkstra 并不得到认可，因为遍历寻找最小值太慢了，所以要用到优先队列，但是很几把蠢
+
+```c
+class Solution {
+private:
+    static constexpr int dirs[4][2] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+public:
+    int minimumEffortPath(vector<vector<int>>& heights) {
+        int m = heights.size(), n = heights[0].size();   
+        int lim = INT_MAX / 2;
+        vector<int> visited(m*n, false);
+        vector<int> dist(m*n, lim);
+
+        auto cmp = [](const vector<int>& a, const vector<int>& b){
+            return a[2] > b[2];
+        };
+        priority_queue<vector<int>, vector<vector<int>>, decltype(cmp)> queue(cmp);
+        queue.push({0,0,0});
+        
+        dist[0] = 0;
+        while(!queue.empty()){
+            vector<int> cur = queue.top();
+            queue.pop();
+            int x = cur[0], y = cur[1];
+            if(x == -1 || y == -1){ break; }
+            visited[x*n+y] = true;
+            for(int i = 0; i < 4; i++){
+                int nx = x + dirs[i][0];
+                int ny = y + dirs[i][1];
+                if(nx >= 0 && nx < m && ny >= 0 && ny < n && !visited[nx*n+ny]
+                   && max(dist[x*n+y], abs(heights[nx][ny]-heights[x][y])) < dist[nx*n+ny]){
+                    dist[nx*n+ny] = max(dist[x*n+y], abs(heights[nx][ny]-heights[x][y]));
+                    queue.push({nx, ny, dist[nx*n+ny]});
+                }
+            }
+        }
+        return dist[m*n-1];
     }
 };
 ```
