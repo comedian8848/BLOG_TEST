@@ -3,7 +3,6 @@ title: 操作系统实验
 date: 2022-11-20
 tags:
   - C/C++
-
 ---
 
 ## PCB 调度模拟
@@ -200,7 +199,7 @@ void use(){
 }
 ```
 
-### 辅助功能及主函数
+### 辅助函数及主函数
 
 打印输出
 
@@ -276,7 +275,7 @@ int main(){
 }
 ```
 
-## 内存块分配 / 回收模拟
+## 实存块分配 / 回收模拟
 
 ### 定义及初始化
 
@@ -526,7 +525,7 @@ void best_fit(){
 }
 ```
 
-### 辅助功能及主函数
+### 辅助函数及主函数
 
 运行一整个工作序列，接收参数为算法选择
 
@@ -550,6 +549,444 @@ int main(){
 	cin >> num;
 	run(num); 
     return 0;
+}
+```
+
+## 虚存调页模拟
+
+### 定义及初始化
+
+引入库，宏定义算法
+
+```c
+#include <iostream>
+using namespace std;
+#include <vector>
+#include <map>
+#include <set>
+#include <stack>
+#include <deque>
+#include <string>
+#include <algorithm>
+
+#define OPT 1
+#define FIFO 2
+#define LRU 3
+```
+
+定义虚存所用内存块个数；定义指令序列总数；定义每个页所能存放的指令序列数
+
+```c
+#define MEM_SIZE 4 // 内存块个数 
+#define ORDER_SIZE 320 // 作业指令总数 
+#define PAGE_SIZE 10 // 每个页面能存放的指令数 
+```
+
+定义 page 结构体，id 为页号，opt_time 和 lru_time 分别用于 OPT 算法和 LRU 算法优先级判定
+
+```c
+struct page {
+	int id;
+	int opt_time;
+	int lru_time;
+
+	page() {}
+
+	page(int id) {
+		this->id = id;
+		opt_time = 0;
+		lru_time = 0;
+	}
+
+	page(int id, int opt_time) {
+		this->id = id;
+		this->opt_time = opt_time;
+		lru_time = 0;
+	}
+};
+```
+
+用大小为 MEM_SIZE 的 deque 代表虚存所用的四个内存块
+
+用大小为 ORDER_SIZE 的 vector 存储指令序列
+
+```c
+// 内存块
+deque<page> queue;
+// 指令执行序列
+vector<int> order(ORDER_SIZE);
+```
+
+### 指令序列和内存块
+
+生成指令序列
+
+- 有一半的指令连续
+- 有四分之一的指令序号小于前驱
+- 有四分之一的指令序号大于前驱
+
+使用 rand() 函数生成随机数，取余 ORDER_SIZE 得到序列号在区间`[1, ORDER_SIZE]`内
+
+```c
+// 随机初始化指令序列
+// 保证一半的指令是连续的，四分之一在上条指令之前，四分之一在上条指令之后
+void init_order() {
+	lack = 0;
+	int i = 1; // 记录已分配的指令条数
+	int cur = rand() % ORDER_SIZE;
+	order[0] = cur;
+	while (i < ORDER_SIZE) {
+		// 连续
+		order[i] = ++cur;
+		i++;
+		if (i >= ORDER_SIZE) {
+			break;
+		}
+		// 前驱
+		order[i] = rand() % (cur) + 0;
+		cur = order[i];
+		i++;
+		if (i >= ORDER_SIZE) {
+			break;
+		}
+		order[i] = ++cur; // 连续
+		i++;
+		// 后继
+		if (i >= ORDER_SIZE) {
+			break;
+		}
+		order[i] = rand() % (ORDER_SIZE - cur + 2) + cur + 1;
+		cur = order[i];
+		i++;
+	}
+	print_order();
+}
+```
+
+打印指令序列，就是按格式打印 order 数组
+
+``` 
+// 打印指令序列
+void print_order() {
+	for (int i = 0; i < ORDER_SIZE; i++) {
+		cout << i << ". " << order[i] << "-" << order[i] / PAGE_SIZE << "    \t";
+		if ((i + 1) % 5 == 0) {
+			cout << endl;
+		}
+	}
+	cout << "\n\n";
+}
+```
+
+获取指令页号，就是序列号除以每页指令大小
+
+```c
+// 获取指令序列的页号
+int get_page(int order) {
+	return order / PAGE_SIZE;
+}
+```
+
+判断指令序列是否在内存块中，传入参数为序列在 order 数组中的下标
+
+```c
+// 判断指令序列是否在内存中
+int in_memory(int index) {
+	int id = get_page(order[index]);
+	for (int i = 0; i < queue.size(); i++) {
+		if (id == queue[i].id) {
+			return i;
+		}
+	}
+	return -1;
+}
+```
+
+判断内存块是否占满
+
+```c
+// 判断内存块是否占满
+bool full() {
+	return queue.size() == MEM_SIZE;
+}
+```
+
+尾插页面到内存块中
+
+```c
+// 尾插页面到内存块
+void add_page(page p) {
+	queue.push_back(p);
+}
+```
+
+将块编号为 target 的内存块所存页面置换为页 p
+
+```c
+// 将块号为 target 的内存块页面置换为 p
+void swap_page(page p, int target) {
+	queue[target] = p;
+}
+```
+
+### 调页算法
+
+维护全局变量`int lack`，记录缺页次数，用于统计缺页率
+
+#### FIFO
+
+> 先进先出算法：调页时换出最先当前内存中进入内存的页面
+
+入参
+
+- seq：传入当前使用的内存块编号，若小于 0，表示发生缺页
+- index：当前执行指令在 order 数组中的下标
+
+若未发生缺页，直接返回即可
+
+若发生缺页，若内存块占满，pop_front() 后将当前页面尾插进内存，若未占满，直接尾插
+
+```c
+// 先进先出，返回置换的块号
+int fifo(int seq, int index) {
+	if (seq >= 0) {
+		return -1;
+	}
+	lack++;
+	int id = get_page(order[index]);
+	page p = page(id);
+	if (full()) {
+		queue.pop_front();
+	}
+	add_page(p);
+	return queue.size() - 1;
+}
+```
+
+#### LRU
+
+> 最近最久未使用算法：调页时换出最近最久未被使用的页面
+
+传入当前使用页面的内存块编号，其余的内存块的 lru_time 均加一
+
+- page.lru_time 表示该页面没被使用的时间
+
+```c
+// 除了下标为 except 的页，lru 加一
+void lru_increase(int except) {
+	for (int i = 0; i < queue.size(); i++) {
+		if (i != except) {
+			queue[i].lru_time++;
+		}
+	}
+}
+```
+
+lru 算法
+
+- seq：传入当前调用页面的内存块编号，小于 0 表示缺页
+- index：当前指令序列的下标
+
+当不缺页，令除当前使用的内存块页面以外所有页面 lru_time+1，然后返回
+
+若缺页，首先 lack+1，若内存块全被占用，找到内存中 lru_time 最大的页面，将其换出，换成新的页面，新页面的 lru_time = 0，若内存未满，直接尾插，同时令其余页面的 lru_time+1
+
+```c
+// 最近最久未使用，返回置换的块号
+int lru(int seq, int index) {
+	if (seq >= 0) {
+		queue[seq].lru_time = 0;
+		lru_increase(seq);
+		return -1;
+	}
+	lack++;
+	int id = get_page(order[index]);
+	page p = page(id);
+	if (full()) {
+		int max = -1, target = -1;
+		for (int i = 0; i < queue.size(); i++) {
+			if (queue[i].lru_time > max) {
+				max = queue[i].lru_time;
+				target = i;
+			}
+		}
+		swap_page(p, target);
+		return target;
+	}
+	add_page(p);
+	lru_increase(queue.size() - 1);
+	return queue.size() - 1;
+}
+```
+
+#### OPT
+
+> 最佳调页算法：调页时换出最久将不被使用的页面
+
+在调入页面时，向指令序列后搜索当前页面再次被使用的时间（下标差），记录在 opt_time 中，每经过一轮，未被使用的页面其 opt_time-1，调页时，换出 opt_time 最大的页面
+
+将除了下标为 except 的内存页面的 opt_time 加一
+
+```c
+// 除了下标为 except 的页，opt 减一
+void opt_decrease(int except) {
+	for (int i = 0; i < queue.size(); i++) {
+		if (i != except) {
+			queue[i].opt_time--;
+		}
+	}
+}
+```
+
+opt 算法：多一个向后搜寻的过程，初始化为 MEM_SIZE，若未找到下次，opt_time 即为 MEM_SIZE
+
+- 若内存中页面均无下次，OPT 退化为 FIFO 算法
+
+```c
+int opt(int seq, int index) {
+	if (seq >= 0) {
+		// 重置被选中页的 opt 时间
+		queue[seq].opt_time = ORDER_SIZE;
+		for (int i = index + 1; i < ORDER_SIZE; i++) {
+			if (get_page(order[i]) == queue[seq].id) {
+				queue[seq].opt_time = i - index;
+				break;
+			}
+		}
+		opt_decrease(seq);
+		return -1;
+	}
+	lack++;
+	int id = get_page(order[index]);
+	// 初始化新 page
+	page p = page(id, ORDER_SIZE);
+	for (int i = index + 1; i < ORDER_SIZE; i++) {
+		if (id == get_page(order[i])) {
+			p.opt_time = i - index;
+			break;
+		}
+	}
+	if (full()) {
+		int max = -1, target = -1;
+		for (int i = 0; i < queue.size(); i++) {
+			if (queue[i].opt_time > max) {
+				max = queue[i].opt_time;
+				target = i;
+			}
+		}
+		swap_page(p, target);
+		opt_decrease(target);
+		return target;
+	}
+	add_page(p);
+	opt_decrease(queue.size() - 1);
+	return queue.size() - 1;
+}
+```
+
+#### EXEC
+
+> 整合算法，执行指令
+
+执行单条指令
+
+```c
+// 执行
+void execute(int index, int algorithm) {
+	cout << endl;
+	int id = get_page(order[index]);
+	int seq = in_memory(index);
+
+	int target = -1;
+	switch (algorithm) {
+		case OPT:
+			target = opt(seq, index);
+			break;
+		case FIFO:
+			target = fifo(seq, index);
+			break;
+		case LRU:
+			target = lru(seq, index);
+			break;
+	}
+
+	cout << index << " - 指令 " << order[index] << "#，页号 " << id << "，";
+	// 打印缺页情况
+	if (seq >= 0) {
+		cout << "不发生缺页，页内存地址为 " << &queue[seq] << "，占用内存块 " << seq << endl;
+	} else {
+		cout << "发生缺页，将页 " << id << " 调入内存块 " << target << endl;
+	}
+
+	// 打印内存块情况
+	for (int i = 0; i < queue.size(); i++) {
+		cout << i << ": " << queue[i].id;
+		switch (algorithm) {
+			case OPT:
+				cout << "\tOPT: " << queue[i].opt_time;
+				break;
+			case LRU:
+				cout << "\tLRU: " << queue[i].lru_time;
+				break;
+		}
+		cout << endl;
+	}
+	cout << endl;
+}
+```
+
+执行所有指令
+
+```c
+// 运行算法执行指令序列
+void run(int algorithm) {
+	if (algorithm != OPT && algorithm != FIFO && algorithm != LRU) {
+		flag = false;
+		return;
+	}
+	for (int i = 0; i < ORDER_SIZE; i++) {
+		execute(i, algorithm);
+	}
+	print_statistics();
+}
+```
+
+### 辅助函数及主函数
+
+打印统计信息
+
+```c
+// 打印统计信息
+void print_statistics() {
+	cout << "\n调页次数: " << lack << "\t缺页率: " << (double)lack / ORDER_SIZE << "\n\n\n\n";
+	system("pause");
+}
+```
+
+获取用户输入，选择算法
+
+```c
+// 选择算法
+int select() {
+	int algorithm;
+	cout << endl <<  "请选择一种调页算法\n\n";
+	cout << "1.OPT 最佳适应\n2.FIFO 先进先出\n3.LRU 最近最久未使用\n\n";
+	cin >> algorithm;
+	return algorithm;
+}
+```
+
+主函数
+
+```c
+// 判断是否继续死循环
+bool flag = true;
+int main() {
+	while (flag) {
+		init_order();
+		run(select());
+	}
+	return 0;
 }
 ```
 
