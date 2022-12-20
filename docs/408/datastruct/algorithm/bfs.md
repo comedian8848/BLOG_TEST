@@ -450,3 +450,121 @@ public:
 };
 ```
 
+### 概率最大的路径
+
+[1514. 概率最大的路径 - 力扣（Leetcode）](https://leetcode.cn/problems/path-with-maximum-probability/)
+
+普通每轮枚举找到最大权重路径，向下扩展，11/18 超时
+
+```c
+class Solution {
+public:
+    // 判断终点是否可达，BFS
+    bool reachable(vector<vector<int>>& edges, int start, int end){
+        int n = edges.size();
+        vector<int> visited(n, false);
+        deque<int> queue;
+        queue.push_back(start);
+        while(!queue.empty()){
+            int cur = queue.front();
+            queue.pop_front();
+            if(cur == end){
+                return true;
+            }
+            for(int i = 0; i < n; i++){
+                if(visited[i]){
+                    continue;
+                }
+                if(edges[i][0] == cur || edges[i][1] == cur){
+                    visited[i] = true;
+                    int next = edges[i][0] == cur ? edges[i][1] : edges[i][0];
+                    queue.push_back(next);
+                }
+            }
+        }
+        return false;
+    }
+
+    double maxProbability(int n, vector<vector<int>>& edges, vector<double>& succProb, int start, int end) {
+        if(!reachable(edges, start, end)){
+            return 0;
+        }
+        int m = edges.size();
+        vector<double> dist(n, 0);
+        vector<int> visited(n, false);
+        dist[start] = 1;
+        while(!visited[end]){
+            int cur = -1;
+            double max = 0;
+            // 枚举选取当前最大节点，进行后续扩展
+            for(int i = 0; i < n; i++){
+                if(visited[i]){
+                    continue;
+                }
+                if(dist[i] > max){
+                    max = dist[i];
+                    cur = i;
+                }
+            }
+            visited[cur] = true;
+            for(int i = 0; i < m; i++){
+                if(edges[i][0] == cur || edges[i][1] == cur){
+                    int next = edges[i][0] == cur ? edges[i][1] : edges[i][0];
+                    dist[next] = dist[next] > dist[cur]*succProb[i] ? dist[next] : dist[cur]*succProb[i];
+                }
+            }
+        }
+        return dist[end];
+    }
+};
+```
+
+用优先队列优化了枚举当前扩展的节点的过程，还是过不了 11/18
+
+```c
+class Solution {
+public:
+    double maxProbability(int n, vector<vector<int>>& edges, vector<double>& succProb, int start, int end) {
+        int m = edges.size();
+
+        vector<vector<double>> graph(n, vector<double>(n, 0));
+        for(int i = 0; i < m; i++){
+            int x = edges[i][0], y = edges[i][1];
+            graph[x][y] = succProb[i];
+            graph[y][x] = succProb[i];
+        }
+
+        static vector<double> dist;
+        dist = vector<double>(n, 0);
+        dist[start] = 1;
+        
+        vector<int> visited(n, 0);
+
+        auto cmp = [](const int& a, const int& b){
+            return dist[a] < dist[b];
+        };
+        priority_queue<int, vector<int>, decltype(cmp)> queue(cmp);
+        queue.push(start);
+
+        while(!visited[end] && !queue.empty()){
+            int cur = queue.top();
+            queue.pop();
+            if(visited[cur]){
+                continue;
+            }
+            visited[cur] = true;
+            vector<double> wights = graph[cur];
+            for(int i = 0; i < n; i++){
+                if(wights[i] == 0 || visited[i]){
+                    continue;
+                }
+                int next = i;
+                dist[next] = max(dist[next], dist[cur]*wights[i]);
+                queue.push(next);
+            }
+        }
+        return dist[end];
+    }
+};
+```
+
