@@ -1,5 +1,5 @@
 ---
-title: 模拟算法
+title: 朴素算法
 date: 2021-6-22
 tags:
   - Algorithm
@@ -324,7 +324,42 @@ public:
 };
 ~~~
 
+## 单调栈
 
+### 下一个更大元素 Ⅰ
+
+[496. 下一个更大元素 I - 力扣（Leetcode）](https://leetcode.cn/problems/next-greater-element-i/)
+
+从`num2`中找到第一个比`nums[i], 0<=i<=size`大的元素，记为`res[i]`，返回`res`数组
+
+从后往前遍历，记当前值为 val，去掉栈中小于 val 的元素，因为是从前向后看找**第一个**比 val 大的元素，比当前小的元素会被大元素挡住，根本看不到，试着模拟这一过程，**就像站队，矮的在后面会被高的挡住**
+
+这样去掉小的元素后，栈顶元素即为比当前值大的第一个元素值，若栈空，说明没有元素比当前值大，记为 -1，用一个`map<当前值, 大于当前值的第一个元素值`记录这一结果，按照 num1 的顺序构造 res 并返回
+
+```c
+class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        map<int, int> reco;
+        stack<int> stk;
+        int n = nums1.size(), m = nums2.size();
+        for(int i = 1; i <= m; i++){
+            // 从后往前遍历
+            int cur = nums2[m-i];
+            while(!stk.empty() && stk.top() < cur){
+                stk.pop();
+            }
+            reco[cur] = stk.empty() ? -1:stk.top();
+            stk.push(cur);
+        }
+        vector<int> res;
+        for(int i = 0; i < n; i++){
+            res.push_back(reco[nums1[i]]);
+        }
+        return res;
+    }
+};
+```
 
 ## 摩尔投票法
 
