@@ -1,10 +1,9 @@
 //对侧边栏的主管控
 module.exports = {
-	
 
-	'/dev/c++/': require('../dev/c++/sidebar'),
-	'/dev/java/': require('../dev/java/sidebar'),
 	'/dev/fe/': require('../dev/fe/sidebar'),
+	'/dev/bn/': require('../dev/bn/sidebar'),
+	'/dev/ic/': require('../dev/ic/sidebar'),
 	'/dev/ops/': require('../dev/ops/sidebar'),
 	
 

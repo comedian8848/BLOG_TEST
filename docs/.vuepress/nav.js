@@ -9,9 +9,9 @@ module.exports = [
     {
         text: 'Developer',
 	items: [
-            {text: 'C/C++', link: '/dev/c++/'},
 	    {text: 'Front End', link: '/dev/fe/'},
-            {text: 'Java', link: '/dev/java/'},
+	    {text: 'Back End', link: '/dev/bn/'},
+           	    {text: 'Integrated Circuit', link: '/dev/ic/'},
 	    {text: 'Operations', link: '/dev/ops/'},
         ]
     },
