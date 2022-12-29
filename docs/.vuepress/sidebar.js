@@ -2,7 +2,7 @@
 module.exports = {
 
 	'/dev/fe/': require('../dev/fe/sidebar'),
-	'/dev/bn/': require('../dev/bn/sidebar'),
+	'/dev/be/': require('../dev/be/sidebar'),
 	'/dev/ic/': require('../dev/ic/sidebar'),
 	'/dev/ops/': require('../dev/ops/sidebar'),
 	
