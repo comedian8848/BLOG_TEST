@@ -1,16 +1,16 @@
 module.exports = [
 	{
-		title: 'Python',
+		title: 'Python3',
 		collapsable: true,
 		children: [
-		    './python/build',
+		    './basic/build',
 		    {
-			title: "Python 100",
-		        collapsable: true,
+			title: "Python Hundred",
+		                collapsable: true,
 			children: [
-		            './python/one',
-		            './python/nine',
-			    './python/seventeen',		
+		                    './basic/one',
+		                    './basic/nine',
+			    './basic/seventeen',		
 			]
 		    },
 		]
