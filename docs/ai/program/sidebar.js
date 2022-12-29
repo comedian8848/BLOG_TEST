@@ -1,16 +1,16 @@
 module.exports = [
 	{
-		title: 'Python 基础',
+		title: 'Python',
 		collapsable: true,
 		children: [
-		    './basic/build',
+		    './python/build',
 		    {
 			title: "Python 100",
 		        collapsable: true,
 			children: [
-		            './basic/one',
-		            './basic/nine',
-			    './basic/seventeen',		
+		            './python/one',
+		            './python/nine',
+			    './python/seventeen',		
 			]
 		    },
 		]
