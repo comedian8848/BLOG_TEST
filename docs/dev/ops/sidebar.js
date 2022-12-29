@@ -12,36 +12,36 @@ module.exports = [
 
 
 	{
-		title: '数据库',
+		title: '中间件',
 		collapsable: true,
 		children: [
 		    {
-			title: "SQL",
+			title: "数据库",
 			collapsable: true,
 			children: [
-			    './database/mysql',
-		    	    './database/mybatis',		
+			    './middleware/mysql',
+			    './middleware/redis',
 			]
 		    },
-		    './database/redis',
+		   
+		    {
+			title: "Docker",
+			collapsable: true,
+			children: [
+			    './middleware/dockerI',
+			    './middleware/dockerII',			
+			]
+		    },	
 		]
 	},
 
 	
 	{
-		title: '杂项',
+		title: '工具',
 		collapsable: true,
 		children: [
-		    './misc/wechall',
-		    './misc/git',
-		    {
-			title: "Docker",
-			collapsable: true,
-			children: [
-			    './misc/dockerI',
-			    './misc/dockerII',			
-			]
-		    },
+		    './tool/wechall',
+		    './tool/git',
 		]
 	},
 ]
