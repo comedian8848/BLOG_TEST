@@ -1,16 +1,7 @@
 //java的侧边栏
 module.exports = [
 
-	{
-		title: 'C/C++',
-		collapsable: true,
-		children: [
-			'./c/stl',
-			'./c/barber',
-			'./c/matchman',
-			'./c/lisp',
-		]
-	},
+
 
 	{
 		title: 'Java SE',

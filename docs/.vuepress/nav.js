@@ -10,7 +10,7 @@ module.exports = [
         text: 'Developer',
 	items: [
 	    {text: 'Front End', link: '/dev/fe/'},
-	    {text: 'Back End', link: '/dev/be/'},
+	    {text: 'Java', link: '/dev/java/'},
            	    {text: 'Integrated Circuit', link: '/dev/ic/'},
 	    {text: 'Operations', link: '/dev/ops/'},
         ]

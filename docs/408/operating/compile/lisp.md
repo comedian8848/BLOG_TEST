@@ -1,5 +1,5 @@
 ---
-title: 基于 C 的 Lisp 编译器
+title: 《Build My Own Lisp》
 date: 2021-10-14
 tags:
   - C/C++

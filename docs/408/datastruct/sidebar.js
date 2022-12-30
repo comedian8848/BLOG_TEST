@@ -10,6 +10,23 @@ module.exports = [
 			'./basic/algorithm',			
 		]
 	},
+
+	{
+		title: 'C/C++',
+		collapsable: true,
+		children: [
+			'./c/stl',
+			{
+			    title: "C/C++ 程序设计",
+			    collapsable: true,
+			    children: [
+			        './c/barber',
+			        './c/matchman',
+			    ]
+		   	 },
+			
+		]
+	},
 	
 	
 	{

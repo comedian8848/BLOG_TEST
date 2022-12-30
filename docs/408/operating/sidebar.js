@@ -43,6 +43,7 @@ module.exports = [
 				'./assembly/loop',
 			    ]
 			},
+			'./assembly/lisp',
 		]
 	},
 	
