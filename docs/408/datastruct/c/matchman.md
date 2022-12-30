@@ -1,5 +1,5 @@
 ---
-title: 基于 EasyX 的击剑小游戏
+title: 基于 EasyX 的 GUI 小游戏
 date: 2021-1-14
 tags:
   - C/C++
@@ -7,7 +7,7 @@ categories:
   - Toy
 ---
 
-> 基于EasyX的GUI程序：击剑火柴人
+> 基于 EasyX 的 GUI 程序：击剑火柴人，双人对打
 
 ## 定义
 

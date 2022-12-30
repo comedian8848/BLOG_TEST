@@ -1,5 +1,5 @@
 ---
-title: 《Build My Own Lisp》
+title: 基于 C 的 Lisp 编译器
 date: 2021-10-14
 tags:
   - C/C++
@@ -9,7 +9,7 @@ categories:
 
 ——参考书籍《Build Your Own Lisp》
 
-> 一款用c实现的微型编译器，词法、语法分析器由`mpc.h/mpc.c`提供
+> 一款用c实现的微型编译器，词法、语法分析由`mpc.h/mpc.c`库提供
 
 ## 实现交互
 

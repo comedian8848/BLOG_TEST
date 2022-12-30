@@ -7,7 +7,7 @@ categories:
   - Toy
 ---
 
-> 第一个小程序捏，黑框框
+> 第一个黑框框小程序捏
 
 ## Function
 
