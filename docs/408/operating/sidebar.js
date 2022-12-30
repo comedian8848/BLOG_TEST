@@ -43,7 +43,6 @@ module.exports = [
 				'./assembly/loop',
 			    ]
 			},
-			'./assembly/lisp',
 		]
 	},
 	
@@ -60,6 +59,7 @@ module.exports = [
 				'./compile/parser',
 			    ]
 			},
+			'./compile/lisp',
 		]
 	},
 	
