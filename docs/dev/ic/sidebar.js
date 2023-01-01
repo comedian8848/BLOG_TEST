@@ -3,7 +3,8 @@ module.exports = [
 		title: 'Verilog',
 		collapsable: true,
 		children: [
-			'./verilog/basic',
+			'./verilog/experiment',
+			'./verilog/project',
 		]
 	},
 ]
