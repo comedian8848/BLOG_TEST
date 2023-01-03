@@ -38,7 +38,7 @@ date: 2022-12-29
 
 ### 编码器
 
-将输入的二进制数编为热独码，如 38 编码器，将`000`编码为`00000001`，`001`编为`00000010`，`011`编为`00001000`，`111`编为`10000000`
+将输入的二进制数编为独热码，如 38 编码器，将`000`编码为`00000001`，`001`编为`00000010`，`011`编为`00001000`，`111`编为`10000000`
 
 <img src="./assets/38.png">
 
@@ -112,7 +112,7 @@ endmodule
 
 ### 解码器
 
-编码器的反向操作，将热独码解为一个个对应数字，如`10000000`解为`111`
+编码器的反向操作，将独热码解为一个个对应数字，如`10000000`解为`111`
 
 - 三目运算符，优先级逐级下降，若`in[i] == 1`则`out = 3'di`
 - `3'd1`表示 3 位的十进制数 1
@@ -641,7 +641,7 @@ endmodule
 
 id.v
 
-- 运算类型 aluop_o 以热独码的形式存储，共 14 条指令，所以需要 14 位信号进行存储
+- 运算类型 aluop_o 以独热码的形式存储，共 14 条指令，所以需要 14 位信号进行存储
 - 这里用到 6-64 位和 5-32 位编码器（decoder）对指令 inst_i 中的各个分段进行解析
 
 ```verilog
@@ -653,7 +653,7 @@ module id(
     input wire[`InstBus] inst_i,        // 指令  
     input wire[`RegDataBus]reg1_data_i, // 输入操作码1
     input wire[`RegDataBus]reg2_data_i, // 输入操作码2
-    output wire[`Aluop_OnehotBus]aluop_o, // 指令类别，用热独码存
+    output wire[`Aluop_OnehotBus]aluop_o, // 指令类别，用独热码存
     output wire[`RegDataBus]reg1_o, // 就是输入的 reg1_data_i
     output wire[`RegDataBus]reg2_o, // 输入的 reg2_data_i
     output wire[`RegAddrBus]wd_o,   // 目的写寄存器地址
@@ -680,7 +680,7 @@ module id(
     decoder_5_32 dec1(.in(op1) , .out(op1_d));
     decoder_6_64 dec2(.in(sa) , .out(sa_d));
     decoder_5_32 dec3(.in(func) , .out(func_d));
-    // 热独码分辨 14 种不同指令
+    // 独热码分辨 14 种不同指令
     wire inst_add;
     wire inst_addu;
     wire inst_sub;
