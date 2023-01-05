@@ -32,6 +32,7 @@ module.exports = [
 			    './middleware/dockerII',			
 			]
 		    },	
+		    './middleware/rabbitmq',
 		]
 	},
 
