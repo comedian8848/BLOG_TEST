@@ -55,6 +55,7 @@ module.exports = [
 			'./app/post',
 			'./app/controller',
 			'./app/oj',	
+			'./app/chatroom',
 		]
 	},
 	
