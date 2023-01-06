@@ -419,7 +419,7 @@ public class MailUtil extends Thread {
 }
 ```
 
-### 排错
+### 排错工作
 
 SpringBoot 启动警告：OpenJDK 64-Bit Server VM warning: Options -Xverify:none and -noverify were deprecated in JDK 13...
 
@@ -432,3 +432,4 @@ SpringBoot 启动警告：OpenJDK 64-Bit Server VM warning: Options -Xverify:non
 
 JavaMailSender 在注入时会爆红，说注入失败，但是实际上能跑，我怀疑是 idea 没读到 application,yaml 中 spring.mail 的配置
 
+SpringBoot3.x 必须要求 JDK 版本 >= 17，否则会有很多父级依赖报错

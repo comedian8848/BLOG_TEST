@@ -1,5 +1,5 @@
 ---
-title: 基于 Servlet/JSP、JDBC 的小贴吧
+title: 基于 Servlet/JSP 的小贴吧
 date: 2021-6-15
 tags:
   - Web
