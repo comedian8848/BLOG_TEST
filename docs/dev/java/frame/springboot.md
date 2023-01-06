@@ -7,26 +7,11 @@ tags:
   - Java
 ---
 
-## 常用注解
+## Annotation
 
-### 映射
+### Bean
 
-@RestController
-
-- == @Controller+@ResponseBody
-
-@Controller
-
-@RequestMapping
-
-- @PathVariable
-- @RequestParam
-
-@GetMapping
-
-### 注入
-
-> 需要在@Component或@Controller中注入
+> 在@Component或@Controller中注入
 
 @Autowired
 
@@ -48,7 +33,7 @@ public UserServiceImpl(UserDao userDao) {
 }
 ~~~
 
-set方法注入（推荐）
+set方法注入
 
 ~~~java
 //set方法注入
@@ -63,7 +48,7 @@ public void setJdbcTemplate(JdbcTemplate jdbcTemplate){
 
 
 
-### 测试
+### Test
 
 @SpringBootTest
 
@@ -71,9 +56,24 @@ public void setJdbcTemplate(JdbcTemplate jdbcTemplate){
 
 `junit`测试单元
 
+### Configuration
+
 @Configuration
 
+### Controller
 
+@RestController
+
+- == @Controller+@ResponseBody
+
+@Controller
+
+@RequestMapping
+
+- @PathVariable
+- @RequestParam
+
+@GetMapping
 
 ## Thymeleaf
 
@@ -124,13 +124,12 @@ spring:
 
 ## SpringDate
 
-application.yml
+### MySQL
 
-> 密码是数字要加引号，否则会报错 errorCode 1045, state 28000 验证密码错误
+application.yml 配置 mysql：密码是数字要加双引号
 
-> 默认的数据源为Hikari，最快
->
-> 更改数据源为druid，日志监控，安全
+- Hikari 默认，更快
+- druid，自带日志监控
 
 ~~~yml
 spring:
@@ -363,6 +362,8 @@ MailMapper.xml，位于resources/mybatis/mapper
 ~~~
 
 - 传递多个参数用Map封装，用`#{key}`取值
+
+### Redis
 
 
 
