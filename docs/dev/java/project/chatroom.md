@@ -1,5 +1,5 @@
 ---
-title: 基于 Redis 的聊天室
+title: 基于 WebSocket 的聊天室
 date: 2022-2-24
 tags:
   - Web
