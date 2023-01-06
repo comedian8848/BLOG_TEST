@@ -49,13 +49,14 @@ module.exports = [
 		title: 'Web Application',
 		collapsable: true,
 		children: [
-			'./app/helper',
-			'./app/shutdown',
-			'./app/performance',	
-			'./app/post',
-			'./app/controller',
-			'./app/oj',	
-			'./app/chatroom',
+			'./project/helper',
+			'./project/shutdown',
+			'./project/performance',	
+			'./project/post',
+			'./project/controller',
+			'./project/oj',	
+			'./project/chatroom',
+			'./project/keeper',
 		]
 	},
 	

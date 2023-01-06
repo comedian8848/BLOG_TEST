@@ -1,5 +1,5 @@
 ---
-title: 基于 RabbitMQ 的聊天室
+title: 基于 Redis 的聊天室
 date: 2022-2-24
 tags:
   - Web
@@ -10,21 +10,13 @@ categories:
 
 ## 前期准备
 
-### 环境搭建
+### SpringBoot 文件配置
 
 下载 jdk17
 
 ```bash
 yay -S jdk17-openjdk
 ```
-
-下载 rabbitmq
-
-```bash
-yay -S rabbitmq rabbitmqadmin
-```
-
-### SpringBoot 文件配置
 
 创建 springboot3.0 工程，导入依赖 pom.xml
 
@@ -92,11 +84,6 @@ yay -S rabbitmq rabbitmqadmin
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-mail</artifactId>
     </dependency>
-    <!--RabbitMQ-->
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-amqp</artifactId>
-    </dependency>
 </dependencies>
 ```
 
@@ -106,7 +93,6 @@ yay -S rabbitmq rabbitmqadmin
 - `mybatis`（xml 路径配置），同时要在主函数上加注解`@ScanMapper("com.northboat.bearchat.mapper")`
 - `redis`
 - `mail`
-- `rabbitmq`
 
 ```yaml
 spring:
@@ -129,12 +115,6 @@ spring:
     username: "northboat@qq.com"
     password: "oxftgstrzznrbddc"
     #oxftgstrzznrbddc
-
-  rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-    username: northboat
-    password: 011026
 
 #整合mybatis
 mybatis:
