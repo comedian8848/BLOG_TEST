@@ -1047,7 +1047,7 @@ function send() {
 下载 natapp-linux，命令为，`xxxx`为我的隧道对应 token
 
 ```bash
-./natapp -authtoken xxxxxxx
+./natapp -authtoken=xxxx
 ```
 
 程序将把网址返回，注意前端代码中一些调用 url 的部分要换成相应网址，如
