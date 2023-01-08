@@ -160,9 +160,154 @@ OK
 
 ### List
 
-### Set
+向左插入队列
+
+```bash
+127.0.0.1:6379> lpush test redis
+(integer) 1
+127.0.0.1:6379> lpush test mysql
+(integer) 2
+```
+
+查看队列
+
+```bash
+127.0.0.1:6379> lrange test 0 10
+1) "redis"
+2) "mysql"
+```
+
+查看队列长度
+
+```bash
+127.0.0.1:6379> llen test
+(integer) 2
+```
+
+删除元素
+
+- 第二个参数
+  - 1 表示从左向右找第一个元素删
+  - -1 表示从右向左
+  - 0 表示把该元素删完
+
+```bash
+127.0.0.1:6379> lrem test 1 mysql
+(integer) 1
+```
+
+RedisTemplate
+
+```java
+//=================List==============
+public boolean lpush(String key, Object val){
+    try{
+        myRedisTemplate.opsForList().leftPush(key, val);
+        return true;
+    }catch (Exception e){
+        e.printStackTrace();
+        return false;
+    }
+}
+
+public boolean rpush(String key, Object val){
+    try{
+        myRedisTemplate.opsForList().rightPush(key, val);
+        return true;
+    }catch (Exception e){
+        e.printStackTrace();
+        return false;
+    }
+}
+
+public List lget(String key){
+    try{
+        Long length = myRedisTemplate.opsForList().size(key);
+        List list = myRedisTemplate.opsForList().range(key, 0, length);
+        return list;
+    }catch (Exception e){
+        e.printStackTrace();
+        return null;
+    }
+}
+
+public boolean lldel(String key, String val){
+    try{
+        myRedisTemplate.opsForList().remove(key, 1, val);
+        return true;
+    }catch (Exception e){
+        e.printStackTrace();
+        return false;
+    }
+}
+
+// 从list最右边开始检索val
+public boolean lrdel(String key, String val){
+    try{
+        myRedisTemplate.opsForList().remove(key, -1, val);
+        return true;
+    }catch (Exception e){
+        e.printStackTrace();
+        return false;
+    }
+}
+```
 
 ### Hash
+
+RedisTemplate
+
+```java
+//============Map=============
+
+// 获取key表中itme对应的值
+public Object hget(String key, String item){
+    return myRedisTemplate.opsForHash().get(key, item);
+}
+
+// 获取整个Hash表
+public Map hmget(String key){
+    return myRedisTemplate.opsForHash().entries(key);
+}
+
+// 简单设置一个Hash
+public boolean hmset(String key, Map<String, Object> map){
+    try{
+        myRedisTemplate.opsForHash().putAll(key, map);
+        return true;
+    }catch (Exception e){
+        e.printStackTrace();
+        return false;
+    }
+}
+
+// 设置一个Hash，并设置生效时间，调用上面的设置key生效时间的方法
+public boolean hmset(String key, Map<String, Object> map, long time){
+    try{
+        myRedisTemplate.opsForHash().putAll(key, map);
+        if(time > 0){
+            this.expire(key, time);
+        }
+        return true;
+    }catch (Exception e){
+        return false;
+    }
+}
+
+
+// 像一张Hash表中添加键值，若表不存在将创建
+public boolean hset(String key, String item, Object val){
+    try{
+        myRedisTemplate.opsForHash().put(key, item, val);
+        return true;
+    }catch (Exception e){
+        e.printStackTrace();
+        return false;
+    }
+}
+```
+
+### Set
 
 ### Zset
 
