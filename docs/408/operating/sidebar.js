@@ -21,11 +21,19 @@ module.exports = [
 			    collapsable: true,
 			    children: [
 			    	'./basic/memory',
-					'./basic/virtual',
+				'./basic/virtual',
 			    ]
 			},
 			'./basic/file',
-			'./basic/experiment',
+			{
+			    title: '操作系统模拟',
+			    collapsable: true,
+			    children: [
+				'./basic/experiment',
+				'./basic/project',
+			    ]
+			},
+
 			
 		]
 	},
