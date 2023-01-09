@@ -15,7 +15,7 @@ categories:
 
 将Socket服务端部署在云服务器上；控制客户端部署在网页，负责给服务端发送命令指示；被控制客户端部署在本地，时刻监听服务端给自己传达的信息
 
-## 通信中转服务
+## Socket 服务器
 
 SocketThread类，通信主要功能实现
 
@@ -137,9 +137,59 @@ public class Server {
 }
 ~~~
 
-## 网页服务端
+## Web 服务
 
-### Servlet
+### 依赖
+
+pom.xml
+
+~~~xml
+<dependencies>
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.11</version>
+        <scope>test</scope>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>3.1.0</version>
+        <scope>provided</scope>
+    </dependency>
+</dependencies>
+~~~
+
+### xml 配置
+
+web.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+  <display-name>Archetype Created Web Application</display-name>
+
+
+  <servlet>
+    <servlet-name>Controller</servlet-name>
+    <servlet-class>com.Controller</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/exec</url-pattern>
+  </servlet-mapping>
+
+</web-app>
+```
+
+### servlet
+
+Conroller.java
 
 ~~~java
 import javax.servlet.ServletException;
@@ -177,8 +227,6 @@ public class Controller extends HttpServlet{
     }
 }
 ~~~
-
-### JSP
 
 index.jsp
 
@@ -219,116 +267,9 @@ ShutdownSuccessfully.jsp
 </html>
 ~~~
 
-### Xml
-
-web.xml
-
-~~~xml
-<?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-  <display-name>Archetype Created Web Application</display-name>
-
-
-  <servlet>
-    <servlet-name>Controller</servlet-name>
-    <servlet-class>com.Controller</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Controller</servlet-name>
-    <url-pattern>/exec</url-pattern>
-  </servlet-mapping>
-
-</web-app>
-~~~
-
-pom.xml
-
-~~~xml
-<?xml version="1.0" encoding="UTF-8"?>
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-
-  <groupId>org.example</groupId>
-  <artifactId>controller</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>war</packaging>
-
-  <name>controller Maven Webapp</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
-  </properties>
-
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
-
-    <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-      <version>3.1.0</version>
-      <scope>provided</scope>
-    </dependency>
-  </dependencies>
-
-
-
-  <build>
-    <finalName>controller</finalName>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
-      <plugins>
-        <plugin>
-          <artifactId>maven-clean-plugin</artifactId>
-          <version>3.1.0</version>
-        </plugin>
-        <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
-        <plugin>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>3.0.2</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.8.0</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.22.1</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-war-plugin</artifactId>
-          <version>3.2.2</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-install-plugin</artifactId>
-          <version>2.5.2</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-deploy-plugin</artifactId>
-          <version>2.8.2</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
-</project>
-~~~
-
 ## 客户端
 
-执行代码
+主函数，就是死循环监听 socket 服务器端口
 
 ~~~java
 public class Client {
@@ -377,7 +318,7 @@ public class Client {
 }
 ~~~
 
-“关机代码”实现类
+关机实现
 
 ~~~java
 public class exec {
@@ -423,7 +364,7 @@ jps -l
 kill pid
 ~~~
 
-### jar 打包
+### 打包 jar 
 
 jar包打包：使用idea集成的功能对代码进行打包
 

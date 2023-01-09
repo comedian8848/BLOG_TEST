@@ -12,9 +12,9 @@ categories:
 
 功能：登录注销，班级成绩基础信息展示，分科目的成绩排名展示，CRUD单个学生信息，分科目的排名文件生成，界面美观实用
 
-## 登录
+## 老师登录实现
 
-### Pojo
+登录主体
 
 ~~~java
 package com.PerformanceAnalysisSystem.pojo;
@@ -203,15 +203,15 @@ public class MyMvcConfig implements WebMvcConfigurer {
 </html>
 ~~~
 
-## 其他功能实现
+## 主要功能实现
 
 主要就是调用dao取出学生数据，service处理，再展示到前端
 
-### 主页
+### 主页实现
 
-#### Pojo
+> 查
 
-Student
+显示主体：Student
 
 ~~~java
 package com.PerformanceAnalysisSystem.pojo;
@@ -1057,9 +1057,9 @@ public String main(Model model, HttpSession session){
 }
 ~~~
 
-### 搜索
+剩余功能其实和主页大同小异
 
-#### 后端
+### 搜索实现
 
 函数写在StudentDao中，根据name搜索时遍历是为了避免重名情况
 
@@ -1124,8 +1124,6 @@ public String search(@RequestParam("searchContent") String content,
     }
 }
 ~~~
-
-#### 前端
 
 将导航栏提取到公共页面commons.html，通过thymeleaf插入或置换 th:replace/th:insert，实践证明这样会降低效率
 
@@ -1399,7 +1397,7 @@ commons.html
 </html>
 ~~~
 
-### 修改
+### 增删改
 
 Update
 
@@ -1457,45 +1455,77 @@ public String update(HttpSession session, @RequestParam("chi") String chi,
 }
 ~~~
 
-### 删除
+- 删除和修改同理
 
-#### 后端
+录入学生信息
+
+controller，通过model传递msg到前端页面给予用户反馈
+
+~~~java
+//添加功能，添加成功后仍停留在form页面，提示用户添加成功
+@RequestMapping("/add")
+public String add(@RequestParam("id") String id, @RequestParam("name") String name,
+                  @RequestParam("gender") String gender, @RequestParam("chi") String chi,
+                  @RequestParam("math") String math, @RequestParam("en") String en,
+                  @RequestParam("phy") String phy, @RequestParam("chem") String chem,
+                  @RequestParam("bio") String bio, @RequestParam("pol") String pol,
+                  @RequestParam("his") String his, @RequestParam("geo") String geo, Model model){
+
+    if(name.equals("") || gender.equals("") || chi.equals("") || math.equals("") || en.equals("") ||
+       phy.equals("") || chem.equals("") || bio.equals("") || pol.equals("") || his.equals("") || geo.equals("")) {
+
+        model.addAttribute("msg", "请按照格式填写信息");
+        return "manage/form";
+    }
+
+    if(!id.equals("")){
+        for(char c: id.toCharArray()){
+            if(!Character.isDigit(c)){
+                model.addAttribute("msg", "请按照格式填写学号");
+                return "manage/form";
+            }
+        }
+    }
+
+    Integer ID = null;
+    if(!id.equals("")){
+        ID = Integer.parseInt(id);
+    }
+    try{
+        StudentDao.add(new Student(ID, name, Integer.valueOf(gender),
+                                   new Grades(Integer.valueOf(chi), Integer.valueOf(math), Integer.valueOf(en),
+                                              Integer.valueOf(phy), Integer.valueOf(chem), Integer.valueOf(bio),
+                                              Integer.valueOf(pol), Integer.valueOf(his), Integer.valueOf(geo))));
+        System.out.println("已添加：" + StudentDao.getStudentById(ID));
+    }catch (NumberFormatException e){
+        model.addAttribute("msg", "请按照格式填写信息");
+        return "manage/form";
+    }
+    model.addAttribute("msg", "录入成功!");
+    return "manage/form";
+}
+
+~~~
 
 dao
 
 ~~~java
-//删除学生
-public static void delete(Integer id){
-    students.remove(id);
+//ID作为主键自增
+private static Integer initId = 10;
+//增加学生，当stu.id为空时，将initId自动赋值
+public static void add(Student stu){
+    if(stu.getId() == null) {
+        stu.setId(initId++);
+    }
+    if(students.containsKey(stu.getId())){
+        update(stu.getId(), stu.getGrade());
+        return;
+    }
+    students.put(stu.getId(), stu);
 }
-~~~
-
-controller，通过路径传递学生学号，进行删除，修改和删除都传path是因为操作后要重定向到原页面
-
-~~~java
-//删除功能，删除后重定向回当前页面（搜索栏则返回总览页面）
-@GetMapping("/drop/{path}/{id}")
-public String drop(@PathVariable("id") Integer id,
-                   @PathVariable("path") String path){
-    System.out.println("删除：" + StudentDao.getStudentById(id));
-    StudentDao.delete(id);
-    //虽说是重定向，但是是定向到某个请求上，重新加载一波数据后再跳转到页面
-    return "redirect:/"+path;
-}
-~~~
-
-#### 前端
-
-~~~html
-<td class="table-action">
-    <a type="submit" th:href="@{/update/allSubjects/}+${stu.getId()}" style="margin-right: 9px;"><i class="align-middle" data-feather="edit-2"></i></a>
-    <a type="submit" th:href="@{/drop/allSubjects/}+${stu.getId()}" ><i class="align-middle" data-feather="trash"></i></a>
-</td>
 ~~~
 
 ### 生成文件
-
-#### 后端
 
 utils，简单的io流
 
@@ -1575,7 +1605,7 @@ public String save(@PathVariable("subject")String subject,
 }
 ~~~
 
-#### 前端
+前端接口
 
 ~~~html
 <!--生成文件和退出登录-->
@@ -1602,77 +1632,9 @@ public String save(@PathVariable("subject")String subject,
 </div>
 ~~~
 
-### 管理页面
+## 一些细节和排错
 
-controller，通过model传递msg到前端页面给予用户反馈
-
-~~~java
-//添加功能，添加成功后仍停留在form页面，提示用户添加成功
-@RequestMapping("/add")
-public String add(@RequestParam("id") String id, @RequestParam("name") String name,
-                  @RequestParam("gender") String gender, @RequestParam("chi") String chi,
-                  @RequestParam("math") String math, @RequestParam("en") String en,
-                  @RequestParam("phy") String phy, @RequestParam("chem") String chem,
-                  @RequestParam("bio") String bio, @RequestParam("pol") String pol,
-                  @RequestParam("his") String his, @RequestParam("geo") String geo, Model model){
-
-    if(name.equals("") || gender.equals("") || chi.equals("") || math.equals("") || en.equals("") ||
-       phy.equals("") || chem.equals("") || bio.equals("") || pol.equals("") || his.equals("") || geo.equals("")) {
-
-        model.addAttribute("msg", "请按照格式填写信息");
-        return "manage/form";
-    }
-
-    if(!id.equals("")){
-        for(char c: id.toCharArray()){
-            if(!Character.isDigit(c)){
-                model.addAttribute("msg", "请按照格式填写学号");
-                return "manage/form";
-            }
-        }
-    }
-
-    Integer ID = null;
-    if(!id.equals("")){
-        ID = Integer.parseInt(id);
-    }
-    try{
-        StudentDao.add(new Student(ID, name, Integer.valueOf(gender),
-                                   new Grades(Integer.valueOf(chi), Integer.valueOf(math), Integer.valueOf(en),
-                                              Integer.valueOf(phy), Integer.valueOf(chem), Integer.valueOf(bio),
-                                              Integer.valueOf(pol), Integer.valueOf(his), Integer.valueOf(geo))));
-        System.out.println("已添加：" + StudentDao.getStudentById(ID));
-    }catch (NumberFormatException e){
-        model.addAttribute("msg", "请按照格式填写信息");
-        return "manage/form";
-    }
-    model.addAttribute("msg", "录入成功!");
-    return "manage/form";
-}
-
-~~~
-
-dao
-
-~~~java
-//ID作为主键自增
-private static Integer initId = 10;
-//增加学生，当stu.id为空时，将initId自动赋值
-public static void add(Student stu){
-    if(stu.getId() == null) {
-        stu.setId(initId++);
-    }
-    if(students.containsKey(stu.getId())){
-        update(stu.getId(), stu.getGrade());
-        return;
-    }
-    students.put(stu.getId(), stu);
-}
-~~~
-
-## 一些细节
-
-### 高亮显示
+1、高亮显示
 
 thymeleaf用括号传参和判断语句实现高亮显示
 
@@ -1688,7 +1650,7 @@ thymeleaf用括号传参和判断语句实现高亮显示
 <li th:class="${active=='main.html'?'sidebar-item active':'sidebar-item'}">
 ~~~
 
-### IncreaseNumber
+2、IncreaseNumber
 
 用于排名展示，当num==list.size()时调用rebootNum函数重置，重复使用num
 
@@ -1714,7 +1676,9 @@ public class IncreaseNumber {
 }
 ~~~
 
-### 展示页面跳转示例
+3、展示页面跳转
+
+跳转页面分两步进行
 
 ~~~java
 @RequestMapping("/mainSubjects")
@@ -1738,10 +1702,8 @@ public String scienceSubjects(Model model){
 }
 ~~~
 
-### 500错误
+4、排错
 
-通过@ResponseBod检查跳转，再检查html的命名空间和src、href路径
+500错误：通过@ResponseBod检查跳转，再检查html的命名空间和src、href路径
 
-### 415错误
-
-试图传输文件到后端报错媒体文件不符错误，尚未解决
+415错误：试图传输文件到后端报错媒体文件不符错误，尚未解决
