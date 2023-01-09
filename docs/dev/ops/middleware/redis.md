@@ -186,13 +186,17 @@ OK
 
 删除元素
 
-- 第二个参数
+- lrem key -1/0/1 value
   - 1 表示从左向右找第一个元素删
   - -1 表示从右向左
   - 0 表示把该元素删完
+- ltrim key start end
+  - 从 start 删到 end，若 start>end，则删完
 
 ```bash
 127.0.0.1:6379> lrem test 1 mysql
+(integer) 1
+127.0.0.1:6379> ltrim test 1 0
 (integer) 1
 ```
 
@@ -309,15 +313,100 @@ public boolean hset(String key, String item, Object val){
 
 ### Set
 
+无序集合，哈希表实现
+
+- 添加 sadd
+- 获取 smembers
+- 判断存在 sismember
+- 删除 srem
+
+```bash
+127.0.0.1:6379> sadd test redis
+(integer) 1
+127.0.0.1:6379> sadd test mongodb
+(integer) 1
+127.0.0.1:6379> sadd test mysql
+(integer) 1
+127.0.0.1:6379> sadd test mysql
+(integer) 0
+
+127.0.0.1:6379> smembers test
+1) "mysql"
+2) "redis"
+3) "mongodb"
+
+127.0.0.1:6379> sismember test mysql
+(integer) 1
+
+127.0.0.1:6379> srem test mysql
+(integer) 1
+
+127.0.0.1:6379> smembers test
+1) "redis"
+2) "mongodb"
+127.0.0.1:6379> 
+```
+
+myRedisTemplate
+
+```java
+//=================Set=================
+// 添加
+public boolean sadd(String key, String val){
+    try{
+        myRedisTemplate.opsForSet().add(key, val);
+        return true;
+    } catch (Exception e){
+        e.printStackTrace();
+        return false;
+    }
+}
+// 删除
+public boolean srem(String key, String val){
+    try{
+        myRedisTemplate.opsForSet().remove(key, val);
+        return true;
+    } catch (Exception e){
+        e.printStackTrace();
+        return false;
+    }
+}
+// 判存
+public boolean sexist(String key, String val){
+    try{
+        return myRedisTemplate.opsForSet().isMember(key, val);
+    } catch (Exception e){
+        e.printStackTrace();
+        return false;
+    }
+}
+// 返回集合
+public Set sget(String key){
+    try{
+        return myRedisTemplate.opsForSet().members(key);
+    } catch (Exception e){
+        e.printStackTrace();
+        return null;
+    }
+}
+```
+
 ### Zset
+
+有序集合，每个 String 元素有一个 double 类型的权重，Zset 将根据权重对元素进行排序
+
+- zadd key weight val：添加成员，weight 为权重
+- zrange start end：查询下标 start 到 end 的元素
+- zrem key member：删除成员
+- zcard key：查询数量
 
 ## 特殊数据类型
 
-### Geospatial
+Geospatial
 
-### Hyperloglog
+Hyperloglog
 
-### Bitmap
+Bitmap
 
 ## 事物
 

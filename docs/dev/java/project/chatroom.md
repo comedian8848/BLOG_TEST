@@ -496,28 +496,36 @@ UserMapper.xml
 
 UserService.java
 
+- 登录：从前端用户输入的帐号，通过是否含有@判断是邮箱还是昵称，从数据库中拿取 user（若为空，则以帐号为邮箱发送验证码，这里要有异常捕获，发现异常返回 0，告知前端），生成 6 位验证码发送邮件，同时以`<邮箱, 验证码>`的形式存入 Redis（设置有效时长10分钟）
+- 验证：登陆时判空可以得知是否注册过，若注册过且邮件发送成功（send 返回 1），验证时从 session 中获取帐号，同理拿取 user，把邮箱和验证码传入 redis 判断是否正确，正确后记得删除 redis 键值
+- 注册：若未注册过且邮件发送成功，跳转注册界面，要求输入昵称和验证码，需要验证码判断以及昵称判重，通过后再写入 mysql 数据库
+- 退出登录：登录成功或注册成功后将把昵称加入 redis 的一个叫做 online 的 set 中表示在线，退出即在 online 中删除当前昵称即可，同时删除 session
+
 ```java
-package com.northboat.bearchat.mapper;
+package com.northboat.bearchat.service;
 
 import com.northboat.bearchat.pojo.User;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
-@Mapper
-@Repository
-public interface UserMapper {
+public interface UserService {
 
-    public List<User> queryAll();
-    public void addEmail(User user);
-    public void addName(User user);
-    public User queryByName(String name);
-    public User queryByEmail(String email);
+    public int register(String email, String code, String name);
+    public List<User> getUserList();
+    public int send(String email);
+    public boolean verily(String account, String code);
+    public boolean nameValid(String name);
+    public List<String> getRoom(String room);
+    public String pick(String curUser);
+    public boolean addToDB(User user);
+    public boolean logout(String user);
 }
-
 ```
 
 UserServiceImpl.java
+
+- 登录验证码在 redis 里以`<邮箱，验证码>`的形式储存
+- 房间号在 redis 里以`<昵称，房间号>`的形式储存，同时以`<房间号，List<用户昵称>>`的方式记录房间中用户
 
 ```java
 package com.northboat.bearchat.service.impl;
@@ -537,6 +545,7 @@ import java.util.Objects;
 @Service
 public class UserServiceImpl implements UserService {
 
+
     private UserMapper userMapper;
     @Autowired
     public void setUserMapper(UserMapper userMapper) {
@@ -555,14 +564,24 @@ public class UserServiceImpl implements UserService {
         this.mailUtil = mailUtil;
     }
 
+
+    private boolean containAt(String str){
+        for(char c: str.toCharArray()){
+            if(c == '@'){
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public List<User> getUserList(){
         return userMapper.queryAll();
     }
     @Override
     public int send(String account){
-        User user = userMapper.queryByName(account);
-        user = Objects.isNull(user) ? userMapper.queryByEmail(account) : user;
+        // 把用户查出来，通过@判断传入的是昵称还是邮箱
+        User user = containAt(account) ? userMapper.queryByEmail(account) : userMapper.queryByName(account);
 
         String email = Objects.isNull(user) ? account : user.getEmail();
         String name = Objects.isNull(user) ? "" : user.getName();
@@ -571,35 +590,129 @@ public class UserServiceImpl implements UserService {
         String code;
         try{
             code = mailUtil.send(email, name);
-        }catch (org.springframework.mail.MailSendException e) {
+        }catch (Exception e) {
             e.printStackTrace();
             return 0;
         }
-
-        redisUtil.set(account, code, 600);
+        // 存验证码用邮箱存
+        redisUtil.set(email, code, 600);
         return flag;
     }
+
+    // 存入在线列表的就是用户网页 session 里的 user，前后端统一
     @Override
     public boolean verily(String account, String code){
-        String c = redisUtil.get(account).toString();
-        return c.equals(code);
+        User user = containAt(account) ? userMapper.queryByEmail(account) : userMapper.queryByName(account);
+        String c = (String) redisUtil.get(user.getEmail());
+        if(c.equals(code)){
+            String name = user.getName();
+            // 加入在线队列
+            redisUtil.sadd("online", name);
+            redisUtil.del(user.getEmail());
+            return true;
+        }
+        return false;
     }
 
+    // 存入在线列表的就是用户网页 session 里的 user，前后端统一
     @Override
-    public boolean register(User user) {
+    public int register(String email, String code, String name) {
+        String c = (String) redisUtil.get(email);
+        if(!c.equals(code)){
+            return 2;
+        }
+        for(User user: userMapper.queryAll()){
+            if(user.getName().equals(name)){
+                return 3;
+            }
+        }
+        redisUtil.del(email);
+        return 1;
+    }
+
+    public boolean addToDB(User user){
         userMapper.addEmail(user);
         userMapper.addName(user);
+        // 将邮箱作为用户名存入在线列表
+        redisUtil.sadd("online", user.getName());
         return true;
     }
 
     @Override
     public boolean nameValid(String name){
+        for(char c: name.toCharArray()){
+            if(c == '@'){
+                return false;
+            }
+        }
         for(User user: userMapper.queryAll()){
             if(user.getName().equals(name)){
                 return false;
             }
         }
         return true;
+    }
+
+    // 选取私人房间号返回
+    @Override
+    public String pick(String account){
+        // 房间号统一用昵称存
+        User user = containAt(account) ? userMapper.queryByEmail(account) : userMapper.queryByName(account);
+        String self = user.getName();
+        String room = (String) redisUtil.get(self);
+        // 如果已有房间，直接返回
+        if(!Objects.isNull(room)){
+            return room;
+        }
+        // 否则找一个在线用户，组建房间返回房间号
+        for(Object onlineUser: redisUtil.sget("online")){
+            // 获取在线用户的名字
+            String friend = (String) onlineUser;
+            if(friend.equals(self)){
+                continue;
+            }
+
+            // 如果当前用户在 redis 里存的房间为空，说明暂未配对
+            room = (String) redisUtil.get(friend);
+
+            // 如果未配对，让这个用户和传进来的用户组建房间并返回房号
+            if(Objects.isNull(room)){
+                String tag = mailUtil.generateCode();
+                // 设置房间有效时间为1天
+                // 双向绑定
+                redisUtil.set(self, tag, 86400);
+                redisUtil.set(friend, tag, 86400);
+                // 把名字存到房间号
+                redisUtil.rpush(tag, self);
+                redisUtil.rpush(tag, friend);
+                redisUtil.expire(tag, 86400);
+                return tag;
+            }
+        }
+        // 若没找到在线空闲用户，返回"null"
+        return "null";
+    }
+
+    public List getRoom(String room){
+        return redisUtil.lget(room);
+    }
+
+    // 用户主动关闭房间
+    public String close(String user){
+        return null;
+    }
+
+    @Override
+    public boolean logout(String account){
+        User user = containAt(account) ? userMapper.queryByEmail(account) : userMapper.queryByName(account);
+        String name = user.getName();
+        try{
+            redisUtil.srem("online", name);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
 ```
@@ -661,9 +774,10 @@ public class UserController {
 
     // 已注册，登录验证
     @RequestMapping("/verify")
-    public String login(Model model, HttpSession session, @RequestParam("code") String code){
+    public String verify(Model model, HttpSession session, @RequestParam("code") String code){
         String account = (String) session.getAttribute("user");
         if(Objects.isNull(account)){
+            model.addAttribute("msg", "请先获取验证码");
             return "user/login";
         }
         if(userService.verily(account, code)){
@@ -681,29 +795,34 @@ public class UserController {
     // 已注册，登录验证
     @RequestMapping("/register")
     public String register(Model model, HttpSession session, @RequestParam("code") String code, @RequestParam("name") String name){
-        String email = session.getAttribute("user").toString();
+        String email = (String) session.getAttribute("user");
         if(Objects.isNull(email)){
+            model.addAttribute("msg", "请先获取验证码");
             return "user/login";
         }
-        if(!userService.verily(email, code)){
+        int flag = userService.register(email, code, name);
+        if(flag == 2){
             model.addAttribute("msg", "验证码错误");
             return "user/register";
-        }
-        if (!userService.nameValid(name)) {
-            model.addAttribute("msg", "昵称已被使用");
+        } else if(flag == 3){
+            model.addAttribute("msg", "昵称已被使用或含有字符@");
             return "user/register";
         }
         User user = new User(name, email);
-        userService.register(user);
+        userService.addToDB(user);
         session.setAttribute("login", 1);
         model.addAttribute("login", 1);
         model.addAttribute("user", name);
-        model.addAttribute("list", userService.getUserList());
         return "user/login";
     }
 
     @RequestMapping("/logout")
-    public String logout(HttpSession session){
+    public String logout(HttpSession session, Model model){
+        String user = (String) session.getAttribute("user");
+        if(!userService.logout(user)){
+            model.addAttribute("msg", "退出登录失败");
+            return "user/login";
+        }
         session.removeAttribute("user");
         session.removeAttribute("login");
         return "user/login";
@@ -920,37 +1039,30 @@ public class WebSocketServer {
 
 ### 公共聊天室实现
 
-sid 为 park
+sid 为 park，ChatController.java
 
 ```java
-package com.northboat.bearchat.controller;
-
-import com.northboat.bearchat.websocket.WebSocketServer;
-import jakarta.servlet.http.HttpSession;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.Objects;
-
-@Controller
-public class ChatController {
-
-    @RequestMapping("/park")
-    public String park(HttpSession session, Model model){
-        int login = Objects.isNull(session.getAttribute("login")) ? 0 : 1;
-        String name = (String) session.getAttribute("user");
-        int count = WebSocketServer.getOnlineCount() + 1;
-
-        //System.out.println(WebSocketServer.getWebSocketSet().size());
-
-        model.addAttribute("login", login);
-        model.addAttribute("name", name);
-        model.addAttribute("count", count);
-        model.addAttribute("room", "park");
-        return "chat/park";
-    }
+private UserService userService;
+@Autowired
+public void setUserService(UserService userService){
+    this.userService = userService;
 }
+
+@RequestMapping("/park")
+public String park(HttpSession session, Model model){
+    int login = Objects.isNull(session.getAttribute("login")) ? 0 : 1;
+    String name = (String) session.getAttribute("user");
+    int count = WebSocketServer.getOnlineCount() + 1;
+
+    //System.out.println(WebSocketServer.getWebSocketSet().size());
+
+    model.addAttribute("login", login);
+    model.addAttribute("name", name);
+    model.addAttribute("count", count);
+    model.addAttribute("room", "park");
+    return "chat/park";
+}
+
 ```
 
 公共聊天室前端，就是通过 url 建立一个 websocket，后端发现请求后立马将其加入 server-set 进行管理
@@ -960,81 +1072,170 @@ public class ChatController {
 - 客户端可以主动向服务器发送信息，即前端调用 WebSocket.send() 函数
 - 后端编写的 WebSocketServer 将处理接收到的客户端信息，通过 set 中存储的一个个 session，即和一个个客户端的会话，将收到的消息根据 sid 群发出去，客户端由于 session 和 websocket 的工作机制，将时刻监听这个消息，同时在前端作出相应反应
 
-前端的 js 代码
+前端部分代码
 
-```javascript
+```html
+<h2 class="major">共有<strong th:text="${count}"></strong>人在公共聊天室</h2>
 
-let user = document.getElementById("user").innerText;
-let login = document.getElementById("login").innerText;
-console.log(name);
+<p id="user" th:text="${name}" style="display: none"></p>
+<p id="login" th:text="${login}" style="display: none"></p>
+<p id="room" th:text="${room}" style="display: none"></p>
+<script>
+    let user = document.getElementById("user").innerText;
+    let login = document.getElementById("login").innerText;
+    console.log(name);
 
-// 连接 websocket 服务器
-let websocket = null;
-let room  = document.getElementById("room").innerText;
-//判断当前浏览器是否支持WebSocket
-if('WebSocket' in window) {
-    //改成你的地址http
-    websocket = new WebSocket("ws://bp7fgk.natappfree.cc/chat/"+room);
-} else {
-    alert('当前浏览器 Not support websocket')
-}
-
-
-//连接发生错误的回调方法
-websocket.onerror = function() {
-    setMessageInnerHTML("WebSocket连接发生错误");
-};
-
-//连接成功建立的回调方法
-websocket.onopen = function() {
-    setMessageInnerHTML("WebSocket 连接成功");
-}
-//let U01data, Uidata, Usdata;
-//接收到消息的回调方法
-websocket.onmessage = function(event) {
-    console.log(event);
-    setMessageInnerHTML(event.data);
-    //setechart()
-}
-
-//连接关闭的回调方法
-websocket.onclose = function() {
-    setMessageInnerHTML("WebSocket 连接关闭");
-}
-
-//监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
-window.onbeforeunload = function() {
-    closeWebSocket();
-}
-
-//将消息显示在网页上
-function setMessageInnerHTML(innerHTML) {
-    while(innerHTML.length > 32){
-        document.getElementById('message').innerHTML += innerHTML.substring(0, 32) + '<br/>';
-        innerHTML = innerHTML.substring(32);
+    // 连接 websocket 服务器
+    let websocket = null;
+    let room  = document.getElementById("room").innerText;
+    //判断当前浏览器是否支持WebSocket
+    if(room === "null"){
+        throw SyntaxError();
+    } else if('WebSocket' in window) {
+        //改成你的地址http
+        websocket = new WebSocket("ws://fx35xt.natappfree.cc/chat/"+room);
+    } else {
+        alert('当前浏览器 Not support websocket')
     }
-    document.getElementById('message').innerHTML += innerHTML + '<br/><br/>';
-}
 
-//关闭WebSocket连接
-function closeWebSocket() {
-    websocket.close();
-}
 
-//发送消息
-function send() {
-    let message = document.getElementById('text').value;
-    websocket.send(message);
-    document.getElementById("text").value = "";
-    // websocket.send('{"msg":"' + message + '"}');
-    // setMessageInnerHTML(message + "&#13;");
-}
+    //连接发生错误的回调方法
+    websocket.onerror = function() {
+        setMessageInnerHTML("WebSocket 连接发生错误");
+    };
 
+    //连接成功建立的回调方法
+    websocket.onopen = function() {
+        setMessageInnerHTML("WebSocket 连接成功");
+    }
+    //let U01data, Uidata, Usdata;
+    //接收到消息的回调方法
+    websocket.onmessage = function(event) {
+        console.log(event);
+        setMessageInnerHTML(event.data);
+        //setechart()
+    }
+
+    //连接关闭的回调方法
+    websocket.onclose = function() {
+        setMessageInnerHTML("WebSocket 连接关闭");
+    }
+
+    //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+    window.onbeforeunload = function() {
+        closeWebSocket();
+    }
+
+    //将消息显示在网页上
+    function setMessageInnerHTML(innerHTML) {
+        while(innerHTML.length > 32){
+            document.getElementById('message').innerHTML += innerHTML.substring(0, 32) + '<br/>';
+            innerHTML = innerHTML.substring(32);
+        }
+        document.getElementById('message').innerHTML += innerHTML + '<br/><br/>';
+    }
+
+    //关闭WebSocket连接
+    function closeWebSocket() {
+        websocket.close();
+    }
+
+    //发送消息
+    function send() {
+        let message = document.getElementById('text').value;
+        websocket.send(message);
+        document.getElementById("text").value = "";
+        // websocket.send('{"msg":"' + message + '"}');
+        // setMessageInnerHTML(message + "&#13;");
+    }
+</script>
 ```
 
 ### 私人聊天室实现
 
-暂未实现
+在 Redis 里设置一个 set（online）用于记录在线用户，用以匹配好友
+
+pick 函数，用以匹配好友
+
+- 就是遍历 online 的集合（存储的用户昵称），通过用户昵称在 redis 里找`<昵称，房间号>`为空的用户，返回第一个（即在线且空闲用户）
+- 若找到空闲用户，为当前两个用户建立房间：redis 里昵称用于存房间号，房间号作为 key 以 list 存用户名双向绑定，返回房间号
+
+```java
+// 选取私人房间号返回
+@Override
+public String pick(String account){
+    // 房间号统一用昵称存
+    User user = containAt(account) ? userMapper.queryByEmail(account) : userMapper.queryByName(account);
+    String self = user.getName();
+    String room = (String) redisUtil.get(self);
+    // 如果已有房间，直接返回
+    if(!Objects.isNull(room)){
+        return room;
+    }
+    // 否则找一个在线用户，组建房间返回房间号
+    for(Object onlineUser: redisUtil.sget("online")){
+        // 获取在线用户的名字
+        String friend = (String) onlineUser;
+        if(friend.equals(self)){
+            continue;
+        }
+
+        // 如果当前用户在 redis 里存的房间为空，说明暂未配对
+        room = (String) redisUtil.get(friend);
+
+        // 如果未配对，让这个用户和传进来的用户组建房间并返回房号
+        if(Objects.isNull(room)){
+            String tag = mailUtil.generateCode();
+            // 设置房间有效时间为1天
+            // 双向绑定
+            redisUtil.set(self, tag, 86400);
+            redisUtil.set(friend, tag, 86400);
+            // 把名字存到房间号
+            redisUtil.rpush(tag, self);
+            redisUtil.rpush(tag, friend);
+            redisUtil.expire(tag, 86400);
+            return tag;
+        }
+    }
+    // 若没找到在线空闲用户，返回"null"
+    return "null";
+}
+
+```
+
+Controller
+
+- 若未登录，跳转登陆界面
+- 若未找到空闲用户，返回`<"notfound", true>`
+- 若 pick 函数返回房间号不为`"null"`，说明匹配成功，从房间号中取出两个用户，同时返回房间号，进入房间`"user/room"`
+- 前端页面和公共聊天室基本相同，room 变为了私人的 6 位随机码，而不是 park
+
+```java
+@RequestMapping("/pick")
+public String pick(HttpSession session, Model model){
+    Integer login = (Integer) session.getAttribute("login");
+    if(Objects.isNull(login) || login == 0){
+        model.addAttribute("msg", "请先登录");
+        return "user/login";
+    }
+    String account = (String) session.getAttribute("user");
+    String room = userService.pick(account);
+    // 若房间为空
+    if(room.equals("null")){
+        model.addAttribute("notfound", true);
+        model.addAttribute("self", account);
+        model.addAttribute("friend", "空气");
+        model.addAttribute("room", room);
+        return "chat/room";
+    }
+    model.addAttribute("notfound", false);
+    List<String> names = userService.getRoom(room);
+    model.addAttribute("self", names.get(0));
+    model.addAttribute("friend", names.get(1));
+    model.addAttribute("room", room);
+    return "chat/room";
+}
+```
 
 ## 测试
 
