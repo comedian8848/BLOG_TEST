@@ -33,6 +33,7 @@ module.exports = [
 		title: '算法',
 		collapsable: true,
 		children: [
+			'./algorithm/algo',
 			'./algorithm/modeling',
 			'./algorithm/hash',
 			'./algorithm/recursion',
