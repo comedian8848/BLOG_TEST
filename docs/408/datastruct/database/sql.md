@@ -1,5 +1,5 @@
 ---
-title: SQL
+title: 结构化查询语言 SQL
 date: 2022-4-21
 tags:
   - DataBase

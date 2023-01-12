@@ -34,21 +34,27 @@ module.exports = [
 		collapsable: true,
 		children: [
 			'./algorithm/algo',
-			'./algorithm/modeling',
-			'./algorithm/hash',
-			'./algorithm/recursion',
-			'./algorithm/binary',
 			{
-			    title: "搜索和排序",
+			    title: "算法实现",
 			    collapsable: true,
 			    children: [
-			        './algorithm/bfs',
-		    	        './algorithm/dfs',
-			        './algorithm/sort',
+				'./algorithm/modeling',
+				'./algorithm/hash',
+				'./algorithm/recursion',
+				'./algorithm/binary',
+				{
+			    		title: "搜索和排序",
+			    		collapsable: true,
+			    		children: [
+			        			'./algorithm/bfs',
+		    	        			'./algorithm/dfs',
+			        			'./algorithm/sort',
+			    		]
+		   	 	},
+				'./algorithm/greedy',
+				'./algorithm/dp',
 			    ]
-		   	 },
-			'./algorithm/greedy',
-			'./algorithm/dp',	
+		   	 },				
 		]
 	},
 	
