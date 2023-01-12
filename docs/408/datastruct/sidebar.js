@@ -7,7 +7,7 @@ module.exports = [
 		collapsable: true,
 		children: [
 			'./basic/struct',
-			'./basic/algorithm',			
+			'./basic/algo',			
 		]
 	},
 
@@ -65,8 +65,8 @@ module.exports = [
 		collapsable: true,
 		children: [
 		    './database/relation',
-		    './database/sql',
 		    './database/design',
+		    './database/sql',
 		]
 	},
 	

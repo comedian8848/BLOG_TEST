@@ -137,7 +137,7 @@ module.exports = {
 		ribbonAnimationShow: true  // 滑动彩带
 	  }],
 	  ["sakura", {
-        num: 7,  // 默认数量
+        num: 4,  // 默认数量
         show: true, //  是否显示
         zIndex: 99,   // 层级
         img: {
