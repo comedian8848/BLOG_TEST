@@ -1,4 +1,12 @@
 module.exports = [
+
+	{
+		title: '高等数学',
+		collapsable: true,
+		children: [
+			'./calculus/singlevariable',
+		]
+	},
 	{
 		title: '人工智能导论',
 		collapsable: true,

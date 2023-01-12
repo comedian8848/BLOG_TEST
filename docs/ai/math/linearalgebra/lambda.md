@@ -7,7 +7,6 @@ tags:
 
 > 考前突击
 >
-> 与《Linear Algebra Done Right》有一定重合
 
 ## 线性变换
 
