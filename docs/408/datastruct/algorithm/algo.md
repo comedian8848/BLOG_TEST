@@ -185,7 +185,7 @@ $$
 
 #### 计算时间复杂度
 
-利用极限比较函数阶确定一个函数的时间复杂度
+1、利用极限比较函数阶确定一个函数的时间复杂度
 
 <img src="./assets/image-20230112214333205.png">
 
@@ -193,7 +193,7 @@ $$
 - 洛必达
 - 泰勒展开
 
-对代码的基本语句执行次数进行求和，确定他的时间复杂度
+2、对代码的基本语句执行次数进行求和，确定他的时间复杂度
 
 确定一个数组是否有重复元素
 
@@ -228,29 +228,128 @@ bool repeat(int *nums, int n){
 
 <img src="./assets/image-20230112221302166.png">
 
-### 递归概念
+### 典型递归算法
 
 **直接或间接地调用自身**的算法称为递归算法
 
-如求阶乘
+1、求 n 的阶乘
 
 ```c
 void cal(int n){
-    if(n == 1){
+    if(n == 0){
         return 1;
     }
     return cal(n-1)*n;
 }
 ```
 
-- 对于输入参数 n，其乘法的执行次数为 n
+- 对于输入参数 n，乘法的执行次数为 n
 
-又如，Fibonacci（斐波那契数列）
+2、Fibonacci（斐波那契数列）求第 n 位值
 
 ```c
+int fib(int n){
+    if(n <= 1){
+        return 1;
+    }
+    return fib(n-1)+fib(n-2);
+}
 ```
 
+3、Ackerman 函数
 
+<img src="./assets/image-20230114001949950.png">
+$$
+A(1,1) = A(A(0,1),0) =  A(1,0) = 2
+$$
+
+```c
+int ackerman(int n, int m){
+    if(n == 1 && m == 0){
+        return 2;
+    } else if(n == 0){
+        return 1;
+    } else if(m == 0){
+        return n+2;
+    }
+    return ackerman(ackerman(n-1, m), m-1);
+}
+```
+
+- m 为外层迭代，n 为内层迭代，当 m 为 0 时迭代完成
+
+<img src="./assets/image-20230114003758179.png">
+
+补充 Ackermann 函数
+
+<img src="./assets/image-20230114003918620.png">
+
+```c
+int ackermann(int m, int n){
+    if(m == 0){
+        return n+1;
+    } else if(n == 0){
+        return ackermann(m-1, 1);
+    }
+    return ackermann(m-1, ackermann(m, n-1));
+}
+```
+
+4、排列问题
+
+对于`R = {r1, r2, . . . , rn}`，n 个元素排列
+
+- `Ri = R − {ri}`
+- 集合 X 的全排列记为`Perm(X)`
+- `(ri)Perm(X)`表示在全排列`Perm(X)`的每一个排列前加上前缀得到的排列
+
+如
+
+- 当 n = 1 时，`Perm(R) = (r)`， 其中 r 是集合 R 中唯一元素
+- 当 n > 1 时，`Perm(R)`由`(r1)Perm(R1) , . . ., (rn)Perm(Rn)`构成
+
+匪夷所思
+
+<img src="./assets/image-20230114010921872.png">
+
+```c
+#include <iostream>
+using namespace std;
+
+void swap(int *arr, int i, int j) {
+
+	int temp = arr[i];
+	arr[i] = arr[j];
+	arr[j] = temp;
+}
+
+void perm(int *arr, int k, int m) {
+	if (k == m) {
+		for (int i = 0; i <= m; i++) {
+			cout << arr[i] << " ";
+		}
+		cout << endl;
+		return;
+	}
+	int i = k;
+	while (i <= m) {
+		swap(arr, k, i);
+		perm(arr, k + 1, m);
+		swap(arr, k, i);
+		i++;
+	}
+}
+
+int main() {
+	int arr[] = {1, 2, 3, 4};
+	perm(arr, 0, 3);
+	return 0;
+}
+```
+
+5、整数划分
+
+将正整数 n 表示成一系列正整数之和
 
 ## 动态规划
 

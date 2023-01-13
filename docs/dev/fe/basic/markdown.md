@@ -212,24 +212,29 @@ C_{n}^{m}
 
 ~~~markdown
 $$
-\begin{align}
+\begin{aligned}
 h(x) =& \frac{1}{\int_xt(x)\mathrm{d}x} \tag{1}\\
 f(x) =& \frac{1}{\int_x\eta(x)\mathrm{d}x}g(x)\tag{2}
-\end{align}
+\end{aligned}
 $$
 
 $$
-\begin{align}
+\begin{aligned}
 a &= b + c \tag{3}\\
   &= d + e + f\tag{4}
-\end{align}
+\end{aligned}
 $$
 
 $$
-\begin{align}
+\begin{aligned}
 a &= b + c \tag{3}\\
   &= d + e + f\tag{4}
-\end{align}
+\end{aligned}
 $$
 ~~~
 
+常见希腊字母
+
+<img src="./assets/55de9b1520d50bfb9231474f5959f0e5.png">
+
+<img src="./assets/0a897d9f8016f20c36f440bfed225cf1.png">
