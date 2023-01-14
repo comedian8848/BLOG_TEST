@@ -42,12 +42,21 @@ $$
 这里 tan 函数的定义域是 R 去掉分母为 0 的部分，而反函数 arctan 定义域为 R（因为 tan 函数值域为 R），但值域只能在 tan 函数的一个周期内，不然就不会满足函数定义，其余反三角函数同理
 
 三角函数性质
+
+转换
 $$
 sin^2x+cos^2x=1\\
 sec^2x=1+tan^2x\\
 csc^2x=1+cot^2x\\
 arcsinx+arccosx=\pi/2\\
-arctanx+arccotx=\pi/2
+arctanx+arccotx=\pi/2\\
+$$
+导数
+$$
+(sinx)'=cosx\\
+(cosx)'=-sinx\\
+(tanx)'=sec^2x\\
+(cotx)'=-csc^2x
 $$
 函数性质：单调性；奇偶性；周期性；有界性
 
@@ -194,6 +203,101 @@ $$
 ### 极限的计算
 
 > 重中重
+
+#### 朴素求极限
+
+常用结论
+
+<img src="./assets/image-20230114154242808.png">
+
+对于`根号-无穷`型极限
+
+- 根号有理化
+- 提出公因子，将根号中转化为 0（跟号外为无穷）（注意计算）
+- 带入极限
+
+$$
+\mathop{lim}_{x\rightarrow+\infty}(\sqrt{x^2+x+1}-\sqrt{x^2-x+1})
+$$
+
+<img src="./assets/image-20230114160138053.png">
+
+- 先有理化，再提公因子，比较稳妥
+- 提公因子的时候还要注意符号
+
+#### 两个重要极限
+
+1、0/0 型：一般可以直接洛
+$$
+\mathop{lim}_{a\rightarrow0}\frac{sina}{a} = 1
+$$
+经典错误
+
+<img src="./assets/image-20230114175401770.png">
+
+2、1-∞ 型：常用于幂指函数，刻意去凑 1
+$$
+\mathop{lim}_{a\rightarrow0}(1+a)^{1/a} = e
+$$
+注意两个重要极限均有趋于 0 的限制，在无穷小时才成立
+
+对于幂指函数，还可以直接采用把指数化为 e 的对数指数的形式求解极限，如
+$$
+\mathop{lim}_{x\rightarrow0}(\frac{1+2^x}{2})^\frac{1}{x} =
+\mathop{lim}_{x\rightarrow0}\,e^{\frac{1}{x}ln(\frac{1+2^x}{2})}\\
+e^{lnx} = x
+$$
+回顾一下指数、对数求导
+$$
+(2^x)' = 2^x\times ln2\\
+(log_2x)' = \frac{1}{x\times ln2}
+$$
+幂指函数求解极限一般方法
+
+<img src="./assets/image-20230114180603989.png">
+
+#### 等价无穷小
+
+<img src="./assets/image-20230114191949757.png">
+
+这个故事告诉我们不能一味的追求替换，当算则算
+
+<img src="./assets/image-20230114192959162.png">
+
+无穷小的和差项不要轻易拆开，尽力化为乘积项统一约分
+
+证明题：证明两个极限等价，即证明这两个极限相除为 1
+
+<img src="./assets/image-20230114202046979.png">
+
+不要怕化出 1，`a+b`不如`a/b+1`
+
+#### 洛必达
+
+灵活的在**洛必达、无穷小替换、等价变换、直接求值**之间转换，不要拘泥于一种方法
+
+- 先判断是否需要换元（转换为除法更好运算，全是乘法不好操作）
+- 若有指数，考虑幂指转换
+- 时刻注意分子分母有理化和算术变换（如三角函数变换，凑 1）
+- 时刻注意是否可以**提出极限为常数的项**
+- 判断是否有等价无穷小
+- 碰到僵局尝试考虑洛必达
+
+一些逆天
+$$
+\mathop{lim}_{x\rightarrow0}\frac{arctanx-sinx}{x^3}=-1/6\\
+\mathop{lim}_{x\rightarrow0}\frac{e^x-e^{-x}-2x}{x-sinx}=2\\
+\mathop{lim}_{n\rightarrow\infty}\,n\,tan\frac{1}{n}=e^{1/3}\\
+\mathop{lim}_{x\rightarrow0}\frac{\sqrt{1+2sinx}-x-1}{x^2}=-1/2\\
+\mathop{lim}_{x\rightarrow0}\frac{e^{x^{2}}-e^{2-2cosx}}{x^4}=1/12\\
+$$
+极限和无穷小的联系，α(x) 是一个虚构的未知的函数，在已知极限中某一项为 0 且不影响极限构成时（如 0-0 就不行），可以单独提出极限然后悄无声息地消去
+
+<img src="./assets/image-20230114224715465.png">
+
+#### 夹逼准则
+
+
 
 ### 函数连续性
 
