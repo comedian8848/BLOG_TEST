@@ -228,7 +228,7 @@ bool repeat(int *nums, int n){
 
 <img src="./assets/image-20230112221302166.png">
 
-### 典型递归算法
+### 经典递归算法
 
 **直接或间接地调用自身**的算法称为递归算法
 
@@ -295,7 +295,7 @@ int ackermann(int m, int n){
 }
 ```
 
-4、排列问题
+4、全排列问题
 
 对于`R = {r1, r2, . . . , rn}`，n 个元素排列
 
@@ -317,7 +317,6 @@ int ackermann(int m, int n){
 using namespace std;
 
 void swap(int *arr, int i, int j) {
-
 	int temp = arr[i];
 	arr[i] = arr[j];
 	arr[j] = temp;
@@ -333,8 +332,10 @@ void perm(int *arr, int k, int m) {
 	}
 	int i = k;
 	while (i <= m) {
+         // 确定当前位
 		swap(arr, k, i);
 		perm(arr, k + 1, m);
+         // 重置当前位
 		swap(arr, k, i);
 		i++;
 	}
@@ -347,9 +348,80 @@ int main() {
 }
 ```
 
+有点回溯的感觉，外层循环置换确定第 k 位的元素，在这种情况下向下扩展，每层再向后延展 m-k 个分支，直到 m==k，遍历到了叶子节点，输出当前序列
+
+返回后，将外层确定的元素归还，开始回溯，遍历另一颗子树，整个过程相当于**一个带有回溯的深度优先搜索**，很难想到，建议背诵
+
 5、整数划分
 
-将正整数 n 表示成一系列正整数之和
+将正整数 n 表示成一系列正整数之和，称为 n 的一个划分，整数划分指：求正整数 n 的不同划分的数量
+
+如 5 可划分为`{5, 4+1, 3+2, 3+1+1, 2+2+1, 2+1+1+1, 1+1+1+1+1}`共 7 种划分
+
+<img src="./assets/image-20230115174344376.png">
+
+```c
+#include <iostream>
+using namespace std;
+
+// n 表示要加到的和，m 表示当前因子最大能达到的值
+// 如 partition(5, 1) 表示用不大于 1 的正整数划分 5，只有一种 1+1+1+1+1
+int partition(int n, int m) {
+	// 当和为 1 或最大因子为 1，只有一种情形，一个一个加上去
+	if (n == 1 || m == 1) {
+		return 1;
+	} else if (n == m) { // 当和与最大因子值相同，去掉 n = m，剩下 partition(n, m-1)
+		return 1 + partition(n, m - 1);
+	} else if (n < m) {
+		return partition(n, n);
+	}
+	// 把当前因子最大值递减，依次参与构成 n
+	// 把当前和减去 m，表示存在一个比 n 小的参数 m
+	return partition(n, m - 1) + partition(n - m, m);
+}
+
+int partition(int n) {
+	return partition(n, n);
+}
+
+int main() {
+	cout << partition(5);
+	return 0;
+}
+```
+
+6、Hanoi 塔问题
+
+求解有 n 个盘子的汉诺塔问题（3 个柱子）需要多少步能完成
+
+<img src="./assets/image-20230115193219844.png">
+
+```c
+int hanoi(int n){
+    if(n == 1){
+        return 1;
+    }
+    return 2*hanoi(n-1)+1;
+}
+```
+
+时间复杂度计算
+
+<img src="./assets/image-20230115193657162.png">
+
+等比数列求和公式，q 为公比
+$$
+\sum_{i=1}^n a_i = \frac{a_1\times(1-q^n)}{1-q}
+$$
+
+### 分治法
+
+基本思想
+
+- 问题的规模缩小到一定程度就可以容易地解决
+- 问题可分解为若干规模较小的相同问题
+- 利用子问题的解可以合并为该问题的解
+- 问题所分解出的子问题之间不包含公共子问题
 
 ## 动态规划
 
