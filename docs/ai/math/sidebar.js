@@ -4,17 +4,7 @@ module.exports = [
 		title: '高等数学',
 		collapsable: true,
 		children: [
-			'./calculus/singlevariable',
-		]
-	},
-	{
-		title: '人工智能导论',
-		collapsable: true,
-		children: [
-			'./cs188/search',
-			'./cs188/plan',
-			'./cs188/uncertain',
-			'./cs188/hidden',
+			'./calculus/limit',
 		]
 	},
 
@@ -38,4 +28,17 @@ module.exports = [
 			'./probability/estimate',
 		]
 	},
+
+	{
+		title: '人工智能导论',
+		collapsable: true,
+		children: [
+			'./cs188/search',
+			'./cs188/plan',
+			'./cs188/uncertain',
+			'./cs188/hidden',
+		]
+	},
+
+
 ]
