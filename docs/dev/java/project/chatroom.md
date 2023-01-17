@@ -421,6 +421,18 @@ SpringBoot3.x 必须要求 JDK 版本 >= 17，否则会有很多父级依赖报�
 
 ## 帐号登录
 
+只有一个表
+
+```sql
+CREATE TABLE `user` (
+  `name` varchar(21) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`name`),
+  UNIQUE KEY `name_UNIQUE` (`name`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+```
+
 ### Mapper
 
 记得在启动类上加一个扫描 mapper 的注解
@@ -452,8 +464,7 @@ import java.util.List;
 public interface UserMapper {
 
     public List<User> queryAll();
-    public void addEmail(User user);
-    public void addName(User user);
+    public void add(User user);
     public User queryByName(String name);
     public User queryByEmail(String email);
 }
@@ -468,23 +479,19 @@ UserMapper.xml
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.northboat.bearchat.mapper.UserMapper">
     <select id="queryAll" resultType="com.northboat.bearchat.pojo.User">
-        select * from name
+        select * from user
     </select>
 
-    <insert id="addName" parameterType="com.northboat.bearchat.pojo.User">
-        insert into name values (#{name},#{email})
+    <insert id="add" parameterType="com.northboat.bearchat.pojo.User">
+        insert into user values (#{name},#{email})
     </insert>
-
-    <insert id="addEmail" parameterType="com.northboat.bearchat.pojo.User">
-        insert into email values (#{email},#{name})
-    </insert>
-
+    
     <select id="queryByName" resultType="com.northboat.bearchat.pojo.User">
-        select * from name where name = #{name}
+        select * from user where name = #{name}
     </select>
 
     <select id="queryByEmail" resultType="com.northboat.bearchat.pojo.User">
-        select * from email where email = #{email}
+        select * from user where email = #{email}
     </select>
 
 </mapper>
@@ -631,8 +638,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public boolean addToDB(User user){
-        userMapper.addEmail(user);
-        userMapper.addName(user);
+        userMapper.add(user);
         // 将邮箱作为用户名存入在线列表
         redisUtil.sadd("online", user.getName());
         return true;
