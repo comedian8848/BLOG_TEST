@@ -28,8 +28,8 @@ module.exports = [
 			title: "Docker",
 			collapsable: true,
 			children: [
-			    './middleware/dockerI',
-			    './middleware/dockerII',			
+			    './middleware/docker-base',
+			    './middleware/docker-advanced',			
 			]
 		    },	
 		    './middleware/rabbitmq',
