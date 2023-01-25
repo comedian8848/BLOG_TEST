@@ -84,10 +84,10 @@ yay -S jdk17-openjdk
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-mail</artifactId>
     </dependency>
-    <!--mail-->
+    <!--WebSocket-->
     <dependency>
         <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-mail</artifactId>
+        <artifactId>spring-boot-starter-websocket</artifactId>
     </dependency>
 </dependencies>
 ```
