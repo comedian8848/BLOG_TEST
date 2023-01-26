@@ -56,7 +56,7 @@ module.exports = [
 			'./project/controller',
 			'./project/oj',	
 			'./project/chatroom',
-			'./project/keeper',
+			'./project/aides',
 		]
 	},
 	
