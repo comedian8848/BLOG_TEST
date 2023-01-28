@@ -33,26 +33,32 @@ module.exports = [
 		title: '算法',
 		collapsable: true,
 		children: [
-			'./algorithm/algo',
+			{
+			    title: "算法设计与分析",
+			    collapsable: true,
+			    children: [
+				'./algorithm/basic/outline-partition',
+			    ]
+		   	 },	
 			{
 			    title: "算法实现",
 			    collapsable: true,
 			    children: [
-				'./algorithm/modeling',
-				'./algorithm/hash',
-				'./algorithm/recursion',
-				'./algorithm/binary',
+				'./algorithm/leetcode/modeling',
+				'./algorithm/leetcode/hash',
+				'./algorithm/leetcode/recursion',
+				'./algorithm/leetcode/binary',
 				{
 			    		title: "搜索和排序",
 			    		collapsable: true,
 			    		children: [
-			        			'./algorithm/bfs',
-		    	        			'./algorithm/dfs',
-			        			'./algorithm/sort',
+			        			'./algorithm/leetcode/bfs',
+		    	        			'./algorithm/leetcode/dfs',
+			        			'./algorithm/leetcode/sort',
 			    		]
 		   	 	},
-				'./algorithm/greedy',
-				'./algorithm/dp',
+				'./algorithm/leetcode/greedy',
+				'./algorithm/leetcode/dp',
 			    ]
 		   	 },				
 		]

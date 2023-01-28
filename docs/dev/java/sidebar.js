@@ -7,9 +7,9 @@ module.exports = [
 		title: 'Java SE',
 		collapsable: true,
 		children: [
-			'./javase/class',
-			'./javase/collection',
-			'./javase/io'
+			'./basic/class',
+			'./basic/collection',
+			'./basic/io'
 		]
 	},
 	
