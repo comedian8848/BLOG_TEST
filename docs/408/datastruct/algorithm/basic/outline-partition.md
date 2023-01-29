@@ -5,6 +5,8 @@ tags:
   - Algorithm
 ---
 
+## 概述
+
 算法是任何良好定义的计算过程，该过程以某个值或值集合作为输入并产生某个值或值的集合作为输出
 
 一个好的算法是反复努力和重新修正的结果
@@ -22,8 +24,6 @@ tags:
 
 - 算法设计技术
 - 算法分析技术
-
-## 概述
 
 ### 算法与程序
 
@@ -400,7 +400,7 @@ $$
 \sum_{i=1}^n a_i = \frac{a_1\times(1-q^n)}{1-q}
 $$
 
-### 分治复杂度公式及主定理
+### 分治复杂度公式
 
 基本思想
 
@@ -419,7 +419,31 @@ $$
 T(n) = aT(n/b) + f(n)
 $$
 
-主定理
+### 主定理
+
+主定理：用于估算分治算法时间复杂度，取决于`f(n)`的复杂度
+$$
+令\,f(n) = O(n^d)
+$$
+求出 d，分治算法的总时间复杂度 T(n) 满足
+
+<img src="./assets/image-20230129195103676.png">
+
+对于数组加法
+
+```c
+int add(int arr[], int l, int r){
+    if(l == r){
+        return arr[l];
+    }
+    int mid = (l+r) / 2;
+    return add(arr, l, mid) + add(arr, mid+1, r);
+}
+```
+
+<img src="./assets/image-20230129195623179.png">
+
+- `a > b^d`，为指对数
 
 ### 经典分治算法
 
@@ -427,9 +451,48 @@ $$
 
 #### 二分搜索
 
+```c
+int binary_search(int arr[], int target, int l, int r){
+    if(l > r){
+        return -1;
+    }
+    int mid = (l+r) / 2;
+    if(arr[mid] = target){
+        return mid;
+    }
+    if(target < arr[mid]){
+        return binary_search(arr, target, l, mid-1);
+    }
+    return binary_search(arr, target, mid+1, r);
+}
+```
+
+<img src="./assets/image-20230129200203629.png">
+
+- `a = b^d`为乘对数
+
 #### 大整数乘法
 
-#### 矩阵乘法
+高斯发现
+
+<img src="./assets/image-20230129201340466.png">
+
+运用到两位数乘法
+$$
+\begin{aligned}
+23\times14 =& (2\times10^1+3\times10^0)\times(1\times10^1+4\times10^0)\\
+=&2\times10^2+12\times10^0+[(2+3)\times(1+4)-2-12]\times10^1\\
+=&322
+\end{aligned}
+$$
+复杂度分析
+
+- 每个大乘法分解成三个小乘法，每次分解要加 n 次
+- 主定理：`a=3; b=2; n^d=n => d=1`，又`a > b^d`，故"指对数"，以 b 为底，a 为对数
+
+<img src="./assets/image-20230129203050572.png">
+
+#### Strassen 矩阵乘法
 
 #### 归并排序
 
