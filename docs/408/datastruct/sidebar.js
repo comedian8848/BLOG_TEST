@@ -38,6 +38,7 @@ module.exports = [
 			    collapsable: true,
 			    children: [
 				'./algorithm/basic/outline-partition',
+				'./algorithm/basic/dp-greedy',
 			    ]
 		   	 },	
 			{

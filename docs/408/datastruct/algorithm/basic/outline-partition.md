@@ -1,5 +1,5 @@
 ---
-title: 设计分析概述-递归与分治策略
+title: 设计分析概述 - 递归与分治策略
 date: 2023-1-12
 tags:
   - Algorithm
@@ -7,23 +7,21 @@ tags:
 
 ## 概述
 
-算法是任何良好定义的计算过程，该过程以某个值或值集合作为输入并产生某个值或值的集合作为输出
-
-一个好的算法是反复努力和重新修正的结果
-
-算法是求解良好说明的计算问题的工具
+> 算法是任何良好定义的计算过程，该过程以某个值或值集合作为输入并产生某个值或值的集合作为输出
+>
+> 一个好的算法是反复努力和重新修正的结果
+>
+> 算法是求解良好说明的计算问题的工具
+>
 
 具体算法应用
 
-- 信息传输路由算法
-- 信息安全加密算法
-- 信息存储排序算法
-- 信息检索模式匹配算法
+- 传输路由算法
+- 安全加密算法
+- 存储排序算法
+- 检索模式匹配算法
 
-本课程包括
-
-- 算法设计技术
-- 算法分析技术
+本课程包括：算法设计技术及算法分析技术
 
 ### 算法与程序
 
@@ -494,16 +492,154 @@ $$
 
 #### Strassen 矩阵乘法
 
+正常的矩阵乘法，大小均为 nxn
+$$
+C = AB
+$$
+各分为四等块
+$$
+\begin{bmatrix}
+C_{1}&C_{2}\\
+C_{3}&C_{4}\\
+\end{bmatrix}
+=
+\begin{bmatrix}
+A_{1}&A_{2}\\
+A_{3}&A_{4}\\
+\end{bmatrix}
+\times
+\begin{bmatrix}
+B_{1}&B_{2}\\
+B_{3}&B_{4}\\
+\end{bmatrix}
+$$
+其中
+
+<img src="./assets/image-20230201003038207.png">
+
+从原来的一个矩阵乘法，分解成了 8 个矩阵乘法，每个子矩阵的规模均为 n/2；另外，每次分割，需要多出 4 次加法，
+
+于是得到分治算法时间复杂度
+
+<img src="./assets/image-20230201003204588.png">
+
+根据主定理，由于`a > b^d`，复杂度指对数，为
+$$
+T(n) = n^{log_28} = n^3
+$$
+Strassen 改进算法：就是减少了一次矩阵乘法，采用加减法获得，于是复杂度降为
+$$
+T(n) = n^{log_27} \approx n^{2.81}
+$$
+
 #### 归并排序
 
-#### 快排
+```java
+public class Solution {
 
-动态规划
+    public int[] sortArray(int[] nums){
+        temp = new int[nums.length];
+        mergeSort(nums, 0, nums.length-1);
+        return nums;
+    }
 
-贪心算法
+    private int[] temp;
 
-回溯法
+    public void mergeSort(int[] nums, int left, int right){
+        if(left >= right){
+            return;
+        }
+        int mid = (left+right)/2;
+        mergeSort(nums, left, mid);
+        mergeSort(nums, mid+1, right);
+        int i = left, j = mid+1, count = 0;
+        while(i<=mid && j<=right){
+            if(nums[i]<nums[j]){
+                temp[count++] = nums[i++];
+            }else{
+                temp[count++] = nums[j++];
+            }
+        }
+        while(i<=mid){
+            temp[count++] = nums[i++];
+        }
+        while(j<=right){
+            temp[count++] = nums[j++];
+        }
+        for(int k = 0; k <= right-left; k++){
+            nums[k+left] = temp[k];
+        }
+    }
+}
+```
 
-分枝限界法
+就是始终将数组一分为二直到只有一个元素，然后不断相邻的两个子数组进行重排，很明显
+$$
+T(n) = 2T(n/2) + O(n)
+$$
+根据主定理可得
+$$
+T(n) = nlogn
+$$
 
-线性规划与网络流
+#### 快速排序
+
+```java
+class Solution {
+    public int[] sortArray(int[] nums){
+        quickSort(nums, 0, nums.length-1);
+        return nums;
+    }
+
+
+    public void quickSort(int[] nums, int left, int right){
+        if(left>=right){
+            return;
+        }
+        swap(nums, right, (left+right)/2);
+        int pivot = nums[right];
+        int position = left;
+        for(int i = left; i < right; i++){
+            if(nums[i] <= pivot){
+                swap(nums, i, position);
+                position++;
+            }
+        }
+        swap(nums, position, right);
+        quickSort(nums, left, position-1);
+        quickSort(nums, position+1, right);
+    }
+
+    public void swap(int[] nums, int i, int j){
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+}
+```
+
+在当前数组的`left, right`区间内随机取数为参考，将小于该数的置于左边，大于该数的置于右边，将数组分割，再继续对分割的数组进行以上操作直到`left >= right`
+
+快排的时间复杂度取决于划分是否平衡，即每次是否平均的划分大于参考和小于参考的数
+
+若每次都是等分，此时复杂度最优
+$$
+T(n) = 2T(n/2) + O(n) \stackrel{主定理}{\Rightarrow}nlogn
+$$
+若每次分割最不平衡，如左部只剩 1 个元素，此时复杂度最差
+$$
+T(n) = T(n-1) + O(n) \approx O(n^2)
+$$
+
+#### 循环日程赛表
+
+设有 n = 2k 运动员要进行网球循环赛，设计一个满足 如下要求的比赛日程表
+
+- 每个选手必须与其他 n − 1 个选手各赛一次
+- 每个选手一天只能赛一场
+- 循环赛一共进行 n − 1 天
+
+设计成有 n 行和 n − 1 列的表
+$$
+T(n) = 2T(n/2) + O(n) \stackrel{主定理}{\Rightarrow}nlogn
+$$
