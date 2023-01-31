@@ -7,40 +7,39 @@ tags:
 
 ## 环境搭建
 
-用Anaconda+VSCode搭建python环境
+manjaro 配置 python 环境
 
-### Anaconda
+### Pip
 
-检查是否安装成功
+`yay -s python` 默认已经安装，并且默认使用python3
+
+安装pip
 
 ~~~bash
-conda --version
+yay -s python3-pip
+pip --version
 ~~~
 
-进入anaconda环境
+使用 pip 管理包
 
 ~~~bash
-conda activate
+# data science
+pip install pandas -i https://pypi.mirrors.ustc.edu.cn/simple/
+pip install numpy -i https://pypi.mirrors.ustc.edu.cn/simple/
+pip install scikit-learn -i https://pypi.mirrors.ustc.edu.cn/simple/
+pip install scipy -i https://pypi.mirrors.ustc.edu.cn/simple/
+pip install matplotlib -i https://pypi.mirrors.ustc.edu.cn/simple/
+
+# rabbitmq
+pip install pika
+# redis
+pip install redis
 ~~~
 
-创建Anaconda的Python子环境，子环境均安装再anaconda3\envs目录下
-
-创建3.6.6python子环境（-n：环境名称）：
+查看已安装的包
 
 ~~~bash
-conda create -n test python=3.6.6
-~~~
-
-切换到子环境
-
-~~~bash
-conda activate test
-~~~
-
-退出子环境
-
-~~~bash
-aonda deactivate
+pip list
 ~~~
 
 ### VSCode
