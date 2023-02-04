@@ -7,7 +7,7 @@ module.exports = [
 		collapsable: true,
 		children: [
 			'./basic/struct',
-			'./basic/algo',			
+			'./basic/algorithm',			
 		]
 	},
 
@@ -37,8 +37,9 @@ module.exports = [
 			    title: "算法设计与分析",
 			    collapsable: true,
 			    children: [
-				'./algorithm/basic/outline-partition',
-				'./algorithm/basic/dp-greedy',
+				'./algo/basic/outline-recursive-divide',
+				'./algo/basic/dp-greedy',
+				'./algo/basic/backtracking-branchbound-lp-networkflow',
 			    ]
 		   	 },	
 			{
