@@ -72,9 +72,9 @@ module.exports = [
 		title: '数据库系统概论',
 		collapsable: true,
 		children: [
-		    './database/relation',
-		    './database/design',
-		    './database/sql',
+		    './base/relation',
+		    './base/design',
+		    './base/sql',
 		]
 	},
 	
