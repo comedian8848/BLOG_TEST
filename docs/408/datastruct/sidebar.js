@@ -22,6 +22,7 @@ module.exports = [
 			    children: [
 			        './c/barber',
 			        './c/matchman',
+			        './c/lisp',
 			    ]
 		   	 },
 			
@@ -72,9 +73,9 @@ module.exports = [
 		title: '数据库系统概论',
 		collapsable: true,
 		children: [
-		    './base/relation',
-		    './base/design',
-		    './base/sql',
+		    './database/relation',
+		    './database/design',
+		    './database/sql',
 		]
 	},
 	

@@ -67,7 +67,6 @@ module.exports = [
 				'./compile/parser',
 			    ]
 			},
-			'./compile/lisp',
 		]
 	},
 	
