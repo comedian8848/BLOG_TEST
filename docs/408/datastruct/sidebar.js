@@ -47,21 +47,18 @@ module.exports = [
 			    title: "算法实现",
 			    collapsable: true,
 			    children: [
-				'./algo/leetcode/modeling',
-				'./algo/leetcode/hash',
-				'./algo/leetcode/recursion',
-				'./algo/leetcode/binary',
+				'./algo/leetcode/modeling-hash-binary',
+				'./algo/leetcode/recursion-divide',
 				{
 			    		title: "搜索和排序",
 			    		collapsable: true,
 			    		children: [
 			        			'./algo/leetcode/bfs',
-		    	        			'./algo/leetcode/dfs',
+		    	        			'./algo/leetcode/dfs-backtracking',
 			        			'./algo/leetcode/sort',
 			    		]
 		   	 	},
-				'./algo/leetcode/greedy',
-				'./algo/leetcode/dp',
+				'./algo/leetcode/dp-greedy',
 			    ]
 		   	 },				
 		]
