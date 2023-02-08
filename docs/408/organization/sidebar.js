@@ -27,17 +27,17 @@ module.exports = [
 	},
 
 	{
-		title: "集成电路设计"
+		title: "集成电路设计",
 		collapsable: true,
 		children: [
-			    {
-			        title: "Verilog"
-			        collapsable: true,
-			        children: [
-				    './ic/verilog-base',
-				    './ic/verilog-advanced',
-			        ]
-			    },
+			{
+			    title: "Verilog",
+			    collapsable: true,
+			    children: [
+					'./ic/verilog-base',
+					'./ic/verilog-advanced',
+			    ]
+			},
 		]
 	},
 	
