@@ -12,7 +12,7 @@ module.exports = [
 		title: '机器学习核心算法',
 		collapsable: true,
 		children: [
-			'./algorithm/linear',
+			'./algo/linear',
 		]
 	},
 ]

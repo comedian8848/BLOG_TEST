@@ -25,6 +25,21 @@ module.exports = [
 			'./digitalcircuit/time',		
 		]
 	},
+
+	{
+		title: "集成电路设计"
+		collapsable: true,
+		children: [
+			    {
+			        title: "Verilog"
+			        collapsable: true,
+			        children: [
+				    './ic/verilog-base',
+				    './ic/verilog-advanced',
+			        ]
+			    },
+		]
+	},
 	
 
 	

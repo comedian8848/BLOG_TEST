@@ -11,7 +11,6 @@ module.exports = [
 	items: [
 	    {text: 'Front End', link: '/dev/fe/'},
 	    {text: 'Java', link: '/dev/java/'},
-           	    {text: 'Integrated Circuit', link: '/dev/ic/'},
 	    {text: 'Operations', link: '/dev/ops/'},
         ]
     },

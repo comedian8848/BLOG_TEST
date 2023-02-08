@@ -1,5 +1,5 @@
 ---
-title: 计组实验
+title: Verilog 基础
 date: 2022-12-29
 ---
 
