@@ -1,5 +1,5 @@
 ---
-title: 深度优先搜索和回溯法
+title: 深度优先搜索 - 回溯法
 date: 2022-11-8
 tags:
   - Algorithm

@@ -1,5 +1,5 @@
 ---
-title: 宽度优先搜索
+title: 宽度优先搜索 - Dijkstra
 date: 2021-6-22
 tags:
   - Algorithm

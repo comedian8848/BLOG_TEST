@@ -1,5 +1,5 @@
 ---
-title: 动态规划和贪心算法
+title: 动态规划 - 贪心算法
 date: 2021-6-22
 tags:
   - Algorithm
