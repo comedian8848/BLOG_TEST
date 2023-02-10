@@ -9,7 +9,7 @@ tags:
 
 ### 导数的概念及几何意义
 
-#### 导数的概念
+#### 导数概念
 
 导数概念：若`f(x0)`有定义，则函数`f`在`x0`的导数为
 $$
@@ -67,7 +67,7 @@ $$
 $$
 <img src="./assets/image-20230129181446371.png">
 
-#### 导数的几何意义
+#### 导数几何意义
 
 导数即为切线斜率
 
@@ -87,6 +87,8 @@ $$
 <img src="./assets/image-20230131174639878.png">
 
 ### 微分的概念及几何意义
+
+#### 微分概念
 
 ***微分，即微小的变化量***
 
@@ -124,6 +126,8 @@ $$
 \mathop{lim}_{\triangle x\rightarrow0}\triangle x\sim dx
 $$
 <img src="./assets/image-20230131182637825.png">
+
+#### 微分几何意义
 
 微分的几何意义：就是当自变量微小变化时，纵坐标的**增量**
 
@@ -181,6 +185,38 @@ $$
 <img src="./assets/image-20230207142519565.png">
 
 #### 反函数求导
+
+反函数：将自变量和因变量的关系置换，但不改变原函数等式，如`y = arccosx`的反函数为`x = cosy`，`y = arctanx`的反函数为`x = tany`
+
+反函数求导法则，设`f(x)`为原函数`g(y)`为其反函数，则
+$$
+f(x)' = 1/g(y)'
+$$
+如
+$$
+arcsinx' = \frac{1}{sixy'} = \frac{1}{cosy} = \frac{1}{(1-sin^2y)^{1/2}} = \frac{1}{(1-x^2)^{1/2}}
+$$
+重点在于反函数为`x = siny`，且该等式可以把 y 代换为 x
+
+<img src="./assets/image-20230210203004257.png">
+
+#### 隐函数求导
+
+所谓隐函数，就是在函数表达式中，隐藏了一个以 x 为自变量的函数，这个函数可以是其自身，如`tany = ln(x+y)+2x`，在这要求其导数`y'`，则要对等式两侧同时对 x 求导，得
+$$
+(1+y^2)y' = \frac{y'}{x+y}+2 \Rightarrow y' = \frac{2}{1+y^2-\frac{1}{x+y}}
+$$
+<img src="./assets/image-20230210204631957.png">
+
+结合导数定义考察
+$$
+f(x)' = \mathop{lim}_{\triangle x\rightarrow0}\frac{f(x+\triangle x)-f(x)}{\triangle x}
+$$
+<img src="./assets/image-20230210205820337.png">
+
+<img src="./assets/image-20230210205838813.png">
+
+#### 对数求导法
 
 
 

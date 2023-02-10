@@ -50,7 +50,7 @@ module.exports = [
 				'./algo/leetcode/modeling-hash-binary',
 				'./algo/leetcode/recursion-divide',
 				{
-			    		title: "搜索和排序",
+			    		title: "搜索 - 排序",
 			    		collapsable: true,
 			    		children: [
 			        			'./algo/leetcode/bfs',
