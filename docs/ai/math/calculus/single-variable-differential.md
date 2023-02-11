@@ -165,6 +165,8 @@ $$
 实际上就是泰勒展开的第一项
 
 <img src="./assets/image-20230206141440813.png">
+
+复合函数求导
 $$
 [f(x)g(x)]' = f'(x)g(x) + f(x)g'(x)\\
 [\frac{f(x)}{g(x)}]' = \frac{f'(x)g(x)-f(x)g'(x)}{g(x)^2}\\
