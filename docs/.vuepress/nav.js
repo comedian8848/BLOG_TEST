@@ -3,11 +3,11 @@
 module.exports = [
 
     {
-        text: 'Home', link: '/'
+        	text: 'Home', link: '/'
     },	
 
     {
-        text: 'Developer',
+        	text: 'Developer',
 	items: [
 	    {text: 'Front End', link: '/dev/fe/'},
 	    {text: 'Java', link: '/dev/java/'},
@@ -17,13 +17,12 @@ module.exports = [
 
 	
     {
-	text: 'Major',
+	text: '408',
 	items: [
 	    {text: 'Data Struct', link: '/408/datastruct/'},
 	    {text: 'Network', link: '/408/network/'},
 	    {text: 'Operating System', link: '/408/operating/'}, 
 	    {text: 'Organization', link: '/408/organization/'},
-   
 	]
     },
 	
