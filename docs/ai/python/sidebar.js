@@ -17,12 +17,12 @@ module.exports = [
 	},
 
 	{
-		title: '小玩具',
+		title: '算法',
 		collapsable: true,
 		children: [
-			'./toy/well',
-			'./toy/gridworld',
-			'./toy/mousecat',
+			'./algo/well',
+			'./algo/gridworld',
+			'./algo/mousecat',
 		]
 	},
 

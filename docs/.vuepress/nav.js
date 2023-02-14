@@ -29,8 +29,8 @@ module.exports = [
     {
 	text: 'Artificial Intelligence', 
 	items: [
-	    {text: 'Mathematics', link: '/ai/math/'},
 	    {text: 'Python', link: '/ai/python/'},
+	    {text: 'Math', link: '/ai/math/'},
 	    {text: 'Machine Learning', link: '/ai/machine/'},
 	    //{text: 'Deep Learning', link: '/ai/deep/'}
 	]
