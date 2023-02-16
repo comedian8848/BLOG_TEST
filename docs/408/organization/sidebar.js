@@ -8,7 +8,7 @@ module.exports = [
 			'./basic/outline',	
 			'./basic/num',	
 			'./basic/memory',
-			'./basic/command',
+			'./basic/instruction',
 			'./basic/cpu',
 			'./basic/bus',
 			'./basic/io',
