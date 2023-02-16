@@ -8,6 +8,6 @@ features:
   details: Python JAVA C艹 Line Line So Easy
 - title: 哦豁
   details: Years Month Week Day Day No Bug
-footer: Created by Northboat 2021/5/3<br>powered by vuepress
+footer: Created by Northboat 2021/5/3 powered by vuepress
 ---
 
