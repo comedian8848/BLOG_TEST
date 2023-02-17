@@ -179,11 +179,12 @@ $$
 - 高阶无穷小：若相除为 0，说明分子比分母更快趋于 0，分子是分母的高阶无穷小；相对的，分母是分子的低阶无穷小
 
 <img src="./assets/image-20230113192724777.png">
-$$
-cosx-1\sim-\frac{1}{2}x^2
-$$
+
 <img src="./assets/image-20230113193327037.png">
+
+上题用到的几个等价无穷小
 $$
+cosx-1\sim-\frac{1}{2}x^2\\
 e^{x}-1\sim x\\
 ln(1+x)\sim x\\
 ^n\sqrt{1+x}-1\sim \frac{x}{n}
