@@ -12,9 +12,9 @@ categories:
 >
 > 狗阿里坑我钱财
 
-## LInux 基础
+## LInux  基本使用
 
-### linux 基本命令
+### 基本命令
 
 显示当前文件路径
 
@@ -149,14 +149,15 @@ sudo chmod +rw
 | rwxrwxr-x | (421)(421)(401) | 775        |
 | rwxr-xr-x | (421)(401)(401) | 755        |
 
-### 连接本地
+### 本地连接
 
-**用WinSCP和PuTTY连接远程服务器：**
+用WinSCP和PuTTY连接远程服务器
 
 - 下载WinSCP和PuTTY，
 - 在WinSCP用服务器外网ip、linux用户名（一般为root）以及登录密码远程连接服务器文件系统
-
 - 在WinSCP中开启PuTTY，远程连接linux终端
+
+宝塔面板
 
 ### 自定义命令和系统服务
 
@@ -520,7 +521,7 @@ remote_port = 7001
 
 ## JAVA
 
-### JAVA应用部署
+### JAVA 应用部署
 
 #### Docker Tomcat
 
@@ -541,7 +542,7 @@ ps -ef|grep java
 kill -9 进程号
 ~~~
 
-### JAVA转EXE
+### JAVA 转 EXE
 
 > 将可运行的jar包转成自带环境的可运行的exe文件
 

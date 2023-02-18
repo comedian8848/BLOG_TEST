@@ -5,8 +5,15 @@ module.exports = [
 		title: 'Linux',
 		collapsable: true,
 		children: [
-		    './linux/centos',
-		    './linux/manjaro',
+		    {
+			title: "Linux 基础",
+			collapsable: true,
+			children: [
+			    './linux/centos',
+		   	    './linux/manjaro',
+			]
+		    },
+		    
 		]
 	},
 

@@ -241,9 +241,13 @@ int fib(int n){
 阿克曼函数
 
 <img src="./assets/image-20230114001949950.png">
+
+其中
 $$
 A(1,1) = A(A(0,1),0) =  A(1,0) = 2
 $$
+
+C 代码
 
 ```c
 int ackerman(int n, int m){

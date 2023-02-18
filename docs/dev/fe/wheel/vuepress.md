@@ -317,9 +317,11 @@ rm -rf node_modules
 
 ### 踩坑指南
 
-记得部署config文件中的base
+记得部署 config 文件中的 base
 
 上传 .md 文件时，要保证文本中（不包括代码块）没有html标签，不然将导致网页body无法显示
+
+在以`<img>`形式引用的图片后直接接`$$`公式会造成乱码
 
 ## Reco
 

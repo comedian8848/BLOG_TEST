@@ -5,7 +5,7 @@ tags:
   - Linux
 ---
 
-## Install
+## 本地安装
 
 > 安装双系统
 
@@ -97,7 +97,9 @@ B乎教程：[在Surface上安装Manjaro系统](https://zhuanlan.zhihu.com/p/345
 
 关闭`bitlocker`，选择`usb`启动，扩展坞显得尤为重要
 
-## Pacman & Yay
+## 包管理
+
+Pacman & Yay
 
 ### 同步库及配置源
 
@@ -417,7 +419,7 @@ sudo update-grub
 
 `ctrl alt f2-f6`可以开启虚拟控制台，即黑框框的 linux，f7 为图形界面
 
-## Shell
+## 一些命令
 
 ### 解压缩
 
@@ -515,7 +517,6 @@ echo "--------end."
 
 ```bash
 sudo ln -s /usr/local/bin/redis-server /home/northboat/Desktop/redis-server
-
 sudo ln -s /usr/local/bin/redis-cli /home/northboat/Desktop/redis-cli
 ```
 
