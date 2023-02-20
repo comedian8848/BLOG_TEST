@@ -6,9 +6,9 @@ module.exports = [
        	text: 'Home',
 	items: [
 	    {text: 'Docs', link: 'https://northboat.netlify.app/'},
-	    {text: 'Index', link: 'https://northboat.github.io/'},
 	    {text: 'Blog', link: 'https://northpolar.netlify.app/'},
 	    {text: 'Github', link: 'https://github.com/northboat'},
+	    {text: 'Index', link: 'https://northboat.github.io/'},
         ]
 	
     },	
