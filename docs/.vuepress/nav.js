@@ -3,11 +3,18 @@
 module.exports = [
 
     {
-        	text: 'Home', link: '/'
+       	text: 'Home',
+	items: [
+	    {text: 'Docs', link: 'https://northboat.netlify.app/'},
+	    {text: 'Index', link: 'https://northboat.github.io/'},
+	    {text: 'Blog', link: 'https://northpolar.netlify.app/'},
+	    {text: 'Github', link: 'https://github.com/northboat'},
+        ]
+	
     },	
 
     {
-        	text: 'Developer',
+       	text: 'Developer',
 	items: [
 	    {text: 'Front End', link: '/dev/fe/'},
 	    {text: 'Java', link: '/dev/java/'},
