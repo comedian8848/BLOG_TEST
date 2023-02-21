@@ -9,10 +9,12 @@ module.exports = [
 	},
 
 	{
-		title: '机器学习核心算法',
+		title: '算法',
 		collapsable: true,
 		children: [
-			'./algo/linear',
+			'./algo/well',
+			'./algo/gridworld',
+			'./algo/mousecat',
 		]
 	},
 ]

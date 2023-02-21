@@ -34,8 +34,8 @@ module.exports = [
 			    title: "Verilog",
 			    collapsable: true,
 			    children: [
-					'./ic/verilog-base',
-					'./ic/verilog-advanced',
+					'./integratedcircuit/verilog-base',
+					'./integratedcircuit/verilog-advanced',
 			    ]
 			},
 		]

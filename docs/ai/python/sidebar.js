@@ -17,23 +17,21 @@ module.exports = [
 	},
 
 	{
-		title: '算法',
+		title: '数据科学库',
 		collapsable: true,
 		children: [
-			'./algo/well',
-			'./algo/gridworld',
-			'./algo/mousecat',
+			'./library/numpy',
+			'./library/pandas',
+			'./library/scipy',
+			'./library/visual',
 		]
 	},
 
 	{
-		title: '数据科学库',
+		title: '简单开发',
 		collapsable: true,
 		children: [
-			'./lib/numpy',
-			'./lib/pandas',
-			'./lib/scipy',
-			'./lib/visual',
+			'./dev/shadow',
 		]
 	},
 
