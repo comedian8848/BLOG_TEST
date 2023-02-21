@@ -1,301 +1,722 @@
 ---
-title: 动态规划 - 贪心算法
-date: 2023-1-12
+title: 动态规划和贪心算法
+date: 2021-6-22
 tags:
   - Algorithm
 ---
 
-## 动态规划
+## 一般动态规划
 
-> Dynamic programming：使多阶段决策过程最优的通用方法
->
-> 动态规划不仅是应用数学中用来解决某类**优化问题**的重要工具，而且在计算机领域被当作一种通用的算法设计技术
+> dynamic programming
 
-总体思想：分治思想
+### 最大子数组和
 
-- 将待求解问题分解成若干个子问题，如果分解得到的子问题重复出现，可用表格将已计算出的结果保存以节省重复计算，从而降低时间复杂度
-- 动态规划适用于解决包含重叠子问题的优化问题
-- 重叠子问题一般出现在对给定问题求解的递归关系中，递归关系包含了更小子问题的解
+力扣 53：[最大子数组和](https://leetcode.cn/problems/maximum-subarray/)
 
-动态规划基本步骤
-
-- 分析问题最优解的结构，找出最优解的性质
-- 递归地定义最优解的代价
-- 以自底向上的方式计算出最优解的代价并保存
-- 根据计算最优解的代价信息构造最优解
-
-基本要素：最优子结构和重叠子问题
-
-**最优子结构**，如果一个问题的最优解包含了它的子问题的最优解，则称此问题具有最优子结构
-
-- 即该问题的最优解同时是其子问题的最优解
-
-**重叠子问题**，递归算法中求解子问题，若重复求解同一子问题，则称该问题存在重叠子问题
-
-**备忘录方法**，对子问题的求解结果进行保存，每向下求一步，保存一次，是自顶向下的；而动态规划不是，动态规划是自底向上的
-
-应用范例：矩阵连乘问题，最长公共子序列，背包问题，最优二叉搜索树问题
-
-### 矩阵连乘
-
-> 将一个矩阵连乘不断分割，找到乘法次数最少的排列
->
-> `p[]`数组记录矩阵阶数；`m[i][j]`数组记录从矩阵`i`乘到矩阵`j`的乘法次数；`s[i][j]`数组记录`m[i][j]`的分割位置 k
-
-矩阵连乘问题，对于`pxq`乘以`qxr`的矩阵乘法，将得到一个`pxr`的结果矩阵，结果矩阵的每个元素需要`q`个元素相乘并相加，即共执行`prq`次乘法
-$$
-T(n) = T(pqr)
-$$
-在连乘时，不同的乘法次序将得到不同的新矩阵，从而总复杂度有多有少，如何找到复杂度最小的连乘
-
-<img src="./assets/20190725104818919.png">
-
-```c
-void MatrixChain(int p[], int n, int m[][] ,int s[][]) {
-    for(int i = 1; i <= n; i++) {
-        m[i][i]=0; //最小的子问题，连乘矩阵个数为1
+```java
+public class MaxSumSubArray {
+    public int maxSubArray(int[] nums) {
+        int n = nums.length;
+        int[] f = new int[n];
+        f[0] = nums[0];
+        //动态规划
+        //当前者和大于0，将其状态转移到后者
+        //当前者和小于0，放弃掉前者和，重新计算最大和，即重新进行转移
+        //对和的数组排序，返回其最大和
+        for(int i = 1; i < n; i++){
+            if(f[i-1] > 0){
+                f[i] += f[i-1] + nums[i];
+            }
+            else{
+                f[i] = nums[i];
+            }
+        }
+        Arrays.sort(f);
+        return f[n-1];
     }
-    for(int r = 2; r <= n; r++) { //r代表连乘的矩阵个数，从2到n
-        for(int i = 1; i <= n-r+1; i++) {  //枚举左边界
-            // 确定右边界
-            int j = i+r-1;
-            // 将矩阵分为 m[i:i] 和 m[i+1, j] 作为本轮初始分割
-            m[i][j] = m[i][i]+m[i+1][j]+p[i-1]*p[i]*p[j]; // m[i][i] == 0
-            // 记录第几轮
-            s[i][j] = i;
-            for(int k = i+1; k < j; k++) {  // 讨论k的所有可能情况
-                int t = m[i][k]+m[k+1][j] + p[i-1]*p[k]*p[j];
-                if(t < m[i][j]) {
-                    m[i][j]=t;
-                    s[i][j]=k; // 选择数乘次数最小的情况，并将相关数据覆盖于表中的相应位置
+}
+```
+
+### 解码方法
+
+力扣 91：[解码方法](https://leetcode.cn/problems/decode-ways/)
+
+```java
+//动态规划：状态转移方程
+public class NumDecodings {
+    public int decodings(String s) {
+
+        int n = s.length();
+        int f[] = new int[n+1];
+        f[0] = 1;
+        //该在for循环中++i和i++等价
+        for(int i = 1; i < n+1; i++) {
+            f[i] = 0;
+            //状态转移方程1
+            //其实在12行不初始化，f[i]也默认为0
+            if(s.charAt(i-1) != '0') {
+                f[i] += f[i-1];
+            }    
+            //状态转移方程2
+            //转换类型，判断两位数是否 <= 26
+            if(i > 1 && s.charAt(i-2) != '0' && (s.charAt(i-2)-'0')*10 + (s.charAt(i-1)-'0') <= 26) {
+                f[i] += f[i-2];
+            }            
+        }
+        return f[n];
+    }
+
+
+    public static void main(String[] args) {
+        NumDecodings nd = new NumDecodings();
+        String str = "226712";
+        System.out.println(nd.decodings(str));
+    }
+}
+```
+
+### 最长回文子串
+
+力扣 5：[最长回文子串](https://leetcode.cn/problems/longest-palindromic-substring/)
+
+```java
+//当s[i]==s[j]，dp[i][j]是否回文取决于dp[i+1][j-1]是否回文
+//所以用boolean数组dp[i][j]记录回文子串s[i]到s[j]的状态
+//第一步初始化dp[i][i]=true，即单个字符均回文
+//Len为子串长度，i为左边界，j为右边界
+
+class Solution {
+    public String longestPalindrome(String s) {
+        int n = s.length();
+        if(n<2){
+            return s;
+        }
+        boolean[][] dp = new boolean[n][n];
+        for(int i = 0; i < n; i++){
+            dp[i][i] = true;
+        }
+        int maxLength = 1;
+        int begin = 0;
+        for(int Len = 2; Len <= n; Len++){
+            for(int i = 0; i < n; i++){
+                int j = i+Len-1;            
+                if(j>=n){
+                    break;
+                }
+                if(s.charAt(i)==s.charAt(j)){
+                    if(j-i<3){
+                        dp[i][j] = true;
+                    }else{
+                        dp[i][j] = dp[i+1][j-1];
+                    }
+                }else{
+                    dp[i][j] = false;
+                }
+                if(dp[i][j] && j-i+1>maxLength){
+                    begin = i;
+                    maxLength = j-i+1;
                 }
             }
         }
+        return s.substring(begin, begin+maxLength);
     }
 }
 ```
 
-举个栗子
+### 回文子串
 
-<img src="./assets/image-20230202170710283.png">
+力扣 647：[回文子串](https://leetcode.cn/problems/palindromic-substrings/)
 
-p 表比矩阵数大一轮，第三个矩阵的行数实际上就是第二个矩阵的列数，于是我们只需要存每个矩阵的行数，然后单独存最后一个矩阵的列数
-
-<img src="./assets/image-20230202170745173.png">
-
-在计算时，严格根据子问题的大小逐级提升
-
-- 先确定`m[i:i]`，均为 0
-- 再算长度为 2 的子问题，如`m[1:2], m[2,3]`，这一步很好算，因为只有一种分割方法，其值实际上就等于`m[i:j] = p[i-1]p[i][j]`，因为`k = i`
-- 再计算长度为 3 的序列，这里就有两种分割方法，如`m[2,4] = m[2:2] + m[3:4]`和`m[2,4] = m[2:3] + m[4:4]`，需要一一计算比对赋予`m[2:4]`最小的一个值
-
-<img src="./assets/image-20230202171349657.png">
-
-这个 s 表实际上记录的是子问题`m[i,j]`最佳的分割点，如`s[1,6] = 3`，就表示矩阵连乘问题`m[1:6]`的最佳分割点`k = 3`，该问题可被最佳分解为`m[1,3]`和`m[4,6]`
-
-根据这个 s 表，我们可以输出得到最佳的连乘序列
-
-```c
-void print_optimal_parens(int s[], int i, int j){
-    // i j 分别表示左右边界
-    if(i == j){
-        cout << 'A' << i << ' ';
+```java
+class Solution {
+    public int countSubstrings(String s) {
+        int n = s.length(), count = 0;
+        boolean dp[][] = new boolean[n][n];
+        for(int i = 0; i < n; i++){
+            dp[i][i] = true;
+        }
+        for(int Len = 2; Len <= n; Len++){
+            for(int i = 0; i < n; i++){
+                int j = i+Len-1;
+                if(j>=n){
+                    break;
+                }
+                if(s.charAt(i)==s.charAt(j)){
+                    if(Len <= 3){
+                        dp[i][j] = true;
+                    }else{
+                        dp[i][j] = dp[i+1][j-1];
+                    }
+                }else{
+                    dp[i][j] = false;
+                }
+            }
+        }
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                if(dp[i][j]){
+                    count++;
+                }
+            }
+        }
+        return count;
     }
-    cout << '(';
-    print_optimal_parens(s, i, s[i][j]);
-    print_optimal_parens(s, s[i][j]+1, j);
-    cout << ')';
 }
 ```
-
-### 最长公共子序列
-
-> longest common subsequence，LCS
-
-求两个数组最长公共子序列的长度，注意子序列的定义：对于序列`[a,b,c,d,e]`，`[a,c,e]`是其子序列，因为顺序没有发生改变
-
-递归定义
-
-<img src="./assets/image-20230202190604710.png">
-
-<img src="./assets/image-20230202190936101.png">
-
-在实际求解时，先将“边框”全部置零，然后一点点向右下方遍历求解，
-
-- 在遍历过程中，可以记录移动的方向，如`xi = yi`时，说明向右下方移动，`c[i,j-1] > c[i-1,j]`时说明向下方移动
-
-```c
-lcs-length(X, Y){
-	m = length[X]
-	n = length[Y]
-    for i = 1 to m // 初始化“边框”
-		c[i, 0] ← 0
-	for j = 0 to n
-		c[0, j] ← 0
- 	for i = 1 to m
-		for j = 1 to n
-			if xi == yj
- 				c[i, j] = c[i − 1, j − 1] + 1
- 				b[i, j] = "↖"
- 			else if c[i − 1, j] ≥ c[i, j − 1]
- 				c[i, j] = c[i − 1, j]
- 				b[i, j] = "↑"
-			else
- 				c[i, j] = c[i, j − 1]
- 				b[i, j] = "←"
-	return c and b
-}
-```
-
-根据返回的 b 数组，构造最优解（最长公共子序列）
-
-```c
-print-lcs(b, X, i, j)
-	if i = 0 or j = 0
-		return
-	if b[i, j] = '↖'
-		print-lcs(b, X, i − 1, j − 1)
-		print xi
-	else if b[i, j] = '↑'
-		print-lcs(b, X, i − 1, j)
-	else if b[i, j] = '←'
-		print-lcs(b, X, i, j − 1)
-```
-
-只有当碰到`↖`时，说明当前字符一样，作为公共子序列的一部分输出
-
-时间复杂度，因为在构造`dp[][]`数组时用了外层`m`内层`n`的双重嵌套，所以复杂度为：`O(mn)`
 
 ### 最长递增子序列
 
-> Longest Increasing Subsequence，LIS
+力扣 300：[最长递增子序列](https://leetcode.cn/problems/longest-increasing-subsequence/)
 
-```c
-lis-length(A)
-	for i = 0 to len(A)
-		L[i] = 1 // 初始化每位最长长度为 1
-		for j = 0 to i // 遍历A[i]之前的元素，找到当前元素的最长递增子序列，并记录长度于L[i]
-			if A[j] > A[i] and L[i] + 1 > L[j]
-				L[j] ← 1 + L[i]
-	return max(L) // 返回L数组中的最大值
+> 用 dp[i] 记录第 i 个元素能构成的递增子序列大小：初始化为 1，对小于 i 的元素遍历，若当前元素大于 nums[j]，则 dp[i] = dp[j]+1，此为状态转移方程
+
+```java
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+        int n = nums.length;
+        if(n == 0){
+            return 0;
+        }
+        int maxLength = 1;
+        int[] dp = new int[n];
+        dp[0] = 1;
+        for(int i = 1; i < n; i++){
+            dp[i] = 1;
+            for(int j = 0; j < i; j++){               
+                if(nums[i] > nums[j]){
+                    dp[i] = Math.max(dp[i], dp[j]+1);
+                }
+            }
+            maxLength = Math.max(dp[i], maxLength);
+        }
+        return maxLength;
+    }
+}
 ```
 
-### 0/1 背包问题
+### 消除游戏
 
-> Knapsack 问题
+力扣 390：[消除游戏](https://leetcode.cn/problems/elimination-game/)
 
-就是往背包里放东西使价值最大，限制条件是容量
+> `1 2 3 4 5 6 7 8 9`
+> 
+> 消除一轮:`2 4 6 8`（从头开始消除单数序号的数）
+> 
+> 消除二轮:`2 6`（从尾开始消除单数序号的数）
+> 
+> 消除三轮:`6 ——> 最终结果`（从头消除单数序号）
+> 
+> 先从最简单的情况入手：n=1时，答案为1。n=2时，答案为2。
+> 
+> 可以发现，答案一定不会是奇数，因为第一轮操作一定会将所有的奇数删除。这就提示出一个规律：
+> 如果n为奇数，那么以n结尾和以n-1结尾是完全一样的。
+> 例如1,2,3,4,5,6,7,8,9，操作一轮后剩2,4,6,8，下一轮从8开始；
+> 而1,2,3,4,5,6,7,8，操作一轮后也剩2,4,6,8，下一轮也从8开始。
+> 从而得到第一个递推公式：当n为奇数时，`dp[n] = dp[n-1]`;
+> 
+> 2.3 接下来就只剩n为偶数的情况了。
+> 仍以1,2,3,4,5,6,7,8为例，操作一轮后剩2,4,6,8， 下一轮从8开始。
+> 那么2,4,6,8从8开始，和2,4,6,8从2开始有什么区别呢？
+> 很明显就是轴对称的关系，前者剩6，后者就剩(8+2 - 6);
+> 
+> 那么2,4,6,8从2开始，和1,2,3,4从1开始有什么区别呢？
+> 这个关系更明显，就是2倍的关系。
+> 
+> 写到这里，大家应该明白了，1,2,3,4从1开始不就是`dp[4]`吗！
+> 也就是说，`dp[8] = 2*(1+4-dp[4])` 这里的`1+4-dp[4]`起的就是轴对称的作用。
+> 推而广之，n为偶数时，`dp[n] = 2*(1+n/2-dp[n/2])`
+> 这样完整的递推公式就完成了：
+> n为奇数时，`dp[n] = dp[n-1]`
+> n为偶数时，`dp[n] = 2(1+n/2-dp[n/2])`
 
-<img src="./assets/image-20230202194214742.png">
+由于`dp[1000000]`超出内存限制，采用递归的写法，思路一样，只是未构造dp数组
 
-线性规划问题
+```java
+class Solution {
 
-<img src="./assets/image-20230202203406082.png">
+    public int dp(int n){
+        if(n == 1){
+            return 1;
+        }
+        if(n == 2){
+            return 2;
+        }
+        if(n % 2 == 1){
+            return dp(n-1);
+        }
+        if(n % 2 == 0){
+            return 2*(1+n/2-dp(n/2));
+        }
+        return -1;
+    }
 
-递归关系（状态转移方程）
-
-<img src="./assets/image-20230202203334857.png">
-
-j 就是当前背包空余，w 为物品重量，若 j < w，物品装不进去，为空，向后继续判断，实际上就是一个根据 w 和 j 填表格的事
-
-i 是指从第几个物品开始往背包中放，若 j < w 即容量不够将向后递归
-
-<img src="./assets/image-20230203002432615.png">
-
-<img src="./assets/image-20230203002453082.png">
-
-根据上表判断每个物品的 0/1 值（取了或者没取哪些物品）
-
-<img src="./assets/image-20230203002915996.png">
-
-- 就是看最终结果和哪一列匹配（列表示当前背包容量）
-
-时间复杂度：O(nc)
-
-补充背包问题：物品可以被重复取出
-
-### 最优二叉搜索树
-
-> 二叉搜索树：左节点小于根，右节点大于根，没有平衡限制
-
-每个键有一个被搜索概率，要让平均搜索次数最少，这样的二叉搜索树叫做最优二叉搜索树
-
-如
-
-<img src="./assets/image-20230204151409440.png">
-
-<img src="./assets/image-20230204151429256.png">
-
-构造最优二叉搜索树递推公式
-
-<img src="./assets/image-20230204152930337.png">
-
-示例
-
-- 查找键值：`A,B,C,D`
-- 查找概率：`0.1, 0.2, 0.4, 0.3`
-
-得到 c 表和 r 表
-
-- `c[i,j]`表示从键值`i-j`构造的最优二叉搜索树的平均搜索次数
-- `r[i,j]`表示从键值`i-j`构造的最优二叉搜索树的根，并且其左子树为`r[i,k-1]`，右子树为`r[k+1, j]`
-
-<img src="./assets/image-20230204161756236.png">
-
-<img src="./assets/image-20230204161815484.png">
-
-根据 r 表构造最优二叉搜索树
-
-<img src="./assets/image-20230204161919685.png">
-
-伪代码
-
-```c
-OptimalBST(p[1..n])
-	for i ← 1 to n
-		c[i, i − 1] ← 0
-		c[i, i] ← p[i]
-		r[i, i] ← i
-		c[n + 1, n] ← 0
-	for l ← 1 to n
-		for i ← 1 to n − l + 1
-			j ← i + l − 1
-			minval ← ∞
-			for k ← i to j
-				if c[i, k − 1] + c[k + 1, j] < minval
-					minval ← c[i, k − 1] + c[k + 1, j]
-  					kmin ← k
-				r[i, j] ← kmin
-  				psum ← p[i]
-				for s ← i + 1 to j
-					psum ← psum + p[s]
-				c[i, j] ← minval + psum
-	return c[1, n], r
+    public int lastRemaining(int n) {
+        return dp(n);
+    }
+}
 ```
 
-时间复杂度：O(n^3)
+### 猫和老鼠
 
-## 贪心算法
+力扣 913：[猫和老鼠](https://leetcode.cn/problems/cat-and-mouse/)
 
-经典算法：活动选择问题，装载问题，哈夫曼编码，单源最短路径，最小生成树
+> 数据结构：无向图
+> 
+> 算法：动态规划、深度优先搜索、递归
+> 
+> 算尽从初始点穷尽努力的结果，没有变数
 
-概述：一步一步构建问题的最优解决方案，其中每一步只考虑眼前的最佳选择，不是为了找到全部解，而只是找出一种可行解（众所周知局部最优解叠加不一定是全局最优解）
+```java
+package com.solution;
 
-贪心算法产生最优解的条件
+import java.util.Arrays;
 
-- 贪心选择性：若一个优化问题的全局最优解可以通过局部最优选择得到，则该问题称为具有贪心选择性
-- 最优子结构：若一个优化问题的最优解包括它的子问题的最优解，则称其具有最优子结构
-- 局部最优选择
+public class MouseCatGame {
 
-动态规划和贪心算法的明显区别：动态规划每一步做出一个选择，该选择**依赖**于子问题的解；贪心算法每一步做出一个选择，该选择**不依赖**于子问题的解
+    private static final int catWin = 2;
+    private static final int draw = 0;
+    private static final int mouseWin = 1;
 
-### 活动安排问题
+    private int n;
+    private int[][][] dp;
+    private int[][] graph;
 
-就是无重叠区间，找出一系列活动中，活动区间不重叠的活动，返回不重叠的活动数量
+    public int mouseCatGame(int[][] graph){
+        n = graph.length;
+        dp = new int[n][n][2*n];
+        for(int[][] i: dp){
+            for(int[] j: i){
+                Arrays.fill(j, -1);
+            }
+        }
+        this.graph = graph;
+        return getRes(1, 2, 0);
+    }
+
+    public int getRes(int mouse, int cat, int steps){
+        if(steps >= 2*n){
+            return draw;
+        }
+        if(dp[mouse][cat][steps] < 0){
+            if(mouse == 0){
+                dp[mouse][cat][steps] = mouseWin;
+            } else if(mouse == cat){
+                dp[mouse][cat][steps] = catWin;
+            } else{
+                getNextRes(mouse, cat, steps);
+            }
+        }
+        return dp[mouse][cat][steps];
+    }
+
+    public void getNextRes(int mouse, int cat, int steps){
+        int curMove = steps%2 == 0 ? mouse:cat;
+        int defaultRes = curMove==mouse ? catWin:mouseWin;
+        int res = defaultRes;
+        for(int nextStep: graph[curMove]){
+            if(curMove == cat && nextStep == 0){
+                continue;
+            }
+            int mouseNextStep = curMove==mouse ? nextStep:mouse;
+            int catNextStep = curMove==cat ? nextStep:cat;
+            int nextRes = getRes(mouseNextStep, catNextStep, steps+1);
+            if(nextRes != defaultRes){
+                res = nextRes;
+                if(res != draw){
+                    break;
+                }
+            }
+        }
+        dp[mouse][cat][steps] = res;
+    }
+}
+```
+
+### 最长递增子序列的个数
+
+力扣 673：[最长递增子序列的个数](https://leetcode.cn/problems/number-of-longest-increasing-subsequence/)
+
+> `dp[i]`记录下标`i`元素能构成的最长递增子序列的长度
+> 
+> `count[i]`记录下标`i`元素构成最长递增子序列的道路总数
+
+```java
+package com.solution;
+
+import java.util.Arrays;
+
+//1073741824
+public class FindNumberOfLIS {
+    private int[] dp;
+    private int[] count;
+
+    public int buildDp(int[] nums){
+        int n = nums.length;
+        dp = new int[n];
+        count = new int[n];
+        int maxLength = 1;
+        for(int i = 0; i < n; i++){
+            dp[i] = 1;
+            count[i] = 1;
+            for(int j = 0; j < n; j++){
+                if(nums[j] < nums[i]){
+                    if(dp[j] >= dp[i]){
+                        dp[i] = dp[j]+1;
+                        //重置计数
+                        count[i] = count[j];
+                    } else if(dp[i] == dp[j]+1){
+                        count[i] += count[j];
+                    }
+                }
+            }
+            maxLength = Math.max(maxLength, dp[i]);
+        }
+        return maxLength;
+    }
+
+    public int findNumberOfLIS(int[] nums){
+        int res = 0;
+        int n = nums.length;
+        int maxLength = buildDp(nums);
+        if(maxLength == 1){
+            return n;
+        }
+        for(int i = 1; i < n; i++){
+            if(dp[i] == maxLength){
+                res += count[i];
+            }
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        FindNumberOfLIS findNumberOfLIS = new FindNumberOfLIS();
+        int[] nums = {0,2,1,4,3,6,5,8,7,10,9,12,11,14,13,16,15,18,17,20,19,22,21,24,23,26,25,28,27,30,29,32,31,34,33,36,35,38,37,40,39,42,41,44,43,46,45,48,47,50,49,52,51,54,53,56,55,58,57,60,59,61};
+        System.out.println(findNumberOfLIS.findNumberOfLIS(nums));
+    }
+}
+```
+
+### 统计元音字母序列的数目
+
+力扣 1220：[统计元音字母序列的数目](https://leetcode.cn/problems/count-vowels-permutation/)
+
+字符串中的每个字符都应当是小写元音字母（`a, e, i, o, u`）
+每个元音`a`后面都只能跟着`e`
+每个元音`e`后面只能跟着`a`或者是`i`
+每个元音`i`后面 不能 再跟着另一个`i`
+每个元音`o`后面只能跟着`i`或者是`u`
+每个元音`u`后面只能跟着`a`
+
+> 动态规划，`dp[i][j]`表示长度为`i`、以`j`结尾的元音字母序列的数目
+> 
+> 其中`j=0—>a, j=1->e, j=2->i, j=3->o, j=4->u`
+
+```java
+class Solution {
+    public int countVowelPermutation(int n) {
+        int mod = 1000000007;
+        long[] dp = new long[5];
+        long[] next = new long[5];
+        //初始化dp[1][i]
+        for(int i = 0; i < 5; i++){
+            dp[i] = 1;
+        }
+        //通过dp[cur][i]逐步构造dp[next][i]
+        for(int i = 2; i <= n; i++){
+            next[0] = (dp[1]+dp[2]+dp[4]) % mod;
+            next[1] = (dp[0]+dp[2]) % mod;
+            next[2] = (dp[1]+dp[3]) % mod;
+            next[3] = dp[2];
+            next[4] = (dp[2]+dp[3]) % mod;
+            System.arraycopy(next, 0, dp, 0, 5);
+        }
+        //至此dp[n][i]构造完毕，直接将五种序列（根据末尾区分）数目相加即可
+        long ans = 0;
+        for(int i = 0; i < 5; i++){
+            ans = (dp[i]+ans) % mod;
+        }
+        return (int)ans;
+    }
+}
+```
+
+数组总和Ⅳ（377）
+
+矩阵区域不超过k的最大数值和（363）
+
+最小操作次数使数组元素相等（453）
+
+## KMP
+
+Knuth-Morris-Pratt
+
+### 已知 next 数组匹配字符串
+
+```c
+#include <iostream>
+#include <string.h>
+#include <algorithm> 
+using namespace std;
+
+
+int main(){
+
+    char str[1000];
+    char dist[1000];
+    cin >> str >> dist;
+
+    //cout << str << " " << dist << endl;
+    int count = 0, m = strlen(str), n = strlen(dist);
+    int pos[m];
+
+
+    int next[n];
+    for(int i = 0; i < n; i++){
+        cin >> next[i];
+    }
+
+
+
+    //cout << m << " " << n << endl;
+    int i = 0, j = 0;
+    while(i < m && j < n){
+        if(j == -1 || tolower(str[i])==tolower(dist[j])){
+            i++;
+            j++;
+        } else {
+            j = next[j];
+        }
+        if(j == n){
+            pos[count++] = i-j+1;
+            i = i-1-next[j-1];
+            j = 0;
+        }        
+    }
+
+
+    cout << count << endl;
+    for(i = 0; i < count; i++){
+        cout << pos[i] << endl;
+    }
+
+    return 0;
+}
+```
+
+实现strStr()（28）
+
+重复叠加字符串匹配（686）
+
+重复的子字符串（459）
+
+最短回文串（214）
+
+## 前缀和
+
+> ProfixSum
+
+### 区域和检索-数组不可变
+
+力扣 303：[区域和检索 - 数组不可变](https://leetcode.cn/problems/range-sum-query-immutable/)
+
+```java
+//优化解法：前缀和
+class NumArray {
+
+    private int[] nums;
+
+    public NumArray(int[] nums) {
+        int n = nums.length;
+        this.nums = new int[n+1];
+        for(int i = 0; i < n; i++){
+            //储存前 i 个的和在数组 this.nums 中，用 nums[j+1]-nums[i] 可以得到第i个数到第j个数的和
+            this.nums[i+1] = this.nums[i] + nums[i];
+        }
+    }
+
+    public int sumRange(int left, int right) {
+        int res = nums[right + 1] - nums[left]; 
+        return res;
+    }
+}
+
+/**
+ * Your NumArray object will be instantiated and called as such:
+ * NumArray obj = new NumArray(nums);
+ * int param_1 = obj.sumRange(left,right);
+ */
+```
+
+### 二维区域和检索-矩阵不可变
+
+力扣 304：[二维区域和检索 - 矩阵不可变](https://leetcode.cn/problems/range-sum-query-2d-immutable/)
+
+```java
+//采用303的优化解法：一维前缀和
+class NumMatrix {
+
+    private int[][] matrix;
+
+    public NumMatrix(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        this.matrix = new int[m][n+1];
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                this.matrix[i][j+1] = this.matrix[i][j] + matrix[i][j];
+            }
+        }
+    }
+
+    public int sumRegion(int row1, int col1, int row2, int col2) {
+        int res = 0;
+        for(int i = row1; i <= row2; i++){
+            res += matrix[i][col2+1] - matrix[i][col1];
+        }
+        return res;
+    }
+}
+
+/**
+ * Your NumMatrix object will be instantiated and called as such:
+ * NumMatrix obj = new NumMatrix(matrix);
+ * int param_1 = obj.sumRegion(row1,col1,row2,col2);
+ */
+```
+
+### 和为 k 的子数组
+
+力扣 560：[和为 K 的子数组](https://leetcode.cn/problems/subarray-sum-equals-k/)
+
+用`map<int,int>`记录前缀和及其出现次数
+
+- cur 为当前和，即 sum(0, i)
+
+- map 中记录了各个位置 j 的前缀和，即 sum(0, j)
+
+- sum(0, i) - sum(0, j) = sum(j, i)，若 sum(j, i) == target，则存在和为 target 的连续子数组（下标从 j 到 i）
+
+- 同时用 map->second 记录该前缀和出现次数，存在则直接加上 map[pre]
+
+```c
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        int n = nums.size();
+        map<int, int> m;
+        m[0] = 1;
+        int count = 0, cur = 0;
+        for(int i = 0; i < n; i++){
+            cur += nums[i];
+            if(m.count(cur-k)){
+                count += m[cur-k];
+            }
+            m[cur]++;
+        }
+        return count;
+    }
+};
+```
+
+环绕字符串中唯一的子字符串（467）
+
+区间子数组个数（795）
+
+水果成篮（904）
+
+K个不同的整数的子数组（992）
+
+航班预订统计（1109）
+
+连续数组（525）
+
+[零钱兑换](https://leetcode.cn/problems/coin-change/)
+
+[整数拆分](https://leetcode.cn/problems/integer-break/)
+
+[编辑距离](https://leetcode.cn/problems/edit-distance/)
+
+## 贪婪算法
+
+> 贪心算法，Greedy
+
+### 买卖股票的最佳时机
+
+力扣 121：[买卖股票的最佳时机](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/)
+
+```c
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int pre = prices[0];
+        int res = 0;
+        for(int i = 1; i < prices.size(); i++){
+            int cur = prices[i];
+            if(cur > pre){
+                res = max(res, cur-pre);
+            } else {
+                pre = cur;
+            }
+        }
+        return res;
+    }
+};
+```
+
+### 递增的三元子序列
+
+力扣 334：[递增的三元子序列](https://leetcode.cn/problems/increasing-triplet-subsequence/)
+
+```c
+class Solution {
+public:
+    bool increasingTriplet(vector<int>& nums) {
+        int n = nums.size();
+        int first = nums[0], second = INT_MAX;
+        for(int i = 1; i < n; i++){
+            if(nums[i] > second){
+                return true;
+            } else if(nums[i] > first){
+                second = nums[i];
+            } else if(nums[i] < first){
+                first = nums[i];
+            }
+        }
+        return false;
+    }
+};
+```
+
+
+
+### 合并区间
+
+力扣 56：[合并区间](https://leetcode.cn/problems/merge-intervals/)
+
+```c
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        vector<vector<int>> res;
+        sort(intervals.begin(), intervals.end());
+        for(int i = 0; i < intervals.size(); i++){
+            vector<int> cur = intervals[i];
+            if(res.empty() || cur[0] > res.back()[1]){
+                res.push_back(cur);
+            }
+            if(cur[1] > res.back()[1]){
+                res.back()[1] = cur[1];
+            }
+        }
+        return res;
+    }
+};
+```
+
+### 无重叠区间
 
 力扣 435：[无重叠区间](https://leetcode.cn/problems/non-overlapping-intervals/)
-
-将活动按照结束时间从小到大排序，以满足**贪心选择性**，遍历一次得到结果
 
 ```c
 class Solution {
@@ -321,130 +742,46 @@ public:
 };
 ```
 
-因为要根据每个活动的结束时间对活动进行排序后再遍历，所以时间复杂度为
-$$
-T(n) = Θ(n) + Θ(nlogn) = Θ(nlogn)
-$$
+### 划分字母区间
 
-### 最优装载
-
-n 为集装箱总数，c 为船载重，w 数组记录每个集装箱的重量，要求往穿上装载最多的集装箱
-
-示例：假设 n = 3，c = 50，且 w = [10, 40, 40]
-
-- 则可以将集 装箱 1 和 2 装到轮船上
-- 如果 w = [60, 70, 70]，则无法装船，即该装载问题无解
-
-就是把重量从小到大排序，使问题满足贪心选择性，然后遍历，若可以装，则加一，否则退出
+力扣 763：[划分字母区间](https://leetcode.cn/problems/partition-labels)
 
 ```c
-int opt_loading(int c, int[] w, int n){
-    sort(w.begin(), w.end());
-    int count = 0;
-    for(int i: w){
-        if(i <= c){
-            count++;
-            c -= i;
+class Solution {
+public:
+    vector<int> partitionLabels(string s) {
+        map<char,vector<int>> m;
+        for(int i = 0; i < s.length(); i++){
+            char cur = s[i];
+            if(m.count(cur)){
+                m[cur][1] = i;
+            } else {
+                m[cur] = {i, i};
+            }
         }
+        vector<vector<int>> vec;
+        for(auto v: m){
+            vec.push_back(v.second);
+        }
+        sort(vec.begin(), vec.end());
+        vector<vector<int>> merged;
+        for(int i = 0; i < vec.size(); i++){
+            vector<int> cur = vec[i];
+            if(merged.empty() || cur[0] > merged.back()[1]){
+                merged.push_back(cur);
+            }
+            if(cur[1] > merged.back()[1]){
+                merged.back()[1] = cur[1];
+            }
+        }
+        vector<int> res;
+        for(int i = 0; i < merged.size(); i++){
+            res.push_back(merged[i][1]-merged[i][0]+1);
+        }
+        return res;
     }
-    return count;
-}
+};
 ```
 
-### 哈夫曼编码
+文本左右对齐（68）
 
-> 哈夫曼编码广泛用于数据文件压缩的十分有效的编码方法
->
-> 哈夫曼编码算法使用字符在文件中出现的频率表来建立一个用 0, 1 串表示各字符的最优表示方式
-
-就是用一个`0,1`串表示某个字符，如用`000`表示`a`，用`001`表示`b`
-
-定长表示：用长度固定的 01 串表示字符
-
-<img src="./assets/image-20230204181518755.png">
-
-共需 (45+13+12+16+9+5) x 1000 x 3 = 300000 位码来表示这个文件
-
-变长表示
-
-<img src="./assets/image-20230204181719353.png">
-
-前缀码：使得一个 0/1 串可以被唯一分解（同计网划分子网）
-
-如
-
-<img src="./assets/image-20230204185912861.png">
-
-二叉编码树
-
-<img src="./assets/image-20230204190006566.png">
-
-编码树 T 的代价 B(T) 为
-
-- C 为字母表
-- f(c) 为字母 c 出现次数
-- d(c) 为字母 c 在编码树 T 的深度
-
-$$
-B(T) = \sum_{c∈C}f(c)d_T(c)
-$$
-
-Huffman 算法：产生最优前缀编码树令 B(T) 最小，**每次选取出现次数最少的两个字符组成一颗子树并作为当前最小生成树**，这颗子树的值为两个字符出现次数之和，不断执行这一过程直到只剩一个分支
-
-同样的，因为每次都要选取最小的两颗子树，涉及到排序，哈夫曼算法的时间复杂度：O(nlogn)
-
-### 单源最短路径 - Dijkstra
-
-> Dijkstra 算法
-
-<img src="./assets/image-20230204201010246.png">
-
-Dijkstra 算法
-
-从起点 1 开始，每次**选取距离最近的节点进行迭代**，每次迭代都要更新所有节点到起点 1 的距离，若更近则更新，**直到终点被迭代到**
-
-- 被选取就意味其到起点的最短距离已被确定
-
-<img src="./assets/image-20230204201259220.png">
-
-### 最小生成树
-
-将一个无向带权图 G 转化为一棵树 G'，G' 包含 G 的所有顶点，G‘ 为 G 的生成树
-
-- 生成树 T 上各边权的总和称为该生成树的代价，记作 c(T) = P (u,v)∈T c(u, v)
-- 在 G 的所有生成树中, 代价最小的生成树称为 G 的最小生成树
-
-如
-
-<img src="./assets/image-20230204210328389.png">
-
-生成树 1 代价为 17，生成树 2 的代价为 25
-
-MST 性质：最小生成树一定包含当前图中权最小的一条边
-
-#### PRIM 算法
-
-PRIM 算法，基于 MST 性质，根据已有的节点扩展边和节点
-
-- 每次扩展当前权重最小的边：边的一个节点属于已有的生成树，另一个属于无向图中还未加入到生成树的节点
-- 将当前最小的边和节点加入生成图，删除原图中的节点和边，继续下一轮扩展
-
-示例
-
-<img src="./assets/image-20230204211011529.png">
-
-####  KRUSKAL 算法
-
-Kruskal 算法：从无向图出发，每次寻找权重最小的边，将其**联合**进最小生成树
-
-示例
-
-<img src="./assets/image-20230204211459872.png">
-
-两种算法时间复杂度均为：`O(ElogE)`
-
-当输入规模不同时（和 n^2 为对比），两算法有所差距
-$$
-E = Ω(n^2)\,\,Kruskal<Prim\\
-E = O(n^2)\,\,Kruskal>>Prim\\
-$$

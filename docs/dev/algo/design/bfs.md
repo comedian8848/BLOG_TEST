@@ -1,5 +1,5 @@
 ---
-title: 宽度优先搜索 - Dijkstra
+title: 宽度优先搜索及分支限界法
 date: 2021-6-22
 tags:
   - Algorithm

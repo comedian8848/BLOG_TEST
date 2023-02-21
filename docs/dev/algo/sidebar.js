@@ -3,9 +3,9 @@ module.exports = [
 		title: "算法设计与分析",
 		collapsable: true,
 		children: [
-			'./design/outline-recursive-divide',
-			'./design/dp-greedy',
-			'./design/backtracking-branchbound-lp-networkflow',
+			'./basic/outline-recursive-divide',
+			'./basic/dp-greedy',
+			'./basic/backtracking-branchbound-lp-networkflow',
 		]
 	},
 
@@ -13,18 +13,18 @@ module.exports = [
 		title: "算法实现",
 		collapsable: true,
 		children: [
-			'./achieve/modeling-hash-binary',
-			'./achieve/recursion-divide',
+			'./design/modeling-hash-binary',
+			'./design/recursion-divide',
 			{
 				title: "搜索 - 排序",
 			    	collapsable: true,
 			    	children: [
-			        		'./achieve/bfs',
-		    	        		'./achieve/dfs-backtracking',
-			        		'./achieve/sort',
+			        		'./design/bfs',
+		    	        		'./design/dfs-backtracking',
+			        		'./design/sort',
 			    	]
 		   	 },
-			'./achieve/dp-greedy',
+			'./design/dp-greedy',
 		]
 	},
 

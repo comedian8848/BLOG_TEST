@@ -1,5 +1,5 @@
 ---
-title: 模拟 - 哈希 - 位运算
+title: 模拟算法、哈希算法和位运算
 date: 2021-6-22
 tags:
   - Algorithm
@@ -324,9 +324,7 @@ public:
 };
 ~~~
 
-## 单调栈
-
-### 下一个更大元素 Ⅰ
+### 单调栈
 
 [496. 下一个更大元素 I - 力扣（Leetcode）](https://leetcode.cn/problems/next-greater-element-i/)
 
@@ -361,9 +359,7 @@ public:
 };
 ```
 
-## 摩尔投票法
-
-### 多数元素
+### 摩尔投票法
 
 力扣 169：[多数元素](https://leetcode.cn/problems/majority-element/)
 
@@ -399,9 +395,9 @@ public:
 
 找出数组中数量大于 n/3 的数
 
-## 设计哈希
+## 哈希算法
 
-### 设计哈希集合
+### 哈希设计
 
 力扣 705：[设计哈希集合](https://leetcode.cn/problems/design-hashset/)
 
@@ -458,8 +454,6 @@ public:
     }
 };
 ```
-
-### 设计哈希映射
 
 力扣 706：[设计哈希映射](https://leetcode.cn/problems/design-hashmap/)
 
@@ -519,8 +513,6 @@ public:
 };
 ```
 
-## 字符串哈希
-
 ### 单词规律
 
 力扣 290：[单词规律](https://leetcode.cn/problems/word-pattern/?envType=study-plan&id=shu-ju-jie-gou-ji-chu)
@@ -561,6 +553,8 @@ public:
 };
 ```
 
+> 字符串哈希
+
 ### 根据字符出现频率排序
 
 力扣 451：[根据字符出现频率排序](https://leetcode.cn/problems/sort-characters-by-frequency/)
@@ -596,9 +590,7 @@ public:
 };
 ```
 
-
-
-## 链表哈希
+> 链表哈希
 
 ### 环形链表 II
 
@@ -631,7 +623,7 @@ public:
 };
 ```
 
-## 图哈希
+> 图哈希
 
 ### 找到小镇的法官
 
