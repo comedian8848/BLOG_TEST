@@ -16,9 +16,10 @@ module.exports = [
     {
        	text: 'Developer',
 	items: [
-	    {text: 'Front End', link: '/dev/fe/'},
+	    {text: 'Algorithm', link: '/dev/algo/'},
 	    {text: 'Java', link: '/dev/java/'},
 	    {text: 'Operations', link: '/dev/ops/'},
+	    {text: 'Front End', link: '/dev/fe/'},
         ]
     },
 

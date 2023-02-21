@@ -29,41 +29,6 @@ module.exports = [
 		]
 	},
 	
-	
-	{
-		title: '算法',
-		collapsable: true,
-		children: [
-			{
-			    title: "算法设计与分析",
-			    collapsable: true,
-			    children: [
-				'./algo/basic/outline-recursive-divide',
-				'./algo/basic/dp-greedy',
-				'./algo/basic/backtracking-branchbound-lp-networkflow',
-			    ]
-		   	 },	
-			{
-			    title: "算法实现",
-			    collapsable: true,
-			    children: [
-				'./algo/leetcode/modeling-hash-binary',
-				'./algo/leetcode/recursion-divide',
-				{
-			    		title: "搜索 - 排序",
-			    		collapsable: true,
-			    		children: [
-			        			'./algo/leetcode/bfs',
-		    	        			'./algo/leetcode/dfs-backtracking',
-			        			'./algo/leetcode/sort',
-			    		]
-		   	 	},
-				'./algo/leetcode/dp-greedy',
-			    ]
-		   	 },				
-		]
-	},
-	
 
 	
 	{

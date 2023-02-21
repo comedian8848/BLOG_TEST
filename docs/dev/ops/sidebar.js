@@ -17,17 +17,25 @@ module.exports = [
 		]
 	},
 
+	{
+		title: 'Miscellaneous',
+		collapsable: true,
+		children: [
+		    './misc/wechall',
+		    './misc/git',
+		]
+	},
 
 	{
-		title: '中间件',
+		title: 'Middleware',
 		collapsable: true,
 		children: [
 		    {
 			title: "数据库",
 			collapsable: true,
 			children: [
-			    './middleware/mysql',
-			    './middleware/redis',
+			    './mid/mysql',
+			    './mid/redis',
 			]
 		    },
 		   
@@ -35,21 +43,12 @@ module.exports = [
 			title: "Docker",
 			collapsable: true,
 			children: [
-			    './middleware/docker-base',
-			    './middleware/docker-advanced',			
+			    './mid/docker-base',
+			    './mid/docker-advanced',			
 			]
 		    },	
-		    './middleware/rabbitmq',
+		    './mid/rabbitmq',
 		]
 	},
 
-	
-	{
-		title: '工具',
-		collapsable: true,
-		children: [
-		    './tool/wechall',
-		    './tool/git',
-		]
-	},
 ]

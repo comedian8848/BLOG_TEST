@@ -1,6 +1,7 @@
 //对侧边栏的主管控
 module.exports = {
 
+	'/dev/algo/': require('../dev/algo/sidebar'),
 	'/dev/fe/': require('../dev/fe/sidebar'),
 	'/dev/java/': require('../dev/java/sidebar'),
 	'/dev/ops/': require('../dev/ops/sidebar'),
