@@ -5,13 +5,13 @@ module.exports = [
 		title: '计算机组成原理',
 		collapsable: true,
 		children: [
-			'./basic/outline',	
-			'./basic/num',	
-			'./basic/memory',
-			'./basic/instruction',
-			'./basic/cpu',
+			'./basic/outline',
 			'./basic/bus',
+			'./basic/cpu',
+			'./basic/memory',
 			'./basic/io',
+			'./basic/num',	
+			'./basic/instruction',
 		]
 	},
 
