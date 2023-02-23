@@ -1,5 +1,5 @@
 ---
-title: 五级流水 CPU
+title: 五级流水 CPU 设计
 date: 2023-1-2
 ---
 
@@ -684,7 +684,7 @@ endmodule
 
 ## 流水线分级
 
-### if_id
+if_id
 
 if_id.v：连接程序计数器 pc 和译码器 id
 
@@ -714,7 +714,7 @@ module if_id(
 endmodule
 ```
 
-### id_ex
+id_ex
 
 id_ex.v：连接译码器 id 和运算器 alu
 
@@ -778,7 +778,7 @@ module id_ex(
 endmodule
 ```
 
-### ex_mem
+ex_mem
 
 ex_mem.v：连接运算器 alu 和访存模块 mem
 
@@ -825,7 +825,7 @@ module ex_mem(
 endmodule
 ```
 
-### mem_wd
+mem_wd
 
 mem_wd.v：把结果回写到 regfile
 
@@ -969,7 +969,7 @@ endmodule
 
 ## 编码器
 
-### decoder_5_32
+decoder_5_32：5-32 编码器
 
 decoder_5_32.v
 
@@ -990,7 +990,7 @@ module decoder_5_32(
 endmodule
 ```
 
-### decoder_6_64
+decoder_6_64：6-64 编码器
 
 decoder_6_64.v
 
