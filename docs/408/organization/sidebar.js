@@ -7,11 +7,11 @@ module.exports = [
 		children: [
 			'./basic/outline',
 			'./basic/bus',
-			'./basic/cpu',
 			'./basic/memory',
 			'./basic/io',
 			'./basic/num',	
 			'./basic/instruction',
+			'./basic/cpu',
 		]
 	},
 
@@ -19,10 +19,10 @@ module.exports = [
 		title: '电子技术基础',
 		collapsable: true,
 		children: [
-			'./digitalcircuit/door',
-			'./digitalcircuit/combine',
-			'./digitalcircuit/trigger',
-			'./digitalcircuit/time',		
+			'./circuit/door',
+			'./circuit/combine',
+			'./circuit/trigger',
+			'./circuit/time',		
 		]
 	},
 
@@ -34,8 +34,8 @@ module.exports = [
 			    title: "Verilog",
 			    collapsable: true,
 			    children: [
-					'./integratedcircuit/verilog-base',
-					'./integratedcircuit/verilog-advanced',
+					'./ic/verilog-base',
+					'./ic/verilog-cpu',
 			    ]
 			},
 		]

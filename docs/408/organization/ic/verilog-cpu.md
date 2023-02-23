@@ -1,73 +1,9 @@
 ---
-title: Verilog 进阶
+title: 五级流水 CPU
 date: 2023-1-2
 ---
 
-## 32 位除法器
-
-<img src="./assets/div.png">
-
-设计代码：div32.v
-
-- temp_a 为被除数的两倍扩展，为了合拍同理要把除数扩展
-- temp_a 高 32 位存的余数，低 32 位存的商，运算过程如上图
-- 当 temp_a >= temp_b 时，商 1，填补到 temp_a[0]，再整体左移一位，进行下一轮运算，当小于时，商 0 再左移
-
-```verilog
-`timescale 1ns / 1ps
-
-module div32(
-    input [31:0] a,
-    input [31:0] b,
-    output [31:0] result,
-    output [31:0] remainder
-    ); 
-    reg[63:0] temp_a;
-    reg[63:0] temp_b;
-        
-    integer i;
-    always @ (*) begin
-        temp_a = {32'd0, a};
-        temp_b = {b, 32'd0};
-        for(i = 0; i < 32; i = i+1) begin
-            temp_a = temp_a << 1;
-            if(temp_a >= temp_b) begin
-                temp_a = temp_a - temp_b + 1;
-            end
-        end
-    end
-    assign result = temp_a[31:0];
-    assign remainder = temp_a[63:32];
-endmodule
-```
-
-测试代码：div32_tb.v
-
-```verilog
-`timescale 1ns / 1ps
-
-module div32_tb(
-    );
-    reg [31:0] a;
-    reg [31:0] b;
-    wire [31:0] result;
-    wire [31:0] remainder;
-    
-    div32 div320(a, b, result, remainder);
-    
-    integer i;
-    initial begin
-        b = 32'd7;
-        for(i = 102; i < 152; i = i+1) begin
-            #20
-            a = i;
-        end
-        #1000 $finish;
-    end
-endmodule
-```
-
-## 五级流水 CPU
+## 流水线 CPU 概述
 
 在单周期 CPU 里，一个 clk 上升沿将完成以下内容：取值 - 译码 - 执行 - 回写
 
@@ -101,7 +37,7 @@ endmodule
 
 数据前推：为了解决“读后写”，在 ex 模块（alu）和 mem 访存模块做了一个**数据前推**，即提前将执行结果回送到寄存器 regfile，注意是回送，并不是回写，当下一条指令读数据时，提前进行判断，若读地址和上一条指令的写地址相同，不从实际的 a 地址取数据，而是直接把后续模块回送的数据赋值给要读的数据 reg_data，实现实时更新
 
-### SOPC
+## SOPC
 
 > System on programmable chip
 
@@ -122,7 +58,7 @@ module mips_sopc(
 endmodule
 ```
 
-### 五级流水 CPU
+## 五级流水 CPU
 
 cpu.v
 
@@ -288,7 +224,7 @@ wire memregwe;//
 endmodule
 ```
 
-### 存储器 ROM
+## 存储器 ROM
 
 inst_rom.v
 
@@ -320,7 +256,7 @@ module inst_rom(
 endmodule
 ```
 
-### 程序计数器 PC
+## 程序计数器 PC
 
 pc.v
 
@@ -362,7 +298,7 @@ module pc(
 endmodule
 ```
 
-### 译码器 ID
+## 译码器 ID
 
 id.v
 
@@ -565,7 +501,7 @@ module id(
 endmodule
 ```
 
-### 运算器 ALU
+## 运算器 ALU
 
 alu.v
 
@@ -664,7 +600,7 @@ module alu(
 endmodule
 ```
 
-### 访存模块 MEM
+## 访存模块 MEM
 
 mem.v
 
@@ -746,9 +682,9 @@ module mem(
 endmodule
 ```
 
-### 流水线分级
+## 流水线分级
 
-#### if_id
+### if_id
 
 if_id.v：连接程序计数器 pc 和译码器 id
 
@@ -778,7 +714,7 @@ module if_id(
 endmodule
 ```
 
-#### id_ex
+### id_ex
 
 id_ex.v：连接译码器 id 和运算器 alu
 
@@ -842,7 +778,7 @@ module id_ex(
 endmodule
 ```
 
-#### ex_mem
+### ex_mem
 
 ex_mem.v：连接运算器 alu 和访存模块 mem
 
@@ -889,7 +825,7 @@ module ex_mem(
 endmodule
 ```
 
-#### mem_wd
+### mem_wd
 
 mem_wd.v：把结果回写到 regfile
 
@@ -920,7 +856,7 @@ module mem_wb(
 endmodule
 ```
 
-### 寄存器 Regfile
+## 寄存器 Regfile
 
 regfile.v
 
@@ -1031,9 +967,9 @@ module regfile(
 endmodule
 ```
 
-### 编码器
+## 编码器
 
-#### decoder_5_32
+### decoder_5_32
 
 decoder_5_32.v
 
@@ -1054,7 +990,7 @@ module decoder_5_32(
 endmodule
 ```
 
-#### decoder_6_64
+### decoder_6_64
 
 decoder_6_64.v
 
