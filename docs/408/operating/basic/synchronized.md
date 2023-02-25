@@ -274,11 +274,11 @@ void(semaphore S){
 
 缺点：wait 操作可能导致忙等；不遵循“让权等待”准则
 
-- 让权等待：当进程无法进入临界区时，主动释放资源，放弃进入
+让权等待：当进程无法进入临界区时，主动释放资源，放弃进入
 
 2、记录型信号量：结构体，又一个整型变量 value 和一个进程链表 L 构成
 
-- value 大于 0，表示资源有 value 个；小于 0，说明阻塞队列中有 -value 个进程
+value 大于 0，表示资源有 value 个；小于 0，说明阻塞队列中有 -value 个进程
 
 定义
 
@@ -528,13 +528,13 @@ void main(){
 }
 ```
 
-就是把 wait(full/empty )和 wait(mutex) 访权封装了一下，同理封装了 signal(full/empty) 和 signal(mutex)
+就是把`wait(full/empty)`和`wait(mutex)`访权封装了一下，同理封装了`signal(full/empty)`和`signal(mutex)`
 
-- 但注意这里封装之后，是先判断再阻塞，即先判断 full/empty 以及 mutex 之后，选择性进入 while 循环等待
+但注意这里封装之后，是先判断再阻塞，即先判断`full/empty`以及`mutex`之后，选择性进入`while`循环等待
 
 3、管程：建立名为 PC 的管程，包含 put 和 get 两个进程用于存取产品，用 count 记录缓冲池中产品数量，用条件变量 condition 记录当前缓冲池的状态（满、空），当调用 Cwait() 阻塞后，进入 condition 的阻塞队列，Csignal() 可唤醒由 Cwait() 阻塞的进程（阻塞队列为空则不用唤醒）
 
-```c++
+```c
 class PC{
 private:
     int in = 0, out = 0, count = 0;
