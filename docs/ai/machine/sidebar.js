@@ -1,6 +1,6 @@
 module.exports = [
 	{
-		title: 'Sklearn',
+		title: 'Scikit-Learn',
 		collapsable: true,
 		children: [
 			'./sklearn/classifier',

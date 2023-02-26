@@ -40,7 +40,7 @@ module.exports = [
 	    {text: 'Python', link: '/ai/python/'},
 	    {text: 'Math', link: '/ai/math/'},
 	    {text: 'Machine Learning', link: '/ai/machine/'},
-	    //{text: 'Deep Learning', link: '/ai/deep/'}
+	    {text: 'Deep Learning', link: '/ai/deep/'}
 	]
     }
 

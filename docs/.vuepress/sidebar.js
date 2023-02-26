@@ -16,4 +16,5 @@ module.exports = {
 	'/ai/math/': require('../ai/math/sidebar'),
 	'/ai/python/': require('../ai/python/sidebar'),
 	'/ai/machine/': require('../ai/machine/sidebar'),
+	'/ai/deep/': require('../ai/deep/sidebar'),
 }	

@@ -5,7 +5,7 @@ tags:
 	- linux
 ---
 
-	安卓 linux 模拟器，非虚拟机，在 chroot 作用下可在非 root 环境下工作运行
+> 安卓 linux 模拟器，非虚拟机，在 chroot 作用下可在非 root 环境下工作运行，类似于 wsl
 
 ## 下载安装
 
@@ -19,4 +19,10 @@ pkg install git
 pkg install python
 pkg install python-pip
 ```
+
+## GIt 配置
+
+
+
+## MySQL 配置
 

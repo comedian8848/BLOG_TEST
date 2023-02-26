@@ -20,10 +20,10 @@ module.exports = [
 		title: '数据科学库',
 		collapsable: true,
 		children: [
-			'./library/numpy',
-			'./library/pandas',
-			'./library/scipy',
-			'./library/visual',
+			'./lib/numpy',
+			'./lib/pandas',
+			'./lib/scipy',
+			'./lib/visual',
 		]
 	},
 
