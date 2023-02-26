@@ -1,5 +1,5 @@
 ---
-title: Centos
+title: CentOS7
 date: 2021-5-4
 tags:
   - Linux
@@ -8,38 +8,31 @@ categories:
   - WebApp
 ---
 
-> 第一台服务器：centos7.6（基于Red Hat Linux）
+> 第一台服务器：CentOS7.6，基于Red Hat Linux，狗阿里坑我钱财
 >
-> 狗阿里坑我钱财
 
 ## LInux  基本使用
 
 ### 基本命令
 
-显示当前文件路径
+常用
 
 ~~~bash
+# 显示当前文件路径
 pwd
-~~~
-
-查看当前目录所有文件
-
-~~~bash
+# 查看当前目录所有文件
 ls
-~~~
-
-获取root权限
-
-~~~bash
+# 获取root权限
 sudo su
+# 切换目录
+cd
 ~~~
 
-使用vi/vim编辑器编辑文件
-
-~~~bash
-vi
 vim
-~~~
+
+```bash
+vim test.log
+```
 
 按`:`对vim进行功能选择
 
@@ -47,42 +40,25 @@ vim
 - 不保存退出：`q!`
 - 保存并退出：`wq!`
 
-创建文件夹
+文件和文件夹
 
 ~~~bash
+# 创建文件夹
 mkdir
-~~~
-
-创建文件
-
-~~~bash
+# 创建文件
 touch
-~~~
-
-查看文件
-
-~~~bash
+# 查看文件
 cat
 tail
 less
-~~~
-
-删除
-
-~~~bash
-sudo rm -rf
+# 重命名文件：将A改为B
+mv A B
 ~~~
 
 删库跑路
 
 ~~~bash
 sudo rm -rf /*
-~~~
-
-重命名文件：将A改为B
-
-~~~bash
-mv A B
 ~~~
 
 解压缩
@@ -92,33 +68,14 @@ tar -zxvf -C
 tar -xvf mysql-8.0.16-2.el7.x86_64.rpm-bundle.tar
 ~~~
 
-进入目录
+服务
 
 ~~~bash
-cd
-~~~
-
-退回上一级目录
-
-~~~bash
-cd ..
-~~~
-
-启动服务
-
-~~~bash
+# 启动
 systemctl start .service
-~~~
-
-重启服务
-
-~~~bash
+# 重启
 systemctl restart .service
-~~~
-
-停止服务
-
-~~~bash
+# 停止
 systemctl stop .service
 ~~~
 
@@ -139,7 +96,7 @@ systemctl stop .service
 - x：eXecute 执行
 
 ~~~bash
-sudo chmod +rw
+sudo chmod +rw xxx
 ~~~
 
 权限的数字表示法：所谓数字表示法，是指将r、w和x分别用4、2、1来代表，没有授予权限的则为0，然后把权限相加，如下：
@@ -157,7 +114,7 @@ sudo chmod +rw
 - 在WinSCP用服务器外网ip、linux用户名（一般为root）以及登录密码远程连接服务器文件系统
 - 在WinSCP中开启PuTTY，远程连接linux终端
 
-宝塔面板
+宝塔面板：有后门，蚌
 
 ### 自定义命令和系统服务
 
@@ -165,7 +122,6 @@ Linux设置快捷键：
 
 ~~~bash
 vim ~/.bashrc
-
 source .bashrc
 ~~~
 

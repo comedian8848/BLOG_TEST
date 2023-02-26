@@ -7,19 +7,19 @@ tags:
 
 ## 本地安装
 
-> 安装双系统
+安装双系统
 
 ### Ubuntu
 
-#### 准备
+> 准备
 
-下载镜像和U盘制作工具
+制作启动盘及本地硬盘分区
 
-分盘
+- 下载镜像和U盘制作工具
+- 分盘
+- 使用Ultraiso制作U盘（写入方式：`USB-HDD+`）
 
-使用Ultraiso制作U盘（写入方式：`USB-HDD+`）
-
-#### 安装
+> 安装
 
 跳过wifi选项，在安装界面选择：something else
 
@@ -34,9 +34,7 @@ tags:
 
 选择时区、设置密码，等待安装
 
-#### 驱动
-
-linux对硬件的支持较差
+> 网卡驱动
 
 检查是否有驱动
 
@@ -77,23 +75,20 @@ sudo apt-get upgrade
 
 > 基于Arch：[安装教程](https://blog.csdn.net/qq_27525611/article/details/109269569)
 
-#### 准备
+准备
 
-下载镜像，需要去官网下载，速度并不慢
+- 下载镜像，需要去官网下载，速度并不慢
+- 下载`Rufus`
+- 制作启动盘
 
-下载`Rufus`
-
-制作启动盘
-
-#### 安装
+安装
 
 熟悉的安装以及分区，注意可以像那篇博文一样分的很细，也可以只分`/home、/boot、/、/swap`分区，其余会自动分好
 
-#### Surface
+Surface
 
-下载驱动：[github/linux-surface](https://github.com/linux-surface/linux-surface/releases/tag/arch-5.10.10-1)
-
-B乎教程：[在Surface上安装Manjaro系统](https://zhuanlan.zhihu.com/p/345302643)
+- 下载驱动：[github/linux-surface](https://github.com/linux-surface/linux-surface/releases/tag/arch-5.10.10-1)
+- B乎教程：[在Surface上安装Manjaro系统](https://zhuanlan.zhihu.com/p/345302643)
 
 关闭`bitlocker`，选择`usb`启动，扩展坞显得尤为重要
 
@@ -520,3 +515,137 @@ sudo ln -s /usr/local/bin/redis-server /home/northboat/Desktop/redis-server
 sudo ln -s /usr/local/bin/redis-cli /home/northboat/Desktop/redis-cli
 ```
 
+## Termux
+
+> 安卓 linux 模拟器，非虚拟机，在 chroot 作用下可在非 root 环境下工作运行，类似于 wsl
+
+### PKG
+
+在 F-Droid 中进行下载安装
+
+获取存储权限
+
+```bash
+termux-setup-storage
+```
+
+换 pkg 下载源
+
+```bash
+termux-change-repo
+```
+
+pkg：termux 包管理工具
+
+常见包下载
+
+```
+pkg install vim
+pkg install git
+pkg install python
+pkg install python-pip
+pkg install openjdk17
+```
+
+建立软连接
+
+```bash
+ln -s ~/storage/emulated/0/northboat ~/northboat
+```
+
+### GIt
+
+设置昵称邮箱
+
+```bash
+git config --global user.name "Northboat"
+git config --global user.email "northboat@163.com"
+```
+
+下载 ssl / ssh，生成密匙和连接要用
+
+```bash
+pkg install ssl
+pkg install ssh
+```
+
+生成密匙
+
+```bash
+ssh-keygen -t rsa -C "northboat@163.com"
+```
+
+设置安全目录
+
+```bash
+git config --global --add safe.directory /storage/emulated/0/northboat/repo/Docs
+
+# 或者编辑文件配置 git global
+git config --global -e
+```
+
+然后就可以快乐的 git 辣
+
+### MySQL
+
+下载
+
+```bash
+pkg install mariadb
+```
+
+启动
+
+```bash
+nohup mysqld &
+#查看运行进程
+ps
+```
+
+登录并配置
+
+```mysql
+mysql -h localhost -u root -p
+# 初始密码为空，直接回车
+
+# 配置
+use mysql;
+# 设置密码
+set password for 'root'@'localhost' = password('123456')
+# 刷新权限
+flush privileges
+# 退出
+exit
+```
+
+重新登陆
+
+```bash
+mysql -u root -p
+```
+
+mysqld 启动脚本 start_mysql.sh
+
+```shell
+echo 'start mysqld'
+nohup mysqld > mysql.log &
+```
+
+赋权并执行
+
+```bash
+chmod +x start_mysql.sh
+sh start_mysql.sh
+```
+
+碰到一个问题：mysqld 启动报错 Unknown / unsupported storage engine: InnoDB
+
+解决办法：删除`usr/var/lib/mysql`目录下一些日志文件再重启
+
+```bash
+rm -rf aria_log*
+rm -rf ib_logfile*
+rm -rf ibdata1
+```
+
+问题解决

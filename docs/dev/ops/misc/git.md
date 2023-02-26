@@ -30,7 +30,7 @@ git config --global user.email "email@example.com"
 添加 ssh 密匙
 
 ~~~bash
-ssh-keygen rsa -t -C "email@example.com"
+ssh-keygen -t rsa -C "email@example.com"
 ~~~
 
 将路径下的 id_rsa.pub 内容添加到 github 的 setting-ssh，本机获取读写权限
