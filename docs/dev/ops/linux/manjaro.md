@@ -542,15 +542,12 @@ pkg：termux 包管理工具
 ```
 pkg install vim
 pkg install git
-pkg install python
-pkg install python-pip
-pkg install openjdk17
 ```
 
 建立软连接
 
 ```bash
-ln -s ~/storage/emulated/0/northboat ~/northboat
+ln -s ~/storage/shared/northboat ~/northboat
 ```
 
 ### GIt
@@ -565,8 +562,8 @@ git config --global user.email "northboat@163.com"
 下载 ssl / ssh，生成密匙和连接要用
 
 ```bash
-pkg install ssl
-pkg install ssh
+pkg install openssl
+pkg install openssh
 ```
 
 生成密匙
@@ -649,3 +646,27 @@ rm -rf ibdata1
 ```
 
 问题解决
+
+### Andronix
+
+在安装 manjaro 之前记得更新 pkg 的库
+
+使用 andronix ＋ termux 安装 manjaro
+
+```bash
+pkg update -y && pkg install wget curl proot tar -y && wget https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/Installer/Manjaro/manjaro.sh -O manjaro.sh && chmod +x manjaro.sh && bash manjaro.sh 
+```
+
+赋予 termux 存储权限后修改`start-manjaro.sh`，挂载 sdcard 目录
+
+运行`./start-manjaro.sh`启动 manjaro
+
+```
+pacman -Syy
+```
+
+配置基础开发环境
+
+- python-pip
+- jdk11-openjdk
+- gcc + make
