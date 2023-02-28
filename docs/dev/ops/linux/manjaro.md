@@ -768,7 +768,13 @@ rm -rf ibdata1
 
 在安装 manjaro 之前记得更新 pkg 的库
 
+```bash
+pkg update
+```
+
 使用 andronix ＋ termux 安装 manjaro
+
+通过 andronix 生成 pkg 下载命令
 
 ```bash
 pkg update -y && pkg install wget curl proot tar -y && wget https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/Installer/Manjaro/manjaro.sh -O manjaro.sh && chmod +x manjaro.sh && bash manjaro.sh 
@@ -782,8 +788,13 @@ pkg update -y && pkg install wget curl proot tar -y && wget https://raw.githubus
 pacman -Syy
 ```
 
-配置基础开发环境
+配置环境
 
-- python-pip
-- jdk11-openjdk
-- gcc + make
+```bash
+pacman -S python-pip
+pip install numpy pandas scipy matplotlib
+pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cpu
+```
+
+pytorch 下载命令生成：[pytorch.org](https://pytorch.org/get-started/locally/)
+
