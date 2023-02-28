@@ -92,17 +92,17 @@ Surface
 
 关闭`bitlocker`，选择`usb`启动，扩展坞显得尤为重要
 
-## 包管理
+## 半小时搭建学习环境
 
-Pacman & Yay
+### System
 
-### 同步库及配置源
+initPacman.sh：初始化包管理，更换 pacman 源，同步库，下载 yay
 
-同步数据库
-
-~~~
+```bash
+sudo pacman-mirrors -c China
 sudo pacman -Syy
-~~~
+sudo pacman -Sy yay
+```
 
 在软件与安装中勾选AUR源
 
@@ -140,146 +140,242 @@ yay的配置文件在`~/.config/yay/config.json`
 
 这里不要换清华源，很多资源都已失效，不如不换
 
-### 常用软件下载
+自动生成合适的 grub.cfg 文件，让 manjaro 读到 win 的引导
 
-下载vim
+```bash
+sudo update-grub
+```
 
-~~~
+修改 grub 设置
+
+```bash
+# 查看
+sudo cat /etc/default/grub
+
+GRUB_DEFAULT=saved
+GRUB_TIMEOUT=5
+GRUB_TIMEOUT_STYLE=hidden
+GRUB_DISTRIBUTOR="Manjaro"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet apparmor=1 security=apparmor resume=UUID=75c1c3b5-d413-4ca6-8946-15a0fc7ef18b udev.log_priority=3"
+GRUB_CMDLINE_LINUX=""
+
+# 删除 quiet 加上 loglever=5
+GRUB_CMDLINE_LINUX_DEFAULT="apparmor=1 security=apparmor resume=UUID=75c1c3b5-d413-4ca6-8946-15a0fc7ef18b udev.log_priority=3 loglever=5"
+
+# 使 grub.cfg 文件生效
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+# 这里要找一下 grub.cfg 的位置，可以在 /boot/efi/ 里
+```
+
+校正时间
+
+```bash
+timedatectl set-local-rtc 1 --adjust-system-clock
+timedatectl set-ntp 0
+```
+
+brightness.sh：亮度调节
+
+```bash
+echo "------start."
+read -p "Enter the bright_lever: " lever
+case $lever in
+  1) let bright=9000;;
+  2) let bright=15000;;
+  3) let bright=20000;;
+  4) let bright=25000;;
+esac
+sudo su << EOF # 后续为子进程或子 shell 的输入
+cd /sys/class/backlight/intel_backlight/
+echo $bright > brightness
+EOF
+echo "--------end."
+```
+
+面板排布
+
+<img src="./assets/panel.png">
+
+### Chinese
+
+changeInput.sh：中文输入法
+
+```bash
+# 下载vim
 yay -S vim
-~~~
 
-中文输入法
-
-~~~
+# 下载fcitx
 sudo pacman -S fcitx-im
 pacman -S fcitx-configtool
 pacman -S fcitx-googlepinyin
-~~~
 
-添加配置
-
-~~~
+# 创建fcitx配置文件
 vim ~/.xprofile
 
+# 文件填写以下内容
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS="@im=fcitx"
-~~~
+```
 
-保存退出重启即可
+changeDir.sh：更改目录名为英文，因为安装时选择的中文系统，默认 home 下的目录名将是中文
 
-将主目录下文件夹名称改为英文
-
-~~~
+```bash
 sudo pacman -S xdg-user-dirs-gtk
 export LANG=en_US
 xdg-user-dirs-gtk-update
-~~~
 
-此时将文件夹全改为英文，再将默认语言改回中文
-
-~~~
 export LANG=zh_CN.UTF-8
-~~~
+```
 
-下载vscode
+### Software
 
-~~~bash
+installSoftware.sh：常用软件下载
+
+vscode
+
+```bash
+# vscode和gdb
 yay -S visual-studio-code-bin
-~~~
+yay -S gdb
+```
 
-下载网易云音乐
+休闲
 
-~~~
-yay -S netease-cloud-music 
-~~~
+```bash
+yay -S netease-cloud-music # 网易云
+yay -S microsoft-edge-dev-bin # edge
+```
 
-下载edge
+qq
 
-~~~
-yay -S microsoft-edge-dev-bin
-~~~
+```bash
+yay -S deepin-wine-qq # wine版
+# electron 新版，腾讯，我真的哭死
+yay -S linuxqq-new
+```
 
-下载QQ/Wechat
+- Typora 解压使用
+- 使用 AppImage 版本的度盘
 
-~~~
-yay -S com.qq.weixin.deepin
-~~~
+官网下载 natapp 用于内网穿透：[natapp](https://natapp.cn/)
 
-使用这一命令下载的qq只能扫码登陆因为版本过低
+- 执行命令为
 
-~~~
-yay -S com.qq.im.deepin
-~~~
+```bash
+./natapp -authtoken=xxxxx
+```
 
-据说需要桌面依赖
+### Developer
 
-~~~
-yay -S cinnamon-settings-daemon
-~~~
+initGit.sh：初始化 git
 
-QQ版本过低下载以下安装包进行安装
+```bash
+git config --global user.name "NorthBoat" 设置 git #全局用户名
+git config --global user.email "northboat@163.com" #设置 git 全局邮箱
+ssh-keygen -t rsa -C "northboat@163.com" #生成秘钥
 
-~~~
-yay -S deepin-wine-qq
-~~~
+cat /home/northboat/.ssh/id.rsa.pub
+```
 
-git初始化
+installAnaconda.sh：配置 Python 环境
 
-~~~
-git config --global user.name "name" 设置 git 全局用户名
-git config --global user.email "emai@qq.com" 设置 git 全局邮箱
-git init 初始化本地库
-ssh-keygen -t rsa -C "email@qq.com" 生成秘钥
-~~~
+```bash
+yay -S anaconda
 
-用cat命令或去id.rsa.pub的内容并复制添加到github的ssh-key
+# 换源
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+conda config --set show_channel_urls yes
 
-下载钉钉
+# 加载配置文件
+source /opt/anaconda/bin/activate root
+```
 
-~~~
-yay -S dingtalk-electron
-~~~
+- 解压 dataspell
 
-- 我真的是服了，linux的钉钉没有直播功能
+installJava.sh：配置 Java 环境
 
-下载截屏工具并设置快捷键
+```bash
+yay -S jdk8-openjdk
+yay -S jdk11-openjdk
 
-~~~
-yay -S deepin-screenshot
-~~~
+archlinux-java status # 查看 java 版本
+archlinux-java set java-11-openjdk # 切换默认java版本
+```
 
-- 在键盘设置中有图形界面以供设置快捷键
+- 解压 IDEA，学生帐号激活
+- 解压 Maven，手动建 repo 文件夹装包
 
-下载uget
+installMysql.sh
 
-~~~
-yay -S uget
-~~~
+```bash
+yay -S mysql
 
-下载pdf阅读器
+# 初始化MySQL，记住输出的root密码
+mysqld --initialize --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+# 设置开机启动MySQL服务
+systemctl enable mysqld.service
+systemctl daemon-reload
+systemctl start mysqld.service
+# 使用MySQL前必须修改root密码，MySQL 8.0.15不能使用set password修改密码
+mysql -u root -p
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '新密码';
 
-~~~
-yay -S foxitreader
-~~~
+# 图形化界面
+yay -S mysql-workbench
+```
 
-下载ifconfig
+installRedis.sh：安装 Redis，解压后进入目录
 
-~~~bash
-yay -S net-tools
-~~~
+```bash
+yay -S gcc g++
+yay -S make
+yay -S pkg-config
 
-临时修改ip，改了之后断网了草，要加一个网关
+# 编译
+make && make install
 
-~~~bash
-ifconfig [网卡名] [要改的ip]
-~~~
+# 新建文件夹并将配置文件复制到此处
+cd /usr/local/bin
+mkdir config
+cp /home/northboat/tool/redis-6.2.6/redis.conf config
+vim config/redis.config
 
-### 博客环境搭建
+# 通过配置文件启动 redis-server
+./redis-server config/redis.conf
+```
 
-下载mysql，即mariadb（mysql的archlinux封装）
+- 使用 another-redis-desktop-manager 的 AppImage 版本作为 redis 可视化工具
 
-~~~bash
+installRabbitMQ.sh：下载 rabbitmq
+
+```bash
+yay -S rabbitmq rabbitmqadmin
+
+# 启动管理模块
+sudo rabbitmq-plugins enable rabbitmq_management
+# 启动
+sudo rabbitmq-server
+```
+
+- 管理界面默认端口：15672
+- 客户端默认端口：5672
+
+magic.sh：科学上网
+
+```bash
+yay -S v2ray # 下载 v2ray 内核
+```
+
+- 使用 appimage 形式的 qv2ray
+- 保存有祖传版内核，在 qv2ray 首选项中配置使用
+
+### Repo
+
+blog.sh：下载 npm、hexo、vuepress 等以及插件
+
+```bash
 yay -S nodejs
 yay -S npm
 
@@ -287,16 +383,37 @@ npm config set registry https://registry.taobao.org
 npm config get registry
 
 sudo npm install cnpm -g
+cnpm install -g hexo-cli
 
+# hexo
+npm install --save hexo-theme-fluid # 主题
+npm install --save hexo-tag-aplayer # 播放器
+
+# vuepress
 sudo npm install vue -g
-~~~
-
-博客
-
-~~~bash
 sudo npm install vuepress -g
-sudo npm install @vuepress-reco/theme-cli -g
-~~~
+
+npm install @vuepress-reco/vuepress-plugin-bgm-player --save # 播放器
+```
+
+pull.sh：拉取仓库脚本
+
+```bash
+echo "-------start"
+cd Blog
+git pull
+echo -e "blog pull end!\n" # -e 启用转义字符
+cd ..
+cd Docs
+git pull
+echo -e "docs pull end!\n"
+cd ..
+cd Index
+git pull
+echo -e "index pull end!\n"
+echo "---------end"
+```
+
 
 ## 杂项
 
@@ -414,7 +531,7 @@ sudo update-grub
 
 `ctrl alt f2-f6`可以开启虚拟控制台，即黑框框的 linux，f7 为图形界面
 
-## 一些命令
+## 更多命令
 
 ### 解压缩
 
