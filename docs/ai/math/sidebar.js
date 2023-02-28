@@ -6,6 +6,7 @@ module.exports = [
 		children: [
 			'./calculus/function-limit-continuity',
 			'./calculus/single-variable-differential',
+			'./calculus/single-variable-calculus',
 		]
 	},
 

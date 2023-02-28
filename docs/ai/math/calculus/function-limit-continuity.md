@@ -187,7 +187,7 @@ $$
 cosx-1\sim-\frac{1}{2}x^2\\
 e^{x}-1\sim x\\
 ln(1+x)\sim x\\
-^n\sqrt{1+x}-1\sim \frac{x}{n}
+{^n}\sqrt{1+x}-1\sim \frac{x}{n}
 $$
 连续洛必达中根据分子/分母趋于 0 解未知数
 
