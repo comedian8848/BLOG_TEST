@@ -12,8 +12,8 @@ module.exports = [
 			    './linux/centos',
 		   	 './linux/manjaro',
 			]
-			'./linux/kernel',
 		    },
+		    './linux/kernel',
 		    
 		]
 	},
