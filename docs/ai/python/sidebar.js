@@ -23,7 +23,7 @@ module.exports = [
 			'./lib/numpy',
 			'./lib/pandas',
 			'./lib/scipy',
-			'./lib/visual',
+			'./lib/matplotlib',
 		]
 	},
 

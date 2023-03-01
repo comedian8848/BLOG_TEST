@@ -5,12 +5,12 @@ date: 2023-3-1
 
 ## Linux 内核目录结构
 
-linux 0.11 源码
+Linux 0.11 内核
 
 ```bash
 cd /home/northboat/kernel
 git clone git@github.com:karottc/linux-0.11.git
 ```
 
-树形目录
+Linux fs 是典型树形目录
 

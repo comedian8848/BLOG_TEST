@@ -1,5 +1,5 @@
 ---
-title: Data Visualization
+title: Matplotlib
 date: 2022-7-11
 tags:
   - Python
@@ -8,7 +8,7 @@ tags:
 
 > 数据可视化
 
-## Matplotlib
+## Matplotlib 基础
 
 ### Figure 画布
 
