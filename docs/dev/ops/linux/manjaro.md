@@ -654,11 +654,12 @@ termux-change-repo
 
 pkg：termux 包管理工具
 
-常见包下载
+编辑器、Java环境、C/C++ 环境
 
 ```
 pkg install vim
-pkg install git
+pkg install openjdk-17
+pkg install clang
 ```
 
 建立软连接
@@ -667,11 +668,19 @@ pkg install git
 ln -s ~/storage/shared/northboat ~/northboat
 ```
 
+注意 termux 不允许在 shared 目录执行 C 二进制文件，要在 home 目录下执行，于是在编译之后需要将 c/cpp 文件 cp 到 /home/c 中然后再编译执行
+
+```bash
+read -p "Enter the file name: " file
+cp ~/storage/shared/northboat/c/$file ~/c/$file
+```
+
 ### GIt
 
 设置昵称邮箱
 
 ```bash
+pkg install git
 git config --global user.name "Northboat"
 git config --global user.email "northboat@163.com"
 ```
@@ -772,7 +781,7 @@ rm -rf ibdata1
 pkg update
 ```
 
-使用 andronix ＋ termux 安装 manjaro
+使用 andronix ＋ termux 安装 manjaro 配置 python 开发环境
 
 通过 andronix 生成 pkg 下载命令
 

@@ -10,7 +10,8 @@ module.exports = [
 			collapsable: true,
 			children: [
 			    './linux/centos',
-		   	    './linux/manjaro',
+		   	 './linux/manjaro',
+				'./linux/kernel',
 			]
 		    },
 		    
