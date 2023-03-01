@@ -11,8 +11,8 @@ module.exports = [
 			children: [
 			    './linux/centos',
 		   	 './linux/manjaro',
-				'./linux/kernel',
 			]
+			'./linux/kernel',
 		    },
 		    
 		]
