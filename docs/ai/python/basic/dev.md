@@ -8,7 +8,7 @@ tags:
 
 > [服务端](https://northboat.netlify.app/dev/java/project/aides.html)
 
-## Redis & RabbitMQ
+## 命令行
 
 ### I/O 流处理
 
@@ -46,7 +46,7 @@ def log(content):
         f.write(content)
 ```
 
-### 命令行执行
+### 直接执行并返回结果
 
 执行命令并获得返回结果，有失败返回
 
@@ -69,7 +69,62 @@ def subprocess_popen(statement):
 print(subprocess_popen("s"))
 ```
 
-### 虚假的双工通信
+### 阻塞的连续执行
+
+这里的 stdout 和 stderr 都是阻塞的，开启两条线程去专门读这个阻塞内容，在主线程中写入命令
+
+```python
+import subprocess
+
+p = subprocess.Popen("/bin/bash", shell=True, stdin=subprocess.PIPE, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+def stdout():
+    global p
+    while True:
+        setback(p.stdout.readline().decode('utf8').strip() + " ")
+
+def stderr():
+    global p
+    while True:
+        setback(p.stderr.readline().decode('utf8').strip() + " ")
+
+cmd_back = ""
+
+def setback(str):
+    global cmd_back
+    global back_finished
+    cmd_back += str
+
+def getback():
+    global cmd_back
+    global back_finished
+    result = cmd_back
+    cmd_back = ""
+    return result.strip()
+
+import threading
+out = threading.Thread(target=stdout)
+out.daemon = True
+err = threading.Thread(target=stderr)
+err.daemon = True
+out.start()
+err.start()
+
+import os
+import time
+# 执行命令行
+def cmd(statement):
+    global p   
+    global back_finished
+    statement += os.linesep
+    p.stdin.write(statement.encode('utf8'))
+    p.stdin.flush()
+    time.sleep(1)
+    return getback()
+```
+
+## 中间件
+
+### RabbitMQ & Redis
 
 > 通过 rabbitmq 和 redis 实现消息接收和回送
 
@@ -170,6 +225,35 @@ def shadow():
     # 开始接收消息
     log("\n" + str(datetime.now().strftime("%Y-%m-%d %H:%M:%S")) + "\n")
     channelx.start_consuming()
+```
+
+### MySQL
+
+安装
+
+```bash
+pip install pymysql
+```
+
+基本使用
+
+```python
+import pymysql
+
+conn = pymysql.connect(host = '127.0.0.1' # 连接名称，默认127.0.0.1
+            ,user = 'root' # 用户名
+            ,passwd='011026' # 密码
+            ,port= 3306 # 端口，默认为3306
+            ,db='aides' # 数据库名称
+            ,charset='utf8' # 字符编码
+        )
+cur = conn.cursor() # 生成游标对象
+sql = "select * from `user` where `name`= " + '\'' + name + '\'' # SQL语句
+#print(sql)
+cur.execute(sql) # 执行SQL语句
+data = cur.fetchall() # 通过fetchall方法获得数据
+cur.close()
+conn.close()
 ```
 
 ## PyQt5
@@ -314,35 +398,6 @@ class Ui_Dialog_Login(object):
 
         self.loginBtn.setText(_translate("Dialog", "启动"))
         self.clearBtn.setText(_translate("Dialog", "清空"))
-```
-
-### 连接 MySQL
-
-安装
-
-```bash
-pip install pymysql
-```
-
-基本使用
-
-```python
-import pymysql
-
-conn = pymysql.connect(host = '127.0.0.1' # 连接名称，默认127.0.0.1
-            ,user = 'root' # 用户名
-            ,passwd='011026' # 密码
-            ,port= 3306 # 端口，默认为3306
-            ,db='aides' # 数据库名称
-            ,charset='utf8' # 字符编码
-        )
-cur = conn.cursor() # 生成游标对象
-sql = "select * from `user` where `name`= " + '\'' + name + '\'' # SQL语句
-#print(sql)
-cur.execute(sql) # 执行SQL语句
-data = cur.fetchall() # 通过fetchall方法获得数据
-cur.close()
-conn.close()
 ```
 
 ### 封装 UI 和绑定函数
@@ -493,6 +548,22 @@ if __name__ == '__main__':
     myDlg = Controller()
     myDlg.show_login()
     sys.exit(myapp.exec_())
+```
+
+### 打包可执行文件
+
+安装 pyinstaller
+
+```bash
+pip install pyinstaller
+```
+
+打包命令
+
+```bash
+pyinstaller -D app.py # --onedir
+pyinstaller --onefile app.py # -F
+pyinstaller -w app.py # --windowed --noconsolc
 ```
 
 ## Spider

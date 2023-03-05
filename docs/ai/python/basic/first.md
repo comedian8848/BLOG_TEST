@@ -1,5 +1,5 @@
 ---
-title: 1 - 24
+title: T1 - T24
 date: 2022-7-2
 tags:
   -	Python
