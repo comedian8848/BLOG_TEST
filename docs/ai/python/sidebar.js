@@ -8,9 +8,9 @@ module.exports = [
 			title: "Python Hundred",
 		        collapsable: true,
 			children: [
-		                './basic/one',
-		                './basic/nine',
-			    	'./basic/seventeen',		
+		                './basic/first',
+		                './basic/second',
+			    	'./basic/third',		
 			]
 		    },
 		    './basic/dev',

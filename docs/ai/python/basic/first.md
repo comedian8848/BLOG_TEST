@@ -1,11 +1,11 @@
 ---
-title: Day One to Eight
+title: 1 - 24
 date: 2022-7-2
 tags:
   -	Python
 ---
 
-> 来自[fengdu78](https://github.com/fengdu78/Data-Science-Notes)的机器学习教程，收集了一百道python基础题目
+> 来自 [fengdu78](https://github.com/fengdu78/Data-Science-Notes) 的机器学习教程，一百道 python 基础题目
 
 ## Day1
 
