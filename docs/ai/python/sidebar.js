@@ -6,13 +6,14 @@ module.exports = [
 		    './basic/build',
 		    {
 			title: "Python Hundred",
-		                collapsable: true,
+		        collapsable: true,
 			children: [
-		                    './basic/one',
-		                    './basic/nine',
-			    './basic/seventeen',		
+		                './basic/one',
+		                './basic/nine',
+			    	'./basic/seventeen',		
 			]
 		    },
+		    './basic/dev',
 		]
 	},
 
@@ -24,14 +25,6 @@ module.exports = [
 			'./lib/pandas',
 			'./lib/scipy',
 			'./lib/matplotlib',
-		]
-	},
-
-	{
-		title: '简单开发',
-		collapsable: true,
-		children: [
-			'./dev/shadow',
 		]
 	},
 

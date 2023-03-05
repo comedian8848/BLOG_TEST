@@ -44,24 +44,12 @@ pip list
 
 ### VSCode
 
-插件：
+插件
 
 - Python
-
 - YAML
 - Jupyter
-
 - Pylance
-
-配置python路径：
-
-File ——> Preferences ——> Settings 里面，选择Extensions ——> Python Configuration，点击 Edit in settings.json，配置Anaconda子环境中的python路径
-
-~~~json
-"python.autoComplete.extraPaths":[
-	"D:\\Anaconda\\envs\\test\\python.exe"
-]
-~~~
 
 ## 常用函数
 
@@ -240,7 +228,7 @@ print(sentence[2:5])
 
 注意：截取字符串时，将从下标为n开始，到下标为m前一个元素结束，即含头不含尾
 
-### return和yield
+### return 和 yield
 
 return是阻塞的，单线程的，和Java中return保持一致
 
