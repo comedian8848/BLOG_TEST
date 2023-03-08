@@ -4,9 +4,10 @@ module.exports = [
 		title: '高等数学',
 		collapsable: true,
 		children: [
-			'./calculus/function-limit-continuity',
-			'./calculus/single-variable-differential',
-			'./calculus/single-variable-calculus',
+			'./calculus/function-limit-continuous',
+			'./calculus/unary-function-differential',
+			'./calculus/unary-function-calculus',
+			'./calculus/multivariate-function-differential',
 		]
 	},
 
