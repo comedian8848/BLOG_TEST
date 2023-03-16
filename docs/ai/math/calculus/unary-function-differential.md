@@ -14,8 +14,8 @@ tags:
 导数概念：若`f(x0)`有定义，则函数`f`在`x0`的导数为
 $$
 f(x_0)' = 
-\mathop{lim}_{\triangle x\rightarrow0}\frac{\triangle y}{\triangle x} = 
-\mathop{lim}_{\triangle x\rightarrow0}\frac{f(x_0+\triangle x) - f(x_0)}{\triangle x}
+\lim_{\triangle x\rightarrow0}\frac{\triangle y}{\triangle x} = 
+\lim_{\triangle x\rightarrow0}\frac{f(x_0+\triangle x) - f(x_0)}{\triangle x}
 $$
 左导数和右导数：求极限的时候取正反，右极限对应右导数，左极限对应左导数，记作
 $$
@@ -33,11 +33,11 @@ $$
 - 根据定义求导数，如
   $$
   求\,f(x)\,在\,x=1\,的导数\\
-  则求\,\mathop{lim}_{x\rightarrow0}\frac{f(1+x)-f(1)}{x}
+  则求\,\lim_{x\rightarrow0}\frac{f(1+x)-f(1)}{x}
   $$
   左导数则`x->0-`，右导数则`x->0+`，等价于
   $$
-  \mathop{lim}_{x\rightarrow1}\frac{f(x)-f(1)}{x-1}
+  \lim_{x\rightarrow1}\frac{f(x)-f(1)}{x-1}
   $$
 
 <img src="./assets/image-20230129164142826.png">
@@ -51,7 +51,7 @@ $$
 
 已知函数在 x0 连续，基于此进行一些个代换
 $$
-\mathop{lim}_{\triangle x\rightarrow0}\frac{f(x_0+\triangle ax)-f(x_0)}{\triangle x} = af'(x_0)
+\lim_{\triangle x\rightarrow0}\frac{f(x_0+\triangle ax)-f(x_0)}{\triangle x} = af'(x_0)
 $$
 
 - 分母也乘以 a 后等于`f'(x0)`，所以原式为 a 倍的`f'(x0)`
@@ -149,7 +149,7 @@ $$
 - 已经假设可导，所以连续，故`f(0) = limf(x) = 0`
 
 $$
-\mathop{lim}_{\triangle x\rightarrow0}\frac{f(\triangle x)}{\triangle x}
+\lim_{\triangle x\rightarrow0}\frac{f(\triangle x)}{\triangle x}
 $$
 
 换一个说法，`f(x)`和`x`是同阶无穷小，于是可以直接根据无穷小的阶数判断选项是趋于 0 还是无穷
@@ -212,7 +212,7 @@ $$
 
 结合导数定义考察
 $$
-f(x)' = \mathop{lim}_{\triangle x\rightarrow0}\frac{f(x+\triangle x)-f(x)}{\triangle x}
+f(x)' = \lim_{\triangle x\rightarrow0}\frac{f(x+\triangle x)-f(x)}{\triangle x}
 $$
 <img src="./assets/image-20230210205820337.png">
 

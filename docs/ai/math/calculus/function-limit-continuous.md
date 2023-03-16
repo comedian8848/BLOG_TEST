@@ -107,7 +107,7 @@ $$
 
 第二用到对数转换和等价无穷小
 $$
-\mathop{lim}_{n\rightarrow\infty}\,\,log_a(1+\frac{1}{n}) = \frac{1}{n\times lna}
+\lim_{n\rightarrow\infty}\,\,log_a(1+\frac{1}{n}) = \frac{1}{n\times lna}
 $$
 将中括号中内容加对数得`T = ln(1+1/t)^t`，将指数`t`提出，将对数部分`1+1/t`利用等价无穷小转换为`1/t`， 求得`T = 1`，还原对数得原式为`e`，再对指数`e^m`进行极限运算，得出最终结果
 
@@ -115,12 +115,12 @@ $$
 
 函数无穷极限，定义
 $$
-\mathop{lim}_{x\rightarrow\infty}f(x) = \mathop{lim}_{x\rightarrow+\infty}f(x) = \mathop{lim}_{x\rightarrow-\infty}f(x)
+\lim_{x\rightarrow\infty}f(x) = \lim_{x\rightarrow+\infty}f(x) = \lim_{x\rightarrow-\infty}f(x)
 $$
 极限不存在情形
 $$
-\mathop{lim}_{x\rightarrow\infty}f(x) = \infty\\
-\mathop{lim}_{x\rightarrow+\infty}f(x) \not= \mathop{lim}_{x\rightarrow-\infty}f(x)
+\lim_{x\rightarrow\infty}f(x) = \infty\\
+\lim_{x\rightarrow+\infty}f(x) \not= \lim_{x\rightarrow-\infty}f(x)
 $$
 <img src="./assets/image-20230113153638025.png">
 
@@ -140,15 +140,15 @@ $$
 
 - `e - ∞`型
   $$
-  \mathop{lim}_{x\rightarrow0}e^{\frac{1}{x}}\,,\,
-  \mathop{lim}_{x\rightarrow\infty}e^x\,,\,
-  \mathop{lim}_{x\rightarrow\infty}e^{-x}
+  \lim_{x\rightarrow0}e^{\frac{1}{x}}\,,\,
+  \lim_{x\rightarrow\infty}e^x\,,\,
+  \lim_{x\rightarrow\infty}e^{-x}
   $$
 
 - `arctan - ∞` 型
   $$
-  \mathop{lim}_{x\rightarrow0^-}arctan\frac{1}{x} = -\frac{\pi}{2}\\
-  \mathop{lim}_{x\rightarrow0^+}arctan\frac{1}{x} = \frac{\pi}{2}\\
+  \lim_{x\rightarrow0^-}arctan\frac{1}{x} = -\frac{\pi}{2}\\
+  \lim_{x\rightarrow0^+}arctan\frac{1}{x} = \frac{\pi}{2}\\
   $$
 
 极限的保号性
@@ -231,7 +231,7 @@ $$
 - 带入极限
 
 $$
-\mathop{lim}_{x\rightarrow+\infty}(\sqrt{x^2+x+1}-\sqrt{x^2-x+1})
+\lim_{x\rightarrow+\infty}(\sqrt{x^2+x+1}-\sqrt{x^2-x+1})
 $$
 
 <img src="./assets/image-20230114160138053.png">
@@ -243,7 +243,7 @@ $$
 
 1、0/0 型：一般可以直接洛
 $$
-\mathop{lim}_{a\rightarrow0}\frac{sina}{a} = 1
+\lim_{a\rightarrow0}\frac{sina}{a} = 1
 $$
 经典错误
 
@@ -251,14 +251,14 @@ $$
 
 2、1-∞ 型：常用于幂指函数，刻意去凑 1
 $$
-\mathop{lim}_{a\rightarrow0}(1+a)^{1/a} = e
+\lim_{a\rightarrow0}(1+a)^{1/a} = e
 $$
 注意两个重要极限均有趋于 0 的限制，在无穷小时才成立
 
 对于幂指函数，还可以直接采用把指数化为 e 的对数指数的形式求解极限，如
 $$
-\mathop{lim}_{x\rightarrow0}(\frac{1+2^x}{2})^\frac{1}{x} =
-\mathop{lim}_{x\rightarrow0}\,e^{\frac{1}{x}ln(\frac{1+2^x}{2})}\\
+\lim_{x\rightarrow0}(\frac{1+2^x}{2})^\frac{1}{x} =
+\lim_{x\rightarrow0}\,e^{\frac{1}{x}ln(\frac{1+2^x}{2})}\\
 e^{lnx} = x
 $$
 回顾一下指数、对数求导
@@ -299,11 +299,11 @@ $$
 
 一些逆天
 $$
-\mathop{lim}_{x\rightarrow0}\frac{arctanx-sinx}{x^3}=-1/6\\
-\mathop{lim}_{x\rightarrow0}\frac{e^x-e^{-x}-2x}{x-sinx}=2\\
-\mathop{lim}_{n\rightarrow\infty}\,n\,tan\frac{1}{n}=e^{1/3}\\
-\mathop{lim}_{x\rightarrow0}\frac{\sqrt{1+2sinx}-x-1}{x^2}=-1/2\\
-\mathop{lim}_{x\rightarrow0}\frac{e^{x^{2}}-e^{2-2cosx}}{x^4}=1/12\\
+\lim_{x\rightarrow0}\frac{arctanx-sinx}{x^3}=-1/6\\
+\lim_{x\rightarrow0}\frac{e^x-e^{-x}-2x}{x-sinx}=2\\
+\lim_{n\rightarrow\infty}\,n\,tan\frac{1}{n}=e^{1/3}\\
+\lim_{x\rightarrow0}\frac{\sqrt{1+2sinx}-x-1}{x^2}=-1/2\\
+\lim_{x\rightarrow0}\frac{e^{x^{2}}-e^{2-2cosx}}{x^4}=1/12\\
 $$
 极限和无穷小的联系，α(x) 是一个虚构的未知的函数，在已知极限中某一项为 0 且不影响极限构成时（如 0-0 就不行），可以单独提出极限然后悄无声息地消去
 
@@ -359,7 +359,7 @@ $$
 
 就是 无穷小乘以有限量 仍为无穷小（即 0），如
 $$
-\mathop{lim}_{x\rightarrow \infty}\frac{x^2-3x+5}{2x^3}\times(5+cos3x)
+\lim_{x\rightarrow \infty}\frac{x^2-3x+5}{2x^3}\times(5+cos3x)
 $$
 分母高次，第一项为无穷小，第二项绝对值始终小于等于 6，相乘结果极限为 0
 
@@ -367,7 +367,7 @@ $$
 
 若函数连续，则
 $$
-\mathop{lim}_{x\rightarrow a}f(x) = f(a)
+\lim_{x\rightarrow a}f(x) = f(a)
 $$
 在此基础上，可以复合其他连续函数
 
@@ -409,19 +409,19 @@ $$
 
 连续原始定义
 $$
-\mathop{lim}_{\triangle x\rightarrow0}\triangle y = 
-\mathop{lim}_{\triangle x\rightarrow0}[f(x_0+\triangle x)-f(x_0)]=0
+\lim_{\triangle x\rightarrow0}\triangle y = 
+\lim_{\triangle x\rightarrow0}[f(x_0+\triangle x)-f(x_0)]=0
 $$
 直观定义：极限等于函数值即为连续，左右都连续就连续
 $$
-\mathop{lim}_{\triangle x\rightarrow x_0}f(x) = 
-\mathop{lim}_{\triangle x\rightarrow x_0^-}f(x) =
-\mathop{lim}_{\triangle x\rightarrow x_0^+}f(x) =
+\lim_{\triangle x\rightarrow x_0}f(x) = 
+\lim_{\triangle x\rightarrow x_0^-}f(x) =
+\lim_{\triangle x\rightarrow x_0^+}f(x) =
 f(x_0)
 $$
 区间连续：函数在区间`(a,b)`内处处连续，则函数在区间`(a.b)`内连续
 $$
-\mathop{lim}_{x\rightarrow0}\,x^asin\frac{1}{x} = 0\,\,(a>0)
+\lim_{x\rightarrow0}\,x^asin\frac{1}{x} = 0\,\,(a>0)
 $$
 
 - 当 a <=0 时，该极限不存在
@@ -464,7 +464,7 @@ $$
 
 不要想当然的令`cosx (x->0)`等于 1，其实是趋于 1
 $$
-\mathop{lim}_{x\rightarrow0}(cosx)^{1/x^2} = e^{-1/2}
+\lim_{x\rightarrow0}(cosx)^{1/x^2} = e^{-1/2}
 $$
 ### 间断点及其分类
 
