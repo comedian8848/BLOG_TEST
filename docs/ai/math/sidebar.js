@@ -9,6 +9,7 @@ module.exports = [
 			'./calculus/unary-function-calculus',
 			'./calculus/multivariate-function-differential',
 			'./calculus/multivariate-function-calculus',
+			'./calculus/differential-equation',
 		]
 	},
 
