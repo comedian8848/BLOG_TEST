@@ -1,5 +1,5 @@
 ---
-title: Thread & I/O Stream
+title: Thread - I/O Stream
 date: 2021-2-28
 tags:
   - Java

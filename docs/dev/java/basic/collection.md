@@ -1,5 +1,5 @@
 ---
-title: Generic & Collection
+title: Generic - Collection
 date: 2021-2-20
 tags:
   - Java

@@ -1,5 +1,5 @@
 ---
-title: Lambda & Stream & Fork/Join
+title: Lambda - Stream - Fork/Join
 date: 2021-8-2
 tags: 
   - JUC

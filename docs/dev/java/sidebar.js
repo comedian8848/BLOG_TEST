@@ -4,7 +4,7 @@ module.exports = [
 
 
 	{
-		title: 'Java SE',
+		title: 'Java 基础',
 		collapsable: true,
 		children: [
 			'./basic/class',
@@ -26,7 +26,7 @@ module.exports = [
 
 	
 	{
-		title: 'JUC',
+		title: 'Java 并发编程',
 		collapsable: true,
 		children: [
 			'./juc/lock',
@@ -37,7 +37,7 @@ module.exports = [
 	},
 	
 	{
-		title: 'Web Frame',
+		title: 'Web 框架',
 		collapsable: true,
 		children: [
 			'./frame/springboot',
@@ -46,7 +46,7 @@ module.exports = [
 	},
 
 	{
-		title: 'Web Application',
+		title: 'Web 项目',
 		collapsable: true,
 		children: [
 			'./project/helper',

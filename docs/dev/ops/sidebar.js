@@ -19,7 +19,7 @@ module.exports = [
 	},
 
 	{
-		title: 'Miscellaneous',
+		title: '杂项',
 		collapsable: true,
 		children: [
 		    './misc/wechall',
@@ -28,7 +28,7 @@ module.exports = [
 	},
 
 	{
-		title: 'Middleware',
+		title: '中间件',
 		collapsable: true,
 		children: [
 		    {

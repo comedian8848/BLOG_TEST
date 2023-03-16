@@ -1,5 +1,5 @@
 ---
-title: Atomic & Singleton & CAS
+title: Atomic - Singleton - CAS
 date: 2021-8-17
 tags: 
   - JUC

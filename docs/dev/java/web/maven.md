@@ -1,5 +1,5 @@
 ---
-title: Maven & Dependencies
+title: Maven - Dependencies
 date: 2021-4-30
 tags: 
   - Web
