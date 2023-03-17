@@ -7,9 +7,9 @@ module.exports = [
 		title: 'Java 基础',
 		collapsable: true,
 		children: [
-			'./basic/class',
-			'./basic/collection',
-			'./basic/io'
+			'./base/class',
+			'./base/collection',
+			'./base/io'
 		]
 	},
 	

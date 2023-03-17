@@ -3,16 +3,16 @@ module.exports = [
 		title: '前端基础',
 		collapsable: true,
 		children: [
-			'./basic/html',
-			'./basic/css',
-			'./basic/markdown',
-			'./basic/js',
-			'./basic/toys',
+			'./base/html',
+			'./base/css',
+			'./base/markdown',
+			'./base/js',
+			'./base/toys',
 		]
 	},
 
 	{
-		title: '一些轮子',
+		title: '轮子',
 		collapsable: true,
 		children: [
 			'./wheel/hexo',

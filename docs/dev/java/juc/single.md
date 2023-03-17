@@ -1,5 +1,5 @@
 ---
-title: Atomic - Singleton - CAS
+title: 原子性 - 单例模式 - CAS
 date: 2021-8-17
 tags: 
   - JUC

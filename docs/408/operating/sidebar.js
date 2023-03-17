@@ -5,32 +5,32 @@ module.exports = [
 		title: '操作系统',
 		collapsable: true,
 		children: [
-			'./basic/outline',
+			'./base/outline',
 			{
 			    title: 'CPU 管理',
 			    collapsable: true,
 			    children: [
-			    	'./basic/thread',
-				'./basic/scheduling',
-				'./basic/synchronized',
-				'./basic/deadlock',
+			    	'./base/thread',
+				'./base/scheduling',
+				'./base/synchronized',
+				'./base/deadlock',
 			    ]
 			},
 			{
 			    title: '存储管理',
 			    collapsable: true,
 			    children: [
-			    	'./basic/memory',
-				'./basic/virtual',
+			    	'./base/memory',
+				'./base/virtual',
 			    ]
 			},
-			'./basic/file',
+			'./base/file',
 			{
 			    title: '操作系统模拟',
 			    collapsable: true,
 			    children: [
-				'./basic/experiment',
-				'./basic/project',
+				'./base/experiment',
+				'./base/project',
 			    ]
 			},
 

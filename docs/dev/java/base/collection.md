@@ -1,5 +1,5 @@
 ---
-title: Generic - Collection
+title: 泛型 - 集合
 date: 2021-2-20
 tags:
   - Java

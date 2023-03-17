@@ -3,17 +3,17 @@ module.exports = [
 		title: 'Python3',
 		collapsable: true,
 		children: [
-		    './basic/build',
+		    './base/build',
 		    {
 			title: "Python Hundred",
 		        collapsable: true,
 			children: [
-		                './basic/first',
-		                './basic/second',
-			    	'./basic/third',		
+		                './base/first',
+		                './base/second',
+			    	'./base/third',		
 			]
 		    },
-		    './basic/dev',
+		    './base/dev',
 		]
 	},
 

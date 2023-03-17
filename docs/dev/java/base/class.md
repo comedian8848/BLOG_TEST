@@ -1,5 +1,5 @@
 ---
-title: Class - Exception - GUI
+title: 类 - 异常 - GUI
 date: 2021-2-12
 tags:
   - Java

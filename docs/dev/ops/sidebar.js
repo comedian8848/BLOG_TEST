@@ -10,7 +10,7 @@ module.exports = [
 			collapsable: true,
 			children: [
 			    './linux/centos',
-		   	 './linux/manjaro',
+		   	    './linux/manjaro',
 			]
 		    },
 		    './linux/kernel',
@@ -47,7 +47,8 @@ module.exports = [
 			    './mid/docker-base',
 			    './mid/docker-advanced',			
 			]
-		    },	
+		    },
+		    './mid/nginx',
 		    './mid/rabbitmq',
 		]
 	},
