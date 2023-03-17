@@ -35,8 +35,8 @@ module.exports = [
 			title: "数据库",
 			collapsable: true,
 			children: [
-			    './middleware/mysql',
-			    './middleware/redis',
+			    './mid/mysql',
+			    './mid/redis',
 			]
 		    },
 		   
@@ -44,11 +44,11 @@ module.exports = [
 			title: "Docker",
 			collapsable: true,
 			children: [
-			    './middleware/docker-base',
-			    './middleware/docker-advanced',			
+			    './mid/docker-base',
+			    './mid/docker-advanced',			
 			]
 		    },	
-		    './middleware/rabbitmq',
+		    './mid/rabbitmq',
 		]
 	},
 

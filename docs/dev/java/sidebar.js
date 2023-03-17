@@ -41,7 +41,6 @@ module.exports = [
 		collapsable: true,
 		children: [
 			'./frame/springboot',
-			'./frame/mybatis',
 		]
 	},
 

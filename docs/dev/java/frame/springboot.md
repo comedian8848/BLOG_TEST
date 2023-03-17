@@ -130,6 +130,7 @@ application.yml 配置 mysql：密码是数字要加双引号
 
 - Hikari 默认，更快
 - druid，自带日志监控
+- mysql驱动问题：其中 Drive 在 mysql8.x 版本要加上 cj
 
 ~~~yml
 spring:
@@ -269,6 +270,10 @@ public class JDBCController {
 }
 ~~~
 
+### MyBatis
+
+> MyBatis 是一款优秀的持久层框架，它支持自定义 SQL、存储过程以及高级映射，并且免除了几乎所有的 JDBC 代码以及设置参数和获取结果集的工作，转而通过简单的 XML 或注解来配置和映射原始类型、接口和 Java POJO（Plain Old Java Objects，普通老式 Java 对象）为数据库中的记录
+
 整合mybatis
 
 ~~~xml
@@ -287,21 +292,18 @@ public class JDBCController {
 @Mapper
 @Repository
 public interface MailMapper {
-
     List<Postman> queryPostmanList();
-
     int removePostman(int num);
-
     int addPostman(Postman postman);
 }
 ~~~
 
-@MapperScan
+在启动类中 @MapperScan
 
 ~~~java
 @SpringBootApplication
+@MapperScan("com.northboat.shadow.mapper")
 public class PostOfficeApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(PostOfficeApplication.class, args);
     }
@@ -335,7 +337,7 @@ public interface MailMapper {
 }
 ~~~
 
-MailMapper.xml，位于resources/mybatis/mapper
+MailMapper.xml，位于resources/mybatis/mapper：传递多个参数用Map封装，用`#{key}`取值
 
 ~~~xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -361,9 +363,433 @@ MailMapper.xml，位于resources/mybatis/mapper
 </mapper>
 ~~~
 
-- 传递多个参数用Map封装，用`#{key}`取值
+字段映射
+
+resultMap
+
+~~~xml
+<!-- 通用查询映射结果 -->
+<resultMap id="BaseResultMap" type="com.seckill.pojo.User">
+    <id column="id" property="id" />
+    <result column="nickname" property="nickname" />
+    <result column="password" property="password" />
+    <result column="slat" property="slat" />
+    <result column="head" property="head" />
+    <result column="register_date" property="registerDate" />
+    <result column="last_login_date" property="lastLoginDate" />
+    <result column="login_count" property="loginCount" />
+</resultMap>
+~~~
+
+sql id
+
+~~~xml
+<!-- 通用查询结果列 -->
+<sql id="Base_Column_List">
+    id, nickname, password, slat, head, register_date, last_login_date, login_count
+</sql>
+~~~
 
 ### Redis
 
+引入依赖
 
+```xml
+<!-- Redis -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-redis</artifactId>
+</dependency>
+```
+
+redis 配置
+
+```yaml
+spring:
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: "011026"
+```
+
+编写自己的 redis template：RedisConfig.java
+
+```java
+package com.northboat.remotecontrollerserver.config;
+
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
+
+import java.net.UnknownHostException;
+
+@Configuration
+public class RedisConfig {
+
+    //一个固定的模板，在企业中可以直接使用，几乎包含了所有场景
+    //编写我们自己的RedisTemplate
+    @Bean
+    @SuppressWarnings("all")
+    public RedisTemplate<String, Object> myRedisTemplate(RedisConnectionFactory redisConnectionFactory) throws UnknownHostException {
+        RedisTemplate<String, Object> template = new RedisTemplate<>();
+        template.setConnectionFactory(redisConnectionFactory);
+
+        //Json序列化配置
+        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        //objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        objectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
+        jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
+
+        //String序列化配置
+        StringRedisSerializer stringSerializer = new StringRedisSerializer();
+
+        // key和Hash的key使用String序列化
+        template.setKeySerializer(stringSerializer);
+        template.setHashKeySerializer(stringSerializer);
+
+        // value和Hash的value使用Jackson序列化
+        template.setValueSerializer(jackson2JsonRedisSerializer);
+        template.setHashValueSerializer(jackson2JsonRedisSerializer);
+
+        template.afterPropertiesSet();
+        return template;
+    }
+}
+```
+
+RedisUtil.java
+
+```java
+package com.northboat.shadow.utils;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
+
+// 待完善
+@Component
+@SuppressWarnings("all")
+public class RedisUtil {
+
+    private RedisTemplate myRedisTemplate;
+    @Autowired
+    public void setMyRedisTemplate(RedisTemplate myRedisTemplate){
+        this.myRedisTemplate = myRedisTemplate;
+    }
+
+
+    //设置有效时间，单位秒
+    public boolean expire(String key, long time){
+        try{
+            if(time > 0){
+                myRedisTemplate.expire(key, time, TimeUnit.SECONDS);
+            }
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    //获取剩余有效时间
+    public long getExpire(String key){
+        return myRedisTemplate.getExpire(key);
+    }
+
+    //判断键是否存在
+    public boolean hasKey(String key){
+        try{
+            return myRedisTemplate.hasKey(key);
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    //批量删除键
+    public void del(String... key){
+        if(key != null && key.length > 0){
+            if(key.length == 1){
+                myRedisTemplate.delete(key[0]);
+            } else {
+                myRedisTemplate.delete(CollectionUtils.arrayToList(key));
+            }
+        }
+    }
+
+    //获取普通值
+    public Object get(String key){
+        return key == null ? null : myRedisTemplate.opsForValue().get(key);
+    }
+
+    //放入普通值
+    public boolean set(String key, Object val){
+        try{
+            myRedisTemplate.opsForValue().set(key, val);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    //放入普通缓存并设置时间
+    public boolean set(String key, Object val, long time){
+        try{
+            if(time > 0){
+                myRedisTemplate.opsForValue().set(key, val, time, TimeUnit.SECONDS);
+            } else { // 若时间小于零直接调用普通设置的方法放入
+                this.set(key, val);
+            }
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    //值增
+    public long incr(String key, long delta){
+        if(delta < 0){
+            throw new RuntimeException("递增因子必须大于零");
+        }
+        return myRedisTemplate.opsForValue().increment(key, delta);
+    }
+
+
+
+
+    //============Map=============
+
+    // 获取key表中itme对应的值
+    public Object hget(String key, String item){
+        return myRedisTemplate.opsForHash().get(key, item);
+    }
+
+    // 获取整个Hash表
+    public Map hmget(String key){
+        return myRedisTemplate.opsForHash().entries(key);
+    }
+
+    // 简单设置一个Hash
+    public boolean hmset(String key, Map<String, Object> map){
+        try{
+            myRedisTemplate.opsForHash().putAll(key, map);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // 设置一个Hash，并设置生效时间，调用上面的设置key生效时间的方法
+    public boolean hmset(String key, Map<String, Object> map, long time){
+        try{
+            myRedisTemplate.opsForHash().putAll(key, map);
+            if(time > 0){
+                this.expire(key, time);
+            }
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+
+    // 像一张Hash表中添加键值，若表不存在将创建
+    public boolean hset(String key, String item, Object val){
+        try{
+            myRedisTemplate.opsForHash().put(key, item, val);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    //=================List==============
+    public boolean lpush(String key, Object val){
+        try{
+            myRedisTemplate.opsForList().leftPush(key, val);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean rpush(String key, Object val){
+        try{
+            myRedisTemplate.opsForList().rightPush(key, val);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    public List lget(String key){
+        try{
+            Long length = myRedisTemplate.opsForList().size(key);
+            List list = myRedisTemplate.opsForList().range(key, 0, length);
+            return list;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public boolean lldel(String key, String val){
+        try{
+            myRedisTemplate.opsForList().remove(key, 1, val);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // 弹出list第一个元素
+    public Object lpop(String key){
+        try{
+            return key == null ? null : myRedisTemplate.opsForList().leftPop(key);
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // 弹出list最后一个元素
+    public Object rpop(String key){
+        try{
+            return key == null ? null : myRedisTemplate.opsForList().rightPop(key);
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // 删除list所有元素
+    public boolean ldel(String key){
+        try{
+            myRedisTemplate.opsForList().trim(key, 1, 0);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // 从list最右边开始检索val
+    public boolean lrget(String key, String val){
+        try{
+            myRedisTemplate.opsForList().remove(key, -1, val);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    //=================Set=================
+    // 添加
+    public boolean sadd(String key, String val){
+        try{
+            myRedisTemplate.opsForSet().add(key, val);
+            return true;
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+    // 删除
+    public boolean srem(String key, String val){
+        try{
+            myRedisTemplate.opsForSet().remove(key, val);
+            return true;
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+    // 判存
+    public boolean sexist(String key, String val){
+        try{
+            return myRedisTemplate.opsForSet().isMember(key, val);
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+    // 返回集合
+    public Set sget(String key){
+        try{
+            return myRedisTemplate.opsForSet().members(key);
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+}
+```
+
+## Middleware
+
+### Mail
+
+邮件发送
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-mail</artifactId>
+</dependency>
+```
+
+### WebSocket
+
+sockets 通信
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-websocket</artifactId>
+</dependency>
+```
+
+### RabbitMQ
+
+消息队列
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-amqp</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.amqp</groupId>
+    <artifactId>spring-rabbit-test</artifactId>
+    <scope>test</scope>
+</dependency>
+```
 

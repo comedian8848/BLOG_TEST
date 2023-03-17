@@ -23,7 +23,7 @@ springboot 配置
 ```yaml
 spring:
   application:
-    name: Bear-Chat
+    name: Aside
   datasource:
     username: root
     password: "011026"
