@@ -30,16 +30,7 @@ module.exports = [
 	{
 		title: '中间件',
 		collapsable: true,
-		children: [
-		    {
-			title: "数据库",
-			collapsable: true,
-			children: [
-			    './mid/mysql',
-			    './mid/redis',
-			]
-		    },
-		   
+		children: [		   
 		    {
 			title: "Docker",
 			collapsable: true,
@@ -49,6 +40,14 @@ module.exports = [
 			]
 		    },
 		    './mid/nginx',
+		    {
+			title: "数据库",
+			collapsable: true,
+			children: [
+			    './mid/mysql',
+			    './mid/redis',
+			]
+		    },
 		    './mid/rabbitmq',
 		]
 	},

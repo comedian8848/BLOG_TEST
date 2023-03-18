@@ -333,7 +333,7 @@ collaborate (参见命令: git help workflows)
 
 ## 我的使用
 
-### 一些问题
+#### 一些问题
 
 10056
 
@@ -378,7 +378,7 @@ git config --system --unset credential.helper
 
 当然，`ssh`验证之后无需使用这种方式验证
 
-### 日常使用
+#### 日常使用
 
 推送
 
@@ -449,6 +449,6 @@ git reset --hard head~2
 git reset --hard commit_id
 ```
 
-### 廖雪峰的文档
+#### 廖雪峰的文档
 
 [廖雪峰的文档](https://www.liaoxuefeng.com/wiki/896043488029600)

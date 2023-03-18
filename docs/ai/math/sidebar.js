@@ -17,9 +17,9 @@ module.exports = [
 		title: '线性代数',
 		collapsable: true,
 		children: [
-			'./linearalgebra/mapping',
-			'./linearalgebra/feature',
-			'./linearalgebra/lambda',
+			'./linear/mapping',
+			'./linear/feature',
+			'./linear/lambda',
 		]
 	},
 
