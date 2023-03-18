@@ -22,8 +22,8 @@ module.exports = [
 		title: '杂项',
 		collapsable: true,
 		children: [
-		    './misc/wechall',
 		    './misc/git',
+		    './misc/wechall',
 		]
 	},
 
