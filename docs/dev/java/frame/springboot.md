@@ -46,15 +46,15 @@ public void setJdbcTemplate(JdbcTemplate jdbcTemplate){
 
 @Bean
 
+@Component
 
+@Service
 
 ### Test
 
 @SpringBootTest
 
-@Test
-
-`junit`测试单元
+@Test：`junit`测试单元
 
 ### Configuration
 
@@ -62,11 +62,7 @@ public void setJdbcTemplate(JdbcTemplate jdbcTemplate){
 
 ### Controller
 
-@RestController
-
-- == @Controller+@ResponseBody
-
-@Controller
+@RestController = @Controller + @ResponseBody
 
 @RequestMapping
 
@@ -388,6 +384,39 @@ sql id
 <sql id="Base_Column_List">
     id, nickname, password, slat, head, register_date, last_login_date, login_count
 </sql>
+~~~
+
+maven 导出资源问题
+
+~~~xml
+<build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+~~~
+
+找不到Mapper.xml问题：要用 / 分割
+
+~~~xml
+<mappers>
+    <mapper resource="com/dao/UserMapper.xml"/>
+</mappers>
 ~~~
 
 ### Redis
