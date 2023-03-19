@@ -169,7 +169,7 @@ Linux northboat-nhx0dbde 6.1.12-1-MANJARO #1 SMP PREEMPT_DYNAMIC Tue Feb 14 21:5
 
 ### 实验内容
 
-#### Linux 网络管理
+#### 网络管理
 
 > 设置静态 IP，manjaro 下，使用 netctl 实现
 
@@ -216,6 +216,10 @@ sudo systemctl enable NetworkManager
 查看网络连接状态
 
 <img src="./assets/netstat.png">
+
+ping  通
+
+<img src="./assets/ping.png">
 
 #### 进程管理
 
@@ -268,7 +272,7 @@ pkill -f name
 
 ### 实验总结
 
-修改静态 IP 可以方便局域网内对本机进行访问，感觉用处不大，之前使用系统提供的配置文件对静态 IP 进行过修改，但每次重启或重新联网后都会重置该 IP，后采用`netctl`对静态 IP 进行统一管理，解决了问题
+对于个人用户，修改静态 IP 便于在局域网内访问机器，之前使用系统提供的配置文件对静态 IP 进行过修改，但每次重启或重新联网后都会重置该 IP，后采用`netctl`对静态 IP 进行统一管理，解决问题
 
 ## Linux 服务器配置
 
@@ -568,6 +572,8 @@ systemctl restart rabbitmq-server
 
 查看可视化界面：`43.163.218.127:15672`
 
+<img src="./assets/rabbitmq.png">
+
 #### 服务器使用
 
 使用 ftp 工具上传文件
@@ -597,7 +603,7 @@ nohup java -jar Shadow-0.0.1-SNAPSHOT.jar &
 
 ### 实现环境
 
-manjaro 本地 shell
+manjaro 本地 shell，内核版本
 
 ```bash
 Linux northboat-nhx0dbde 6.1.12-1-MANJARO #1 SMP PREEMPT_DYNAMIC Tue Feb 14 21:59:10 UTC 2023 x86_64 GNU/Linux
@@ -605,8 +611,102 @@ Linux northboat-nhx0dbde 6.1.12-1-MANJARO #1 SMP PREEMPT_DYNAMIC Tue Feb 14 21:5
 
 ### 实验内容
 
+#### 第一个 Shell 脚本
 
+hello.sh
+
+```bash
+echo "Hello World!"
+```
+
+<img src="/home/northboat/Desktop/repo/Docs/docs/dev/ops/linux/assets/hello-16792006972081.png">
+
+#### 利用脚本获取系统信息
+
+```bash
+echo System time: `date "+%Y-%m-%d %H:%M:%S"`
+echo Running time: `uptime -p`
+echo Load average: `cat /proc/loadavg | awk '{print $1,$2,$3}'`
+totalMem=`free -h | grep 内存 | awk '{print $2}'`
+usedMem=`free -h | grep 内存 | awk '{print $3}'`
+echo used memory: $usedMem / $totalMem
+```
+
+<img src="/home/northboat/Desktop/repo/Docs/docs/dev/ops/linux/assets/system_info-16792006972092.png">
+
+#### 获取网卡信息
+
+network_monitor.sh
+
+```bash
+echo IP: `ifconfig wlp12s0 | grep -w inet | awk '{print $2}'`
+
+# get receive bytes 10 seconds ago
+inputBytes1=`cat /proc/net/dev | grep wlp12s0 | awk -F: '{print $2}' | awk '{print $1}'`
+
+# get transmit bytes 10 seconds ago
+outputBytes1=`cat /proc/net/dev | grep wlp12s0 | awk -F: '{print $2}' | awk '{print $9}'`
+
+echo Input bytes1: $inputBytes1 Output bytes1: $outputBytes1
+
+sleep 10
+
+# get receive bytes 10s later
+inputBytes2=`cat /proc/net/dev | grep wlp12s0 | awk -F: '{print $2}'|awk '{print $1}'`
+
+# get transmit bytes 10s later
+outputBytes2=`cat /proc/net/dev | grep wlp12s0 | awk -F: '{print $2}'|awk '{print $9}'`
+
+echo Input bytes2: $inputBytes2 Output bytes2: $outputBytes2
+
+# evaluate the network
+if [ $inputBytes1 -le $inputBytes2 ]
+	then
+	echo Network traffic is on the rise.
+ 	else
+ 	echo Network traffic is on the falling.
+fi
+```
+
+<img src="/home/northboat/Desktop/repo/Docs/docs/dev/ops/linux/assets/network_monitor-16792006972094.png">
+
+#### 监控 CPU 负载
+
+cpu_monitor.sh
+
+```bash
+#Function: monitor load average of cpu, and write to file
+if [ -f cpu_monitor.txt ]
+	then
+	touch cpu_monitor.txt
+fi
+
+# modify file permission
+if [ -w cpu_monitor.txt ]
+	then
+	chmod 755 cpu_monitor.txt
+fi
+
+# write cpu infomation
+cat /proc/cpuinfo | grep "model name" > cpu_monitor.txt
+cat /proc/cpuinfo | grep "cpu cores" >> cpu_monitor.txt
+
+echo " " >> cpu_monitor.txt
+echo Total data: >> cpu_monitor.txt
+echo user nice system idle iowait irq softirq >> cpu_monitor.txt
+
+#write cpu infomation every 2s
+for ((i=0;i<=50;i++))
+	do
+	cat /proc/stat | grep 'cpu ' | awk '{print $2" "$3" "$4" "$5" "$6" "$7" "$8}' >> cpu_monitor.txt
+	sleep 2
+done 
+```
+
+<img src="/home/northboat/Desktop/repo/Docs/docs/dev/ops/linux/assets/run_cpu_monitor-16792006972093.png">
+
+<img src="/home/northboat/Desktop/repo/Docs/docs/dev/ops/linux/assets/cpu_monitor-16792006972095.png">
 
 ### 实验总结
 
-洒洒水啦
+注意添加空格，命令后一定要有，加参数后一定要有，否则报错
