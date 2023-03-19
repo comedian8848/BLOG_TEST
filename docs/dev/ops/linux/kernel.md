@@ -409,11 +409,18 @@ make PREFIX=/usr/local/redis install
 cp redis.conf ../bin
 ```
 
+设置 redis.conf
+
+```bash
+requirepass 123456
+daemonize yes
+```
+
 启动
 
 ```bash
 cd /usr/local/redis/bin
-.redis-server& ./redis.conf
+./redis-server redis.conf
 ```
 
 <img src="./assets/redis.png">
@@ -574,6 +581,8 @@ systemctl restart rabbitmq-server
 
 <img src="./assets/rabbitmq.png">
 
+设置`virtual host`为`/`，默认为`ALL`
+
 #### 服务器使用
 
 使用 ftp 工具上传文件
@@ -619,7 +628,7 @@ hello.sh
 echo "Hello World!"
 ```
 
-<img src="/home/northboat/Desktop/repo/Docs/docs/dev/ops/linux/assets/hello-16792006972081.png">
+<img src="./assets/hello.png">
 
 #### 利用脚本获取系统信息
 
@@ -632,7 +641,7 @@ usedMem=`free -h | grep 内存 | awk '{print $3}'`
 echo used memory: $usedMem / $totalMem
 ```
 
-<img src="/home/northboat/Desktop/repo/Docs/docs/dev/ops/linux/assets/system_info-16792006972092.png">
+<img src="./assets/system_info.png">
 
 #### 获取网卡信息
 
@@ -668,7 +677,7 @@ if [ $inputBytes1 -le $inputBytes2 ]
 fi
 ```
 
-<img src="/home/northboat/Desktop/repo/Docs/docs/dev/ops/linux/assets/network_monitor-16792006972094.png">
+<img src="./assets/network_monitor.png">
 
 #### 监控 CPU 负载
 
@@ -703,9 +712,9 @@ for ((i=0;i<=50;i++))
 done 
 ```
 
-<img src="/home/northboat/Desktop/repo/Docs/docs/dev/ops/linux/assets/run_cpu_monitor-16792006972093.png">
+<img src="./assets/run_cpu_monitor.png">
 
-<img src="/home/northboat/Desktop/repo/Docs/docs/dev/ops/linux/assets/cpu_monitor-16792006972095.png">
+<img src="./assets/cpu_monitor.png">
 
 ### 实验总结
 
