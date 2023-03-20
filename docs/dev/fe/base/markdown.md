@@ -130,7 +130,7 @@ C_{n}^{n-4}\times\int_0^1 x^2 {\rm d}x\times\lim_{n \rightarrow +\infty} \frac{n
 $$
 积分
 
-~~~
+~~~markdown
 \int
 \iint
 \iiint
@@ -138,7 +138,7 @@ $$
 
 因为所以
 
-~~~
+~~~markdown
 \because
 \therefore
 ~~~
@@ -179,6 +179,25 @@ $$
 1
 \end{pmatrix}
 $$
+```
+
+大括号
+
+```markdown
+$$
+y = 
+\begin{cases}
+2x\\
+x^2\\
+1
+\end{cases}
+$$
+```
+
+加减号
+
+```markdown
+\pm
 ```
 
 常见希腊字母
