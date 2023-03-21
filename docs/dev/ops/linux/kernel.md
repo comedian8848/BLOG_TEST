@@ -412,8 +412,9 @@ cp redis.conf ../bin
 设置 redis.conf
 
 ```bash
-requirepass 123456
-daemonize yes
+requirepass 123456 # 设置密码
+daemonize yes # 允许后台运行
+bind 0.0.0.0 # 允许远程访问
 ```
 
 启动

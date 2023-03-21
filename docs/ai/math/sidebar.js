@@ -17,9 +17,7 @@ module.exports = [
 		title: '线性代数',
 		collapsable: true,
 		children: [
-			'./linear/mapping',
-			'./linear/feature',
-			'./linear/lambda',
+			'./linear/determinant-matrix',
 		]
 	},
 
@@ -27,7 +25,7 @@ module.exports = [
 		title: '概率论与数理统计',
 		collapsable: true,
 		children: [
-			'./probability/dispersed',
+			'./probability/discrete',
 			'./probability/continuous',
 			'./probability/law',
 			'./probability/estimate',
