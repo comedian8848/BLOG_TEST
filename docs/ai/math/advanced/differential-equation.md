@@ -249,9 +249,9 @@ $$
 
 基本思路：令`p = y' = dy/dx`，带入原方程求解，最后代回再积分得到`y(x)`
 
-<img src="./assets/image-20230321005128834.png">
+<img src="./assets/image-20230322003935349.png">
 
-举个栗子
+举几个栗子
 
 <img src="./assets/image-20230321005222941.png">
 
