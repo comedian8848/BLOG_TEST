@@ -4,12 +4,12 @@ module.exports = [
 		title: '高等数学',
 		collapsable: true,
 		children: [
-			'./calculus/function-limit-continuous',
-			'./calculus/unary-function-differential',
-			'./calculus/unary-function-calculus',
-			'./calculus/multivariate-function-differential',
-			'./calculus/multivariate-function-calculus',
-			'./calculus/differential-equation',
+			'./advanced/function-limit-continuous',
+			'./advanced/unary-function-differential',
+			'./advanced/unary-function-calculus',
+			'./advanced/multivariate-function-differential',
+			'./advanced/multivariate-function-calculus',
+			'./advanced/differential-equation',
 		]
 	},
 
@@ -18,6 +18,8 @@ module.exports = [
 		collapsable: true,
 		children: [
 			'./linear/determinant-matrix',
+			'./linear/space-mapping-vector',
+			'./linear/feature-product',
 		]
 	},
 
