@@ -18,8 +18,15 @@ module.exports = [
 		collapsable: true,
 		children: [
 			'./linear/determinant-matrix',
-			'./linear/space-mapping-vector',
-			'./linear/feature-product',
+		    	{
+				title: "Linear Algebra Done Right",
+		        	collapsable: true,
+				children: [
+		               		'./linear/space-mapping-vector',
+					'./linear/feature-product',		
+				]
+		    	},
+			
 		]
 	},
 
