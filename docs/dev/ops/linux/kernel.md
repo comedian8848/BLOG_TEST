@@ -183,7 +183,7 @@ yay -S netctl
 
 <img src="./assets/ipaddr.png">
 
-得知网卡名称`enp13s0f1`
+得知网卡名称`wlp12s0`
 
 终止网络服务
 
@@ -198,7 +198,7 @@ sudo systemctl disable NetworkManager
 sudo cp /etc/netctl/examples/ethernet-static /etc/netctl/enp13s0f1
 ```
 
-编辑文件`enp13s0f1`
+编辑文件`wlp12s0`
 
 <img src="./assets/netconfig.png">
 
