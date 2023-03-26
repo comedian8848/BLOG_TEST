@@ -49,7 +49,7 @@ module.exports = {
           "audios": [
 	    {
 	      name: '白羊',
-	      artist: 'Northboat',
+	      artist: 'northboat',
 	      url: '/song/aries.aac',
 	      cover: '/img/error.jpg'
 	    },
