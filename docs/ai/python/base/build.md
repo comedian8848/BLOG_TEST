@@ -42,6 +42,46 @@ pip install redis
 pip list
 ~~~
 
+### Anaconda
+
+使用 Anaconda 统一管理 Python 环境
+
+官网下载：[https://www.anaconda.com](https://www.anaconda.com/)
+
+配置环境变量
+
+```bash
+D:\Env\Anaconda
+D:\Env\Anaconda\Scripts
+D:\Env\Anaconda\Library\bin
+D:\Env\Anaconda\Library\mingw-w64\bin
+```
+
+创建环境
+
+```bash
+conda create --name py310 python=3.10
+```
+
+删除环境
+
+```bash
+conda remove -n py310 --all
+```
+
+激活环境
+
+```bash
+activate py310
+```
+
+在环境内，可以通过 pip 或者 conda 命令对各种包进行下载
+
+```bash
+pip install pika
+conda install redis
+```
+
 ### VSCode
 
 插件
