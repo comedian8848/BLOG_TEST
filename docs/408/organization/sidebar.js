@@ -38,6 +38,7 @@ module.exports = [
 					'./ic/verilog-cpu',
 			    ]
 			},
+			'./ic/interface',
 		]
 	},
 	

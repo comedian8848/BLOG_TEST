@@ -871,12 +871,161 @@ arch/arm/boot/dts/vexpress-v2p-ca9.dtb -nographic
 
 ### 实验总结
 
-从`.c`到系统，灰常神奇
+好神奇，突然从`.c`就能得到一个系统
 
 ##  Linux 内核模块
 
 ### 实验环境
 
+Ubuntu16
+
 ### 实验内容
 
+#### 编写一个简单的内核模块
+
+1、编写模块程序
+
+hello_module.c
+
+```c
+#include <linux/module.h>
+#include <linux/kernel.h>
+#include <linux/init.h>
+
+static int __init hello_init(void){
+	printk("This is hello_module, welcome to Linux kernel \n");
+return 0;
+}
+static void __exit hello_exit(void){
+	printk("see you next time!\n");
+}
+
+module_init(hello_init);
+module_exit(hello_exit);
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Mr Yu");
+MODULE_DESCRIPTION("hello kernel module");
+MODULE_ALIAS("hello"); 
+```
+
+2、编译内核模块
+
+编写`Makefile`文件
+
+```makefile
+obj-m := hello_module.o
+KERNELBUILD := /lib/modules/$(shell uname -r)/build
+CURRENT_PATH := $(shell pwd)
+all:
+	make -C $(KERNELBUILD) M=$(CURRENT_PATH) modules
+clean:
+	make -C $(KERNELBUILD) M=$(CURRENT_PATH) clean
+```
+
+3、编译
+
+将`hello_module.c`和`Makefile`放在同一目录
+
+```bash
+make
+```
+
+得到`hello_module.ko`文件
+
+4、检查编译模块
+
+通过`file`命令检查编译模块是否正确
+
+```bash
+file hello_module.ko
+```
+
+5、插入模块
+
+通过`insmod`命令插入模块，完成插入后使用`lsmod`命令查看当前模块是否被加载到系统中
+
+```bash
+insmod hello_module.ko
+lsmod
+```
+
+在`/sys/modules`目录下会有以模块名命名的目录
+
+```bash
+ls /sys/modules
+```
+
+6、查看输出
+
+通过`tail /var/log/messages`命令查看输出结果
+
+```bash
+tail /var/log/messages
+```
+
+7、卸载模块
+
+通过`rmmod`命令卸载模块
+
+```bash
+rmmod hello_module
+```
+
+通过`dmesg`命令查看结果
+
+```bash
+dmesg
+```
+
+#### 模块参数
+
+Linux 内核提供一个宏来实现模块的参数传递
+
+1、编写以下代码
+
+parm_module.c
+
+```c
+#include <linux/module.h>
+#include <linux/kernel.h>
+#include <linux/init.h>
+static int debug = 1;
+module_param(debug, int, 0644);
+MODULE_PARM_DESC(debug, "debugging information");
+#define dprintk(args...) if(debug){printk(KERN_DEBUG args);}
+static int myparm = 10;
+module_param(myparm, int, 0644);
+MODULE_PARM_DESC(myparm, "kernel module parameter experiment.");
+static int __init parm_init(void){
+dprintk("my linux kernel module init.\n");
+dprintk("module parameter = %d\n", myparm);
+return 0;
+}
+static void __exit parm_exit(void){
+printk("see you next time!\n");
+}
+module_init(parm_init);
+module_exit(parm_exit);
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Mr Yu");
+MODULE_DESCRIPTION("kernel module paramter experiment");
+MODULE_ALIAS("myparm");
+```
+
+2、修改`Makefile`文件，编译后插入模块
+
+通过 dmesg 查看日志信息，可发现输出以上程序中 myparm 的默认值
+
+3、卸载模块，赋值重新加载模块
+
+修改参数`myparm`值为 100
+
+```bash
+insmod parm_module.ko myparm=100
+```
+
+通过 dmesg 查看日志信息，可发现 myparm 值已经改变
+
 ### 实验总结
+
+freedom

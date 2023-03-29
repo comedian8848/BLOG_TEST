@@ -967,7 +967,7 @@ module regfile(
 endmodule
 ```
 
-## 编码器
+## 编码器 Decoder
 
 decoder_5_32：5-32 编码器
 
