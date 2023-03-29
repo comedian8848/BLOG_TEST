@@ -727,3 +727,156 @@ done
 ### 实验总结
 
 注意添加空格，命令后一定要有，加参数后一定要有，否则报错
+
+## Linux 内核编译
+
+### 实验环境
+
+Ubuntu16，为排除权限问题，本次实验命令均在`root`用户下执行
+
+### 实验内容
+
+#### 工具及环境准备
+
+手动下载 Busybox，`apt`安装 QEMU 等工具
+
+环境配置
+
+```bash
+apt-get install gcc qemu qemu-system-arm gcc-arm-linux-gnueabi libncurses5-dev build-essential flex bison bc
+```
+
+#### 编译最小文件系统
+
+解压 busybox 至根目录，编译配置文件
+
+```bash
+tar -jxvf busybox-1.31.1.tar.bz2 -C /
+cd /busybox-1.31.1
+export ARCH=arm
+export CROSS_COMPILE=arm-linux-gnueabi
+make menuconfig
+```
+
+在图形化界面进行内核配置：`settings - Build Options - [*]Build static binary(no shared libs)`
+
+配置完成后，编译文件系统
+
+```bash
+make install
+```
+
+完成后会在目录下生成`_install`目录
+
+#### 编译内核
+
+解压`Linux5.1`内核文件包，将`_install`拷入内核包的根目录，在`_install`下创建以下目录
+
+```bash
+mkdir etc
+mkdir dev
+mkdir mnt
+mkdir –p etc/init.d
+```
+
+在`_install/etc/init.d`中创建文件`rcS`
+
+```bash
+mkdir -p /proc
+mkdir -p /tmp
+mkdir -p /sys
+mkdir -p /mnt
+/bin/mount -a
+mkdir -p /dev/pts
+mount -t devpts devpts /dev/pts
+echo /sbin/mdev > /proc/sys/kernel/hotplug
+mdev –s
+```
+
+修改该文件权限
+
+```bash
+chmod 755 rcS
+```
+
+在`_install/etc`下创建文件`fstab`
+
+```bash
+proc /proc proc defaults 0 0
+tmpfs /tmp tmpfs defaults 0 0
+sysfs /sys sysfs defaults 0 0
+tempfs /dev tmpfs defaults 0 0
+debugfs /sys/kernel/debug debugfs defaults 0 0
+```
+
+在`_install/etc`下创建文件`inittab`
+
+```bash
+::sysinit:/etc/init.d/rcS
+::respawn:-/bin/sh
+::askfirst:-/bin/sh
+::ctrlaltdel:/bin/umount -a -r
+```
+
+在`_install/dev`下创建设备节点
+
+```bash
+mknod console c 5 1
+mknod null c 1 3
+```
+
+完成设置后，在内核根目录中编译内核配置
+
+```bash
+export ARCH=arm
+export CROSS_COMPILE=arm-linux-gnueabimake vexpress_defconfig
+make menuconfig
+```
+
+完成以下设置
+
+- 将`_install`填入`Initramfs source file`：位于`General setup - [*]Initial RAM filesystem and RAM disk (initramfs/initrd) support - (_install)Initramfs source file(s)`
+- 清空`Default kernel command string`：位于`Boot option - Default kernel command string`
+- 配置`memory split`并打开高内存支持：`Kernel features - Memory split(3G/1G user/kernel) & [*] High Memory Support`
+
+编译内核
+
+```bash
+make bzImage ARCH=arm CROSS_COMPILE=arm-linux-gnueabi
+```
+
+编译生成 dtb 文件
+
+```bash
+make dtbs
+```
+
+#### 运行 QEMU
+
+在编译好的 linux 内核根目录下执行
+
+```bash
+qemu-system-arm -M vexpress-a9 -m 256M -kernel arch/arm/boot/zImage -append 
+"rdinit=/linuxrc console=ttyAMA0 loglevel=8" -dtb 
+arch/arm/boot/dts/vexpress-v2p-ca9.dtb -nographic 
+```
+
+以上命令中参数含义如下
+
+- -M：指定硬件芯片框架
+- -m：指定运行内存大小
+- -kernel：指定运行的内核镜像
+- -dtb：指定具体芯片的配置信息
+- -nographic：指定不使用图形界
+
+### 实验总结
+
+从`.c`到系统，灰常神奇
+
+##  Linux 内核模块
+
+### 实验环境
+
+### 实验内容
+
+### 实验总结
