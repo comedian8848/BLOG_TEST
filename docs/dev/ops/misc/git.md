@@ -335,48 +335,23 @@ collaborate (参见命令: git help workflows)
 
 #### 一些问题
 
-10056
+10056：产生原因，一般是这是因为服务器的SSL证书没有经过第三方机构的签署，所以才报错
 
-- 产生原因：一般是这是因为服务器的SSL证书没有经过第三方机构的签署，所以才报错
+使用以下命令接触ssl验证后再次git即可解决
 
-- 使用以下命令接触ssl验证后再次git即可解决
-
-  ```bash
-  git config --global http.sslVerify "false"
-  ```
+```bash
+git config --global http.sslVerify "false"
+```
 
 port 443 timed out：就是卡了
 
-broken pipe：文件过大导致
+broken pipe：文件过大导致，git 默认文件大小小于等于100MB
 
-- git默认文件大小小于等于100MB
+可修改缓存大小为500MB强行上传
 
-- 可修改缓存大小为500MB强行上传
-
-  ```bash
-  git config http.postBuffer 52428800 
-  ```
-
-Token
-
-在21年8月后`github`放弃使用密码进行push认证
-
-生成token
-
-1. 账号setting
-2. 开发者设置
-3. 设置token属性，生成token
-4. 复制token
-
-在登陆时密码用token代替，获取push权限
-
-若不提示输入密码，可使用以下命令
-
-~~~bash
-git config --system --unset credential.helper
-~~~
-
-当然，`ssh`验证之后无需使用这种方式验证
+```bash
+git config http.postBuffer 52428800 
+```
 
 #### 日常使用
 
@@ -452,3 +427,26 @@ git reset --hard commit_id
 #### 廖雪峰的文档
 
 [廖雪峰的文档](https://www.liaoxuefeng.com/wiki/896043488029600)
+
+#### 错误的提交
+
+本地版本回退
+
+查看版本号
+
+```bash
+git reflog
+```
+
+找到要回退的版本号
+
+```bash
+git reset --hard 版本号
+```
+
+如果已经将错误的版本提交到远程仓库，使用旧版本强行覆盖
+
+```bash
+git push -f
+```
+
