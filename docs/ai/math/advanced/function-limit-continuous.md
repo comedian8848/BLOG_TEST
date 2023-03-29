@@ -2,7 +2,7 @@
 title: 函数 极限 连续
 date: 2023-1-14
 tags:
-  - Calculus
+  - Advanced
 ---
 
 求极限之法：等价代换
