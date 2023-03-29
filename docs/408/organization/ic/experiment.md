@@ -1,5 +1,5 @@
 ---
-title: Verilog 基础
+title: 组成原理实验
 date: 2022-12-29
 ---
 

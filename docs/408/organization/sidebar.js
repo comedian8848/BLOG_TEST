@@ -31,11 +31,11 @@ module.exports = [
 		collapsable: true,
 		children: [
 			{
-			    title: "Verilog",
+			    title: "Verilog 基础",
 			    collapsable: true,
 			    children: [
-					'./ic/verilog-base',
-					'./ic/verilog-cpu',
+					'./ic/experiment',
+					'./ic/cpu',
 			    ]
 			},
 			'./ic/interface',

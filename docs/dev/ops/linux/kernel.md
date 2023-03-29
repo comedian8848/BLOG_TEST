@@ -726,13 +726,17 @@ done
 
 ### 实验总结
 
-注意添加空格，命令后一定要有，加参数后一定要有，否则报错
+注意添加空格，命令后一定要有，加参数后一定要有，否则报错很难找
 
 ## Linux 内核编译
 
 ### 实验环境
 
 Ubuntu16，为排除权限问题，本次实验命令均在`root`用户下执行
+
+```bash
+Linux ubuntu 4.15.0-112-generic #113~16.04.1-Ubuntu SMP Fri Jul 10 04:37:08 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
+```
 
 ### 实验内容
 
@@ -878,6 +882,10 @@ arch/arm/boot/dts/vexpress-v2p-ca9.dtb -nographic
 ### 实验环境
 
 Ubuntu16
+
+```bash
+Linux ubuntu 4.15.0-112-generic #113~16.04.1-Ubuntu SMP Fri Jul 10 04:37:08 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
+```
 
 ### 实验内容
 
