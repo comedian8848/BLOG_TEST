@@ -2,12 +2,12 @@
 home: true
 heroImage: /img/used.jpg
 actionText: GitHub →
-actionLink: https://github.com/northboat/
+actionLink: https://github.com/LiuShuixiu
 features:
-- title: 啊哈
+- title: 刘某
   details: Python JAVA C艹 Line Line So Easy
-- title: 哦豁
+- title: 起飞
   details: Years Month Week Day Day No Bug
-footer: Built by Northboat at 2021/5/3 with VuePress
+footer: Built by LiuShuixiu at 2023/4/1 with VuePress
 ---
 

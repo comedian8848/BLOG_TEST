@@ -1,8 +1,8 @@
 //核心配置文件
 
 module.exports = {
-    title: "Northboat Docs",
-    description: '片刻寧靜',
+    title: "LiuShuixiu Docs",
+    description: '不想摆烂',
     dest: './dist/',
     base: '',
     port: '7777',
@@ -49,7 +49,7 @@ module.exports = {
           "audios": [
 	    {
 	      name: '白羊',
-	      artist: 'northboat',
+	      artist: '熊熊',
 	      url: '/song/aries.aac',
 	      cover: '/img/error.jpg'
 	    },
