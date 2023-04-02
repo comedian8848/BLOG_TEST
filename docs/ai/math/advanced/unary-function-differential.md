@@ -533,3 +533,4 @@ $$
 
 斜渐进线：自变量取常数，`f(x)/x`在该点极限为常数，则存在斜渐进线，斜率为`lim f(x)/x`，过点`(x,f(x))`
 
+![海](D:\Git_test\Blog\Docs\docs\ai\math\advanced\assets\海.jpg)
