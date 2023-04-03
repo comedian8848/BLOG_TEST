@@ -10,6 +10,7 @@ module.exports = [
 			'./advanced/multivariate-function-differential',
 			'./advanced/multivariate-function-calculus',
 			'./advanced/differential-equation',
+			'./advanced/error-management'
 		]
 	},
 
